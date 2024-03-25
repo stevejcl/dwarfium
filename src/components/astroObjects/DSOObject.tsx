@@ -80,9 +80,6 @@ export default function DSOObject(props: AstronomyObjectPropType) {
       decDecimal
     ) {
       let today = new Date();
-      console.log("Timezone:" + connectionCtx.timezone);
-      console.log(today.toISOString());
-      console.log(toIsoStringInLocalTime(today));
 
       let results = computeRaDecToAltAz(
         connectionCtx.latitude,
@@ -128,6 +125,7 @@ export default function DSOObject(props: AstronomyObjectPropType) {
       undefined,
       object.ra,
       object.dec,
+      object.displayName,
       (options) => {
         setGotoMessages((prev) => prev.concat(options));
       }

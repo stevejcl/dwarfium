@@ -7,14 +7,18 @@ import vsop87Bsaturn from "astronomia/data/vsop87Bsaturn";
 import vsop87Buranus from "astronomia/data/vsop87Buranus";
 import vsop87Bvenus from "astronomia/data/vsop87Bvenus";
 import { julian } from "astronomia";
+var SunCalc = require("suncalc");
 
 import {
   globe,
   rise,
+  sunrise,
   sidereal,
   sexagesimal as sexa,
   planetposition,
 } from "astronomia";
+
+const { Sunrise } = sunrise;
 
 import { AstroObject } from "@/types";
 import { extractHMSValues, extractDMSValues } from "@/lib/math_utils";
@@ -77,6 +81,12 @@ export function getRiseSetTime(
   const Th0 = sidereal.apparent0UT(jd);
   const rs = rise.approxTimes(p, h0, Th0, α, δ);
 
+  setVisibility(
+    object,
+    createDateFromTime(rs.rise),
+    createDateFromTime(rs.set)
+  );
+
   return {
     rise: formatTimeParts(rs.rise),
     transit: formatTimeParts(rs.transit),
@@ -91,6 +101,72 @@ function formatTimeParts(date: any): TimeParts {
     minutes: time[2],
     seconds: Math.round(time[3]),
   };
+}
+
+function createDateFromTime(date: any) {
+  // Create a new Date object with the current date
+  const currentDate = new Date();
+
+  let time = new sexa.Time(date).toHMS();
+
+  // Set the time components (hours, minutes, seconds) of the Date object
+  currentDate.setHours(time[1]);
+  currentDate.setMinutes(time[2]);
+  currentDate.setSeconds(Math.round(time[3]));
+  currentDate.setMilliseconds(0); // Reset milliseconds to zero
+
+  // Return the Date object
+  return currentDate;
+}
+
+function compareTime(date1, date2) {
+  const hour1 = date1.getUTCHours();
+  const minute1 = date1.getUTCMinutes();
+  const second1 = date1.getUTCSeconds();
+
+  const hour2 = date2.getUTCHours();
+  const minute2 = date2.getUTCMinutes();
+  const second2 = date2.getUTCSeconds();
+
+  if (hour1 === hour2 && minute1 === minute2 && second1 === second2) {
+    return 0; // Hours are equal
+  } else if (
+    hour1 > hour2 ||
+    (hour1 === hour2 && minute1 > minute2) ||
+    (hour1 === hour2 && minute1 === minute2 && second1 > second2)
+  ) {
+    return 1; // date1 is later than date2
+  } else {
+    return -1; // date1 is earlier than date2
+  }
+}
+
+function setVisibility(object, date_rise, date_set) {
+  // check visibility
+  let currentDate = new Date();
+
+  if (date_rise === null && date_set === null) return;
+
+  if (date_rise === null && compareTime(currentDate, date_set) < 1) {
+    object.visible = true;
+    return;
+  }
+
+  if (date_set === null && compareTime(date_rise, currentDate) < 1) {
+    object.visible = true;
+    return;
+  }
+  if (
+    compareTime(date_rise, currentDate) < 1 &&
+    compareTime(currentDate, date_set) < 1
+  ) {
+    object.visible = true;
+    return;
+  }
+
+  object.visible = false;
+
+  return;
 }
 
 export function getRiseSetTimePlanet(
@@ -126,18 +202,49 @@ export function getRiseSetTimePlanet(
       planetData = vsop87Bvenus;
       break;
   }
-  const earth = new planetposition.Planet(vsop87Bearth);
-  const targetPlanet = new planetposition.Planet(planetData);
 
-  const rs = new rise.PlanetRise(date, lat, lon * -1, earth, targetPlanet, {
-    date: true,
-  }).approxTimes();
+  let return_data;
 
-  return {
-    rise: formatTimePartsPlanet(rs.rise),
-    transit: formatTimePartsPlanet(rs.transit),
-    set: formatTimePartsPlanet(rs.set),
-  };
+  if (object.designation == "Sun") {
+    const sun_data = new Sunrise(new julian.Calendar(date), lat, lon * -1);
+    setVisibility(object, sun_data.rise().toDate(), sun_data.set().toDate());
+
+    return_data = {
+      rise: formatTimePartsPlanet(sun_data.rise().toDate()),
+      transit: formatTimePartsPlanet(sun_data.noon().toDate()),
+      set: formatTimePartsPlanet(sun_data.set().toDate()),
+    };
+  } else if (object.designation == "Moon") {
+    const rs = SunCalc.getMoonTimes(date, lat, lon, false);
+
+    if (rs.alwaysUp) throw new Error("always above horizon");
+    if (rs.alwaysDown) throw new Error("always below horizon");
+
+    setVisibility(object, rs.rise, rs.set);
+
+    return_data = {
+      rise: rs.rise !== null ? formatTimePartsPlanet(rs.rise) : null,
+      transit: null,
+      set: rs.set !== null ? formatTimePartsPlanet(rs.set) : null,
+    };
+  } else {
+    const earth = new planetposition.Planet(vsop87Bearth);
+    const targetPlanet = new planetposition.Planet(planetData);
+
+    const rs = new rise.PlanetRise(date, lat, lon * -1, earth, targetPlanet, {
+      date: true,
+    }).approxTimes();
+
+    setVisibility(object, rs.rise, rs.set);
+
+    return_data = {
+      rise: formatTimePartsPlanet(rs.rise),
+      transit: formatTimePartsPlanet(rs.transit),
+      set: formatTimePartsPlanet(rs.set),
+    };
+  }
+
+  return return_data;
 }
 
 function formatTimePartsPlanet(date: Date): TimeParts {
@@ -267,10 +374,12 @@ export function renderLocalRiseSetTime(
   } catch (err: any) {
     if (err.message === "always above horizon") {
       times.error = err.message;
+      object.visible = true;
     } else if (err.message === "always below horizon") {
       times.error = err.message;
+      object.visible = false;
     } else {
-      // console.log("err", err);
+      // console.debug("err", err);
     }
   }
 
@@ -339,11 +448,11 @@ function calc_jd(date: string, timeZone: string = "") {
   let now = new Date(date);
   let offsetTimeZone = 0;
 
-  console.log("DATE: " + now.toString());
+  console.debug("DATE: " + now.toString());
 
   if (timeZone) {
     let timeZoneLocal = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    console.log("timeZoneLocal: " + timeZoneLocal);
+    console.debug("timeZoneLocal: " + timeZoneLocal);
 
     // Get Offset TimeZone
     let d = new Date();
@@ -354,16 +463,16 @@ function calc_jd(date: string, timeZone: string = "") {
         timeZoneName: "short",
       })
       .split(/GMT/g)[1];
-    console.log("time a :" + a);
+    console.debug("time a :" + a);
     let b = d
       .toLocaleString("en-US", {
         timeZone: timeZone,
         timeZoneName: "short",
       })
       .split(/GMT/g)[1];
-    console.log("time b :" + b);
+    console.debug("time b :" + b);
     let offsetTimeZone = Number(b) - Number(a);
-    console.log("Offset: " + offsetTimeZone);
+    console.debug("Offset: " + offsetTimeZone);
   }
 
   const year = now.getUTCFullYear();
@@ -374,12 +483,12 @@ function calc_jd(date: string, timeZone: string = "") {
   const seconds = now.getUTCSeconds();
   const milliseconds = now.getUTCMilliseconds();
 
-  console.log("year: " + year);
-  console.log("month: " + month);
-  console.log("day: " + day);
-  console.log("hours: " + hours);
-  console.log("minutes: " + minutes);
-  console.log("seconds: " + seconds);
+  console.debug("year: " + year);
+  console.debug("month: " + month);
+  console.debug("day: " + day);
+  console.debug("hours: " + hours);
+  console.debug("minutes: " + minutes);
+  console.debug("seconds: " + seconds);
 
   const now_UTC = new Date(
     year,
@@ -393,8 +502,8 @@ function calc_jd(date: string, timeZone: string = "") {
 
   let jd_ut = julian.DateToJD(now_UTC);
 
-  console.log(jd_ut); // -> '2456617.949335'
-  console.log(julian.JDToDate(jd_ut));
+  console.debug(jd_ut); // -> '2456617.949335'
+  console.debug(julian.JDToDate(jd_ut));
 
   return jd_ut;
 }
@@ -467,10 +576,10 @@ export function computeRaDecToAltAz(
     lst: data_rad.lst * toDeg,
     H: data_rad.H * toDeg,
   };
-  console.log(data.alt);
-  console.log(data.az);
-  console.log(data.lst);
-  console.log(data.H);
+  console.debug(data.alt);
+  console.debug(data.az);
+  console.debug(data.lst);
+  console.debug(data.H);
 
   return data;
 }
@@ -496,7 +605,7 @@ function altAzToHADec(
     Math.tan(alt) * Math.cos(lat) - Math.cos(az) * Math.sin(lat)
   );
 
-  console.log("H1 rad: " + H);
+  console.debug("H1 rad: " + H);
 
   if (H < 0) {
     H += Math.PI * 2;
@@ -505,10 +614,10 @@ function altAzToHADec(
   if (H > Math.PI) {
     H = H - 2 * Math.PI;
   }
-  console.log("H2 rad: " + H);
+  console.debug("H2 rad: " + H);
 
   let ra = lst - H;
-  console.log("raH rad: " + ra);
+  console.debug("raH rad: " + ra);
   if (ra < 0) {
     ra = ra + 2 * Math.PI;
   }
@@ -561,10 +670,10 @@ export function computealtAzToHADec(
     H: data_rad.H * toDeg,
   };
 
-  console.log(data.ra);
-  console.log(data.dec);
-  console.log(data.lst);
-  console.log(data.H);
+  console.debug(data.ra);
+  console.debug(data.dec);
+  console.debug(data.lst);
+  console.debug(data.H);
 
   return data;
 }

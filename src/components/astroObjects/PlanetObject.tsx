@@ -56,21 +56,23 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
   function gotoFn() {
     let planet = -1;
     if (object.displayName === "Mercury") {
-      planet = 0;
-    } else if (object.displayName === "Venus") {
       planet = 1;
-    } else if (object.displayName === "Mars") {
+    } else if (object.displayName === "Venus") {
       planet = 2;
-    } else if (object.displayName === "Jupiter") {
+    } else if (object.displayName === "Mars") {
       planet = 3;
-    } else if (object.displayName === "Saturn") {
+    } else if (object.displayName === "Jupiter") {
       planet = 4;
-    } else if (object.displayName === "Uranus") {
+    } else if (object.displayName === "Saturn") {
       planet = 5;
-    } else if (object.displayName === "Neptune") {
+    } else if (object.displayName === "Uranus") {
       planet = 6;
-    } else if (object.displayName === "Moon") {
+    } else if (object.displayName === "Neptune") {
       planet = 7;
+    } else if (object.displayName === "Moon") {
+      planet = 8;
+    } else if (object.displayName === "Sun") {
+      planet = 9;
     } else {
       planet = 7;
     }
@@ -82,6 +84,7 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
       planet,
       undefined,
       undefined,
+      object.displayName,
       (options) => {
         setGotoMessages((prev) => prev.concat(options));
       }

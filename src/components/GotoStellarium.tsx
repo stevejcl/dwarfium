@@ -154,6 +154,7 @@ export default function ManualGoto() {
       undefined,
       RA,
       declination,
+      objectName,
       (options) => {
         setGotoMessages((prev) => prev.concat(options));
       }
@@ -247,38 +248,50 @@ export default function ManualGoto() {
             className={`btn ${
               RA !== undefined ? "btn-primary" : "btn-secondary"
             } me-2 mb-4`}
-            onClick={() => changeCoordinate(+1 / 15, 0)}
+            onClick={() => changeCoordinate(+1 / 60, 0)}
             disabled={RA === undefined}
           >
-            RA + 1°
+            RA + 1 min
           </button>
           <button
             className={`btn ${
               RA !== undefined ? "btn-primary" : "btn-secondary"
             } me-2 mb-4`}
-            onClick={() => changeCoordinate(-1 / 15, 0)}
+            onClick={() => changeCoordinate(-1 / 60, 0)}
             disabled={RA === undefined}
           >
-            RA - 1°
+            RA - 1 min
           </button>
           <button
             className={`btn ${
               RA !== undefined ? "btn-primary" : "btn-secondary"
             } me-2 mb-4`}
-            onClick={() => changeCoordinate(0, +1)}
+            onClick={() => changeCoordinate(0, +0.1)}
             disabled={RA === undefined}
           >
-            Dec + 1°
+            Dec + 0.1°
           </button>
           <button
             className={`btn ${
               RA !== undefined ? "btn-primary" : "btn-secondary"
             } mb-4`}
-            onClick={() => changeCoordinate(0, -1)}
+            onClick={() => changeCoordinate(0, -0.1)}
             disabled={RA === undefined}
           >
-            Dec - 1°
+            Dec - 0.1°
           </button>
+        </div>
+      </div>
+      <div className="row mb-3">
+        <div className="col-sm-4">
+          {prevErrors && <span className="text-danger"> {prevErrors} </span>}
+          {gotoErrors && gotoErrors != prevErrors && (
+            <span className="text-danger">{gotoErrors} </span>
+          )}
+          {prevSuccess && <span className="text-success"> {prevSuccess} </span>}
+          {gotoSuccess && gotoSuccess != prevSuccess && (
+            <span className="text-danger">{gotoSuccess} </span>
+          )}
         </div>
       </div>
       <div className="row mb-3">
@@ -288,22 +301,13 @@ export default function ManualGoto() {
         <div className="col-sm-8">
           <ol>
             <li>Click on buttons to move the center to </li>
-            <li>+/- 1° (1/15 h) for right acension, +/- 1° for declination</li>
+            <li>+/- 1 min for right acension, +/- 0.1° for declination</li>
             <li>The coordinates will be updated</li>
             <li>Re-Center in Stellarium by clicking 'Center'</li>
             <li>Then Start goto by clicking 'Goto'</li>
           </ol>
         </div>
       </div>
-      <br />
-      {prevErrors && <span className="text-danger"> {prevErrors} </span>}
-      {gotoErrors && gotoErrors != prevErrors && (
-        <span className="text-danger">{gotoErrors} </span>
-      )}
-      {prevSuccess && <span className="text-success"> {prevSuccess} </span>}
-      {gotoSuccess && gotoSuccess != prevSuccess && (
-        <span className="text-danger">{gotoSuccess} </span>
-      )}
       <GotoModal
         object={
           {

@@ -8,6 +8,7 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 
 let objectTypesMenu = [
   { value: "all", label: "All" },
+  { value: "visible", label: "Visible" },
   { value: "clusters", label: "Clusters" },
   { value: "galaxies", label: "Galaxies" },
   { value: "nebulae", label: "Nebulae" },
@@ -32,7 +33,11 @@ export default function DSOList(props: PropType) {
 
   function selectCategoryHandler(targetCategory: string) {
     if (targetCategory === "all") {
-      setSelectedCategories(["all"]);
+      if (selectedCategories.includes("visible"))
+        setSelectedCategories((prev) =>
+          prev.filter((type) => type === "visible").concat([targetCategory])
+        );
+      else setSelectedCategories(["all"]);
       // remove category
     } else if (selectedCategories.includes(targetCategory)) {
       if (selectedCategories.length === 1) {
@@ -43,6 +48,11 @@ export default function DSOList(props: PropType) {
         );
       }
       // add category
+    } else if (targetCategory === "visible") {
+      if (selectedCategories.includes("all"))
+        setSelectedCategories((prev) =>
+          prev.filter((type) => type === "all").concat([targetCategory])
+        );
     } else {
       setSelectedCategories((prev) =>
         prev.filter((type) => type !== "all").concat([targetCategory])
@@ -51,33 +61,86 @@ export default function DSOList(props: PropType) {
   }
 
   function filterObjects() {
-    console.log("filterObjects");
     let dataSearchTxt = "";
     if (connectionCtx.searchTxt) dataSearchTxt = connectionCtx.searchTxt;
 
     if (selectedCategories.includes("all")) {
-      if (dataSearchTxt)
-        setObjects(
-          dsoObjects.filter((object) => {
-            return object.displayName
-              .toLowerCase()
-              .includes(dataSearchTxt.toLowerCase());
-          })
-        );
-      else setObjects(dsoObjects);
-    } else {
-      setObjects(
-        dsoObjects.filter((object) => {
-          if (dataSearchTxt)
-            return (
-              selectedCategories.includes(object.typeCategory) &&
-              object.displayName
+      if (dataSearchTxt) {
+        if (selectedCategories.includes("visible")) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                object.visible &&
+                object.displayName
+                  .toLowerCase()
+                  .includes(dataSearchTxt.toLowerCase())
+              );
+            })
+          );
+        } else {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return object.displayName
                 .toLowerCase()
-                .includes(dataSearchTxt.toLowerCase())
-            );
-          else return selectedCategories.includes(object.typeCategory);
-        })
-      );
+                .includes(dataSearchTxt.toLowerCase());
+            })
+          );
+        }
+      } else {
+        if (selectedCategories.includes("visible")) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return object.visible;
+            })
+          );
+        } else {
+          setObjects(dsoObjects);
+        }
+      }
+    } else {
+      if (dataSearchTxt) {
+        if (selectedCategories.includes("visible")) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                selectedCategories.includes(object.typeCategory) &&
+                object.visible &&
+                object.displayName
+                  .toLowerCase()
+                  .includes(dataSearchTxt.toLowerCase())
+              );
+            })
+          );
+        } else {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                selectedCategories.includes(object.typeCategory) &&
+                object.displayName
+                  .toLowerCase()
+                  .includes(dataSearchTxt.toLowerCase())
+              );
+            })
+          );
+        }
+      } else {
+        if (selectedCategories.includes("visible")) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                object.visible &&
+                selectedCategories.includes(object.typeCategory)
+              );
+            })
+          );
+        } else {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return selectedCategories.includes(object.typeCategory);
+            })
+          );
+        }
+      }
     }
   }
 

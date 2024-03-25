@@ -8,10 +8,11 @@ import { processObjectListOpenNGC } from "@/lib/observation_lists_utils";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { saveCurrentObjectListNameDb } from "@/db/db_utils";
 
+let dsoObject = processObjectListOpenNGC(dsoCatalog);
+console.info("DSO processObjectListOpenNGC");
+
 export default function AutoGoto() {
   let connectionCtx = useContext(ConnectionContext);
-  let dsoObject = processObjectListOpenNGC(dsoCatalog);
-
   function selectListHandler(e: ChangeEvent<HTMLSelectElement>) {
     connectionCtx.setCurrentObjectListName(e.target.value);
     saveCurrentObjectListNameDb(e.target.value);
@@ -41,7 +42,7 @@ export default function AutoGoto() {
       >
         <option value="default">Select object lists</option>
         <option value="dso">DSO</option>
-        <option value="planets">Planets and Moon</option>
+        <option value="planets">Planets, Moon and Sun</option>
       </select>
       {showInstructions && (
         <>
@@ -66,9 +67,9 @@ export default function AutoGoto() {
               </ul>
             </li>
             <li>
-              The Planets and Moon list has the planets in our solar system and
-              the Moon. Be aware, Dwarf II is not good for taking images of the
-              planets.
+              The Planets, Moon and Sun list has the planets in our solar system
+              and the Moon and The Sun. Be aware, Dwarf II is not good for
+              taking images of the planets.
             </li>
           </ol>
           <p>

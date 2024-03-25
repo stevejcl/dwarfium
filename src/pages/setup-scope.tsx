@@ -1,3 +1,4 @@
+import ConnectDwarfSTA from "@/components/setup/ConnectDwarfSTA";
 import ConnectDwarf from "@/components/setup/ConnectDwarf";
 import ConnectStellarium from "@/components/setup/ConnectStellarium";
 import SetLocation from "@/components/setup/SetLocation";
@@ -19,6 +20,8 @@ export default function SetupScope() {
       </p>
       <hr></hr>
       <SetLocation />
+      <hr />
+      <ConnectDwarfSTA />
       <hr />
       <ConnectDwarf />
       <hr />

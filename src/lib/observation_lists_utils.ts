@@ -107,7 +107,7 @@ function formatOpenNGCDec(dec: string | null): string | null {
 }
 
 function formatObjectSizeOpenNGC(object: ObjectOpenNGC) {
-  let sizes = [];
+  let sizes: string[] = [];
   if (object["Height (')"] || object["Width (')"]) {
     if (object["Height (')"]) {
       sizes.push(object["Height (')"] + "'");

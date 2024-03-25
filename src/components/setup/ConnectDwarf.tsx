@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import type { FormEvent } from "react";
+import type { FormEvent, ChangeEvent } from "react";
 
 import {
-  wsURL,
-  statusTelephotoCmd,
-  statusWideangleCmd,
-  cameraSettings,
-  socketSend,
+  Dwarfii_Api,
+  messageCameraTeleGetSystemWorkingState,
+  messageCameraTeleOpenCamera,
+  messageCameraWideOpenCamera,
+  WebSocketHandler,
 } from "dwarfii_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
@@ -16,16 +16,20 @@ import {
 } from "@/db/db_utils";
 import { logger } from "@/lib/logger";
 
+import { getAllTelescopeISPSetting } from "@/lib/dwarf_utils";
+
 export default function ConnectDwarf() {
   let connectionCtx = useContext(ConnectionContext);
 
   const [connecting, setConnecting] = useState(false);
+  const [slavemode, setSlavemode] = useState(false);
+  const [goLive, setGoLive] = useState(false);
+  const [errorTxt, setErrorTxt] = useState("");
 
-  function checkConnection(e: FormEvent<HTMLFormElement>) {
+  async function checkConnection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    setConnecting(true);
-
+    let getInfoCamera = true;
     const formData = new FormData(e.currentTarget);
     const formIP = formData.get("ip");
     let IPDwarf = formIP?.toString();
@@ -38,60 +42,175 @@ export default function ConnectDwarf() {
     connectionCtx.setIPDwarf(IPDwarf);
     saveIPDwarfDB(IPDwarf);
 
-    //socket connects to Dwarf
-    let socket = new WebSocket(wsURL(IPDwarf));
+    console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+    const webSocketHandler = connectionCtx.socketIPDwarf
+      ? connectionCtx.socketIPDwarf
+      : new WebSocketHandler(IPDwarf);
 
-    socket.addEventListener("open", () => {
-      let options = cameraSettings();
-      logger("start cameraSettings...", options, connectionCtx);
-      socketSend(socket, options);
-    });
+    connectionCtx.setSocketIPDwarf(webSocketHandler);
 
-    // close socket is request takes too long
-    let closeSocketTimer = setTimeout(() => {
-      setConnecting(false);
-      connectionCtx.setConnectionStatus(false);
-      saveConnectionStatusDB(false);
-      socket.close();
-    }, 3000);
+    // Force IP
+    await webSocketHandler.setNewIpDwarf(IPDwarf);
 
-    socket.addEventListener("message", (event) => {
-      clearTimeout(closeSocketTimer);
-      setConnecting(false);
-
-      let message = JSON.parse(event.data);
-      if (
-        message.interface === statusTelephotoCmd ||
-        message.interface === statusWideangleCmd
-      ) {
-        logger("cameraSettings:", message, connectionCtx);
+    const customMessageHandler = (txt_info, result_data) => {
+      if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_SDCARD_INFO) {
+        connectionCtx.setAvailableSizeDwarf(result_data.data.availableSize);
+        connectionCtx.setTotalSizeDwarf(result_data.data.totalSize);
         connectionCtx.setConnectionStatus(true);
         connectionCtx.setInitialConnectionTime(Date.now());
         saveConnectionStatusDB(true);
         saveInitialConnectionTimeDB();
+      } else if (
+        result_data.cmd ==
+        Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE
+      ) {
+        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+          connectionCtx.setConnectionStatus(true);
+          if (getInfoCamera) {
+            getAllTelescopeISPSetting(connectionCtx, webSocketHandler);
+            getInfoCamera = false;
+          }
+        } else {
+          connectionCtx.setConnectionStatus(true);
+          if (result_data.data.errorTxt)
+            setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
+          else setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
+        }
+      } else if (
+        result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE
+      ) {
+        if (result_data.data.mode == 1) {
+          console.log("WARNING SLAVE MODE");
+          connectionCtx.setConnectionStatusSlave(true);
+          setSlavemode(true);
+        } else {
+          console.log("OK : HOST MODE");
+          connectionCtx.setConnectionStatusSlave(false);
+          setSlavemode(false);
+        }
+      } else if (
+        result_data.cmd ==
+        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING
+      ) {
+        if (
+          result_data.data.state ==
+          Dwarfii_Api.OperationState.OPERATION_STATE_STOPPED
+        ) {
+          if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
+            if (result_data.data.errorTxt)
+              setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
+            else
+              setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
+          }
+          logger("Need Go LIVE", {}, connectionCtx);
+          setGoLive(true);
+        }
+      } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_ELE) {
+        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+          connectionCtx.setBatteryLevelDwarf(result_data.data.value);
+        }
+      } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_CHARGE) {
+        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+          connectionCtx.setBatteryStatusDwarf(result_data.data.value);
+        }
       } else {
-        logger("", message, connectionCtx);
+        logger("", result_data, connectionCtx);
       }
-    });
+      logger(txt_info, result_data, connectionCtx);
+    };
 
-    socket.addEventListener("error", (error) => {
-      logger("cameraSettings error:", error, connectionCtx);
-      clearTimeout(closeSocketTimer);
+    const customErrorHandler = () => {
+      console.error("ConnectDwarf : Socket Close!");
       setConnecting(false);
       connectionCtx.setConnectionStatus(false);
       saveConnectionStatusDB(false);
-    });
+    };
 
-    socket.addEventListener("close", (error) => {
-      logger("cameraSettings close:", error, connectionCtx);
-      clearTimeout(closeSocketTimer);
+    const customStateHandler = (state) => {
+      if (state != connectionCtx.connectionStatus) {
+        connectionCtx.setConnectionStatus(state);
+        saveConnectionStatusDB(state);
+      }
+    };
+
+    webSocketHandler.closeTimerHandler = () => {
+      setConnecting(false);
+    };
+    webSocketHandler.onStopTimerHandler = () => {
+      setConnecting(false);
+      saveConnectionStatusDB(false);
+    };
+
+    // close socket is request takes too long
+    webSocketHandler.closeSocketTimer = setTimeout(() => {
+      webSocketHandler.handleClose("");
+      console.log(" -> Close Timer.....");
       setConnecting(false);
       connectionCtx.setConnectionStatus(false);
       saveConnectionStatusDB(false);
-    });
+    }, 5000);
+
+    // function for connection and reconnection
+    const customReconnectHandler = () => {
+      startConnect();
+    };
+
+    function startConnect() {
+      console.log("ConnectDwarf startConnect Function started");
+
+      setSlavemode(false);
+      setGoLive(false);
+      connectionCtx.setConnectionStatusSlave(false);
+      setConnecting(true);
+
+      // Send Commands : cmdCameraTeleGetSystemWorkingState
+      let WS_Packet = messageCameraTeleGetSystemWorkingState();
+      let WS_Packet1 = messageCameraTeleOpenCamera();
+      let WS_Packet2 = messageCameraWideOpenCamera();
+      let txtInfoCommand = "Connection";
+
+      webSocketHandler.prepare(
+        [WS_Packet, WS_Packet1, WS_Packet2],
+        txtInfoCommand,
+        [
+          "*", // Get All Data
+          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_SDCARD_INFO,
+          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_ELE,
+          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_CHARGE,
+          Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE,
+          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE,
+          Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_OPEN_CAMERA,
+          Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_OPEN_CAMERA,
+          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING,
+        ],
+        customMessageHandler,
+        customStateHandler,
+        customErrorHandler,
+        customReconnectHandler
+      );
+    }
+
+    // Start Connection
+    startConnect();
+
+    if (!webSocketHandler.run()) {
+      console.error(" Can't launch Web Socket Run Action!");
+    }
+  }
+
+  function ipHandler(e: ChangeEvent<HTMLInputElement>) {
+    let value = e.target.value.trim();
+    if (value === "") return;
+
+    saveIPDwarfDB(value);
+    connectionCtx.setIPDwarf(value);
   }
 
   function renderConnectionStatus() {
+    let goLiveMessage = "";
+    if (goLive) {
+      goLiveMessage = "Need Go Live";
+    }
     if (connecting) {
       return <span>Connecting...</span>;
     }
@@ -99,10 +218,23 @@ export default function ConnectDwarf() {
       return <></>;
     }
     if (connectionCtx.connectionStatus === false) {
-      return <span className="text-danger">Connection failed.</span>;
+      return <span className="text-danger">Connection failed{errorTxt}.</span>;
+    }
+    if (connectionCtx.connectionStatusSlave || slavemode) {
+      return (
+        <span className="text-warning">
+          Connection successful (Slave Mode) {goLiveMessage}
+          {errorTxt}.
+        </span>
+      );
     }
 
-    return <span className="text-success">Connection successful.</span>;
+    return (
+      <span className="text-success">
+        Connection successful. {goLiveMessage}
+        {errorTxt}
+      </span>
+    );
   }
 
   return (
@@ -152,6 +284,7 @@ export default function ConnectDwarf() {
                 placeholder="127.00.00.00"
                 required
                 defaultValue={connectionCtx.IPDwarf}
+                onChange={(e) => ipHandler(e)}
               />
             </div>
           </div>

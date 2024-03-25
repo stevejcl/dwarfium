@@ -2,4 +2,139 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
+}
+
+
+body {
+  background: url('/wallpaper.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+#__next div{
+  background: linear-gradient(rgb(0 0 0 / 20%), rgb(0 0 0 / 40%));
+}
+
+.container-connection {
+  align-items: center;
+  display: flex;
+  margin-left: 0px;
+  margin-top: 10px;
+  margin-bottom: -6px;
+}
+
+.battery-meter {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-left: 16px;
+  width: 180px;
+  margin: -36px 0px 1px 200px;
+}
+.container-battery {
+    display: flex;
+    margin-left: 0px;
+    margin-top: 6px;
+}
+.container-status {
+    display: flex;
+    
+}
+.battery-meter--value {
+  color: #53A03f;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.battery-meter--low-battery {
+  animation: pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.battery-meter path {
+  transition: fill 0.3s ease-out;
+}
+.low-battery-notice {
+  white-space: nowrap;
+  color: #ff533f;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.lightning-bolt {
+  animation: lightning-bold-reveal 0.3s forwards;
+  transform-origin: center center;
+}
+
+.lightning-bolt-fast {
+  animation: lightning-bold-reveal 0.3s forwards infinite;
+  transform-origin: center center;
+}
+
+@keyframes lightning-bold-reveal {
+  0% {
+    transform: scale(0);
+  }
+
+  90% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+/*Tooltip*/
+.tooltip-text {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    width: 100px;
+    color: white;
+    font-size: 12px;
+    background-color: #192733;
+    border-radius: 10px;
+    padding: 10px 15px 10px 15px;
+}
+
+.hover-text:hover .tooltip-text {
+    visibility: visible;
+}
+
+#top {
+    top: -40px;
+    left: -50%;
+}
+
+#bottom {
+    top: 25px;
+    left: -50%;
+}
+
+#left {
+    top: -8px;
+    right: 120%;
+}
+
+#right {
+    top: -8px;
+    left: 120%;
+}
+
+.hover-text {
+    position: relative;
+    display: inline-block;
+    /*margin: 40px;*/
+    font-family: Arial;
+    text-align: center;
 }

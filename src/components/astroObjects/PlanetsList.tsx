@@ -4,6 +4,7 @@ import planetsCatalog from "../../../data/catalogs/moon_planets.json";
 import { pluralize } from "@/lib/text_utils";
 import { processObjectListOpenNGC } from "@/lib/observation_lists_utils";
 
+console.info("Planet processObjectListOpenNGC");
 let objects: AstroObject[] = processObjectListOpenNGC(planetsCatalog);
 
 export default function PlanetsList() {

@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'custom-focus';
-  src: url('../font/custom-focus.eot?38647404');
-  src: url('../font/custom-focus.eot?38647404#iefix') format('embedded-opentype'),
-       url('../font/custom-focus.woff2?38647404') format('woff2'),
-       url('../font/custom-focus.woff?38647404') format('woff'),
-       url('../font/custom-focus.ttf?38647404') format('truetype'),
-       url('../font/custom-focus.svg?38647404#custom-focus') format('svg');
+  src: url('../font/custom-focus.eot?16041442');
+  src: url('../font/custom-focus.eot?16041442#iefix') format('embedded-opentype'),
+       url('../font/custom-focus.woff2?16041442') format('woff2'),
+       url('../font/custom-focus.woff?16041442') format('woff'),
+       url('../font/custom-focus.ttf?16041442') format('truetype'),
+       url('../font/custom-focus.svg?16041442#custom-focus') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'custom-focus';
-    src: url('../font/custom-focus.svg?38647404#custom-focus') format('svg');
+    src: url('../font/custom-focus.svg?16041442#custom-focus') format('svg');
   }
 }
 */
@@ -54,8 +54,32 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
+.icon-drive:before { content: '\e800'; } /* '' */
+.icon-camera-alt:before { content: '\e801'; } /* '' */
+.icon-gauge:before { content: '\e802'; } /* '' */
+.icon-adjust:before { content: '\e803'; } /* '' */
+.icon-picture-outline:before { content: '\e804'; } /* '' */
+.icon-picture:before { content: '\e805'; } /* '' */
+.icon-location:before { content: '\e806'; } /* '' */
+.icon-micro-sd:before { content: '\e807'; } /* '' */
+.icon-sd-card-black:before { content: '\e808'; } /* '' */
+.icon-star-empty:before { content: '\e809'; } /* '' */
+.icon-counter-4:before { content: '\e80a'; } /* '' */
+.icon-connected-object:before { content: '\f035'; } /* '' */
+.icon-hdd:before { content: '\f0a0'; } /* '' */
+.icon-filter:before { content: '\f0b0'; } /* '' */
 .icon-plus-squared:before { content: '\f0fe'; } /* '' */
 .icon-bullseye:before { content: '\f140'; } /* '' */
 .icon-minus-squared:before { content: '\f146'; } /* '' */
 .icon-minus-squared-alt:before { content: '\f147'; } /* '' */
 .icon-plus-squared-alt:before { content: '\f196'; } /* '' */
+.icon-wifi:before { content: '\f1eb'; } /* '' */
+.icon-chart-area:before { content: '\f1fe'; } /* '' */
+.icon-connectdevelop:before { content: '\f20e'; } /* '' */
+.icon-battery-4:before { content: '\f240'; } /* '' */
+.icon-battery-3:before { content: '\f241'; } /* '' */
+.icon-battery-2:before { content: '\f242'; } /* '' */
+.icon-battery-1:before { content: '\f243'; } /* '' */
+.icon-battery-0:before { content: '\f244'; } /* '' */
+.icon-usb:before { content: '\f287'; } /* '' */
+.icon-bluetooth:before { content: '\f293'; } /* '' */

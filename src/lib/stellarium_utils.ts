@@ -29,7 +29,7 @@ export function parseStellariumData(text: string): ParsedStellariumData {
 
 function parseRADec(text: string) {
   let matches = text.match(
-    /RA\/Dec \(J2000.0\): *([-0-9hms.+°]+)\/([-0-9.+°'"]+)/
+    /(?:[A-Za-z]+ *: *)?(?:RA\/Dec)? \(J2000.0\): *([-0-9hms.+°]+)\/([-0-9.+°'"]+)/
   );
   if (matches) {
     return { RA: matches[1], declination: matches[2] };

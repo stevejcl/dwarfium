@@ -1,15 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 
 import {
-  wsURL,
-  statusTelephotoCmd,
-  statusWideangleCmd,
-  queryShotFieldCmd,
-  cameraSettings,
-  queryShotField,
-  socketSend,
-  binning2x2,
+  Dwarfii_Api,
+  messageCameraTeleGetAllFeatureParams,
+  messageCameraTeleGetAllParams,
+  WebSocketHandler,
 } from "dwarfii_api";
+
 import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function DwarfIIStatus() {
@@ -19,94 +16,118 @@ export default function DwarfIIStatus() {
   const [shotFieldData, setShotFieldData] = useState<any>(null);
 
   const getCameraStatus = () => {
-    if (connectionCtx.IPDwarf == undefined) {
-      return;
-    }
-
-    //socket connects to Dwarf
-    if (connectionCtx.socketIPDwarf) {
-      if (connectionCtx.socketIPDwarf.readyState === WebSocket.OPEN)
-        connectionCtx.socketIPDwarf.close();
-    }
-    let socket = new WebSocket(wsURL(connectionCtx.IPDwarf));
-    connectionCtx.setSocketIPDwarf(socket);
-
-    socket.addEventListener("open", () => {
-      console.log("start cameraSettings...");
-      let payload = cameraSettings();
-      socketSend(socket, payload);
-    });
-
-    socket.addEventListener("message", (event) => {
-      let message = JSON.parse(event.data);
-      if (
-        message.interface === statusTelephotoCmd ||
-        message.interface === statusWideangleCmd
-      ) {
-        console.log("cameraSettings:", message);
-        setCameraStatusData(message);
-      } else {
-        console.log(message);
+    setCameraStatusData({});
+    {
+      if (connectionCtx.IPDwarf === undefined) {
+        return;
       }
-    });
 
-    socket.addEventListener("error", (message) => {
-      console.log("cameraSettings error:", message);
-    });
+      const customMessageHandler = (txt_info, result_data) => {
+        if (
+          result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_PARAMS
+        ) {
+          if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+            setCameraStatusData(result_data.data);
+            return;
+          }
+        }
+      };
 
-    socket.addEventListener("close", (message) => {
-      console.log("cameraSettings close:", message);
-    });
+      console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+      const webSocketHandler = connectionCtx.socketIPDwarf
+        ? connectionCtx.socketIPDwarf
+        : new WebSocketHandler(connectionCtx.IPDwarf);
+
+      // Send Command : messageCameraTeleGetAllFeatureParams
+      let WS_Packet = messageCameraTeleGetAllParams();
+      let txtInfoCommand = "DwarfStatus2";
+
+      webSocketHandler.prepare(
+        WS_Packet,
+        txtInfoCommand,
+        [Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_PARAMS],
+        customMessageHandler
+      );
+
+      if (!webSocketHandler.run()) {
+        console.error(" Can't launch Web Socket Run Action!");
+      }
+    }
   };
 
   const getShotField = () => {
-    if (connectionCtx.IPDwarf == undefined) {
-      return;
-    }
-
-    //socket connects to Dwarf
-    if (connectionCtx.socketIPDwarf) {
-      if (connectionCtx.socketIPDwarf.readyState === WebSocket.OPEN)
-        connectionCtx.socketIPDwarf.close();
-    }
-    let socket = new WebSocket(wsURL(connectionCtx.IPDwarf));
-    connectionCtx.setSocketIPDwarf(socket);
-
-    socket.addEventListener("open", () => {
-      console.log("start queryShotField...");
-      let payload = queryShotField(
-        connectionCtx.astroSettings.binning || binning2x2
-      );
-      socketSend(socket, payload);
-    });
-
-    socket.addEventListener("message", (event) => {
-      let message = JSON.parse(event.data);
-      if (message.interface === queryShotFieldCmd) {
-        setShotFieldData(message);
-        console.log("queryShotField:", message);
-      } else {
-        console.log(message);
+    setShotFieldData({});
+    {
+      if (connectionCtx.IPDwarf === undefined) {
+        return;
       }
-    });
 
-    socket.addEventListener("error", (message) => {
-      setShotFieldData(message);
-      console.log("queryShotField error:", message);
-    });
+      const customMessageHandler = (txt_info, result_data) => {
+        if (
+          result_data.cmd ==
+          Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_FEATURE_PARAMS
+        ) {
+          if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+            /*
+            let count = 0;
+            let binning = "4k";
+            let fileFormat = "FITS" ;
+            if (result_data.allFeatureParams) {
+              // For i=0 : "Astro binning"
+              const filteredArray = result_data.data.allFeatureParams.filter(item => !item.hasOwnProperty('id') || item.id === undefined);
+              ; // 4k
+              if (filteredArray.index)
+                binning = "2k"; 
+              // For i=1 : "Astro img_to_take"
+              const resultObject1 = result_data.data.allFeatureParams.find(item => item.id === 1);
+              count = 0 
+              if (resultObject1.index)
+                count = resultObject1.index; 
+              // For i=2 : Astro Format
+              const resultObject2 = result_data.data.allFeatureParams.find(item => item.id === 2);
+              let fileFormat = "FITS" // 4k
+              if (resultObject2.index)
+                fileFormat = "TIFF"; 
+            }
+*/
+            setShotFieldData(result_data.data);
+            return;
+          }
+        }
+      };
 
-    socket.addEventListener("close", (message) => {
-      console.log("queryShotField close:", message);
-    });
+      console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+      const webSocketHandler = connectionCtx.socketIPDwarf
+        ? connectionCtx.socketIPDwarf
+        : new WebSocketHandler(connectionCtx.IPDwarf);
+
+      // Send Command : messageCameraTeleGetAllFeatureParams
+      let WS_Packet = messageCameraTeleGetAllFeatureParams();
+      let txtInfoCommand = "DwarfStatus";
+
+      webSocketHandler.prepare(
+        WS_Packet,
+        txtInfoCommand,
+        [Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_FEATURE_PARAMS],
+        customMessageHandler
+      );
+
+      if (!webSocketHandler.run()) {
+        console.error(" Can't launch Web Socket Run Action!");
+      }
+    }
   };
 
   useEffect(() => {
-    getCameraStatus();
+    {
+      getCameraStatus();
+      /*
     setTimeout(() => {
       getShotField();
     }, 1000);
+*/
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <>
       <h2>ISP Parameters - Telephoto</h2>

@@ -3,14 +3,22 @@ import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Formik } from "formik";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { modeManual, modeAuto, exposureTelephotoModeAuto } from "dwarfii_api";
-import { range } from "@/lib/math_utils";
+import { modeManual, modeAuto } from "dwarfii_api";
 import { saveAstroSettingsDb } from "@/db/db_utils";
 import { validateAstroSettings } from "@/components/imaging/form_validations";
 import { AstroSettings } from "@/types";
 import AstroSettingsInfo from "@/components/imaging/AstroSettingsInfo";
 import { calculateImagingTime } from "@/lib/date_utils";
-import { updateTelescopeISPSetting } from "@/lib/dwarf_utils";
+import {
+  updateTelescopeISPSetting,
+  getAllTelescopeISPSetting,
+} from "@/lib/dwarf_utils";
+import { getExposureDefault } from "@/lib/data_utils";
+import {
+  allowedExposures,
+  allowedGains,
+  getExposureValueByIndex,
+} from "@/lib/data_utils";
 
 type PropTypes = {
   setValidSettings: any;
@@ -93,8 +101,8 @@ export default function TakeAstroPhoto(props: PropTypes) {
     let modeValue: number;
 
     if (targetValue === "auto") {
-      modeValue = exposureTelephotoModeAuto;
-      value = 0;
+      modeValue = modeAuto;
+      value = Number(getExposureDefault);
     } else {
       modeValue = modeManual;
       value = Number(targetValue);
@@ -117,7 +125,8 @@ export default function TakeAstroPhoto(props: PropTypes) {
         return { ...prev };
       });
       saveAstroSettingsDb("exposure", targetValue);
-      updateTelescopeISPSetting("exposure", value, connectionCtx);
+      if (targetValue != "auto")
+        updateTelescopeISPSetting("exposure", value, connectionCtx);
     }, 500);
   }
 
@@ -148,7 +157,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
       return { ...prev };
     });
     saveAstroSettingsDb("binning", e.target.value);
-    // TODO: save binning to telescope if DL adds interface to api
+    updateTelescopeISPSetting("binning", value, connectionCtx);
   }
 
   function changeFileFormatHandler(e: ChangeEvent<HTMLSelectElement>) {
@@ -163,7 +172,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
       return { ...prev };
     });
     saveAstroSettingsDb("fileFormat", e.target.value);
-    // TODO: save file format to telescope if DL adds interface to api
+    updateTelescopeISPSetting("fileFormat", value, connectionCtx);
   }
 
   function changeCountHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -178,6 +187,26 @@ export default function TakeAstroPhoto(props: PropTypes) {
       return { ...prev };
     });
     saveAstroSettingsDb("count", e.target.value);
+    updateTelescopeISPSetting("count", value, connectionCtx);
+  }
+
+  function changeQualityHandler(e: ChangeEvent<HTMLInputElement>) {
+    if (Number(e.target.value) < 1) {
+      defaultValueHandler("quality");
+      return;
+    }
+    if (Number(e.target.value) > 100) {
+      e.target.value = "100";
+      return;
+    }
+
+    let value = Number(e.target.value);
+    connectionCtx.setAstroSettings((prev) => {
+      prev["quality"] = value;
+      return { ...prev };
+    });
+    saveAstroSettingsDb("quality", e.target.value);
+    updateTelescopeISPSetting("quality", value, connectionCtx);
   }
 
   function setImagingTime(
@@ -204,21 +233,30 @@ export default function TakeAstroPhoto(props: PropTypes) {
     setShowSettingsInfo(!showSettingsInfo);
   }
 
-  const allowedExposures = [
-    0.01, 0.1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-  ];
+  const allowedExposuresOptions = allowedExposures.values.map(
+    ({ index, name }) => (
+      <option key={index} value={index}>
+        {name}
+      </option>
+    )
+  );
 
-  const allowedGains = range(30, 150, 10);
+  const allowedGainsOptions = allowedGains.values.map(({ index, name }) => (
+    <option key={index} value={index}>
+      {name}
+    </option>
+  ));
 
   if (showSettingsInfo) {
     return <AstroSettingsInfo onClick={toggleShowSettingsInfo} />;
   }
-
   return (
     <div>
       <Formik
+        enableReinitialize
         initialValues={{
           gain: connectionCtx.astroSettings.gain,
+          exposureMode: connectionCtx.astroSettings.exposureMode,
           exposure: connectionCtx.astroSettings.exposure,
           IR: connectionCtx.astroSettings.IR,
           binning: connectionCtx.astroSettings.binning,
@@ -226,6 +264,9 @@ export default function TakeAstroPhoto(props: PropTypes) {
           count: connectionCtx.astroSettings.count || 0,
           rightAcension: connectionCtx.astroSettings.rightAcension,
           declination: connectionCtx.astroSettings.declination,
+          quality: connectionCtx.astroSettings.quality,
+          target: connectionCtx.astroSettings.target,
+          status: connectionCtx.astroSettings.status,
         }}
         validate={(values) => {
           let errors = validateAstroSettings(values);
@@ -266,12 +307,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
                   value={values.gain}
                 >
                   <option value="default">Select</option>
-                  <option value="auto">Auto</option>
-                  {allowedGains.map((exp) => (
-                    <option key={exp} value={exp}>
-                      {exp}
-                    </option>
-                  ))}
+                  {allowedGainsOptions}
                 </select>
               </div>
             </div>
@@ -289,15 +325,13 @@ export default function TakeAstroPhoto(props: PropTypes) {
                     changeExposureHandler(e);
                   }}
                   onBlur={handleBlur}
-                  value={values.exposure}
+                  value={
+                    values.exposureMode == modeAuto ? "auto" : values.exposure
+                  }
                 >
                   <option value="default">Select</option>
                   <option value="auto">Auto</option>
-                  {allowedExposures.map((exp) => (
-                    <option key={exp} value={exp}>
-                      {exp}
-                    </option>
-                  ))}
+                  {allowedExposuresOptions}
                 </select>
               </div>
             </div>
@@ -319,7 +353,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
                 >
                   <option value="default">Select</option>
                   <option value="0">Cut</option>
-                  <option value="3">Pass</option>
+                  <option value="1">Pass</option>
                 </select>
               </div>
             </div>
@@ -340,8 +374,8 @@ export default function TakeAstroPhoto(props: PropTypes) {
                   value={values.binning}
                 >
                   <option value="default">Select</option>
-                  <option value="0">1x1</option>
-                  <option value="1">2x2</option>
+                  <option value="0">4k</option>
+                  <option value="1">2k</option>
                 </select>
               </div>
             </div>
@@ -391,20 +425,57 @@ export default function TakeAstroPhoto(props: PropTypes) {
               {errors.count && <p className="text-danger">{errors.count}</p>}
             </div>
             <div className="row mb-md-2 mb-sm-1">
+              <div className="col-4">
+                <label htmlFor="quality" className="form-label">
+                  Quality
+                </label>
+              </div>
+              <div className="col-8">
+                <input
+                  type="number"
+                  className="form-control"
+                  name="quality"
+                  placeholder="0"
+                  min="0"
+                  onChange={(e) => {
+                    handleChange(e);
+                    changeQualityHandler(e);
+                  }}
+                  onBlur={handleBlur}
+                  value={values.quality}
+                />
+              </div>
+              {errors.quality && (
+                <p className="text-danger">{errors.quality}</p>
+              )}
+            </div>
+            <div className="row mb-md-2 mb-sm-1">
               <div className="col-4">Total time</div>
               <div className="col-8">
                 {setImagingTime(
                   connectionCtx.astroSettings.count,
-                  connectionCtx.astroSettings.exposure
+                  getExposureValueByIndex(connectionCtx.astroSettings.exposure)
                 )}
               </div>
             </div>
-            <button
-              onClick={() => setShowSettingsMenu(false)}
-              className="btn btn-outline-primary"
-            >
-              Close
-            </button>
+            <div className="row mb">
+              <div className="col-md-auto">
+                <button
+                  onClick={() => setShowSettingsMenu(false)}
+                  className="btn btn-outline-primary"
+                >
+                  Close
+                </button>
+              </div>
+              <div className="col-md text-end">
+                <button
+                  onClick={() => getAllTelescopeISPSetting(connectionCtx)}
+                  className="btn btn-outline-primary"
+                >
+                  Read Values
+                </button>
+              </div>
+            </div>
             {/* {JSON.stringify(values)} */}
           </form>
         )}

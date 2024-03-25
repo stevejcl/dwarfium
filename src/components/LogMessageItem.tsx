@@ -8,8 +8,10 @@ export default function LogMessageItem(props: PropType) {
   const { message } = props;
 
   function renderMetadata() {
-    let action = apiCodes[message.interface as keyof typeof apiCodes];
-    let description = statusCodes[message.code as keyof typeof statusCodes];
+    let action = apiCodes[message.cmd as keyof typeof apiCodes];
+    let description = "";
+    if (message.data && message.data.code)
+      description = statusCodes[message.data.code as keyof typeof statusCodes];
     if (description && action) {
       return (
         <div>
@@ -20,7 +22,7 @@ export default function LogMessageItem(props: PropType) {
       return <div>{description}</div>;
     } else if (action) {
       return <div>{action}</div>;
-    } else {
+    } else if (message) {
       return <div>??? unknown </div>;
     }
   }

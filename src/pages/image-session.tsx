@@ -34,7 +34,17 @@ export default function AstroPhoto() {
         const folderName = matches[1];
         const folderDate = matches[3];
         if (!/dwarf_dark|solving_failed/i.test(folderName)) {
-          sessionList.push({ name: folderName, date: folderDate });
+          try {
+            // Check if shotsInfo.json exists in the session folder
+            await fetch(
+              `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`
+            );
+            sessionList.push({ name: folderName, date: folderDate });
+          } catch (error) {
+            console.error(
+              `shotsInfo.json not found in session folder ${folderName}`
+            );
+          }
         }
       }
       if (sessionList.length > 0) {

@@ -192,7 +192,7 @@ export default function AstroPhoto() {
           <StatusBar />
           <div className="container-image-session">
             {notification && <div className="notification">{notification}</div>}
-            <table>
+            <table className="styled-table">
               <thead>
                 <tr>
                   <th>Preview</th>
@@ -205,9 +205,9 @@ export default function AstroPhoto() {
               </thead>
               <tbody>
                 {sessions.map((session, index) => (
-                  <tr key={index}>
+                    <tr className="active-row" key={index}>
                     <td>
-                      <img
+                            <img className="thumblarge"
                         src={`http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`}
                         alt="Thumbnail"
                       />
@@ -239,8 +239,23 @@ export default function AstroPhoto() {
               </div>
             )}
           </div>
+          {""}
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+
         </div>
-      </section>
+          </section>
+         
     </>
   );
 }

@@ -203,7 +203,7 @@ export default function ConnectDwarfII() {
       goLiveMessage = "Need Go Live";
     }
     if (connecting) {
-      return <span className="text-connect right-align">Connecting...</span>;
+      return <span className="text-warning-connect right-align">Connecting...</span>;
     }
     if (connectionCtx.connectionStatus === undefined) {
       return <></>;

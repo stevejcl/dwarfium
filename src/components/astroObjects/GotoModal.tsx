@@ -28,7 +28,7 @@ export default function GotoModal(props: PropTypes) {
       </Modal.Header>
 
       <Modal.Body>
-        <div className="mb-3">
+        <div className="mb-3-modal">
           RA: {object.ra}, Dec: {object.dec}
         </div>
 
@@ -37,6 +37,9 @@ export default function GotoModal(props: PropTypes) {
           <pre>{JSON.stringify(messages, null, 2)}</pre>
         </div>
       </Modal.Body>
-    </Modal>
+      </Modal>
+      
+
+
   );
 }

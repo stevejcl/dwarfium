@@ -205,14 +205,14 @@ body {
 }
 .daily-horp-camera {
     padding: 0px 0 0 0;
-    background: url(../images/bg-bannerpic.jpg) no-repeat;
+    background: url(/images/bg-bannerpic.jpg) no-repeat;
     background-size: cover;
     background-position: top left;
     height: 900px;
 }
 .daily-horp-object {
     padding: 0px 0 0 0;
-    background: url(../images/bg-bannerpic.jpg) no-repeat center center fixed;
+    background: url(/images/bg-bannerpic.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -220,7 +220,7 @@ body {
 }
 .daily-horp-userlist {
     padding: 0px 0 0 0;
-    background: url(../images/bg-bannerpic.jpg) no-repeat center center fixed;
+    background: url(/images/bg-bannerpic.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -377,3 +377,7 @@ select {
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
+ h2, h3 {
+    color: #60cc69;
+   
+}

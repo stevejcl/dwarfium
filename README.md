@@ -4,6 +4,13 @@ This website connects to the Dwarf II telescope to Stellarium via the [Dwarf II 
 
 ![screenshot of Stellarium and app](images/ScreenShot.png) –
 
+# Dwarf II Session Data
+
+You have access to your session data for inspection and Download
+
+![screenshot of session data](images/session-data.png) –
+
+
 ## Setup for coders
 
 If you are interested in seeing how the code works or contributing to the project, then follow these steps.

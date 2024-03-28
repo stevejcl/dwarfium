@@ -381,11 +381,17 @@ select {
     color: #60cc69;
    
 }
+
 img {
+    
+    
     transition: transform 0.25s ease;
+    -moz-transition: opacity 1s ease-in-out;
+    -webkit-transition: opacity 1s ease-in-out;
 }
 
-    img:hover {
-        -webkit-transform: scale(1.5);
-        transform: scale(2);
-    }
+.thumblarge:hover {
+    transform: scale(2);
+    -moz-transition: opacity .55s ease-in-out;
+    -webkit-transition: opacity .55s ease-in-out;
+}

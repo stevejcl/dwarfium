@@ -34,11 +34,30 @@ export default function ImportObjectListModal(props: PropTypes) {
   let connectionCtx = useContext(ConnectionContext);
 
   let [error, setError] = useState<string | undefined>();
+  const [listName, setListName] = useState(''); // State to store the list Name from file name
 
   function handleCloseModal() {
     setShowModal(false);
   }
 
+  // Function to handle file selection
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const modifiedName = modifyListName(file.name); // Modify the file name as needed
+    setListName(modifiedName);
+
+  };
+
+  // Function to modify the file name as needed
+  const modifyListName = (fileName) => {
+    const startIndex = fileName.indexOf('telescopius_list_') + 'telescopius_list_'.length;
+    const endIndex = fileName.indexOf('.csv');
+    if (startIndex !== -1 && endIndex !== -1) {
+        const objectName = fileName.substring(startIndex, endIndex);
+        return objectName;
+    }
+    return ''; // Return an empty string if the pattern is not found
+};
   function fileUploadHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -100,6 +119,7 @@ export default function ImportObjectListModal(props: PropTypes) {
               className="form-control"
               id="list_name"
               name="list_name"
+              value={listName}
               onChange={nameInputHandler}
               required
             />
@@ -111,6 +131,7 @@ export default function ImportObjectListModal(props: PropTypes) {
               name="upload"
               accept=".csv"
               className="form-control"
+              onChange={handleFileChange}
               required
             />
           </div>

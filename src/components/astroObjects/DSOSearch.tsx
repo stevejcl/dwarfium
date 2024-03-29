@@ -1,29 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 
-import { ConnectionContext } from "@/stores/ConnectionContext";
+export default function DSOSearch({ updateSearchText }) {
 
-export default function DSOSearch() {
-  let connectionCtx = useContext(ConnectionContext);
-
-  const [searchTxtValue, setSearchTxtValue] = useState(connectionCtx.searchTxt);
-
-  useEffect(() => {
-    console.log(searchTxtValue);
-  }, [searchTxtValue]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [searchTxtValue, setSearchTxtValue] = useState('');
 
   function searchHandler() {
-    if (searchTxtValue === "") {
-      connectionCtx.setSearchTxt(searchTxtValue);
-    }
-
-    if (searchTxtValue) {
-      if (/^[\w\s]{0,255}$/i.test(searchTxtValue)) {
-        connectionCtx.setSearchTxt(searchTxtValue);
-      }
-    } else {
-      setSearchTxtValue("");
-      connectionCtx.setSearchTxt("");
-    }
+    updateSearchText(searchTxtValue);
   }
 
   return (
@@ -42,7 +24,7 @@ export default function DSOSearch() {
             id="search"
             name="search"
             value={searchTxtValue}
-            onInput={(e) => setSearchTxtValue(e.currentTarget.value)}
+            onChange={(e) => setSearchTxtValue(e.target.value)}
           />
         </div>
       </div>

@@ -1,12 +1,19 @@
 Catalogue Entry,Alternative Entries,Familiar Name,Right Ascension,Declination,Major Axis,Minor Axis,Magnitude,Name catalog,Name number,Type,Type Category,Constellation,Width ('),Height ('),Notes
+B 92,,on northside of M24,18:15:06,-18:14:00.0,15.0,9.0,,B,92,Dark Nebula,nebulae,Sagittarius,,,large_dso
 C 9,,Cave Nebula,22:57:54.0,+62:31:06,50.0,30.0,,C,9,HII Ionized region,nebulae,Cepheus,50.0,10.0,large_dso
 C 14,,"Double Cluster, h & chi Persei",02:20:42.0,+57:08:15,50.0,50.0,,C,14,Association of stars,stars,Perseus,30.0,30.0,large_dso
 C 41,,Hyades,04:26:54.0,+15:52:00,329.0,,,C,41,Open Cluster,clusters,Taurus,330.0,330.0,large_dso
+C 99,NTH CS,"Coalsack Nebula, Coalsack Northern ",12:31:19.0,-63:44:36,,,,C,99,Dark Nebula,nebulae,Crux,300.0,300.0,large_dso
 C 99,,Coalsack Nebula,12:31:19.0,-63:44:36,,,,C,99,Dark Nebula,nebulae,Crux,400.0,300.0,large_dso
-CR 399,,"Brocchi's Cluster, Al Sufi's Cluster, Coathanger Asterism",19:25:24.0,+20:11:00,70.0,,3.6,Cl,399,Association of stars,stars,Vulpecula,,,large_dso
+Cl 399,,"Brocchi's Cluster, Al Sufi's Cluster, Coathanger Asterism",19:25:24.0,+20:11:00,70.0,,3.6,Cl,399,Association of stars,stars,Vulpecula,,,large_dso
 ESO 56,,"Large Magellanic Cloud,Nubecula Major",05:23:34.5,-69:45:22,646.0,550.0,0.29,ESO,56,Galaxy,galaxies,Dorado,,,large_dso
 ESO 351,,Sculptor Dwarf Elliptical,01:00:09.35,-33:42:32.5,15.26,15.26,8.6,ESO,351,Galaxy,galaxies,Sculptor,,,large_dso
 ESO 356,,Fornax Dwarf Spheroidal,02:39:59.33,-34:26:57.1,12.88,10.47,7.4,ESO,356,Galaxy,galaxies,Fornax,,,small_dso
+H 5,,,12:27:16.0,-60:46:42,6.0,,7.1,H,5,Open Cluster,clusters,Crux,,,small_dso
+H 20,,,19:53:06.0,+18:20:00,5.1,,7.7,H,20,Open Cluster,clusters,Sagitta,,,small_dso
+H 21,,,23:54:13.2,+61:44:24,1.8,,9.0,H,21,Open Cluster,clusters,Cassiopeia,,,small_dso
+IC 10,,,00:20:17.34,+59:18:13.6,6.76,6.03,10.35,IC,10,Galaxy,galaxies,Cassiopeia,,,tiny_dso
+IC 127,,,01:29:47.61,-06:58:48.2,1.69,0.45,9.2,IC,127,Galaxy,galaxies,Cetus,,,small_dso
 IC 341,,,03:40:55.69,+21:57:36.7,134.9,,,IC,341,Nebula,nebulae,Taurus,,,large_dso
 IC 342,C 5,,03:46:48.50,+68:05:46.9,19.77,18.79,,IC,342,Galaxy,galaxies,Camelopardalis,18.0,17.0,large_dso
 IC 349,,Barnard's Merope Nebula,03:46:20.11,+23:56:23.3,25.7,,,IC,349,Reflection Nebula,nebulae,Taurus,,,large_dso
@@ -28,54 +35,84 @@ IC 1287,,,18:31:25.69,-10:47:44.9,20.0,10.0,,IC,1287,Reflection Nebula,nebulae,S
 IC 1310,,,20:10:00.98,+34:58:08.0,15.0,3.0,,IC,1310,Star cluster + Nebula,nebulae,Cygnus,,,large_dso
 IC 1340,,,20:56:08.25,+31:02:52.3,25.12,19.95,,IC,1340,Supernova remnant,nebulae,Cygnus,25.0,25.0,large_dso
 IC 1396,,,21:38:57.62,+57:29:20.6,14.0,4.0,,IC,1396,Star cluster + Nebula,nebulae,Cepheus,170.0,170.0,large_dso
+IC 1442,,,22:16:01.33,+53:59:28.8,4.2,,9.1,IC,1442,Open Cluster,clusters,Lacerta,,,small_dso
 IC 1613,,,01:04:47.79,+02:07:04.0,18.32,17.14,9.54,IC,1613,Galaxy,galaxies,Cetus,,,large_dso
 IC 1795,,,02:26:31.96,+62:02:29.9,12.0,12.0,,IC,1795,HII Ionized region,nebulae,Cassiopeia,20.0,20.0,large_dso
 IC 1805,,,02:32:41.51,+61:27:24.8,60.0,60.0,6.5,IC,1805,Star cluster + Nebula,nebulae,Cassiopeia,60.0,60.0,large_dso
 IC 1831,,,02:43:56.40,+62:24:41.9,120.23,,,IC,1831,Nebula,nebulae,Cassiopeia,,,large_dso
 IC 1848,,,02:51:10.59,+60:24:08.9,40.0,10.0,6.5,IC,1848,Star cluster + Nebula,nebulae,Cassiopeia,60.0,60.0,large_dso
+IC 2157,,,06:04:47.58,+24:04:15.7,2.7,,8.4,IC,2157,Open Cluster,clusters,Gemini,,,small_dso
+IC 2163,,,06:16:27.98,-21:22:33.1,3.37,0.95,11.11,IC,2163,Galaxy,galaxies,Canis Major,,,tiny_dso
 IC 2177,,,07:04:36.91,-10:28:15.8,20.0,20.0,,IC,2177,Reflection Nebula,nebulae,Monoceros,120.0,120.0,large_dso
 IC 2391,C 85,"Omicron Vel Cluster, omi Vel Cluster",08:40:31.88,-53:02:07.7,29.1,,2.5,IC,2391,Open Cluster,clusters,Vela,50.0,50.0,large_dso
+IC 2395,,,08:42:30.11,-48:09:02.0,6.0,,4.6,IC,2395,Open Cluster,clusters,Vela,,,small_dso
+IC 2488,,,09:27:38.23,-57:00:25.0,7.2,,7.4,IC,2488,Open Cluster,clusters,Vela,,,small_dso
+IC 2574,,Coddington's Nebula,10:28:23.48,+68:24:43.7,12.91,5.57,10.46,IC,2574,Galaxy,galaxies,Ursa Major,,,tiny_dso
+IC 2581,,,10:27:29.15,-57:37:02.3,6.0,,4.3,IC,2581,Open Cluster,clusters,Carina,,,small_dso
 IC 2599,,,10:37:27.09,-58:44:00.2,20.0,20.0,,IC,2599,HII Ionized region,nebulae,Carina,,,large_dso
 IC 2602,C 102,"Theta Car Cluster, Southern Pleiades",10:42:57.47,-64:23:39.1,48.0,,,IC,2602,Open Cluster,clusters,Carina,50.0,50.0,large_dso
+IC 2714,,,11:17:27.35,-62:43:30.4,7.2,,8.2,IC,2714,Open Cluster,clusters,Carina,,,small_dso
 IC 2872,,,11:28:08.03,-62:59:20.2,15.14,6.03,,IC,2872,Nebula,nebulae,Centaurus,,,large_dso
 IC 2944,,"lam Cen Nebula, lambda Cen nebula",11:35:46.93,-63:01:11.4,7.2,,,IC,2944,Star cluster + Nebula,nebulae,Centaurus,75.0,75.0,large_dso
 IC 2948,,lambda Cen nebula,11:39:05.94,-63:26:37.9,6.0,,,IC,2948,Star cluster + Nebula,nebulae,Centaurus,60.0,60.0,large_dso
+IC 4291,,,13:36:56.41,-62:05:35.2,5.1,,9.7,IC,4291,Open Cluster,clusters,Centaurus,,,small_dso
+IC 4499,,,15:00:19.25,-82:12:48.6,5.1,,8.56,IC,4499,Globular Cluster,clusters,Apus,,,small_dso
 IC 4592,,,16:11:58.67,-19:27:16.8,60.0,40.0,,IC,4592,Reflection Nebula,nebulae,Scorpius,150.0,150.0,large_dso
+IC 4593,,,16:11:44.50,+12:04:17.0,0.66,,10.7,IC,4593,Planetary Nebula,nebulae,Hercules,,,tiny_dso
 IC 4601,,,16:20:17.80,-20:05:14.3,20.0,10.0,,IC,4601,Nebula,nebulae,Scorpius,20.0,20.0,large_dso
 IC 4603,,,16:25:24.48,-24:28:06.1,20.0,5.0,,IC,4603,Nebula,nebulae,Ophiuchus,20.0,20.0,large_dso
 IC 4604,,"rho Oph Nebula, rho Oph nebula",16:25:31.17,-23:26:11.7,60.0,25.0,,IC,4604,Nebula,nebulae,Ophiuchus,60.0,60.0,large_dso
 IC 4605,,,16:30:12.48,-25:06:54.6,30.0,15.0,,IC,4605,Nebula,nebulae,Scorpius,30.0,30.0,large_dso
 IC 4628,,,16:56:58.43,-40:27:03.5,89.13,58.88,,IC,4628,Nebula,nebulae,Scorpius,90.0,90.0,large_dso
+IC 4651,,,17:24:49.14,-49:56:17.7,9.6,,6.9,IC,4651,Open Cluster,clusters,Ara,,,small_dso
 IC 4665,,,17:46:27.18,+05:38:55.4,24.6,,4.2,IC,4665,Open Cluster,clusters,Ophiuchus,41.0,41.0,large_dso
 IC 4685,,,18:09:17.50,-23:59:14.1,15.0,10.0,,IC,4685,Nebula,nebulae,Sagittarius,,,large_dso
 IC 4701,,,18:16:35.74,-16:38:53.8,60.0,40.0,,IC,4701,Nebula,nebulae,Sagittarius,60.0,60.0,large_dso
-IC 4703,,"Eagle Nebula,Star Queen",18:18:56.22,-13:50:43.4,5.05,5.05,6.0,IC,4703,Nebula,nebulae,,,,small_dso
-IC 4756,,,18:38:51.51,+05:27:43.8,24.0,,4.6,IC,4756,Open Cluster,clusters,,52.0,52.0,large_dso
+IC 4703,,"Eagle Nebula,Star Queen",18:18:56.22,-13:50:43.4,5.05,5.05,6.0,IC,4703,Nebula,nebulae,Serpens Cauda,,,small_dso
+IC 4756,,,18:38:51.51,+05:27:43.8,24.0,,4.6,IC,4756,Open Cluster,clusters,Serpens Cauda,52.0,52.0,large_dso
 IC 4954,,,20:04:45.02,+29:15:10.1,3.0,1.0,,IC,4954,HII Ionized region,nebulae,Vulpecula,25.0,25.0,large_dso
+IC 4996,,,20:16:33.27,+37:33:19.0,6.0,,7.3,IC,4996,Open Cluster,clusters,Cygnus,,,small_dso
 IC 5068,,,20:50:29.76,+42:28:39.7,40.0,30.0,,IC,5068,HII Ionized region,nebulae,Cygnus,80.0,80.0,large_dso
 IC 5070,,"Pelican Nebula, Pelican nebula",20:51:00.72,+44:24:05.4,60.0,50.0,,IC,5070,HII Ionized region,nebulae,Cygnus,80.0,80.0,large_dso
 IC 5146,,Cocoon Nebula,21:53:28.76,+47:16:00.9,10.0,10.0,7.2,IC,5146,Star cluster + Nebula,nebulae,Cygnus,,,small_dso
+IC 5271,,,22:58:01.82,-33:44:32.0,3.0,1.16,11.54,IC,5271,Galaxy,galaxies,Piscis Austrinus,,,tiny_dso
 M 1,,Crab Nebula,05:34:31.97,+22:00:52.1,8.0,4.0,8.4,M,1,Supernova remnant,nebulae,Taurus,,,small_dso
+M 2,,,21:33:27.01,-00:49:23.9,8.4,,6.25,M,2,Globular Cluster,clusters,Aquarius,,,large_dso
 M 3,,,13:42:11.23,+28:22:31.6,16.2,,6.39,M,3,Globular Cluster,clusters,Canes Venatici,,,large_dso
 M 4,NGC 6121,,16:23:35.40,-26:31:31.9,28.2,,5.4,M,4,Globular Cluster,clusters,Scorpius,26.3,26.3,large_dso
-M 5,,,15:18:33.75,+02:04:57.7,15.0,,5.95,M,5,Globular Cluster,clusters,,,,large_dso
+M 5,,,15:18:33.75,+02:04:57.7,15.0,,5.95,M,5,Globular Cluster,clusters,Serpens Caput,,,large_dso
 M 6,NGC 6405,Butterfly Cluster,17:40:20.75,-32:15:15.0,15.6,,4.2,M,6,Open Cluster,clusters,Scorpius,25.0,25.0,large_dso
 M 7,NGC 6475,Ptolemy's Cluster,17:53:51.18,-34:47:34.2,22.2,,3.3,M,7,Open Cluster,clusters,Scorpius,80.0,80.0,large_dso
 M 8,NGC 6523,Lagoon Nebula,18:03:41.27,-24:22:48.6,45.0,30.0,5.8,M,8,Nebula,nebulae,Sagittarius,90.0,40.0,large_dso
+M 9,,,17:19:11.78,-18:30:58.5,6.9,,8.42,M,9,Globular Cluster,clusters,Ophiuchus,,,small_dso
+M 10,,,16:57:08.99,-04:05:57.6,9.3,,4.98,M,10,Globular Cluster,clusters,Ophiuchus,,,large_dso
 M 11,,"Amas de l'Ecu de Sobieski,Wild Duck Cluster",18:51:05.99,-06:16:12.1,9.0,,5.8,M,11,Open Cluster,clusters,Scutum,,,small_dso
+M 12,,,16:47:14.52,-01:56:52.2,11.1,,6.07,M,12,Globular Cluster,clusters,Ophiuchus,,,large_dso
 M 13,NGC 6205,"Great Hercules Globular, Hercules Globular Cluster",16:41:41.63,+36:27:40.7,16.5,,5.8,M,13,Globular Cluster,clusters,Hercules,16.6,16.6,large_dso
-M 16,NGC 6611,"Eagle Nebula, Eagle nebula",18:18:48.17,-13:48:26.0,120.0,25.0,6.0,M,16,Nebula,nebulae,,35.0,35.0,large_dso
+M 14,,,17:37:36.16,-03:14:45.3,,,5.73,M,14,Globular Cluster,clusters,Ophiuchus,,,tiny_dso
+M 15,,,21:29:58.38,+12:10:00.6,11.1,,6.3,M,15,Globular Cluster,clusters,Pegasus,,,large_dso
+M 16,NGC 6611,"Eagle Nebula, Eagle nebula",18:18:48.17,-13:48:26.0,120.0,25.0,6.0,M,16,Nebula,nebulae,Serpens Cauda,35.0,35.0,large_dso
+M 16,NGC 6611,"Eagle Nebula, Eagle nebula",18:18:48.17,-13:48:26.0,120.0,25.0,6.0,M,16,Nebula,nebulae,Serpens Cauda,35.0,35.0,large_dso
 M 17,NGC 6618,"Checkmark Nebula,Lobster Nebula,Swan Nebula,omega Nebula, M  17",18:20:47.11,-16:10:17.5,12.6,,7.0,M,17,Nebula,nebulae,Sagittarius,46.0,46.0,large_dso
+M 18,,,18:19:58.49,-17:06:07.1,6.0,,6.9,M,18,Open Cluster,clusters,Sagittarius,,,small_dso
+M 19,,,17:02:37.68,-26:16:04.6,7.5,,5.57,M,19,Globular Cluster,clusters,Ophiuchus,,,large_dso
 M 20,NGC 6514,Trifid Nebula,18:02:42.11,-22:58:18.8,28.0,28.0,8.5,M,20,Nebula,nebulae,Sagittarius,28.0,28.0,large_dso
+M 21,,,18:04:13.45,-22:29:24.2,6.0,,5.9,M,21,Open Cluster,clusters,Sagittarius,,,large_dso
 M 22,NGC 6656,Sagittarius Cluster,18:36:24.20,-23:54:12.3,12.6,,6.17,M,22,Globular Cluster,clusters,Sagittarius,24.0,24.0,large_dso
 M 23,NGC 6494,,17:57:04.77,-18:59:07.2,16.8,,5.5,M,23,Open Cluster,clusters,Sagittarius,27.0,27.0,large_dso
 M 24,IC 4715,"Sagittarius Star Cloud, Small Sgr Star Cloud",18:16:56.12,-18:30:52.4,120.0,60.0,4.5,M,24,Association of stars,stars,Sagittarius,90.0,90.0,large_dso
 M 25,"IC 4725, IC C4725",,18:31:46.77,-19:06:53.8,14.1,,4.6,M,25,Open Cluster,clusters,Sagittarius,40.0,40.0,large_dso
+M 26,,,18:45:18.66,-09:23:01.0,6.0,,8.87,M,26,Open Cluster,clusters,Scutum,,,small_dso
 M 27,,Dumbbell Nebula,19:59:36.38,+22:43:15.7,6.7,,7.4,M,27,Planetary Nebula,nebulae,Vulpecula,,,small_dso
+M 28,,,18:24:32.89,-24:52:11.4,5.1,,6.9,M,28,Globular Cluster,clusters,Sagittarius,,,small_dso
+M 29,,,20:23:57.77,+38:30:27.6,3.6,,6.6,M,29,Open Cluster,clusters,Cygnus,,,small_dso
+M 30,,,21:40:22.02,-23:10:44.7,9.0,,7.1,M,30,Globular Cluster,clusters,Capricornus,,,small_dso
 M 31,NGC 224,Andromeda Galaxy,00:42:44.35,+41:16:08.6,177.83,69.66,3.44,M,31,Galaxy,galaxies,Andromeda,178.0,63.0,large_dso
+M 32,,,00:42:41.83,+40:51:55.0,7.74,4.86,8.13,M,32,Galaxy,galaxies,Andromeda,,,small_dso
 M 33,NGC 598,"Triangulum Galaxy, Triangulum Galaxy,Triangulum Pinwheel",01:33:50.89,+30:39:36.8,62.09,36.73,5.79,M,33,Galaxy,galaxies,Triangulum,73.0,45.0,large_dso
 M 34,NGC 1039,,02:42:07.40,+42:44:46.1,22.5,,5.2,M,34,Open Cluster,clusters,Perseus,35.0,35.0,large_dso
 M 35,NGC 2168,,06:09:05.06,+24:20:19.1,24.0,,5.1,M,35,Open Cluster,clusters,Gemini,28.0,28.0,large_dso
+M 36,,,05:36:17.74,+34:08:26.7,7.2,,6.0,M,36,Open Cluster,clusters,Auriga,,,small_dso
 M 37,NGC 2099,,05:52:18.35,+32:33:10.8,11.4,,5.6,M,37,Open Cluster,clusters,Auriga,24.0,24.0,large_dso
 M 38,NGC 1912,,05:28:42.49,+35:51:17.7,9.6,,6.4,M,38,Open Cluster,clusters,Auriga,21.0,21.0,large_dso
 M 39,NGC 7092,,21:31:48.32,+48:26:17.4,19.5,,4.6,M,39,Open Cluster,clusters,Cygnus,32.0,32.0,large_dso
@@ -87,143 +124,644 @@ M 45,,Pleiades,03:47:28.6,+24:06:19,150.0,150.0,1.2,M,45,Open Cluster,clusters,T
 M 46,NGC 2437,,07:41:46.82,-14:48:36.0,21.0,,6.1,M,46,Open Cluster,clusters,Puppis,27.0,27.0,large_dso
 M 47,NGC 2422,,07:36:35.02,-14:28:57.4,19.8,,4.4,M,47,Open Cluster,clusters,Puppis,30.0,30.0,large_dso
 M 48,NGC 2548,,08:13:43.18,-05:45:01.6,28.2,,5.8,M,48,Open Cluster,clusters,Hydra,54.0,54.0,large_dso
+M 49,,,12:29:46.76,+08:00:01.7,10.21,8.38,8.28,M,49,Galaxy,galaxies,Virgo,,,small_dso
+M 50,,,07:02:40.47,-08:21:50.5,14.1,,5.9,M,50,Open Cluster,clusters,Monoceros,,,large_dso
 M 51,,Whirlpool Galaxy,13:29:52.71,+47:11:42.6,13.71,11.67,8.36,M,51,Galaxy,galaxies,Canes Venatici,,,small_dso
+M 52,,,23:24:48.40,+61:35:35.4,9.9,,6.9,M,52,Open Cluster,clusters,Cassiopeia,,,large_dso
+M 53,,,13:12:55.23,+18:10:08.8,9.0,,7.79,M,53,Globular Cluster,clusters,Coma Berenices,,,small_dso
+M 54,,,18:55:03.27,-30:28:42.6,5.1,,7.7,M,54,Globular Cluster,clusters,Sagittarius,,,small_dso
 M 55,NGC 6809,,19:39:59.40,-30:57:43.5,12.0,,6.49,M,55,Globular Cluster,clusters,Sagittarius,19.0,19.0,large_dso
+M 56,,,19:16:35.51,+30:11:04.2,5.8,,8.4,M,56,Globular Cluster,clusters,Lyra,,,small_dso
 M 57,,Ring Nebula,18:53:35.01,+33:01:42.9,1.27,,8.8,M,57,Planetary Nebula,nebulae,Lyra,,,small_dso
+M 58,,,12:37:43.52,+11:49:05.5,5.01,3.84,10.3,M,58,Galaxy,galaxies,Virgo,,,tiny_dso
+M 59,,,12:42:02.24,+11:38:49.3,4.55,3.21,9.56,M,59,Galaxy,galaxies,Virgo,,,small_dso
+M 60,,,12:43:39.98,+11:33:09.7,6.78,5.45,8.79,M,60,Galaxy,galaxies,Virgo,,,small_dso
+M 61,,,12:21:54.90,+04:28:25.1,6.89,6.56,10.25,M,61,Galaxy,galaxies,Virgo,,,tiny_dso
+M 62,,,17:01:12.60,-30:06:44.5,7.8,,7.39,M,62,Globular Cluster,clusters,Ophiuchus,,,large_dso
 M 63,,Sunflower Galaxy,13:15:49.33,+42:01:45.4,11.83,7.16,8.61,M,63,Galaxy,galaxies,Canes Venatici,,,small_dso
 M 64,,"Black Eye Galaxy,Evil Eye Galaxy",12:56:43.64,+21:40:58.7,10.52,5.33,8.52,M,64,Galaxy,galaxies,Coma Berenices,,,small_dso
 M 65,,Leo Triplet,11:18:55.92,+13:05:32.5,7.64,1.97,9.32,M,65,Galaxy,galaxies,Leo,,,small_dso
+M 66,,,11:20:14.96,+12:59:29.5,10.28,4.61,8.92,M,66,Galaxy,galaxies,Leo,,,small_dso
 M 67,NGC 2682,,08:51:20.13,+11:48:43.0,33.0,,6.9,M,67,Open Cluster,clusters,Cancer,30.0,30.0,large_dso
+M 68,,,12:39:28.01,-26:44:34.9,6.6,,7.96,M,68,Globular Cluster,clusters,Hydra,,,small_dso
+M 69,,,18:31:23.23,-32:20:52.7,5.7,,8.31,M,69,Globular Cluster,clusters,Sagittarius,,,small_dso
+M 70,,,18:43:12.64,-32:17:30.8,6.6,,9.06,M,70,Globular Cluster,clusters,Sagittarius,,,small_dso
+M 71,,,19:53:46.11,+18:46:42.2,6.9,,6.1,M,71,Globular Cluster,clusters,Sagitta,,,small_dso
+M 72,,,20:53:27.91,-12:32:13.4,4.5,,8.96,M,72,Globular Cluster,clusters,Aquarius,,,small_dso
+M 74,,,01:36:41.75,+15:47:01.2,9.89,9.33,9.31,M,74,Galaxy,galaxies,Pisces,,,small_dso
+M 75,,,20:06:04.84,-21:55:20.0,3.6,,8.26,M,75,Globular Cluster,clusters,Sagittarius,,,small_dso
+M 76,,"Barbell Nebula,Cork Nebula,Little Dumbbell Nebula",01:42:19.69,+51:34:31.7,1.12,,10.1,M,76,Planetary Nebula,nebulae,Perseus,,,tiny_dso
+M 77,,,02:42:40.71,-00:00:47.8,6.11,5.61,9.29,M,77,Galaxy,galaxies,Cetus,,,small_dso
+M 78,,,05:46:45.82,+00:04:45.5,4.5,,8.0,M,78,Reflection Nebula,nebulae,Orion,,,small_dso
+M 79,,,05:24:10.59,-24:31:27.2,7.2,,8.16,M,79,Globular Cluster,clusters,Lepus,,,small_dso
+M 80,,,16:17:02.51,-22:58:30.4,5.7,,7.3,M,80,Globular Cluster,clusters,Scorpius,,,small_dso
 M 81,NGC 3031,Bode's Galaxy,09:55:33.17,+69:03:55.1,21.63,11.25,6.92,M,81,Galaxy,galaxies,Ursa Major,21.0,10.0,large_dso
 M 82,,Cigar Galaxy,09:55:52.73,+69:40:45.8,10.99,5.11,8.3,M,82,Galaxy,galaxies,Ursa Major,,,small_dso
 M 83,,Southern Pinwheel Galaxy,13:37:00.95,-29:51:55.5,13.61,13.21,7.21,M,83,Galaxy,galaxies,Hydra,,,small_dso
+M 84,,,12:25:03.74,+12:53:13.1,7.41,6.44,9.79,M,84,Galaxy,galaxies,Virgo,,,small_dso
+M 85,,,12:25:24.11,+18:11:29.4,6.95,5.35,9.05,M,85,Galaxy,galaxies,Coma Berenices,,,small_dso
+M 86,,,12:26:11.74,+12:56:46.4,11.53,8.43,8.86,M,86,Galaxy,galaxies,Virgo,,,small_dso
 M 87,,Virgo Galaxy,12:30:49.42,+12:23:28.0,7.11,6.67,9.0,M,87,Galaxy,galaxies,Virgo,,,small_dso
+M 88,,,12:31:59.16,+14:25:13.4,8.65,4.38,10.33,M,88,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+M 89,,,12:35:39.81,+12:33:22.8,8.13,8.0,10.08,M,89,Galaxy,galaxies,Virgo,,,tiny_dso
+M 90,,,12:36:49.79,+13:09:46.6,9.12,3.82,9.54,M,90,Galaxy,galaxies,Virgo,,,small_dso
+M 91,,,12:35:26.45,+14:29:46.8,5.55,4.52,10.96,M,91,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+M 92,,,17:17:07.27,+43:08:11.5,14.4,,6.52,M,92,Globular Cluster,clusters,Hercules,,,small_dso
 M 93,NGC 2447,,07:44:29.23,-23:51:11.1,15.0,,6.2,M,93,Open Cluster,clusters,Puppis,22.0,22.0,large_dso
+M 94,,,12:50:53.06,+41:07:13.6,7.74,6.68,8.24,M,94,Galaxy,galaxies,Canes Venatici,,,small_dso
+M 95,,,10:43:57.70,+11:42:13.7,7.23,4.45,9.77,M,95,Galaxy,galaxies,Leo,,,small_dso
+M 96,,,10:46:45.74,+11:49:11.8,8.26,5.51,9.21,M,96,Galaxy,galaxies,Leo,,,small_dso
 M 97,,Owl Nebula,11:14:47.71,+55:01:08.5,3.58,,9.9,M,97,Planetary Nebula,nebulae,Ursa Major,,,small_dso
+M 98,,,12:13:48.29,+14:54:01.2,11.04,2.66,10.84,M,98,Galaxy,galaxies,Coma Berenices,,,tiny_dso
 M 99,,"Coma Pinwheel,Virgo Cluster Pinwheel",12:18:49.60,+14:24:59.4,5.04,4.74,9.84,M,99,Galaxy,galaxies,Coma Berenices,,,small_dso
+M 100,,,12:22:54.83,+15:49:18.5,6.1,5.62,9.47,M,100,Galaxy,galaxies,Coma Berenices,,,small_dso
 M 101,NGC 5457,Pinwheel Galaxy,14:03:12.54,+54:20:56.2,23.99,23.07,7.9,M,101,Galaxy,galaxies,Ursa Major,22.0,22.0,large_dso
+M 103,,,01:33:21.81,+60:39:28.8,4.5,,7.4,M,103,Open Cluster,clusters,Cassiopeia,,,small_dso
 M 104,,Sombrero Galaxy,12:39:59.43,-11:37:23.0,8.45,4.91,8.59,M,104,Galaxy,galaxies,Virgo,,,small_dso
+M 105,,,10:47:49.59,+12:34:53.8,4.89,4.25,9.27,M,105,Galaxy,galaxies,Leo,,,small_dso
 M 106,NGC 4258,,12:18:57.50,+47:18:14.3,16.98,7.24,9.29,M,106,Galaxy,galaxies,Canes Venatici,19.0,8.0,large_dso
+M 107,,,16:32:31.92,-13:03:13.1,7.8,,8.85,M,107,Globular Cluster,clusters,Ophiuchus,,,small_dso
+M 108,,,11:11:30.97,+55:40:26.8,3.98,1.66,10.05,M,108,Galaxy,galaxies,Ursa Major,,,small_dso
+M 109,,,11:57:35.98,+53:22:28.3,8.07,5.64,9.88,M,109,Galaxy,galaxies,Ursa Major,,,small_dso
 M 110,,,00:40:22.08,+41:41:07.1,16.22,9.59,8.15,M,110,Galaxy,galaxies,Andromeda,,,large_dso
+Mel 71,,,07:37:33.6,-12:03:18,14.4,,7.1,Mel,71,Open Cluster,clusters,Puppis,,,small_dso
+Mel 101,,,10:42:12.0,-65:06:00,8.4,,8.0,Mel,101,Open Cluster,clusters,Carina,,,small_dso
+Mel 105,,,11:19:42.0,-63:29:00,5.4,,8.5,Mel,105,Open Cluster,clusters,Carina,,,small_dso
 Mel 111,,Coma Star Cluster,12:25:06.0,+26:06:00,253.5,,,Mel,111,Open Cluster,clusters,Coma Berenices,,,large_dso
+NGC 40,,Bow-Tie nebula,00:13:01.03,+72:31:19.0,0.8,,11.89,NGC,40,Planetary Nebula,nebulae,Cepheus,,,tiny_dso
 NGC 55,C 72,,00:14:53.60,-39:11:47.9,29.85,3.05,8.54,NGC,55,Galaxy,galaxies,Sculptor,32.0,6.0,large_dso
+NGC 103,,,00:25:16.40,+61:19:24.5,2.7,,9.8,NGC,103,Open Cluster,clusters,Cassiopeia,,,small_dso
 NGC 104,C 106,"47 Tuc Cluster, 47 Tucanae",00:24:05.36,-72:04:53.2,31.8,,4.09,NGC,104,Globular Cluster,clusters,Tucana,31.0,31.0,large_dso
+NGC 128,,,00:29:15.06,+02:51:50.6,3.16,0.87,11.63,NGC,128,Galaxy,galaxies,Pisces,,,tiny_dso
 NGC 129,,,00:29:58.19,+60:12:40.2,5.4,,6.5,NGC,129,Open Cluster,clusters,Cassiopeia,21.0,21.0,large_dso
+NGC 133,,,00:31:16.96,+63:21:09.4,2.1,,9.4,NGC,133,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 134,,,00:30:21.97,-33:14:38.5,8.38,1.79,10.31,NGC,134,Galaxy,galaxies,Sculptor,,,small_dso
+NGC 146,,,00:33:03.94,+63:18:32.4,3.6,,9.1,NGC,146,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 147,,,00:33:12.12,+48:30:31.5,9.4,5.41,9.72,NGC,147,Galaxy,galaxies,Cassiopeia,,,small_dso
+NGC 157,,,00:34:46.76,-08:23:47.2,3.7,1.9,13.11,NGC,157,Galaxy,galaxies,Cetus,,,tiny_dso
+NGC 185,,,00:38:57.97,+48:20:14.6,12.94,10.76,9.2,NGC,185,Galaxy,galaxies,Cassiopeia,,,small_dso
 NGC 188,,,00:47:27.53,+85:16:10.7,17.7,,8.1,NGC,188,Open Cluster,clusters,Cepheus,,,large_dso
+NGC 189,,,00:39:35.70,+61:05:40.1,2.7,,8.8,NGC,189,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 225,,,00:43:36.38,+61:46:01.0,4.2,,7.0,NGC,225,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 246,,,00:47:03.36,-11:52:19.0,4.08,,10.9,NGC,246,Planetary Nebula,nebulae,Cetus,,,tiny_dso
 NGC 247,C 62,,00:47:08.55,-20:45:37.4,19.68,5.55,9.21,NGC,247,Galaxy,galaxies,Cetus,20.0,7.0,large_dso
+NGC 253,,"Sculptor Filament,Silver Coin",00:47:33.12,-25:17:17.6,26.79,4.58,11.11,NGC,253,Galaxy,galaxies,Sculptor,,,tiny_dso
+NGC 278,,,00:52:04.31,+47:33:01.8,2.36,2.3,10.85,NGC,278,Galaxy,galaxies,Cassiopeia,,,tiny_dso
 NGC 281,,,00:52:59.35,+56:37:18.8,35.0,30.0,,NGC,281,HII Ionized region,nebulae,Cassiopeia,35.0,35.0,large_dso
+NGC 288,,,00:52:47.45,-26:35:23.6,9.6,,8.13,NGC,288,Globular Cluster,clusters,Sculptor,,,small_dso
 NGC 292,,Small Magellanic Cloud,00:52:44.78,-72:49:43.0,299.92,179.89,2.3,NGC,292,Galaxy,galaxies,Tucana,,,large_dso
 NGC 300,C 70,,00:54:53.48,-37:41:03.8,19.41,13.06,8.66,NGC,300,Galaxy,galaxies,Sculptor,20.0,13.0,large_dso
-NGC 457,,Owl Cluster,01:19:32.65,+58:17:26.5,7.8,,6.4,NGC,457,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 330,,,00:56:17.65,-72:27:46.6,2.8,2.5,9.55,NGC,330,Open Cluster,clusters,Tucana,,,small_dso
+NGC 362,,,01:03:14.23,-70:50:53.6,8.7,,6.58,NGC,362,Globular Cluster,clusters,Tucana,,,small_dso
+NGC 381,,,01:08:18.01,+61:34:59.8,6.0,,9.3,NGC,381,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 404,,,01:09:27.02,+35:43:05.3,3.4,3.37,10.55,NGC,404,Galaxy,galaxies,Andromeda,,,tiny_dso
+NGC 436,,,01:15:57.78,+58:49:01.6,5.7,,8.8,NGC,436,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 457,,Owl Cluster,01:19:32.65,+58:17:26.5,7.8,,6.4,NGC,457,Open Cluster,clusters,Cassiopeia,,,large_dso
+NGC 488,,,01:21:46.85,+05:15:24.2,5.05,3.66,10.26,NGC,488,Galaxy,galaxies,Pisces,,,tiny_dso
+NGC 559,,,01:29:33.17,+63:18:05.2,9.0,,9.5,NGC,559,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 578,,,01:30:29.09,-22:40:02.5,4.82,2.92,11.09,NGC,578,Galaxy,galaxies,Cetus,,,tiny_dso
+NGC 584,,,01:31:20.75,-06:52:05.0,3.78,2.51,10.35,NGC,584,Galaxy,galaxies,Cetus,,,tiny_dso
+NGC 637,,,01:43:03.11,+64:02:11.6,4.5,,8.2,NGC,637,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 654,,,01:43:59.43,+61:52:57.8,6.3,,6.5,NGC,654,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 659,,,01:44:22.99,+60:40:09.0,4.2,,7.9,NGC,659,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 663,,,01:46:16.05,+61:13:05.5,6.0,,7.1,NGC,663,Open Cluster,clusters,Cassiopeia,,,large_dso
+NGC 672,,,01:47:54.52,+27:25:58.0,7.01,2.71,10.92,NGC,672,Galaxy,galaxies,Triangulum,,,tiny_dso
+NGC 744,,,01:58:29.92,+55:28:28.6,11.7,,7.9,NGC,744,Open Cluster,clusters,Perseus,,,small_dso
 NGC 752,C 28,,01:57:34.82,+37:50:00.2,39.0,,5.7,NGC,752,Open Cluster,clusters,Andromeda,50.0,50.0,large_dso
+NGC 772,,,01:59:19.58,+19:00:27.1,4.57,2.52,10.3,NGC,772,Galaxy,galaxies,Aries,,,tiny_dso
+NGC 784,,,02:01:16.93,+28:50:14.1,4.17,1.07,11.73,NGC,784,Galaxy,galaxies,Triangulum,,,tiny_dso
+NGC 864,,,02:15:27.64,+06:00:09.4,3.72,2.57,11.07,NGC,864,Galaxy,galaxies,Cetus,,,tiny_dso
 NGC 869,,"Double cluster, h Persei Cluster",02:18:58.56,+57:07:02.1,14.4,,3.7,NGC,869,Open Cluster,clusters,Perseus,30.0,30.0,large_dso
+NGC 877,,,02:17:59.64,+14:32:38.6,1.92,1.47,11.86,NGC,877,Galaxy,galaxies,Aries,,,tiny_dso
 NGC 884,,"Double cluster, chi Persei Cluster",02:22:32.10,+57:08:38.8,10.5,,3.8,NGC,884,Open Cluster,clusters,Perseus,30.0,30.0,large_dso
+NGC 891,,,02:22:33.41,+42:20:56.9,13.03,3.03,10.01,NGC,891,Galaxy,galaxies,Andromeda,,,tiny_dso
 NGC 896,,,02:25:27.82,+62:01:09.7,10.0,10.0,,NGC,896,Nebula,nebulae,Cassiopeia,27.0,27.0,large_dso
+NGC 908,,,02:23:04.57,-21:14:01.9,6.14,2.82,10.31,NGC,908,Galaxy,galaxies,Cetus,,,tiny_dso
+NGC 925,,,02:27:16.88,+33:34:45.0,10.72,5.75,10.12,NGC,925,Galaxy,galaxies,Triangulum,,,tiny_dso
+NGC 949,,,02:30:48.65,+37:08:12.4,3.1,1.35,11.89,NGC,949,Galaxy,galaxies,Triangulum,,,tiny_dso
+NGC 955,,,02:30:33.15,-01:06:30.3,2.72,0.88,11.96,NGC,955,Galaxy,galaxies,Cetus,,,tiny_dso
+NGC 956,,,02:32:30.90,+44:35:36.5,4.5,,8.9,NGC,956,Open Cluster,clusters,Andromeda,,,small_dso
+NGC 957,,,02:33:19.03,+57:34:10.9,10.2,,7.6,NGC,957,Open Cluster,clusters,Perseus,,,small_dso
+NGC 972,,,02:34:13.38,+29:18:40.6,3.31,1.61,11.33,NGC,972,Galaxy,galaxies,Aries,,,tiny_dso
+NGC 1003,,,02:39:16.89,+40:52:20.3,3.47,0.83,11.51,NGC,1003,Galaxy,galaxies,Perseus,,,tiny_dso
+NGC 1023,,,02:40:24.01,+39:03:47.8,7.4,3.06,9.47,NGC,1023,Galaxy,galaxies,Perseus,,,small_dso
 NGC 1027,,,02:42:35.06,+61:35:39.7,7.8,,6.7,NGC,1027,Open Cluster,clusters,Cassiopeia,20.0,20.0,large_dso
+NGC 1087,,,02:46:25.16,-00:29:55.1,2.97,1.8,11.02,NGC,1087,Galaxy,galaxies,Cetus,,,tiny_dso
+NGC 1097,,,02:46:19.05,-30:16:29.6,10.57,6.44,9.76,NGC,1097,Galaxy,galaxies,Fornax,,,small_dso
+NGC 1187,,,03:02:37.59,-22:52:01.8,4.14,3.02,10.92,NGC,1187,Galaxy,galaxies,Eridanus,,,tiny_dso
+NGC 1232,,,03:09:45.51,-20:34:45.5,6.79,5.77,10.11,NGC,1232,Galaxy,galaxies,Eridanus,,,tiny_dso
+NGC 1245,,,03:14:41.46,+47:14:19.3,11.4,,8.4,NGC,1245,Open Cluster,clusters,Perseus,,,small_dso
+NGC 1261,,,03:12:15.34,-55:13:00.5,5.1,,8.63,NGC,1261,Globular Cluster,clusters,Horologium,,,small_dso
+NGC 1269,,,03:17:18.59,-41:06:29.0,11.17,9.93,8.7,NGC,1269,Galaxy,galaxies,Eridanus,,,small_dso
+NGC 1300,,,03:19:41.08,-19:24:40.9,5.96,3.06,10.52,NGC,1300,Galaxy,galaxies,Eridanus,,,tiny_dso
+NGC 1313,,,03:18:16.05,-66:29:53.7,11.07,9.14,9.49,NGC,1313,Galaxy,galaxies,Reticulum,,,small_dso
 NGC 1316,,Fornax A,03:22:41.72,-37:12:29.6,13.46,7.71,8.48,NGC,1316,Galaxy,galaxies,Fornax,,,small_dso
+NGC 1317,,Fornax B,03:22:44.29,-37:06:13.3,3.1,2.58,10.88,NGC,1317,Galaxy,galaxies,Fornax,,,tiny_dso
+NGC 1332,,,03:26:17.25,-21:20:06.8,5.31,3.84,10.36,NGC,1332,Galaxy,galaxies,Eridanus,,,tiny_dso
 NGC 1333,,,03:28:55.2,+31:22:12,19.5,,,NGC,1333,Star cluster + Nebula,nebulae,Perseus,,,large_dso
+NGC 1342,,,03:31:40.12,+37:22:45.8,6.3,,6.7,NGC,1342,Open Cluster,clusters,Perseus,,,large_dso
+NGC 1360,,,03:33:14.65,-25:52:18.2,6.42,,9.4,NGC,1360,Planetary Nebula,nebulae,Fornax,,,small_dso
+NGC 1365,,,03:33:36.37,-36:08:25.4,12.02,6.14,10.1,NGC,1365,Galaxy,galaxies,Fornax,,,tiny_dso
+NGC 1380,,,03:36:27.59,-34:58:34.4,4.58,2.22,9.94,NGC,1380,Galaxy,galaxies,Fornax,,,small_dso
+NGC 1395,,,03:38:29.75,-23:01:39.1,4.71,3.97,9.65,NGC,1395,Galaxy,galaxies,Eridanus,,,small_dso
+NGC 1398,,,03:38:52.13,-26:20:16.2,6.95,4.91,9.55,NGC,1398,Galaxy,galaxies,Fornax,,,small_dso
+NGC 1399,,,03:38:29.03,-35:27:02.4,8.51,7.69,9.4,NGC,1399,Galaxy,galaxies,Fornax,,,small_dso
+NGC 1400,,,03:39:30.84,-18:41:17.1,2.81,2.52,11.06,NGC,1400,Galaxy,galaxies,Eridanus,,,tiny_dso
+NGC 1404,,,03:38:51.92,-35:35:39.8,5.01,4.38,9.93,NGC,1404,Galaxy,galaxies,Eridanus,,,small_dso
+NGC 1407,,,03:40:11.86,-18:34:48.4,5.73,5.27,9.65,NGC,1407,Galaxy,galaxies,Eridanus,,,small_dso
+NGC 1421,,,03:42:29.28,-13:29:16.9,3.55,0.75,11.52,NGC,1421,Galaxy,galaxies,Eridanus,,,tiny_dso
 NGC 1432,,"Maia Nebula, Maia nebula",03:45:49.59,+24:22:04.3,60.0,40.0,,NGC,1432,HII Ionized region,nebulae,Taurus,30.0,30.0,large_dso
+NGC 1433,,,03:42:01.55,-47:13:19.5,6.19,2.96,9.95,NGC,1433,Galaxy,galaxies,Horologium,,,small_dso
 NGC 1435,,"Merope Nebula, Merope nebula",03:46:10.09,+23:45:53.9,30.0,30.0,,NGC,1435,Nebula,nebulae,Taurus,30.0,30.0,large_dso
+NGC 1444,,,03:49:28.88,+52:39:19.2,3.6,,6.6,NGC,1444,Open Cluster,clusters,Perseus,,,small_dso
+NGC 1496,,,04:04:31.89,+52:39:41.0,2.1,,9.6,NGC,1496,Open Cluster,clusters,Perseus,,,small_dso
 NGC 1499,,"California Nebula, California nebula",04:03:14.42,+36:22:02.9,160.0,40.0,,NGC,1499,Nebula,nebulae,Perseus,145.0,145.0,large_dso
+NGC 1501,,,04:06:59.37,+60:55:14.5,0.87,,11.5,NGC,1501,Planetary Nebula,nebulae,Camelopardalis,,,tiny_dso
 NGC 1502,,Jolly Roger Cluster,04:07:49.30,+62:19:53.5,10.2,,6.9,NGC,1502,Open Cluster,clusters,Camelopardalis,20.0,20.0,large_dso
+NGC 1513,,,04:09:54.70,+49:31:02.2,5.1,,8.4,NGC,1513,Open Cluster,clusters,Perseus,,,small_dso
+NGC 1514,,,04:09:16.95,+30:46:33.3,2.2,,10.19,NGC,1514,Planetary Nebula,nebulae,Taurus,,,tiny_dso
 NGC 1528,,,04:15:18.87,+51:12:41.3,9.6,,6.4,NGC,1528,Open Cluster,clusters,Perseus,24.0,24.0,large_dso
+NGC 1532,,,04:12:04.33,-32:52:27.2,11.27,3.09,10.13,NGC,1532,Galaxy,galaxies,Eridanus,,,tiny_dso
+NGC 1535,,,04:14:15.77,-12:44:21.8,0.85,,9.6,NGC,1535,Planetary Nebula,nebulae,Eridanus,,,tiny_dso
 NGC 1545,,,04:20:56.26,+50:15:19.2,4.2,,6.2,NGC,1545,Open Cluster,clusters,Perseus,18.0,18.0,large_dso
+NGC 1549,,,04:15:45.13,-55:35:32.1,5.09,4.35,9.75,NGC,1549,Galaxy,galaxies,Dorado,,,small_dso
+NGC 1553,,,04:16:10.47,-55:46:48.5,6.25,4.29,9.31,NGC,1553,Galaxy,galaxies,Dorado,,,small_dso
+NGC 1566,,,04:20:00.42,-54:56:16.1,7.23,5.0,9.73,NGC,1566,Galaxy,galaxies,Dorado,,,small_dso
 NGC 1582,,,04:31:46.79,+43:47:05.4,7.8,,7.0,NGC,1582,Open Cluster,clusters,Perseus,37.0,37.0,large_dso
 NGC 1647,,Pirate Moon Cluster,04:45:55.57,+19:05:42.4,27.0,,6.4,NGC,1647,Open Cluster,clusters,Taurus,45.0,45.0,large_dso
 NGC 1662,,,04:48:28.95,+10:55:49.4,13.8,,6.4,NGC,1662,Open Cluster,clusters,Orion,20.0,20.0,large_dso
 NGC 1664,,,04:51:05.43,+43:40:34.2,11.4,,7.6,NGC,1664,Open Cluster,clusters,Auriga,18.0,18.0,large_dso
 NGC 1746,,,05:03:50.19,+23:46:03.5,18.0,,6.1,NGC,1746,Open Cluster,clusters,Taurus,42.0,42.0,large_dso
+NGC 1747,,,04:55:10.98,-67:10:08.0,4.4,4.4,9.37,NGC,1747,Open Cluster,clusters,Dorado,,,small_dso
+NGC 1755,,,04:55:14.87,-68:12:14.6,2.2,1.9,9.85,NGC,1755,Globular Cluster,clusters,Dorado,,,small_dso
+NGC 1761,,,04:56:37.73,-66:28:43.9,4.2,3.0,9.94,NGC,1761,Association of stars,stars,Dorado,,,small_dso
 NGC 1763,,,04:56:49.19,-66:24:32.7,5.2,3.6,9.4,NGC,1763,Star cluster + Nebula,nebulae,Dorado,25.0,25.0,large_dso
+NGC 1778,,,05:08:05.70,+37:01:22.2,4.5,,7.7,NGC,1778,Open Cluster,clusters,Auriga,,,small_dso
+NGC 1787,,,05:01:44.41,-65:49:23.9,24.0,14.0,10.92,NGC,1787,Open Cluster,clusters,Dorado,,,large_dso
+NGC 1798,,,05:11:39.32,+47:41:43.8,5.4,,,NGC,1798,Open Cluster,clusters,Auriga,,,small_dso
+NGC 1807,,,05:10:45.03,+16:30:45.9,5.4,,7.0,NGC,1807,Open Cluster,clusters,Taurus,,,small_dso
+NGC 1817,,,05:12:26.27,+16:41:02.7,9.3,,7.7,NGC,1817,Open Cluster,clusters,Taurus,,,large_dso
+NGC 1848,,,05:07:27.16,-71:11:43.3,2.2,2.0,9.73,NGC,1848,Open Cluster,clusters,Mensa,,,small_dso
+NGC 1850,,,05:08:44.73,-68:45:42.0,3.0,3.0,8.96,NGC,1850,Globular Cluster,clusters,Dorado,,,small_dso
+NGC 1851,,,05:14:06.73,-40:02:47.8,9.0,,7.23,NGC,1851,Globular Cluster,clusters,Columba,,,small_dso
+NGC 1857,,,05:20:05.56,+39:20:37.0,4.5,,7.0,NGC,1857,Open Cluster,clusters,Auriga,,,small_dso
+NGC 1858,,,05:09:51.94,-68:53:28.5,4.4,2.6,9.88,NGC,1858,Star cluster + Nebula,nebulae,Dorado,,,small_dso
+NGC 1866,,,05:13:39.10,-65:27:56.1,5.5,5.5,9.73,NGC,1866,Globular Cluster,clusters,Dorado,,,small_dso
+NGC 1883,,,05:25:54.20,+46:29:24.5,5.7,,12.0,NGC,1883,Open Cluster,clusters,Auriga,,,tiny_dso
+NGC 1893,,,05:22:44.14,+33:24:43.3,6.0,,7.5,NGC,1893,Open Cluster,clusters,Auriga,,,large_dso
+NGC 1907,,,05:28:04.55,+35:19:32.4,5.4,,8.2,NGC,1907,Open Cluster,clusters,Auriga,,,small_dso
 NGC 1909,,"Witch Head nebula, the Witch Head Nebula",05:04:55.44,-07:15:56.3,180.0,60.0,,NGC,1909,Reflection Nebula,nebulae,Eridanus,180.0,180.0,large_dso
+NGC 1910,,,05:18:43.07,-69:13:54.9,3.6,2.8,9.65,NGC,1910,Star cluster + Nebula,nebulae,Dorado,,,small_dso
+NGC 1931,,,05:31:25.35,+34:14:47.6,4.8,,10.1,NGC,1931,Star cluster + Nebula,nebulae,Auriga,,,tiny_dso
+NGC 1955,,,05:26:09.96,-67:29:50.6,4.0,3.6,8.87,NGC,1955,HII Ionized region,nebulae,Dorado,,,small_dso
+NGC 1964,,,05:33:21.76,-21:56:44.8,5.16,2.33,10.91,NGC,1964,Galaxy,galaxies,Lepus,,,tiny_dso
+NGC 1968,,,05:27:22.11,-67:27:49.8,5.0,2.7,8.22,NGC,1968,Association of stars,stars,Dorado,,,small_dso
 NGC 1977,,"Running Man, the Running Man Nebula",05:35:15.80,-04:50:39.6,10.2,,,NGC,1977,Star cluster + Nebula,nebulae,Orion,20.0,20.0,large_dso
-NGC 1980,,Lower Sword,05:35:25.99,-05:54:35.6,9.3,,2.5,NGC,1980,Star cluster + Nebula,nebulae,Orion,,,small_dso
+NGC 1980,,Lower Sword,05:35:25.99,-05:54:35.6,9.3,,2.5,NGC,1980,Star cluster + Nebula,nebulae,Orion,,,large_dso
 NGC 1981,,Upper Sword,05:35:09.59,-04:25:30.2,9.0,,4.2,NGC,1981,Star cluster + Nebula,nebulae,Orion,25.0,25.0,large_dso
+NGC 1984,,,05:27:40.91,-69:08:03.6,1.5,1.2,9.99,NGC,1984,Open Cluster,clusters,Dorado,,,small_dso
+NGC 2014,,,05:32:19.87,-67:41:23.4,5.1,3.5,8.97,NGC,2014,Nebula,nebulae,Dorado,,,small_dso
 NGC 2024,,Flame Nebula,05:41:42.57,-01:51:22.6,30.0,30.0,,NGC,2024,Nebula,nebulae,Orion,30.0,30.0,large_dso
+NGC 2042,,,05:36:09.58,-68:55:24.4,4.5,4.5,9.58,NGC,2042,Open Cluster,clusters,Dorado,,,small_dso
+NGC 2050,,,05:36:38.82,-69:23:00.7,3.0,2.4,9.25,NGC,2050,Association of stars,stars,Dorado,,,small_dso
 NGC 2052,,,05:37:11.05,-69:46:27.1,18.0,12.0,,NGC,2052,Nebula,nebulae,Dorado,,,large_dso
+NGC 2055,,,05:36:44.73,-69:29:55.1,1.9,1.3,8.39,NGC,2055,Association of stars,stars,Dorado,,,small_dso
+NGC 2060,,,05:37:46.90,-69:10:18.0,2.2,2.0,9.59,NGC,2060,Supernova remnant,nebulae,Dorado,,,small_dso
 NGC 2070,C 103,"30 Dor Cluster,Tarantula Nebula, Tarantula Nebula",05:38:42.36,-69:06:03.2,16.0,16.0,7.25,NGC,2070,HII Ionized region,nebulae,Dorado,40.0,25.0,large_dso
 NGC 2112,,,05:53:45.21,+00:24:38.9,21.0,,9.1,NGC,2112,Open Cluster,clusters,Orion,,,large_dso
+NGC 2126,,,06:02:32.98,+49:51:57.3,5.4,,,NGC,2126,Open Cluster,clusters,Auriga,,,tiny_dso
+NGC 2129,,,06:01:06.54,+23:19:19.8,3.9,,6.7,NGC,2129,Open Cluster,clusters,Gemini,,,small_dso
+NGC 2141,,,06:02:55.06,+10:26:47.3,5.4,,9.4,NGC,2141,Open Cluster,clusters,Orion,,,small_dso
+NGC 2146,,,06:18:37.71,+78:21:25.3,5.31,4.32,10.69,NGC,2146,Galaxy,galaxies,Camelopardalis,,,tiny_dso
+NGC 2158,,,06:07:25.61,+24:05:46.2,8.4,,8.6,NGC,2158,Open Cluster,clusters,Gemini,,,small_dso
+NGC 2169,,,06:08:24.35,+13:57:53.5,7.2,,5.9,NGC,2169,Open Cluster,clusters,Orion,,,small_dso
 NGC 2174,,Monkey Head Nebula,06:09:23.62,+20:39:34.5,40.0,30.0,,NGC,2174,Nebula,nebulae,Orion,40.0,40.0,large_dso
 NGC 2175,,,06:09:39.55,+20:29:15.3,5.4,,6.8,NGC,2175,Star cluster + Nebula,nebulae,Orion,18.0,18.0,large_dso
+NGC 2186,,,06:12:07.13,+05:27:30.9,4.2,,8.7,NGC,2186,Open Cluster,clusters,Orion,,,small_dso
+NGC 2192,,,06:15:17.43,+39:51:18.8,5.4,,10.9,NGC,2192,Open Cluster,clusters,Auriga,,,tiny_dso
+NGC 2194,,,06:13:45.91,+12:48:24.0,8.7,,8.5,NGC,2194,Open Cluster,clusters,Orion,,,small_dso
+NGC 2204,,,06:15:32.22,-18:39:57.1,6.3,,8.6,NGC,2204,Open Cluster,clusters,Canis Major,,,small_dso
+NGC 2207,,,06:16:22.03,-21:22:21.6,4.86,2.71,11.06,NGC,2207,Galaxy,galaxies,Canis Major,,,tiny_dso
+NGC 2215,,,06:20:49.25,-07:17:01.6,8.4,,8.45,NGC,2215,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2217,,,06:21:39.78,-27:14:01.5,4.63,4.12,10.57,NGC,2217,Galaxy,galaxies,Canis Major,,,tiny_dso
 NGC 2232,,,06:28:01.13,-04:50:50.8,9.9,,3.9,NGC,2232,Open Cluster,clusters,Monoceros,30.0,30.0,large_dso
+NGC 2236,,,06:29:39.70,+06:49:50.5,5.4,,8.5,NGC,2236,Open Cluster,clusters,Monoceros,,,small_dso
 NGC 2237,C 49,"Rosette A, Rosette Nebula",06:30:54.61,+05:02:57.0,80.0,50.0,,NGC,2237,Nebula,nebulae,Monoceros,80.0,60.0,large_dso
 NGC 2238,,Rosette Nebula,06:30:40.37,+05:00:47.0,80.0,60.0,,NGC,2238,HII Ionized region,nebulae,Monoceros,,,large_dso
 NGC 2239,C 50,,06:31:55.56,+04:56:34.6,9.3,,4.8,NGC,2239,Star cluster + Nebula,nebulae,Monoceros,24.0,24.0,large_dso
+NGC 2243,,,06:29:34.48,-31:16:52.8,5.1,,9.4,NGC,2243,Open Cluster,clusters,Canis Major,,,small_dso
+NGC 2244 CLUSTER IN ROS,,cluster in the Rosette,06:32:03,+04:51:00.0,30.0,30.0,4.8,NGC,2244,Open Cluster,clusters,Monoceros,,,large_dso
+NGC 2250,,,06:33:49.88,-05:05:04.0,5.1,,8.9,NGC,2250,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2251,,,06:34:38.48,+08:21:59.0,5.7,,7.3,NGC,2251,Open Cluster,clusters,Monoceros,,,small_dso
 NGC 2252,,,06:34:42.97,+05:21:58.5,6.6,,7.7,NGC,2252,Open Cluster,clusters,Monoceros,20.0,20.0,large_dso
+NGC 2254,,,06:35:49.66,+07:40:23.8,4.2,,9.1,NGC,2254,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2259,,,06:38:21.44,+10:53:01.0,6.0,,10.8,NGC,2259,Open Cluster,clusters,Monoceros,,,tiny_dso
+NGC 2261,,Hubble's Nebula,06:39:09.51,+08:44:39.6,2.0,1.0,11.85,NGC,2261,Reflection Nebula,nebulae,Monoceros,,,tiny_dso
 NGC 2264,,"Christmas Tree Cluster, Christmas Tree cluster",06:40:58.25,+09:53:43.7,11.4,,3.9,NGC,2264,Star cluster + Nebula,nebulae,Monoceros,60.0,60.0,large_dso
-NGC 2301,,Great Bird Cluster,06:51:45.30,+00:27:33.1,10.8,,6.0,NGC,2301,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2266,,,06:43:19.21,+26:58:10.4,4.2,,9.5,NGC,2266,Open Cluster,clusters,Gemini,,,small_dso
+NGC 2268,,,07:14:17.44,+84:22:56.2,2.14,0.93,11.56,NGC,2268,Galaxy,galaxies,Camelopardalis,,,tiny_dso
+NGC 2269,,,06:43:17.08,+04:37:27.5,4.8,,10.0,NGC,2269,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2281,,,06:48:17.84,+41:04:43.9,10.8,,5.4,NGC,2281,Open Cluster,clusters,Auriga,,,large_dso
+NGC 2286,,,06:47:40.17,-03:08:51.6,5.4,,7.5,NGC,2286,Open Cluster,clusters,Monoceros,,,large_dso
+NGC 2298,,,06:48:59.20,-36:00:19.1,4.8,,8.89,NGC,2298,Globular Cluster,clusters,Puppis,,,small_dso
+NGC 2299,,,06:51:53.68,-07:04:57.8,4.8,,8.9,NGC,2299,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2301,,Great Bird Cluster,06:51:45.30,+00:27:33.1,10.8,,6.0,NGC,2301,Open Cluster,clusters,Monoceros,,,large_dso
+NGC 2304,,,06:55:11.61,+17:59:34.0,4.8,,10.0,NGC,2304,Open Cluster,clusters,Gemini,,,small_dso
+NGC 2309,,,06:56:03.61,-07:10:27.5,5.4,,10.5,NGC,2309,Open Cluster,clusters,Monoceros,,,tiny_dso
+NGC 2311,,,06:57:47.55,-04:36:40.8,6.0,,9.6,NGC,2311,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2324,,,07:04:07.96,+01:02:40.6,8.7,,8.4,NGC,2324,Open Cluster,clusters,Monoceros,,,small_dso
 NGC 2331,,,07:06:59.83,+27:15:41.7,4.8,,8.5,NGC,2331,Open Cluster,clusters,Gemini,18.0,18.0,large_dso
+NGC 2335,,,07:06:49.45,-10:01:43.1,8.7,,7.2,NGC,2335,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2336,,,07:27:04.05,+80:10:41.1,5.01,2.81,10.68,NGC,2336,Galaxy,galaxies,Camelopardalis,,,tiny_dso
+NGC 2343,,,07:08:06.80,-10:37:00.5,7.5,,6.7,NGC,2343,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2345,,,07:08:18.79,-13:11:37.5,6.9,,7.7,NGC,2345,Open Cluster,clusters,Canis Major,,,small_dso
 NGC 2353,,,07:14:30.31,-10:15:57.1,6.6,,7.1,NGC,2353,Open Cluster,clusters,Monoceros,20.0,20.0,large_dso
 NGC 2354,,,07:14:05.27,-25:41:20.1,4.8,,6.5,NGC,2354,Open Cluster,clusters,Canis Major,20.0,20.0,large_dso
+NGC 2355,,,07:16:59.26,+13:44:59.5,6.0,,9.7,NGC,2355,Open Cluster,clusters,Gemini,,,small_dso
+NGC 2359,,,07:18:30.98,-13:13:37.9,10.0,5.0,,NGC,2359,HII Ionized region,nebulae,Canis Major,,,small_dso
 NGC 2360,,Caroline's Cluster,07:17:43.12,-15:38:28.7,9.0,,7.2,NGC,2360,Open Cluster,clusters,Canis Major,,,small_dso
+NGC 2362,,,07:18:41.47,-24:57:15.1,7.2,,4.1,NGC,2362,Open Cluster,clusters,Canis Major,,,small_dso
+NGC 2367,,,07:20:04.54,-21:53:02.7,5.4,,7.9,NGC,2367,Open Cluster,clusters,Canis Major,,,small_dso
+NGC 2371,,,07:25:34.66,+29:29:26.3,2.2,0.96,11.2,NGC,2371,Planetary Nebula,nebulae,Gemini,,,tiny_dso
 NGC 2374,,,07:23:56.07,-13:15:48.1,9.0,,8.0,NGC,2374,Open Cluster,clusters,Canis Major,19.0,19.0,large_dso
+NGC 2383,,,07:24:39.90,-20:56:51.5,4.2,,8.4,NGC,2383,Open Cluster,clusters,Canis Major,,,small_dso
+NGC 2384,,,07:25:09.83,-21:01:11.5,4.8,,7.4,NGC,2384,Open Cluster,clusters,Canis Major,,,small_dso
+NGC 2392,,Eskimo Nebula,07:29:10.76,+20:54:42.6,0.86,,9.61,NGC,2392,Planetary Nebula,nebulae,Gemini,,,tiny_dso
+NGC 2395,,,07:27:12.85,+13:36:29.5,4.62,,8.0,NGC,2395,Open Cluster,clusters,Gemini,,,small_dso
+NGC 2396,,,07:28:02.92,-11:43:10.8,6.6,,7.4,NGC,2396,Open Cluster,clusters,Puppis,,,small_dso
 NGC 2403,C 7,,07:36:51.40,+65:36:09.2,19.95,10.07,8.43,NGC,2403,Galaxy,galaxies,Camelopardalis,18.0,10.0,large_dso
+NGC 2414,,,07:33:12.80,-15:27:13.9,5.4,,7.9,NGC,2414,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2419,,,07:38:07.95,+38:52:47.9,4.5,,10.05,NGC,2419,Globular Cluster,clusters,Lynx,,,tiny_dso
+NGC 2420,,,07:38:23.90,+21:34:26.7,7.5,,8.3,NGC,2420,Open Cluster,clusters,Gemini,,,small_dso
+NGC 2421,,,07:36:11.81,-20:36:44.1,5.1,,8.3,NGC,2421,Open Cluster,clusters,Puppis,,,small_dso
 NGC 2423,,,07:37:06.73,-13:52:17.4,11.7,,6.7,NGC,2423,Open Cluster,clusters,Puppis,19.0,19.0,large_dso
+NGC 2438,,,07:41:50.39,-14:44:08.8,1.07,,10.8,NGC,2438,Planetary Nebula,nebulae,Puppis,,,tiny_dso
+NGC 2439,,,07:40:45.41,-31:41:32.7,8.7,,6.9,NGC,2439,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2440,,,07:41:55.36,-18:12:30.5,0.27,,9.4,NGC,2440,Planetary Nebula,nebulae,Puppis,,,tiny_dso
 NGC 2451,,,07:45:15.01,-37:58:02.8,37.5,,9.5,NGC,2451,Open Cluster,clusters,Puppis,45.0,45.0,large_dso
+NGC 2452,,,07:47:26.37,-27:20:02.4,0.32,,12.0,NGC,2452,Planetary Nebula,nebulae,Puppis,,,tiny_dso
+NGC 2453,,,07:47:34.13,-27:11:41.3,3.0,,8.3,NGC,2453,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2467,,,07:52:23.43,-26:26:36.0,4.2,,,NGC,2467,Star cluster + Nebula,nebulae,Puppis,,,large_dso
 NGC 2477,C 71,,07:52:09.78,-38:31:59.7,18.6,,5.8,NGC,2477,Open Cluster,clusters,Puppis,27.0,27.0,large_dso
+NGC 2479,,,07:55:06.07,-17:42:28.1,6.3,,9.6,NGC,2479,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2482,,,07:55:10.37,-24:15:16.7,6.6,,7.3,NGC,2482,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2483,,,07:55:38.79,-27:53:12.6,3.3,,7.6,NGC,2483,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2489,,,07:56:14.94,-30:03:39.0,4.2,,7.9,NGC,2489,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2506,,,08:00:01.78,-10:46:10.7,10.8,,7.6,NGC,2506,Open Cluster,clusters,Monoceros,,,small_dso
+NGC 2509,,,08:00:47.82,-19:03:01.9,4.8,,9.3,NGC,2509,Open Cluster,clusters,Puppis,,,small_dso
 NGC 2516,C 96,,07:58:07.06,-60:45:12.5,24.3,,3.8,NGC,2516,Open Cluster,clusters,Carina,30.0,30.0,large_dso
 NGC 2520,,,08:04:58.18,-28:08:48.0,9.3,,6.5,NGC,2520,Open Cluster,clusters,Puppis,22.0,22.0,large_dso
+NGC 2533,,,08:07:04.10,-29:53:01.9,4.98,,7.6,NGC,2533,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2537,,"Bear Claw Nebula,Bear-Paw Galaxy",08:13:14.64,+45:59:23.3,2.07,1.96,11.71,NGC,2537,Galaxy,galaxies,Lynx,,,tiny_dso
 NGC 2539,,,08:10:36.98,-12:49:14.4,12.3,,6.5,NGC,2539,Open Cluster,clusters,Puppis,22.0,22.0,large_dso
 NGC 2546,,,08:12:15.63,-37:35:39.5,16.5,,6.3,NGC,2546,Open Cluster,clusters,Puppis,41.0,41.0,large_dso
 NGC 2547,,,08:10:09.49,-49:12:20.4,7.8,,4.7,NGC,2547,Open Cluster,clusters,Vela,20.0,20.0,large_dso
+NGC 2567,,,08:18:35.18,-30:38:08.2,6.0,,7.4,NGC,2567,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2571,,,08:18:56.35,-29:44:57.4,7.2,,7.0,NGC,2571,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2580,,,08:21:27.90,-30:17:36.5,3.0,,9.7,NGC,2580,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2587,,,08:23:24.08,-29:30:31.4,6.0,,9.2,NGC,2587,Open Cluster,clusters,Puppis,,,small_dso
+NGC 2588,,,08:23:09.57,-32:58:30.6,3.9,,11.8,NGC,2588,Open Cluster,clusters,Puppis,,,tiny_dso
+NGC 2627,,,08:37:14.94,-29:57:01.5,5.4,,8.4,NGC,2627,Open Cluster,clusters,Pyxis,,,small_dso
+NGC 2645,,,08:39:03.12,-46:13:38.3,6.6,,7.32,NGC,2645,Open Cluster,clusters,Vela,,,small_dso
+NGC 2655,,,08:55:37.73,+78:13:23.1,3.93,2.06,10.39,NGC,2655,Galaxy,galaxies,Camelopardalis,,,tiny_dso
+NGC 2658,,,08:43:27.34,-32:39:22.4,7.2,,9.2,NGC,2658,Open Cluster,clusters,Pyxis,,,small_dso
+NGC 2659,,,08:42:33.02,-45:00:01.9,5.1,,8.6,NGC,2659,Open Cluster,clusters,Vela,,,small_dso
+NGC 2660,,,08:42:37.99,-47:12:02.4,3.6,,8.8,NGC,2660,Open Cluster,clusters,Vela,,,small_dso
+NGC 2669,,,08:46:22.57,-52:56:51.1,8.4,,6.1,NGC,2669,Open Cluster,clusters,Vela,,,small_dso
+NGC 2670,,,08:45:29.48,-48:47:29.9,4.2,,7.8,NGC,2670,Open Cluster,clusters,Vela,,,small_dso
+NGC 2681,,,08:53:32.74,+51:18:49.2,3.97,3.97,10.86,NGC,2681,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 2683,,,08:52:41.33,+33:25:18.3,9.48,2.7,9.69,NGC,2683,Galaxy,galaxies,Lynx,,,small_dso
+NGC 2685,,Helix Galaxy,08:55:34.71,+58:44:03.8,4.33,2.31,11.35,NGC,2685,Galaxy,galaxies,Ursa Major,,,tiny_dso
 NGC 2736,,Pencil Nebula,09:00:16.94,-45:56:53.0,30.0,7.0,,NGC,2736,HII Ionized region,nebulae,Vela,,,large_dso
+NGC 2768,,,09:11:37.50,+60:02:14.0,5.64,2.24,9.87,NGC,2768,Galaxy,galaxies,Ursa Major,,,small_dso
+NGC 2808,,,09:12:02.54,-64:51:46.2,9.0,,5.69,NGC,2808,Globular Cluster,clusters,Carina,,,small_dso
+NGC 2815,,,09:16:19.75,-23:37:59.7,3.51,1.41,11.86,NGC,2815,Galaxy,galaxies,Hydra,,,tiny_dso
+NGC 2841,,,09:22:02.63,+50:58:35.5,6.9,3.31,10.18,NGC,2841,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 2903,,,09:32:10.11,+21:30:03.0,11.94,5.28,8.91,NGC,2903,Galaxy,galaxies,Leo,,,small_dso
+NGC 2910,,,09:30:29.02,-52:54:50.4,4.8,,7.2,NGC,2910,Open Cluster,clusters,Vela,,,small_dso
+NGC 2925,,,09:33:10.92,-53:23:45.5,7.5,,8.3,NGC,2925,Open Cluster,clusters,Vela,,,small_dso
+NGC 2972,,,09:40:11.52,-50:19:15.4,3.6,,9.9,NGC,2972,Open Cluster,clusters,Vela,,,small_dso
+NGC 2997,,,09:45:38.79,-31:11:27.9,10.26,6.21,9.41,NGC,2997,Galaxy,galaxies,Antlia,,,small_dso
+NGC 3003,,,09:48:36.05,+33:25:17.4,4.74,1.06,11.78,NGC,3003,Galaxy,galaxies,Leo Minor,,,tiny_dso
+NGC 3033,,,09:48:35.04,-56:25:48.2,4.8,,8.8,NGC,3033,Open Cluster,clusters,Vela,,,small_dso
+NGC 3077,,,10:03:19.07,+68:44:02.1,5.21,4.32,9.88,NGC,3077,Galaxy,galaxies,Ursa Major,,,small_dso
+NGC 3079,,,10:01:57.80,+55:40:47.2,8.18,1.29,10.71,NGC,3079,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3091,,,10:00:14.29,-19:38:13.1,3.69,2.18,11.0,NGC,3091,Galaxy,galaxies,Hydra,,,tiny_dso
+NGC 3105,,,10:00:39.52,-54:47:15.7,4.08,,9.7,NGC,3105,Open Cluster,clusters,Vela,,,small_dso
+NGC 3109,,,10:03:06.88,-26:09:34.5,16.0,2.74,10.54,NGC,3109,Galaxy,galaxies,Hydra,,,tiny_dso
 NGC 3114,,,10:02:29.57,-60:07:49.9,12.3,,4.2,NGC,3114,Open Cluster,clusters,Carina,35.0,35.0,large_dso
 NGC 3115,,Spindle Galaxy,10:05:13.98,-07:43:06.9,7.1,3.01,9.09,NGC,3115,Galaxy,galaxies,Sextans,,,small_dso
+NGC 3184,,,10:18:16.86,+41:25:26.6,7.4,7.18,9.84,NGC,3184,Galaxy,galaxies,Ursa Major,,,small_dso
 NGC 3199,,,10:17:24.43,-57:55:20.0,20.0,15.0,,NGC,3199,Nebula,nebulae,Carina,22.0,22.0,large_dso
 NGC 3201,C 79,,10:17:36.76,-46:24:40.4,9.6,,8.24,NGC,3201,Globular Cluster,clusters,Vela,18.0,18.0,large_dso
+NGC 3226,,,10:23:27.01,+19:53:54.7,3.13,2.26,12.95,NGC,3226,Galaxy,galaxies,Leo,,,tiny_dso
+NGC 3227,,,10:23:30.58,+19:51:54.2,3.98,1.86,11.72,NGC,3227,Galaxy,galaxies,Leo,,,tiny_dso
 NGC 3228,,,10:21:22.24,-51:43:21.3,6.6,,6.0,NGC,3228,Open Cluster,clusters,Vela,18.0,18.0,large_dso
 NGC 3242,,"Ghost of Jupiter, Jupiter's Ghost Nebula",10:24:46.08,-18:38:32.0,0.42,,7.7,NGC,3242,Planetary Nebula,nebulae,Hydra,20.8,20.8,large_dso
+NGC 3247,,,10:24:14.00,-57:45:48.0,5.0,5.0,7.6,NGC,3247,HII Ionized region,nebulae,Carina,,,small_dso
 NGC 3293,,,10:35:48.77,-58:13:28.1,5.1,,4.7,NGC,3293,Open Cluster,clusters,Carina,40.0,40.0,large_dso
+NGC 3324,,,10:37:16.21,-58:37:10.4,4.8,,6.7,NGC,3324,Star cluster + Nebula,nebulae,Carina,,,small_dso
+NGC 3330,,,10:38:45.43,-54:07:50.6,5.1,,7.4,NGC,3330,Open Cluster,clusters,Vela,,,small_dso
+NGC 3344,,,10:43:31.15,+24:55:20.0,6.7,6.37,9.98,NGC,3344,Galaxy,galaxies,Leo Minor,,,small_dso
 NGC 3372,C 92,"Carina Nebula,eta Car Nebula, Eta Carinae Nebula",10:45:08.53,-59:52:00.1,120.0,120.0,,NGC,3372,HII Ionized region,nebulae,Carina,120.0,120.0,large_dso
+NGC 3384,,,10:48:16.89,+12:37:45.4,5.24,2.37,9.96,NGC,3384,Galaxy,galaxies,Leo,,,small_dso
+NGC 3432,,,10:52:31.13,+36:37:07.6,7.41,2.08,11.27,NGC,3432,Galaxy,galaxies,Leo Minor,,,tiny_dso
+NGC 3496,,,10:59:33.81,-60:20:12.7,6.0,,8.2,NGC,3496,Open Cluster,clusters,Carina,,,small_dso
+NGC 3507,,,11:03:25.36,+18:08:07.6,2.92,2.51,,NGC,3507,Galaxy,galaxies,Leo,,,tiny_dso
+NGC 3511,,,11:03:23.77,-23:05:12.4,6.04,2.0,11.02,NGC,3511,Galaxy,galaxies,Crater,,,tiny_dso
+NGC 3521,,,11:05:48.58,-00:02:09.1,8.32,4.47,9.11,NGC,3521,Galaxy,galaxies,Leo,,,small_dso
 NGC 3532,C 91,Wishing Well Cluster,11:05:47.82,-58:46:13.8,12.0,,3.0,NGC,3532,Open Cluster,clusters,Carina,55.0,55.0,large_dso
 NGC 3572,,,11:10:19.20,-60:14:54.1,4.08,,6.6,NGC,3572,Open Cluster,clusters,Carina,20.0,20.0,large_dso
 NGC 3576,,,11:11:31.67,-61:21:46.8,3.0,3.0,,NGC,3576,HII Ionized region,nebulae,Carina,20.0,20.0,large_dso
 NGC 3579,,,11:11:59.60,-61:14:35.6,20.0,15.0,,NGC,3579,Nebula,nebulae,Carina,,,large_dso
+NGC 3585,,,11:13:17.09,-26:45:17.4,6.61,3.27,9.69,NGC,3585,Galaxy,galaxies,Hydra,,,small_dso
+NGC 3590,,,11:12:58.97,-60:47:20.5,5.1,,8.2,NGC,3590,Open Cluster,clusters,Carina,,,small_dso
+NGC 3607,,,11:16:54.64,+18:03:06.3,4.59,4.03,10.0,NGC,3607,Galaxy,galaxies,Leo,,,small_dso
+NGC 3621,,,11:18:16.51,-32:48:50.6,9.79,4.03,9.55,NGC,3621,Galaxy,galaxies,Hydra,,,small_dso
+NGC 3628,,,11:20:16.97,+13:35:22.9,11.04,3.44,9.45,NGC,3628,Galaxy,galaxies,Leo,,,small_dso
+NGC 3631,,,11:21:02.87,+53:10:10.4,3.72,3.08,10.42,NGC,3631,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3672,,,11:25:02.47,-09:47:43.4,2.9,1.69,11.34,NGC,3672,Galaxy,galaxies,Crater,,,tiny_dso
+NGC 3675,,,11:26:08.58,+43:35:09.3,5.9,3.27,10.09,NGC,3675,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3680,,,11:25:37.08,-43:15:00.4,5.7,,7.6,NGC,3680,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 3718,,,11:32:34.85,+53:04:04.5,4.7,2.34,10.7,NGC,3718,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3726,,,11:33:21.12,+47:01:45.1,5.27,3.54,10.49,NGC,3726,Galaxy,galaxies,Ursa Major,,,tiny_dso
 NGC 3766,,Pearl Cluster,11:36:14.39,-61:36:18.6,6.9,,5.3,NGC,3766,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 3877,,,11:46:07.70,+47:29:39.6,5.36,1.23,11.0,NGC,3877,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3887,,,11:47:04.57,-16:51:16.6,3.27,2.57,10.93,NGC,3887,Galaxy,galaxies,Crater,,,tiny_dso
+NGC 3893,,,11:48:38.19,+48:42:39.0,2.69,1.43,10.63,NGC,3893,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3917,,,11:50:45.43,+51:49:28.8,4.61,1.03,11.81,NGC,3917,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3923,,,11:51:01.69,-28:48:21.7,6.89,4.55,9.6,NGC,3923,Galaxy,galaxies,Hydra,,,small_dso
+NGC 3938,,,11:52:49.45,+44:07:14.6,3.55,3.44,10.36,NGC,3938,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3945,,,11:53:13.73,+60:40:32.0,5.55,3.29,10.75,NGC,3945,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3953,,,11:53:48.92,+52:19:36.4,6.14,3.13,10.1,NGC,3953,Galaxy,galaxies,Ursa Major,,,tiny_dso
+NGC 3955,,,11:53:57.15,-23:09:51.0,4.15,1.21,11.84,NGC,3955,Galaxy,galaxies,Crater,,,tiny_dso
+NGC 3960,,,11:50:33.21,-55:40:11.4,6.0,,8.3,NGC,3960,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 3962,,,11:54:40.10,-13:58:30.1,4.17,3.0,10.65,NGC,3962,Galaxy,galaxies,Crater,,,tiny_dso
+NGC 4027,,,11:59:30.17,-19:15:54.8,3.54,2.8,11.17,NGC,4027,Galaxy,galaxies,Corvus,,,tiny_dso
+NGC 4038,,Antennae Galaxies,12:01:53.01,-18:52:03.4,5.42,3.78,10.2,NGC,4038,Galaxy,galaxies,Corvus,,,tiny_dso
+NGC 4039,,Antennae Galaxies,12:01:53.51,-18:53:10.3,5.36,2.73,,NGC,4039,Galaxy,galaxies,Corvus,,,tiny_dso
+NGC 4052,,,12:02:05.19,-63:13:24.5,5.1,,8.8,NGC,4052,Open Cluster,clusters,Crux,,,small_dso
+NGC 4103,,,12:06:39.57,-61:15:00.3,7.8,,7.4,NGC,4103,Open Cluster,clusters,Crux,,,small_dso
+NGC 4111,,,12:07:03.13,+43:03:56.6,1.78,0.64,10.81,NGC,4111,Galaxy,galaxies,Canes Venatici,,,tiny_dso
+NGC 4125,,,12:08:06.02,+65:10:26.9,5.87,4.58,9.71,NGC,4125,Galaxy,galaxies,Draco,,,small_dso
+NGC 4214,,,12:15:39.17,+36:19:36.8,6.79,5.28,9.77,NGC,4214,Galaxy,galaxies,Canes Venatici,,,small_dso
+NGC 4216,,,12:15:54.44,+13:08:57.8,7.82,1.84,9.93,NGC,4216,Galaxy,galaxies,Virgo,,,small_dso
+NGC 4230,,,12:17:09.37,-55:17:10.1,5.4,,9.4,NGC,4230,Open Cluster,clusters,Centaurus,,,small_dso
 NGC 4236,C 3,,12:16:42.12,+69:27:45.3,23.5,6.85,9.77,NGC,4236,Galaxy,galaxies,Draco,21.0,7.0,large_dso
+NGC 4244,,,12:17:29.66,+37:48:25.6,16.22,7.24,10.18,NGC,4244,Galaxy,galaxies,Canes Venatici,,,tiny_dso
+NGC 4274,,,12:19:50.59,+29:36:52.1,3.63,1.7,10.42,NGC,4274,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+NGC 4278,,,12:20:06.82,+29:16:50.7,2.89,2.83,10.21,NGC,4278,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+NGC 4314,,,12:22:31.82,+29:53:45.2,3.7,3.56,10.57,NGC,4314,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+NGC 4337,,,12:24:03.31,-58:07:25.6,6.6,,8.9,NGC,4337,Open Cluster,clusters,Crux,,,small_dso
+NGC 4346,,,12:23:27.94,+46:59:37.8,3.13,1.13,,NGC,4346,Galaxy,galaxies,Canes Venatici,,,tiny_dso
+NGC 4349,,,12:24:06.04,-61:52:13.6,6.3,,7.4,NGC,4349,Open Cluster,clusters,Crux,,,small_dso
+NGC 4361,,,12:24:30.76,-18:47:05.4,1.05,,10.9,NGC,4361,Planetary Nebula,nebulae,Corvus,,,tiny_dso
+NGC 4365,,,12:24:28.28,+07:19:03.6,5.12,3.66,9.43,NGC,4365,Galaxy,galaxies,Virgo,,,small_dso
 NGC 4372,C 108,,12:25:45.38,-72:39:32.7,12.0,,9.85,NGC,4372,Globular Cluster,clusters,Musca,19.0,19.0,large_dso
+NGC 4414,,,12:26:27.10,+31:13:24.7,1.95,1.12,10.2,NGC,4414,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+NGC 4435,,Eyes,12:27:40.49,+13:04:44.2,3.03,2.14,10.96,NGC,4435,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 4438,,Eyes,12:27:45.59,+13:00:31.8,9.16,4.02,10.92,NGC,4438,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 4439,,,12:28:26.35,-60:06:11.6,4.5,,8.4,NGC,4439,Open Cluster,clusters,Crux,,,small_dso
+NGC 4449,,,12:28:11.10,+44:05:37.1,4.66,2.71,9.64,NGC,4449,Galaxy,galaxies,Canes Venatici,,,small_dso
+NGC 4450,,,12:28:29.63,+17:05:05.8,5.46,3.78,10.87,NGC,4450,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+NGC 4463,,,12:29:55.22,-64:47:22.8,4.8,,7.2,NGC,4463,Open Cluster,clusters,Musca,,,small_dso
+NGC 4485,,,12:30:31.13,+41:42:04.2,2.01,1.34,12.18,NGC,4485,Galaxy,galaxies,Canes Venatici,,,tiny_dso
+NGC 4490,,,12:30:36.24,+41:38:38.0,6.71,1.65,9.72,NGC,4490,Galaxy,galaxies,Canes Venatici,,,small_dso
+NGC 4494,,,12:31:24.10,+25:46:30.9,4.35,4.13,9.8,NGC,4494,Galaxy,galaxies,Coma Berenices,,,small_dso
+NGC 4517,,,12:32:45.59,+00:06:54.1,9.02,1.42,10.48,NGC,4517,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 4526,,,12:34:03.09,+07:41:58.3,6.95,2.47,9.59,NGC,4526,Galaxy,galaxies,Virgo,,,small_dso
+NGC 4535,,,12:34:20.31,+08:11:51.9,8.15,7.48,9.89,NGC,4535,Galaxy,galaxies,Virgo,,,small_dso
+NGC 4536,,,12:34:27.05,+02:11:17.3,7.08,2.55,10.48,NGC,4536,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 4559,,,12:35:57.65,+27:57:36.0,10.57,4.82,9.92,NGC,4559,Galaxy,galaxies,Coma Berenices,,,small_dso
+NGC 4565,,Needle Galaxy,12:36:20.78,+25:59:15.6,16.75,2.89,10.86,NGC,4565,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+NGC 4567,,"Butterfly Galaxies,Siamese Twins",12:36:32.71,+11:15:28.8,2.74,2.15,11.32,NGC,4567,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 4568,,"Butterfly Galaxies,Siamese Twins",12:36:34.26,+11:14:20.0,4.31,1.87,10.8,NGC,4568,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 4605,,,12:39:59.38,+61:36:33.1,5.87,2.29,10.26,NGC,4605,Galaxy,galaxies,Ursa Major,,,tiny_dso
 NGC 4609,,Coalsack Cluster,12:42:16.83,-62:59:44.7,5.4,,6.9,NGC,4609,Open Cluster,clusters,Crux,,,small_dso
-NGC 4631,,Whale Galaxy,12:42:08.01,+32:32:29.4,14.45,2.2,9.24,NGC,4631,Galaxy,galaxies,Canes Venatici,,,small_dso
+NGC 4618,,,12:41:32.85,+41:09:02.8,3.56,2.29,10.78,NGC,4618,Galaxy,galaxies,Canes Venatici,,,tiny_dso
+NGC 4631,,Whale Galaxy,12:42:08.01,+32:32:29.4,14.45,2.2,9.24,NGC,4631,Galaxy,galaxies,Canes Venatici,,,large_dso
+NGC 4636,,,12:42:49.83,+02:41:16.0,6.35,4.7,9.99,NGC,4636,Galaxy,galaxies,Virgo,,,small_dso
+NGC 4651,,Umbrella Galaxy,12:43:42.63,+16:23:36.2,3.87,2.58,10.82,NGC,4651,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+NGC 4656,,,12:43:57.73,+32:10:05.3,8.0,,,NGC,4656,Galaxy Pair,galaxies,Canes Venatici,,,large_dso
+NGC 4666,,,12:45:08.59,-00:27:42.8,4.97,1.97,10.75,NGC,4666,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 4697,,,12:48:35.88,-05:48:02.7,7.14,4.16,9.37,NGC,4697,Galaxy,galaxies,Virgo,,,small_dso
+NGC 4699,,,12:49:02.23,-08:39:53.5,3.99,3.02,9.53,NGC,4699,Galaxy,galaxies,Virgo,,,small_dso
+NGC 4710,,,12:49:38.83,+15:09:55.6,4.39,1.13,10.71,NGC,4710,Galaxy,galaxies,Coma Berenices,,,tiny_dso
+NGC 4725,,,12:50:26.58,+25:30:02.9,9.71,7.1,9.38,NGC,4725,Galaxy,galaxies,Coma Berenices,,,small_dso
+NGC 4753,,,12:52:22.11,-01:11:58.9,6.49,3.06,9.66,NGC,4753,Galaxy,galaxies,Virgo,,,small_dso
+NGC 4782,,,12:54:35.72,-12:34:07.1,1.48,0.87,12.75,NGC,4782,Galaxy,galaxies,Corvus,,,tiny_dso
+NGC 4783,,,12:54:36.59,-12:33:28.2,1.41,0.69,12.8,NGC,4783,Galaxy,galaxies,Corvus,,,tiny_dso
+NGC 4815,,,12:57:58.37,-64:57:42.3,3.9,,8.6,NGC,4815,Open Cluster,clusters,Musca,,,small_dso
+NGC 4833,,,12:59:34.94,-70:52:28.5,8.4,,7.79,NGC,4833,Globular Cluster,clusters,Musca,,,small_dso
+NGC 4852,,,13:00:04.39,-59:36:34.0,5.4,,8.9,NGC,4852,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 4945,,,13:05:27.48,-49:28:05.6,23.33,4.03,11.86,NGC,4945,Galaxy,galaxies,Centaurus,,,large_dso
+NGC 5005,,,13:10:56.23,+37:03:33.1,4.82,1.52,10.71,NGC,5005,Galaxy,galaxies,Canes Venatici,,,tiny_dso
 NGC 5045,,,13:16:47.00,-63:25:00.0,20.0,11.0,,NGC,5045,Association of stars,stars,Centaurus,,,large_dso
+NGC 5053,,,13:16:26.99,+17:41:51.9,4.8,,9.96,NGC,5053,Globular Cluster,clusters,Coma Berenices,,,small_dso
+NGC 5054,,,13:16:58.49,-16:38:05.5,5.04,2.9,10.79,NGC,5054,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 5102,,,13:21:57.61,-36:37:48.9,9.71,3.71,9.88,NGC,5102,Galaxy,galaxies,Centaurus,,,small_dso
 NGC 5128,C 77,Centaurus A,13:25:27.62,-43:01:08.8,25.88,19.77,7.22,NGC,5128,Galaxy,galaxies,Centaurus,18.0,14.0,large_dso
+NGC 5138,,,13:27:15.21,-59:02:27.4,4.2,,5.33,NGC,5138,Open Cluster,clusters,Centaurus,,,small_dso
 NGC 5139,C 80,Omega Centauri,13:26:45.89,-47:28:36.7,27.0,,5.33,NGC,5139,Globular Cluster,clusters,Centaurus,36.0,36.0,large_dso
+NGC 5168,,,13:31:05.25,-60:56:21.2,4.2,,9.1,NGC,5168,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 5195,,,13:29:59.59,+47:15:58.1,5.5,4.36,9.58,NGC,5195,Galaxy,galaxies,Canes Venatici,,,small_dso
+NGC 5248,,,13:37:32.02,+08:53:06.6,4.07,2.38,9.97,NGC,5248,Galaxy,galaxies,Boötes,,,small_dso
+NGC 5281,,,13:46:35.15,-62:54:59.5,6.9,,5.9,NGC,5281,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 5286,,,13:46:26.58,-51:22:24.5,6.6,,8.31,NGC,5286,Globular Cluster,clusters,Centaurus,,,small_dso
 NGC 5299,,,13:50:26.26,-59:56:51.8,4.2,,,NGC,5299,Open Cluster,clusters,Centaurus,30.0,30.0,large_dso
+NGC 5316,,,13:53:57.22,-61:52:08.8,9.9,,6.0,NGC,5316,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 5363,,,13:56:07.21,+05:15:17.2,4.17,2.75,10.21,NGC,5363,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 5364,,,13:56:12.00,+05:00:52.1,3.8,1.66,10.52,NGC,5364,Galaxy,galaxies,Virgo,,,tiny_dso
 NGC 5460,,,14:07:27.81,-48:20:33.1,13.2,,5.6,NGC,5460,Open Cluster,clusters,Centaurus,25.0,25.0,large_dso
+NGC 5466,,,14:05:27.36,+28:32:04.2,6.6,,9.7,NGC,5466,Globular Cluster,clusters,Boötes,,,small_dso
+NGC 5606,,,14:27:47.28,-59:37:56.1,3.6,,7.7,NGC,5606,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 5617,,,14:29:44.07,-60:42:39.0,5.1,,6.3,NGC,5617,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 5662,,,14:35:37.58,-56:37:05.1,8.1,,5.5,NGC,5662,Open Cluster,clusters,Centaurus,,,small_dso
+NGC 5676,,,14:32:46.85,+49:27:28.4,3.59,1.61,11.22,NGC,5676,Galaxy,galaxies,Boötes,,,tiny_dso
+NGC 5689,,,14:35:29.69,+48:44:29.9,3.66,0.91,11.8,NGC,5689,Galaxy,galaxies,Boötes,,,tiny_dso
+NGC 5715,,,14:43:29.69,-57:34:37.3,3.6,,9.8,NGC,5715,Open Cluster,clusters,Circinus,,,small_dso
+NGC 5746,,,14:44:55.92,+01:57:18.0,7.24,1.08,10.55,NGC,5746,Galaxy,galaxies,Virgo,,,tiny_dso
+NGC 5749,,,14:48:53.94,-54:29:51.7,7.2,,8.8,NGC,5749,Open Cluster,clusters,Lupus,,,small_dso
 NGC 5822,,,15:04:21.25,-54:23:47.1,18.0,,6.5,NGC,5822,Open Cluster,clusters,Lupus,40.0,40.0,large_dso
+NGC 5823,,,15:05:30.63,-55:36:13.5,3.9,,7.9,NGC,5823,Open Cluster,clusters,Circinus,,,small_dso
+NGC 5824,,,15:03:58.64,-33:04:05.3,5.1,,9.56,NGC,5824,Globular Cluster,clusters,Lupus,,,small_dso
+NGC 5846,,,15:06:29.28,+01:36:20.2,4.27,4.05,10.18,NGC,5846,Galaxy,galaxies,Virgo,,,small_dso
+NGC 5866,,,15:06:29.50,+55:45:47.6,6.31,2.72,9.89,NGC,5866,Galaxy,galaxies,Draco,,,small_dso
+NGC 5897,,,15:17:24.40,-21:00:36.4,9.9,,8.52,NGC,5897,Globular Cluster,clusters,Libra,,,small_dso
+NGC 5907,,,15:15:53.77,+56:19:43.6,11.3,1.75,10.37,NGC,5907,Galaxy,galaxies,Draco,,,tiny_dso
+NGC 5925,,,15:27:26.82,-54:31:43.6,4.8,,8.4,NGC,5925,Open Cluster,clusters,Norma,,,small_dso
+NGC 5927,,,15:28:00.43,-50:40:22.0,6.6,,8.86,NGC,5927,Globular Cluster,clusters,Lupus,,,small_dso
+NGC 5986,,,15:46:03.44,-37:47:10.1,5.4,,6.92,NGC,5986,Globular Cluster,clusters,Lupus,,,small_dso
+NGC 5999,,,15:52:08.63,-56:28:22.1,3.3,,9.0,NGC,5999,Open Cluster,clusters,Norma,,,small_dso
+NGC 6015,,,15:51:25.23,+62:18:36.1,5.81,2.57,11.17,NGC,6015,Galaxy,galaxies,Draco,,,tiny_dso
+NGC 6025,,,16:03:17.79,-60:25:52.9,11.4,,5.1,NGC,6025,Open Cluster,clusters,Triangulum Australe,,,small_dso
+NGC 6031,,,16:07:35.38,-54:00:53.8,4.8,,8.5,NGC,6031,Open Cluster,clusters,Norma,,,small_dso
+NGC 6067,,,16:13:11.05,-54:13:08.2,8.1,,5.6,NGC,6067,Open Cluster,clusters,Norma,,,small_dso
 NGC 6087,,S Nor Cluster,16:18:50.58,-57:56:04.5,10.2,,5.4,NGC,6087,Open Cluster,clusters,Norma,,,small_dso
 NGC 6124,C 75,,16:25:20.06,-40:39:13.3,13.5,,5.8,NGC,6124,Open Cluster,clusters,Scorpius,29.0,29.0,large_dso
+NGC 6134,,,16:27:46.50,-49:09:04.2,6.9,,7.2,NGC,6134,Open Cluster,clusters,Norma,,,small_dso
+NGC 6139,,,16:27:40.51,-38:50:59.1,4.5,,9.68,NGC,6139,Globular Cluster,clusters,Scorpius,,,small_dso
+NGC 6140,,,16:20:58.16,+65:23:26.0,2.09,1.78,11.66,NGC,6140,Galaxy,galaxies,Draco,,,tiny_dso
+NGC 6144,,,16:27:14.14,-26:01:29.0,5.4,,9.63,NGC,6144,Globular Cluster,clusters,Scorpius,,,small_dso
 NGC 6152,,,16:32:45.62,-52:38:38.4,6.6,,8.1,NGC,6152,Open Cluster,clusters,Norma,30.0,30.0,large_dso
+NGC 6164,,,16:33:41.84,-48:04:48.2,1.41,0.6,6.71,NGC,6164,Nebula,nebulae,Norma,,,small_dso
+NGC 6165,,,16:34:03.45,-48:09:01.8,2.5,0.5,6.71,NGC,6165,Nebula,nebulae,Norma,,,small_dso
+NGC 6167,,,16:34:34.98,-49:46:18.8,7.2,,6.7,NGC,6167,Open Cluster,clusters,Norma,,,small_dso
+NGC 6169,,,16:34:04.63,-44:02:44.3,4.2,,6.6,NGC,6169,Open Cluster,clusters,Norma,,,small_dso
+NGC 6178,,,16:35:47.25,-45:38:37.5,6.9,,7.2,NGC,6178,Open Cluster,clusters,Scorpius,,,small_dso
 NGC 6188,,Rim Nebula,16:40:05.84,-48:39:44.2,20.0,12.0,,NGC,6188,Nebula,nebulae,Ara,20.0,20.0,large_dso
+NGC 6192,,,16:40:23.87,-43:22:00.5,7.5,,8.5,NGC,6192,Open Cluster,clusters,Scorpius,,,small_dso
+NGC 6200,,,16:44:07.35,-47:27:45.6,8.1,,7.4,NGC,6200,Open Cluster,clusters,Ara,,,small_dso
+NGC 6204,,,16:46:09.50,-47:01:01.1,4.5,,8.2,NGC,6204,Open Cluster,clusters,Ara,,,small_dso
+NGC 6207,,,16:43:03.75,+36:49:56.7,3.46,1.61,11.64,NGC,6207,Galaxy,galaxies,Hercules,,,tiny_dso
+NGC 6208,,,16:49:28.19,-53:43:42.0,8.4,,7.2,NGC,6208,Open Cluster,clusters,Ara,,,small_dso
+NGC 6229,,,16:46:58.86,+47:31:40.1,4.8,,9.86,NGC,6229,Globular Cluster,clusters,Hercules,,,small_dso
+NGC 6231,,,16:54:10.92,-41:49:27.3,13.8,,2.6,NGC,6231,Open Cluster,clusters,Scorpius,,,small_dso
+NGC 6235,,,16:53:25.36,-22:10:38.8,4.2,,7.2,NGC,6235,Globular Cluster,clusters,Ophiuchus,,,small_dso
+NGC 6242,,,16:55:33.44,-39:27:39.4,6.6,,6.4,NGC,6242,Open Cluster,clusters,Scorpius,,,small_dso
+NGC 6249,,,16:57:41.50,-44:48:42.8,7.6,,8.2,NGC,6249,Open Cluster,clusters,Scorpius,,,small_dso
+NGC 6250,,,16:57:56.07,-45:56:11.9,9.6,,5.9,NGC,6250,Star cluster + Nebula,nebulae,Ara,,,small_dso
+NGC 6259,,,17:00:45.40,-44:39:17.9,6.0,,8.0,NGC,6259,Open Cluster,clusters,Scorpius,,,small_dso
+NGC 6268,,,17:02:10.39,-39:43:41.6,6.0,,9.5,NGC,6268,Open Cluster,clusters,Scorpius,,,small_dso
 NGC 6281,,,17:04:41.30,-37:59:06.8,10.2,,5.4,NGC,6281,Open Cluster,clusters,Scorpius,60.0,60.0,large_dso
+NGC 6284,,,17:04:28.75,-24:45:51.6,6.6,,7.43,NGC,6284,Globular Cluster,clusters,Ophiuchus,,,small_dso
+NGC 6293,,,17:10:10.41,-26:34:54.3,4.5,,9.02,NGC,6293,Globular Cluster,clusters,Ophiuchus,,,small_dso
+NGC 6302,,"Bug Nebula,Butterfly Nebula",17:13:44.63,-37:06:11.3,0.74,,9.6,NGC,6302,Planetary Nebula,nebulae,Scorpius,,,tiny_dso
+NGC 6304,,,17:14:32.51,-29:27:44.2,3.6,,9.03,NGC,6304,Globular Cluster,clusters,Ophiuchus,,,small_dso
+NGC 6316,,,17:16:37.41,-28:08:24.1,4.8,,9.03,NGC,6316,Globular Cluster,clusters,Ophiuchus,,,small_dso
+NGC 6322,,,17:18:25.79,-42:56:02.5,6.3,,6.0,NGC,6322,Open Cluster,clusters,Scorpius,,,small_dso
 NGC 6334,,,17:20:49.70,-36:06:09.8,8.4,,,NGC,6334,Supernova remnant,nebulae,Scorpius,40.0,40.0,large_dso
+NGC 6352,,,17:25:29.16,-48:25:21.7,7.2,,8.87,NGC,6352,Globular Cluster,clusters,Ara,,,small_dso
+NGC 6356,,,17:23:34.99,-17:48:46.9,5.4,,7.42,NGC,6356,Globular Cluster,clusters,Ophiuchus,,,small_dso
 NGC 6357,,the War and Peace Nebula,17:24:43.57,-34:12:04.8,3.9,,,NGC,6357,Star cluster + Nebula,nebulae,Scorpius,50.0,50.0,large_dso
+NGC 6362,,,17:31:54.84,-67:02:52.3,8.4,,8.86,NGC,6362,Globular Cluster,clusters,Ara,,,small_dso
+NGC 6369,,Little Ghost Nebula,17:29:20.50,-23:45:34.0,0.63,,11.4,NGC,6369,Planetary Nebula,nebulae,Ophiuchus,,,tiny_dso
 NGC 6374,,,17:34:42.54,-32:34:52.9,6.9,,5.5,NGC,6374,Open Cluster,clusters,Scorpius,80.0,80.0,large_dso
+NGC 6383,,6374,17:34:07,-32:35:00.0,20.0,20.0,5.5,NGC,6383,Open Cluster,clusters,Scorpius,,,large_dso
+NGC 6396,,,17:37:36.34,-35:01:33.1,3.3,,8.5,NGC,6396,Open Cluster,clusters,Scorpius,,,small_dso
 NGC 6397,C 86,,17:40:41.36,-53:40:25.3,15.3,,5.17,NGC,6397,Globular Cluster,clusters,Ara,26.0,26.0,large_dso
+NGC 6400,,,17:40:12.80,-36:56:51.8,6.0,,8.8,NGC,6400,Open Cluster,clusters,Scorpius,,,small_dso
+NGC 6404,,,17:39:37.36,-33:14:48.2,4.2,,10.6,NGC,6404,Open Cluster,clusters,Scorpius,,,tiny_dso
 NGC 6416,,,17:44:19.99,-32:21:39.6,6.9,,,NGC,6416,Open Cluster,clusters,Scorpius,18.0,18.0,large_dso
+NGC 6425,,,17:47:01.68,-31:31:45.8,4.8,,7.2,NGC,6425,Open Cluster,clusters,Scorpius,,,small_dso
+NGC 6440,,,17:48:52.67,-20:21:34.5,5.1,,10.1,NGC,6440,Globular Cluster,clusters,Sagittarius,,,tiny_dso
+NGC 6441,,,17:50:12.84,-37:03:03.9,4.8,,8.0,NGC,6441,Globular Cluster,clusters,Scorpius,,,small_dso
+NGC 6445,,Little Gem,17:49:15.06,-20:00:34.2,0.55,,11.2,NGC,6445,Planetary Nebula,nebulae,Sagittarius,,,tiny_dso
+NGC 6451,,,17:50:40.64,-30:12:41.8,7.2,,8.2,NGC,6451,Open Cluster,clusters,Scorpius,,,small_dso
+NGC 6469,,,17:53:12.13,-22:16:30.4,9.0,,8.2,NGC,6469,Open Cluster,clusters,Sagittarius,,,small_dso
+NGC 6503,,,17:49:26.43,+70:08:39.7,5.94,1.98,10.12,NGC,6503,Galaxy,galaxies,Draco,,,tiny_dso
+NGC 6507,,,17:59:50.79,-17:27:01.0,4.8,,9.6,NGC,6507,Open Cluster,clusters,Sagittarius,,,small_dso
+NGC 6520,,,18:03:24.14,-27:53:10.0,5.4,,7.6,NGC,6520,Open Cluster,clusters,Sagittarius,,,small_dso
+NGC 6522,,,18:03:34.07,-30:02:02.3,3.9,,9.48,NGC,6522,Globular Cluster,clusters,Sagittarius,,,small_dso
 NGC 6526,,,18:04:06.15,-24:26:30.8,40.0,40.0,,NGC,6526,Nebula,nebulae,Sagittarius,40.0,40.0,large_dso
+NGC 6528,,,18:04:49.61,-30:03:20.8,3.6,,10.65,NGC,6528,Globular Cluster,clusters,Sagittarius,,,tiny_dso
+NGC 6530,,,18:04:31.03,-24:21:29.0,6.0,,4.6,NGC,6530,Star cluster + Nebula,nebulae,Sagittarius,,,large_dso
+NGC 6535,,,18:03:50.69,-00:17:48.9,3.6,,9.85,NGC,6535,Globular Cluster,clusters,Serpens Cauda,,,small_dso
+NGC 6541,,,18:08:02.33,-43:42:57.2,7.5,,7.32,NGC,6541,Globular Cluster,clusters,Corona Australis,,,small_dso
+NGC 6543,,Cat's Eye Nebula,17:58:33.39,+66:37:59.5,0.9,,9.01,NGC,6543,Planetary Nebula,nebulae,Draco,,,tiny_dso
+NGC 6544,,,18:07:20.00,-24:59:54.1,6.0,,9.9,NGC,6544,Globular Cluster,clusters,Sagittarius,,,small_dso
+NGC 6546,,,18:07:22.55,-23:17:46.4,6.9,,8.0,NGC,6546,Open Cluster,clusters,Sagittarius,,,small_dso
+NGC 6558,,,18:10:18.38,-31:45:48.5,5.4,,11.29,NGC,6558,Globular Cluster,clusters,Sagittarius,,,tiny_dso
 NGC 6559,,,18:09:56.85,-24:06:23.0,15.0,10.0,,NGC,6559,Nebula,nebulae,Sagittarius,,,large_dso
-NGC 6604,,,18:18:02.96,-12:14:35.2,9.6,,6.5,NGC,6604,Open Cluster,clusters,,60.0,60.0,large_dso
+NGC 6563,,,18:12:02.50,-33:52:06.0,0.79,,11.0,NGC,6563,Planetary Nebula,nebulae,Sagittarius,,,tiny_dso
+NGC 6568,,,18:12:44.25,-21:37:40.9,7.8,,8.6,NGC,6568,Open Cluster,clusters,Sagittarius,,,small_dso
+NGC 6569,,,18:13:38.67,-31:49:39.6,4.5,,9.47,NGC,6569,Globular Cluster,clusters,Sagittarius,,,small_dso
+NGC 6583,,,18:15:48.93,-22:08:15.5,3.6,,10.0,NGC,6583,Open Cluster,clusters,Sagittarius,,,small_dso
+NGC 6584,,,18:18:37.65,-52:12:54.6,5.1,,8.17,NGC,6584,Globular Cluster,clusters,Telescopium,,,small_dso
+NGC 6603,,,18:18:26.97,-18:24:21.8,4.2,,11.1,NGC,6603,Open Cluster,clusters,Sagittarius,,,tiny_dso
+NGC 6604,,,18:18:02.96,-12:14:35.2,9.6,,6.5,NGC,6604,Open Cluster,clusters,Serpens Cauda,60.0,60.0,large_dso
+NGC 6605,,,18:16:21.68,-15:00:54.7,6.3,,6.0,NGC,6605,Open Cluster,clusters,Serpens Cauda,,,small_dso
+NGC 6625,,,18:22:47.30,-11:57:18.0,6.0,,9.0,NGC,6625,Open Cluster,clusters,Scutum,,,small_dso
 NGC 6633,,,18:27:15.23,+06:30:29.6,12.0,,4.6,NGC,6633,Open Cluster,clusters,Ophiuchus,27.0,27.0,large_dso
+NGC 6638,,,18:30:56.25,-25:29:47.1,4.2,,9.68,NGC,6638,Globular Cluster,clusters,Sagittarius,,,small_dso
+NGC 6642,,,18:31:54.22,-23:28:34.1,3.9,,10.24,NGC,6642,Globular Cluster,clusters,Sagittarius,,,tiny_dso
+NGC 6643,,,18:19:46.41,+74:34:06.1,3.32,1.63,11.11,NGC,6643,Galaxy,galaxies,Draco,,,tiny_dso
+NGC 6645,,,18:32:37.90,-16:53:02.0,5.4,,8.5,NGC,6645,Open Cluster,clusters,Sagittarius,,,large_dso
+NGC 6647,,,18:32:49.34,-17:13:43.2,3.6,,8.0,NGC,6647,Open Cluster,clusters,Sagittarius,,,small_dso
+NGC 6649,,,18:33:27.96,-10:24:10.1,5.58,,8.9,NGC,6649,Open Cluster,clusters,Scutum,,,small_dso
+NGC 6652,,,18:35:45.75,-32:59:25.1,5.1,,9.75,NGC,6652,Globular Cluster,clusters,Sagittarius,,,small_dso
+NGC 6664,,,18:36:33.35,-08:13:14.7,6.0,,7.8,NGC,6664,Open Cluster,clusters,Scutum,,,small_dso
+NGC 6683,,,18:42:13.97,-06:12:44.1,3.0,,9.4,NGC,6683,Open Cluster,clusters,Scutum,,,small_dso
+NGC 6704,,,18:50:45.77,-05:12:19.5,3.3,,9.2,NGC,6704,Open Cluster,clusters,Scutum,,,small_dso
+NGC 6709,,,18:51:18.94,+10:19:07.5,8.7,,6.7,NGC,6709,Open Cluster,clusters,Aquila,,,large_dso
+NGC 6712,,,18:53:04.89,-08:42:19.7,5.7,,8.69,NGC,6712,Globular Cluster,clusters,Scutum,,,small_dso
+NGC 6716,,,18:54:34.37,-19:54:03.9,7.2,,7.5,NGC,6716,Open Cluster,clusters,Sagittarius,,,small_dso
+NGC 6717,,,18:55:06.04,-22:42:05.8,3.9,,10.35,NGC,6717,Globular Cluster,clusters,Sagittarius,,,tiny_dso
 NGC 6727,,,19:01:42.27,-36:52:34.5,80.0,80.0,,NGC,6727,Reflection Nebula,nebulae,Corona Australis,,,large_dso
 NGC 6729,,,19:01:55.40,-36:57:27.5,25.0,20.0,,NGC,6729,Nebula,nebulae,Corona Australis,,,large_dso
+NGC 6738,,,19:01:21.56,+11:36:56.2,5.4,,8.3,NGC,6738,Association of stars,stars,Aquila,,,small_dso
 NGC 6744,,,19:09:46.10,-63:51:27.1,15.67,9.75,9.25,NGC,6744,Galaxy,galaxies,Pavo,,,large_dso
 NGC 6752,C 93,,19:10:51.78,-59:58:54.7,13.2,,6.28,NGC,6752,Globular Cluster,clusters,Pavo,20.0,20.0,large_dso
+NGC 6755,,,19:07:49.05,+04:15:59.1,6.0,,7.5,NGC,6755,Open Cluster,clusters,Aquila,,,large_dso
+NGC 6756,,,19:08:42.57,+04:42:20.8,3.6,,10.6,NGC,6756,Open Cluster,clusters,Aquila,,,tiny_dso
+NGC 6760,,,19:11:12.06,+01:01:49.7,5.4,,9.78,NGC,6760,Globular Cluster,clusters,Aquila,,,small_dso
 NGC 6774,,,19:16:16.30,-16:15:38.5,30.0,,,NGC,6774,Open Cluster,clusters,Sagittarius,,,large_dso
+NGC 6781,,,19:18:28.26,+06:32:23.0,1.8,,11.4,NGC,6781,Planetary Nebula,nebulae,Aquila,,,tiny_dso
+NGC 6791,,,19:20:53.22,+37:46:18.8,6.3,,9.5,NGC,6791,Open Cluster,clusters,Lyra,,,small_dso
+NGC 6802,,,19:30:35.04,+20:15:39.5,4.5,,8.8,NGC,6802,Open Cluster,clusters,Vulpecula,,,small_dso
+NGC 6804,,,19:31:35.39,+09:13:30.6,0.58,,12.0,NGC,6804,Planetary Nebula,nebulae,Aquila,,,tiny_dso
+NGC 6811,,,19:37:17.91,+46:23:19.8,7.2,,6.8,NGC,6811,Open Cluster,clusters,Cygnus,,,large_dso
+NGC 6818,,Little Gem Nebula,19:43:57.73,-14:09:11.4,0.77,,9.3,NGC,6818,Planetary Nebula,nebulae,Sagittarius,,,tiny_dso
 NGC 6819,,Foxhead Cluster,19:41:18.09,+40:11:12.3,6.9,,7.3,NGC,6819,Open Cluster,clusters,Cygnus,,,small_dso
 NGC 6820,,,19:42:28.02,+23:05:17.1,0.5,0.5,,NGC,6820,Nebula,nebulae,Vulpecula,40.0,40.0,large_dso
+NGC 6822,,Barnard's Galaxy,19:44:57.74,-14:48:12.4,17.38,16.75,10.05,NGC,6822,Galaxy,galaxies,Sagittarius,,,tiny_dso
+NGC 6823,,,19:43:09.89,+23:17:59.8,6.0,,7.1,NGC,6823,Star cluster + Nebula,nebulae,Vulpecula,,,small_dso
+NGC 6830,,,19:50:59.58,+23:06:00.5,4.2,,7.9,NGC,6830,Open Cluster,clusters,Vulpecula,,,small_dso
+NGC 6834,,,19:52:12.56,+29:24:29.4,4.5,,7.8,NGC,6834,Open Cluster,clusters,Cygnus,,,small_dso
+NGC 6866,,,20:03:55.18,+44:09:32.8,5.1,,7.6,NGC,6866,Open Cluster,clusters,Cygnus,,,large_dso
 NGC 6871,,,20:05:59.44,+35:46:38.1,9.3,,5.2,NGC,6871,Open Cluster,clusters,Cygnus,20.0,20.0,large_dso
+NGC 6883,,,20:11:19.75,+35:49:55.9,4.5,,8.0,NGC,6883,Open Cluster,clusters,Cygnus,,,small_dso
+NGC 6885,,OCL  152/20 Vulpeculae Cluster       ,20:12:00,+26:29:00.0,20.0,20.0,8.1,NGC,6885,Open Cluster,clusters,Vulpecula,,,large_dso
 NGC 6888,C 27,Crescent Nebula,20:12:06.55,+38:21:17.8,20.0,10.0,,NGC,6888,HII Ionized region,nebulae,Cygnus,20.0,10.0,large_dso
+NGC 6905,,Blue Flash Nebula,20:22:22.99,+20:06:16.3,0.67,,11.1,NGC,6905,Planetary Nebula,nebulae,Delphinus,,,tiny_dso
+NGC 6910,,,20:23:12.05,+40:46:43.0,6.3,,7.4,NGC,6910,Open Cluster,clusters,Cygnus,,,small_dso
+NGC 6934,,,20:34:11.49,+07:24:14.8,5.4,,9.75,NGC,6934,Globular Cluster,clusters,Delphinus,,,small_dso
+NGC 6939,,,20:31:30.13,+60:39:43.5,12.0,,7.8,NGC,6939,Open Cluster,clusters,Cepheus,,,small_dso
 NGC 6940,,,20:34:26.69,+28:16:57.8,10.8,,6.3,NGC,6940,Open Cluster,clusters,Vulpecula,31.0,31.0,large_dso
 NGC 6946,,Fireworks Galaxy,20:34:52.32,+60:09:14.1,11.4,10.84,9.05,NGC,6946,Galaxy,galaxies,Cygnus,,,small_dso
 NGC 6960,C 34,"Veil Nebula,Filamentary Nebula,Western Veil, West Veil Nebula",20:45:58.18,+30:35:42.5,210.0,160.0,,NGC,6960,Supernova remnant,nebulae,Cygnus,70.0,6.0,large_dso
 NGC 6991,,,20:54:52.00,+47:27:42.0,23.0,,,NGC,6991,Open Cluster,clusters,Cygnus,,,large_dso
 NGC 6992,C 33,"East Veil Nebula, Eastern Veil,Network Nebula",20:56:19.07,+31:44:33.9,60.0,8.0,,NGC,6992,Supernova remnant,nebulae,Cygnus,60.0,8.0,large_dso
+NGC 6997,,,20:56:39.45,+44:37:53.4,6.9,,10.0,NGC,6997,Star cluster + Nebula,nebulae,Cygnus,,,small_dso
 NGC 7000,C 20,North America Nebula,20:59:17.14,+44:31:43.6,120.0,30.0,,NGC,7000,HII Ionized region,nebulae,Cygnus,120.0,100.0,large_dso
+NGC 7006,,,21:01:29.25,+16:11:15.1,4.2,,10.46,NGC,7006,Globular Cluster,clusters,Delphinus,,,tiny_dso
+NGC 7008,,,21:00:32.80,+54:32:35.5,1.43,,10.7,NGC,7008,Planetary Nebula,nebulae,Cygnus,,,tiny_dso
+NGC 7009,,Saturn Nebula,21:04:10.79,-11:21:47.7,0.7,0.52,8.0,NGC,7009,Planetary Nebula,nebulae,Aquarius,,,tiny_dso
 NGC 7023,C 4,Iris Nebula,21:01:35.62,+68:10:10.4,10.0,8.0,,NGC,7023,Nebula,nebulae,Cepheus,18.0,18.0,large_dso
+NGC 7031,,,21:07:12.55,+50:52:32.0,3.9,,9.1,NGC,7031,Open Cluster,clusters,Cygnus,,,small_dso
 NGC 7039,,,21:10:47.80,+45:37:18.5,7.8,,7.6,NGC,7039,Open Cluster,clusters,Cygnus,25.0,25.0,large_dso
+NGC 7044,,,21:13:09.41,+42:29:46.3,6.0,,12.0,NGC,7044,Open Cluster,clusters,Cygnus,,,tiny_dso
+NGC 7062,,,21:23:27.48,+46:22:42.7,3.6,,8.3,NGC,7062,Open Cluster,clusters,Cygnus,,,small_dso
+NGC 7063,,,21:24:21.70,+36:29:15.0,6.3,,7.0,NGC,7063,Open Cluster,clusters,Cygnus,,,small_dso
+NGC 7067,,,21:24:23.12,+48:00:33.3,2.4,,9.7,NGC,7067,Open Cluster,clusters,Cygnus,,,small_dso
 NGC 7082,,,21:29:17.74,+47:07:34.6,9.0,,7.2,NGC,7082,Open Cluster,clusters,Cygnus,25.0,25.0,large_dso
+NGC 7086,,,21:30:27.55,+51:36:01.9,4.8,,8.4,NGC,7086,Open Cluster,clusters,Cygnus,,,small_dso
+NGC 7128,,,21:43:57.81,+53:42:54.5,3.0,,9.7,NGC,7128,Open Cluster,clusters,Cygnus,,,small_dso
+NGC 7142,,,21:45:09.51,+65:46:28.0,9.6,,9.3,NGC,7142,Open Cluster,clusters,Cepheus,,,small_dso
+NGC 7160,,,21:53:40.27,+62:36:11.9,4.2,,6.1,NGC,7160,Open Cluster,clusters,Cepheus,,,small_dso
+NGC 7176,,,22:02:08.44,-31:59:23.1,1.15,0.92,,NGC,7176,Galaxy,galaxies,Piscis Austrinus,,,tiny_dso
 NGC 7209,,,22:05:07.84,+46:29:00.7,6.0,,7.7,NGC,7209,Open Cluster,clusters,Lacerta,25.0,25.0,large_dso
+NGC 7226,,,22:10:26.89,+55:23:54.9,3.0,,9.6,NGC,7226,Open Cluster,clusters,Cepheus,,,small_dso
+NGC 7234,,,22:12:25.02,+57:16:16.8,2.4,,7.7,NGC,7234,Open Cluster,clusters,Cepheus,,,small_dso
 NGC 7243,C 16,,22:15:08.58,+49:53:51.0,15.0,,6.4,NGC,7243,Open Cluster,clusters,Lacerta,21.0,21.0,large_dso
+NGC 7245,,,22:15:11.51,+54:20:33.2,3.9,,9.2,NGC,7245,Open Cluster,clusters,Lacerta,,,small_dso
+NGC 7261,,,22:20:06.39,+58:03:06.6,6.9,,8.4,NGC,7261,Open Cluster,clusters,Cepheus,,,small_dso
 NGC 7293,,Helix Nebula,22:29:38.57,-20:50:14.4,16.33,,7.3,NGC,7293,Planetary Nebula,nebulae,Aquarius,,,large_dso
+NGC 7295,,,22:28:02.84,+52:17:20.7,2.7,,9.7,NGC,7295,Open Cluster,clusters,Lacerta,,,small_dso
+NGC 7314,,,22:35:46.19,-26:03:01.7,4.21,1.71,11.22,NGC,7314,Galaxy,galaxies,Piscis Austrinus,,,tiny_dso
+NGC 7331,,,22:37:04.01,+34:24:55.9,9.27,3.76,9.41,NGC,7331,Galaxy,galaxies,Pegasus,,,small_dso
 NGC 7380,,,22:47:21.01,+58:07:56.7,25.0,20.0,7.2,NGC,7380,Star cluster + Nebula,nebulae,Cepheus,25.0,25.0,large_dso
+NGC 7479,,,23:04:56.65,+12:19:22.4,3.65,2.72,11.09,NGC,7479,Galaxy,galaxies,Pegasus,,,tiny_dso
+NGC 7510,,,23:11:03.78,+60:34:15.2,3.9,,7.9,NGC,7510,Open Cluster,clusters,Cepheus,,,small_dso
+NGC 7541,,,23:14:43.89,+04:32:03.7,3.03,1.0,11.76,NGC,7541,Galaxy,galaxies,Pisces,,,tiny_dso
+NGC 7606,,,23:19:04.78,-08:29:06.3,5.26,4.47,11.0,NGC,7606,Galaxy,galaxies,Aquarius,,,tiny_dso
 NGC 7635,,Bubble Nebula,23:20:45.60,+61:12:44.5,15.0,8.0,,NGC,7635,HII Ionized region,nebulae,Cassiopeia,,,large_dso
+NGC 7686,,,23:30:07.38,+49:08:02.8,3.6,,5.6,NGC,7686,Open Cluster,clusters,Andromeda,,,small_dso
+NGC 7762,,,23:50:01.75,+68:02:16.7,6.5,,,NGC,7762,Open Cluster,clusters,Cepheus,,,large_dso
+NGC 7788,,,23:56:45.58,+61:23:59.7,2.4,,9.4,NGC,7788,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 7789,,,23:57:24.06,+56:42:29.8,14.4,,6.7,NGC,7789,Open Cluster,clusters,Cassiopeia,,,large_dso
+NGC 7790,,,23:58:24.26,+61:12:29.9,3.6,,8.5,NGC,7790,Open Cluster,clusters,Cassiopeia,,,small_dso
+NGC 7793,,,23:57:49.83,-32:35:27.7,10.42,6.05,9.29,NGC,7793,Galaxy,galaxies,Sculptor,,,small_dso
+NGC 7814,,,00:03:14.89,+16:08:43.5,4.37,1.88,10.6,NGC,7814,Galaxy,galaxies,Pegasus,,,tiny_dso
 NGC 7822,,,00:03:35.35,+67:09:41.9,20.0,4.0,,NGC,7822,HII Ionized region,nebulae,Cepheus,60.0,60.0,large_dso
+UGC 5470,,Leo I,10:08:28.10,+12:18:23.0,11.75,8.51,10.36,UGC,5470,Galaxy,galaxies,Leo,,,tiny_dso

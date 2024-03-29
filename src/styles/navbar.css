@@ -35,7 +35,16 @@ img {
     color: #000 !important;
     font-size: 24px;
 }
-
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    background-color: white;
+}
 ul {
     padding: 0;
     list-style: none;

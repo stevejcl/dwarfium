@@ -1,5 +1,5 @@
 Catalogue Entry,Alternative Entries,Familiar Name,Right Ascension,Declination,Major Axis,Minor Axis,Magnitude,Name catalog,Name number,Type,Type Category,Constellation,Width ('),Height ('),Notes
-Sun,,,,,,,-26.71,-,9,Sun,moon_planets,,,,
+Sun,,,,,,,26.83,,9,Sun,moon_planets,,,,
 Moon,,,,,,,-3.69,-,8,Moon,moon_planets,,,,
 Mercury,,,,,,,0.23,-,1,Planet,moon_planets,,,,mean brightness[32]
 Venus,,,,,,,-4.14,-,2,Planet,moon_planets,,,,mean brightness[32]

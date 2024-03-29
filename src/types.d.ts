@@ -121,6 +121,7 @@ export type AstroObject = {
   size?: string;
   constellation: string | null | undefined;
   visible?: boolean | undefined;
+  notes: string | null;
 };
 
 export type ObjectStellariumInfo = {

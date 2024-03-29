@@ -75,6 +75,8 @@ export const abbrevNameConstellations = {
   Scl: "Sculptor",
   Sct: "Scutum",
   Ser: "Serpens[12]",
+  Ser1: "Serpens Caput",
+  Ser2: "Serpens Cauda",
   Sex: "Sextans",
   Tau: "Taurus",
   Tel: "Telescopium",

@@ -1,0 +1,51 @@
+Catalogue Entry,Alternative Entries,Familiar Name,Right Ascension,Declination,Major Axis,Minor Axis,Magnitude,Name catalog,Name number,Type,Type Category,Constellation,Width ('),Height ('),Notes
+HIP 32349,"HD 48915, HR 2491",Sirius,06:45:08.93,-16:42:58.02,,,-1.44,HIP,32349,Star,stars,Canis Major,,,bright_named_stars
+HIP 33579,"HD 52089, HR 2618",Adhara,06:58:37.55,-28:58:19.50,,,1.5,HIP,33579,Star,stars,Canis Major,,,bright_named_stars
+HIP 34444,"HD 54605, HR 2693",Wezen,07:08:23.49,-26:23:35.52,,,1.83,HIP,34444,Star,stars,Canis Major,,,bright_named_stars
+HIP 30324,"HD 44743, HR 2294",Mirzam,06:22:41.98,-17:57:21.30,,,1.98,HIP,30324,Star,stars,Canis Major,,,bright_named_stars
+HIP 30438,"HD 45348, HR 2326",Canopus,06:23:57.10,-52:41:44.38,,,-0.62,HIP,30438,Star,stars,Carina,,,bright_named_stars
+HIP 45238,"HD 80007, HR 3685",Miaplacidus,09:13:12.15,-69:43:01.95,,,1.67,HIP,45238,Star,stars,Carina,,,bright_named_stars
+HIP 41037,"HD 71129, HR 3307",Avior,08:22:30.85,-59:30:34.14,,,1.86,HIP,41037,Star,stars,Carina,,,bright_named_stars
+HIP 69673,"HD 124897, HR 5340",Arcturus,14:15:39.71,+19:10:56.68,,,-0.05,HIP,69673,Star,stars,Boötes,,,bright_named_stars
+HIP 71683,"HD 128620, HR 5459",Rigil Kentaurus,14:39:38.75,-60:50:02.31,,,-0.01,HIP,71683,Star,stars,Centaurus,,,bright_named_stars
+HIP 68702,"HD 122451, HR 5267",Hadar,14:03:49.42,-60:22:22.94,,,0.61,HIP,68702,Star,stars,Centaurus,,,bright_named_stars
+HIP 71681,"HD 128621, HR 5460",Toliman,14:39:37.25,-60:50:17.88,,,1.35,HIP,71681,Star,stars,Centaurus,,,bright_named_stars
+HIP 91262,"HD 172167, HR 7001",Vega,18:36:56.30,+38:47:01.29,,,0.03,HIP,91262,Star,stars,Lyra,,,bright_named_stars
+HIP 24608,"HD 34029, HR 1708",Capella,05:16:41.34,+45:59:52.77,,,0.08,HIP,24608,Star,stars,Auriga,,,bright_named_stars
+HIP 28360,"HD 40183, HR 2088",Menkalinan,05:59:31.74,+44:56:50.76,,,1.9,HIP,28360,Star,stars,Auriga,,,bright_named_stars
+HIP 24436,"HD 34085, HR 1713",Rigel,05:14:32.27,-08:12:05.90,,,0.18,HIP,24436,Star,stars,Orion,,,bright_named_stars
+HIP 27989,"HD 39801, HR 2061",Betelgeuse,05:55:10.30,+07:24:25.43,,,0.45,HIP,27989,Star,stars,Orion,,,bright_named_stars
+HIP 25336,"HD 35468, HR 1790",Bellatrix,05:25:07.86,+06:20:58.93,,,1.64,HIP,25336,Star,stars,Orion,,,bright_named_stars
+HIP 26311,"HD 37128, HR 1903",Alnilam,05:36:12.81,-01:12:06.91,,,1.69,HIP,26311,Star,stars,Orion,,,bright_named_stars
+HIP 26727,"HD 37742, HR 1948",Alnitak,05:40:45.53,-01:56:33.26,,,1.74,HIP,26727,Star,stars,Orion,,,bright_named_stars
+HIP 37279,"HD 61421, HR 2943",Procyon,07:39:18.12,+05:13:29.97,,,0.4,HIP,37279,Star,stars,Canis Minor,,,bright_named_stars
+HIP 7588,"HD 10144, HR 472",Achernar,01:37:42.80,-57:14:12.33,,,0.45,HIP,7588,Star,stars,Eridanus,,,bright_named_stars
+HIP 97649,"HD 187642, HR 7557",Altair,19:50:47.00,+08:52:05.96,,,0.76,HIP,97649,Star,stars,Aquila,,,bright_named_stars
+HIP 60718,"HD 108248, HR 4730",Acrux,12:26:35.92,-63:05:56.73,,,0.77,HIP,60718,Star,stars,Crux,,,bright_named_stars
+HIP 62434,"HD 111123, HR 4853",Mimosa,12:47:43.29,-59:41:19.55,,,1.25,HIP,62434,Star,stars,Crux,,,bright_named_stars
+HIP 61084,"HD 108903, HR 4763",Gacrux,12:31:09.94,-57:06:47.56,,,1.59,HIP,61084,Star,stars,Crux,,,bright_named_stars
+HIP 21421,"HD 29139, HR 1457",Aldebaran,04:35:55.24,+16:30:33.48,,,0.87,HIP,21421,Star,stars,Taurus,,,bright_named_stars
+HIP 25428,"HD 35497, HR 1791",Elnath,05:26:17.51,+28:36:26.82,,,1.65,HIP,25428,Star,stars,Taurus,,,bright_named_stars
+HIP 65474,"HD 116658, HR 5056",Spica,13:25:11.58,-11:09:40.76,,,0.98,HIP,65474,Star,stars,Virgo,,,bright_named_stars
+HIP 80763,"HD 148478, HR 6134",Antares,16:29:24.46,-26:25:55.21,,,1.06,HIP,80763,Star,stars,Scorpius,,,bright_named_stars
+HIP 85927,"HD 158926, HR 6527",Shaula,17:33:36.52,-37:06:13.76,,,1.62,HIP,85927,Star,stars,Scorpius,,,bright_named_stars
+HIP 86228,"HD 159532, HR 6553",Sargas,17:37:19.13,-42:59:52.17,,,1.86,HIP,86228,Star,stars,Scorpius,,,bright_named_stars
+HIP 37826,"HD 62509, HR 2990",Pollux,07:45:19.00,+28:01:34.32,,,1.16,HIP,37826,Star,stars,Gemini,,,bright_named_stars
+HIP 36850,"HD 60179, HR 2891",Castor,07:34:35.88,+31:53:17.79,,,1.58,HIP,36850,Star,stars,Gemini,,,bright_named_stars
+HIP 31681,"HD 47105, HR 2421",Alhena,06:37:42.70,+16:23:57.31,,,1.93,HIP,31681,Star,stars,Gemini,,,bright_named_stars
+HIP 113368,"HD 216956, HR 8728",Fomalhaut,22:57:39.02,-29:37:20.05,,,1.17,HIP,113368,Star,stars,Piscis Austrinus,,,bright_named_stars
+HIP 102098,"HD 197345, HR 7924",Deneb,20:41:25.92,+45:16:49.22,,,1.25,HIP,102098,Star,stars,Cygnus,,,bright_named_stars
+HIP 49669,"HD 87901, HR 3982",Regulus,10:08:22.32,+11:58:01.95,,,1.36,HIP,49669,Star,stars,Leo,,,bright_named_stars
+HIP 50583,"HD 89484, HR 4057",Algieba,10:19:58.34,+19:50:29.36,,,2.01,HIP,50583,Star,stars,Leo,,,bright_named_stars
+HIP 109268,"HD 209952, HR 8425",Alnair,22:08:13.95,-46:57:39.51,,,1.73,HIP,109268,Star,stars,Grus,,,bright_named_stars
+HIP 62956,"HD 112185, HR 4905",Alioth,12:54:01.70,+55:57:35.36,,,1.76,HIP,62956,Star,stars,Ursa Major,,,bright_named_stars
+HIP 54061,"HD 95689, HR 4301",Dubhe,11:03:43.76,+61:45:03.72,,,1.81,HIP,54061,Star,stars,Ursa Major,,,bright_named_stars
+HIP 67301,"HD 120315, HR 5191",Alkaid,13:47:32.47,+49:18:47.75,,,1.85,HIP,67301,Star,stars,Ursa Major,,,bright_named_stars
+HIP 15863,"HD 20902, HR 1017",Mirfak,03:24:19.36,+49:51:40.25,,,1.79,HIP,15863,Star,stars,Perseus,,,bright_named_stars
+HIP 90185,"HD 169022, HR 6879",Kaus Australis,18:24:10.32,-34:23:04.62,,,1.79,HIP,90185,Star,stars,Sagittarius,,,bright_named_stars
+HIP 82273,"HD 150798, HR 6217",Atria,16:48:39.88,-69:01:39.77,,,1.91,HIP,82273,Star,stars,Triangulum Australe,,,bright_named_stars
+HIP 42913,"HD 74956, HR 3485",Alsephina,08:44:42.21,-54:42:31.76,,,1.93,HIP,42913,Star,stars,Vela,,,bright_named_stars
+HIP 100751,"HD 193924, HR 7790",Peacock,20:25:38.85,-56:44:06.32,,,1.94,HIP,100751,Star,stars,Pavo,,,bright_named_stars
+HIP 11767,"HD 8890, HR 424",Polaris,02:31:47.10,+89:15:50.79,,,1.97,HIP,11767,Star,stars,Ursa Minor,,,bright_named_stars
+HIP 46390,"HD 81797, HR 3748",Alphard,09:27:35.24,-08:39:30.97,,,1.99,HIP,46390,Star,stars,Hydra,,,bright_named_stars
+HIP 9884,"HD 12929, HR 617",Hamal,02:07:10.40,+23:27:44.72,,,2.01,HIP,9884,Star,stars,Aries,,,bright_named_stars

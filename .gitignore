@@ -199,3 +199,6 @@ cython_debug/
 
 
 raw_data/mike_camilleri_list.csv
+
+.vs/
+src-tauri/target/

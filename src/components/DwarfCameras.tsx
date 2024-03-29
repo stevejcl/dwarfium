@@ -225,7 +225,7 @@ export default function DwarfCameras(props: PropType) {
         <div className="py-2 clearfix">
           <div className="float-end">
             <button
-              className="btn btn-primary"
+              className="btn btn-more02"
               onClick={() =>
                 turnOnCameraHandler(wideangleCamera, connectionCtx)
               }
@@ -241,7 +241,7 @@ export default function DwarfCameras(props: PropType) {
         <div className="py-2">
           <div className="float-end">
             <button
-              className="btn btn-primary"
+              className="btn btn-more02"
               onClick={() =>
                 turnOnCameraHandler(telephotoCamera, connectionCtx)
               }

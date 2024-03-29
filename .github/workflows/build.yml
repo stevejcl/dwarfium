@@ -46,7 +46,7 @@ jobs:
         run: echo "::set-output name=version::$(node -e 'console.log(require("./package.json").version)')"
   
       - name: Create artifact DwarfStellariumGoto
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: DwarfStellariumGoto-${{ steps.get_version.outputs.version }}
           path: DwarfStellariumGoto.zip

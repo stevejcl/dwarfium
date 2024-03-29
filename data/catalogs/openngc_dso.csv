@@ -4,7 +4,7 @@ C 9,,Cave Nebula,22:57:54.0,+62:31:06,50.0,30.0,,C,9,HII Ionized region,nebulae,
 C 14,,"Double Cluster, h & chi Persei",02:20:42.0,+57:08:15,50.0,50.0,,C,14,Association of stars,stars,Perseus,30.0,30.0,large_dso
 C 41,,Hyades,04:26:54.0,+15:52:00,329.0,,,C,41,Open Cluster,clusters,Taurus,330.0,330.0,large_dso
 C 99,NTH CS,"Coalsack Nebula, Coalsack Northern ",12:31:19.0,-63:44:36,,,,C,99,Dark Nebula,nebulae,Crux,300.0,300.0,large_dso
-Cl 399,,"Brocchi's Cluster, Al Sufi's Cluster, Coathanger Asterism",19:25:24.0,+20:11:00,70.0,,3.6,Cl,399,Association of stars,stars,Vulpecula,,,large_dso
+Cr 399,,"Brocchi's Cluster, Al Sufi's Cluster, Coathanger Asterism",19:25:24.0,+20:11:00,70.0,,3.6,Cr,399,Association of stars,stars,Vulpecula,,,large_dso
 ESO 56,,"Large Magellanic Cloud,Nubecula Major",05:23:34.5,-69:45:22,646.0,550.0,0.29,ESO,56,Galaxy,galaxies,Dorado,,,large_dso
 ESO 351,,Sculptor Dwarf Elliptical,01:00:09.35,-33:42:32.5,15.26,15.26,8.6,ESO,351,Galaxy,galaxies,Sculptor,,,large_dso
 ESO 356,,Fornax Dwarf Spheroidal,02:39:59.33,-34:26:57.1,12.88,10.47,7.4,ESO,356,Galaxy,galaxies,Fornax,,,small_dso

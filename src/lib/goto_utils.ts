@@ -820,7 +820,31 @@ export function centerHandler(
         .then((data) => {
           console.log(data);
           if (data != "true") {
-            setErrors(`Could not find object: ${object.designation}`);
+            // try by coordinate
+            // Convert Ra and Dec to Vec3d used by Stellarium
+            let RA_number = object.ra ? convertHMSToDecimalDegrees(object.ra!) : 0;
+            let declination_number = object.dec
+              ? convertDMSToDecimalDegrees(object.dec!)
+              : 0;
+
+            let coord = convertRaDecToVec3d(declination_number, RA_number);
+            let str_coord = `[${coord.x},${coord.y},${coord.z}]`;
+            console.log(`coordinates found: ${str_coord}`);
+
+            focusUrl = `${url}${focusPosPath}${str_coord}`;
+            console.log("focusUrl : " + focusUrl);
+            fetch(focusUrl, { method: "POST", signal: AbortSignal.timeout(2000) })
+              // res.json don't work here
+              .then((res) => {
+                return res.text();
+              })
+              .then((data) => {
+                console.log(data);
+                if (data != "ok") {
+                  setErrors(`Could not find object by coordinates : ${object.designation}`);
+                }
+              })
+              .catch((err) => stellariumErrorHandler(err, setErrors));
           }
         })
         .catch((err) => stellariumErrorHandler(err, setErrors));

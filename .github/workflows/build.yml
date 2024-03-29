@@ -38,9 +38,7 @@ jobs:
             npm run build
             cp -r dist DwarfStellariumGoto
             echo "python3 -m http.server" > DwarfStellariumGoto/start_server.bat
-  
-      - name: Zip DwarfStellariumGoto
-        run: zip -r DwarfStellariumGoto.zip DwarfStellariumGoto
+            zip -r DwarfStellariumGoto.zip DwarfStellariumGoto
   
       - name: Get version number from package.json
         id: get_version

@@ -74,6 +74,7 @@ export function processObjectListOpenNGC(objects: ObjectOpenNGC[]) {
         objectNumber: object["Name number"],
         constellation: object.Constellation,
         size: formatObjectSizeOpenNGC(object),
+        notes: object.Notes
       };
     })
     .sort((a, b) => {

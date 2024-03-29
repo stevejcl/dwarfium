@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useMemo } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { AstroObject } from "@/types";
@@ -50,7 +50,19 @@ export default function DSOObject(props: AstronomyObjectPropType) {
     decDecimal = convertDMSToDecimalDegrees(object.dec);
   }
 
-  function renderRiseSetTime(object: AstroObject) {
+  const [forceUpdate, setForceUpdate] = useState(false);
+
+  // Recalculate all data
+  const handleRefreshClick = () => {
+      setForceUpdate(prev => !prev);
+  };
+
+  // Memorize the calculated data using useMemo
+  const riseSetTime = useMemo(() => renderRiseSetTime(), [forceUpdate]);
+  const altAz = useMemo(() => renderAltAz(), [forceUpdate]); 
+  const raDec = useMemo(() => renderRADec(), [forceUpdate]); 
+
+  function renderRiseSetTime() {
     if (connectionCtx.latitude && connectionCtx.longitude) {
       let times = renderLocalRiseSetTime(
         object,
@@ -145,11 +157,11 @@ export default function DSOObject(props: AstronomyObjectPropType) {
           Magnitude: {object.magnitude}
         </div>
         <div className="col-md-5">
-          {renderRiseSetTime(object)}
+          {riseSetTime}
           <br></br>
-          {renderAltAz()}
+          {altAz}
           <br></br>
-          {renderRADec()}
+          {raDec}
         </div>
         <div className="col-md-3">
           <button
@@ -171,6 +183,10 @@ export default function DSOObject(props: AstronomyObjectPropType) {
             disabled={!connectionCtx.connectionStatus}
           >
             Goto
+          </button>
+          <button
+            className={`btn ${"btn-more02"} me-2 mb-2`}
+            onClick={handleRefreshClick}>Refresh
           </button>
           <br />
           <GotoModal

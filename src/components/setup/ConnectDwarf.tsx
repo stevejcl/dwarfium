@@ -220,7 +220,7 @@ export default function ConnectDwarf() {
       goLiveMessage = "Need Go Live";
     }
     if (connecting) {
-        return <span class="text-warning-connect">Connecting...</span>;
+        return <span className="text-warning-connect">Connecting...</span>;
     }
     if (connectionCtx.connectionStatus === undefined) {
       return <></>;

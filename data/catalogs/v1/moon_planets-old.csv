@@ -1,0 +1,9 @@
+Catalogue Entry,Alternative Entries,Familiar Name,Right Ascension,Declination,Major Axis,Minor Axis,Magnitude,Name catalog,Name number,Type,Type Category,Constellation,Width ('),Height ('),Notes
+Moon,,,,,,,-3.69,-,0,Moon,moon_planets,,,,
+Mercury,,,,,,,0.23,-,1,Planet,moon_planets,,,,mean brightness[32]
+Venus,,,,,,,-4.14,-,2,Planet,moon_planets,,,,mean brightness[32]
+Mars,,,,,,,0.71,-,4,Planet,moon_planets,,,,mean brightness[32]
+Jupiter,,,,,,,-2.2,-,5,Planet,moon_planets,,,,mean brightness[32]
+Saturn,,,,,,,0.46,-,6,Planet,moon_planets,,,,mean brightness[32]
+Uranus,,,,,,,5.68,-,7,Planet,moon_planets,,,,mean brightness[32]
+Neptune,,,,,,,7.78,-,8,Planet,moon_planets,,,,mean brightness[32]

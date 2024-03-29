@@ -5,7 +5,7 @@ C041,OCl,04:26:54.0,+15:52:00,Tau,329.0,,,,,,Hyades,C,041,C 41,,,41.0,Caldwell,C
 C009,HII,22:57:54.0,+62:31:06,Cep,50.0,30.0,,,,,Cave Nebula,C,009,C 9,,,9.0,Caldwell,C 009,C 9,C 9,,Bn,Cave Nebula,7.7,22:56:48,62.62,50.0,10.0,,,,,True,,,,,,,,,,,,,large_dso
 C099,DrkN,12:31:19.0,-63:44:36,Cru,,,,,,,Coalsack Nebula,C,099,C 99,,,99.0,-,NTH CS,NTH CS,,,Dn,Coalsack Northern ,,21:40:00,41.0,300.0,300.0,,,,,True,,,,,,,,,,,,,large_dso
 C099,DrkN,12:31:19.0,-63:44:36,Cru,,,,,,,Coalsack Nebula,C,099,C 99,,,99.0,Caldwell,C 099,C 99,C 99,,Dn,Coalsack Nebula,-,12:53:00,-63.0,400.0,300.0,,,,,True,,,,,,,,,,,,,large_dso
-Cl399,*Ass,19:25:24.0,+20:11:00,Vul,70.0,,3.6,,,,"Brocchi's Cluster, Al Sufi's Cluster, Coathanger Asterism",Cl,399,Cl 399,,,399.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,large_dso
+Cr399,*Ass,19:25:24.0,+20:11:00,Vul,70.0,,3.6,,,,"Brocchi's Cluster, Al Sufi's Cluster, Coathanger Asterism",Cr,399,Cr 399,,,399.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,large_dso
 ESO351-030,G,01:00:09.35,-33:42:32.5,Scl,15.26,15.26,8.6,,,,Sculptor Dwarf Elliptical,ESO,351,ESO 351,,,351.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,large_dso
 ESO056-115,G,05:23:34.5,-69:45:22,Dor,646.0,550.0,0.29,,,,"Large Magellanic Cloud,Nubecula Major",ESO,056,ESO 56,,,56.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,large_dso
 IC1274,HII,18:09:51.03,-23:38:53.6,Sgr,20.0,5.0,,,,,,IC,1274,IC 1274,IC 1274,,1274.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,large_dso

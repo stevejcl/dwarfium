@@ -4,7 +4,6 @@ C 9,,Cave Nebula,22:57:54.0,+62:31:06,50.0,30.0,,C,9,HII Ionized region,nebulae,
 C 14,,"Double Cluster, h & chi Persei",02:20:42.0,+57:08:15,50.0,50.0,,C,14,Association of stars,stars,Perseus,30.0,30.0,large_dso
 C 41,,Hyades,04:26:54.0,+15:52:00,329.0,,,C,41,Open Cluster,clusters,Taurus,330.0,330.0,large_dso
 C 99,NTH CS,"Coalsack Nebula, Coalsack Northern ",12:31:19.0,-63:44:36,,,,C,99,Dark Nebula,nebulae,Crux,300.0,300.0,large_dso
-C 99,,Coalsack Nebula,12:31:19.0,-63:44:36,,,,C,99,Dark Nebula,nebulae,Crux,400.0,300.0,large_dso
 Cl 399,,"Brocchi's Cluster, Al Sufi's Cluster, Coathanger Asterism",19:25:24.0,+20:11:00,70.0,,3.6,Cl,399,Association of stars,stars,Vulpecula,,,large_dso
 ESO 56,,"Large Magellanic Cloud,Nubecula Major",05:23:34.5,-69:45:22,646.0,550.0,0.29,ESO,56,Galaxy,galaxies,Dorado,,,large_dso
 ESO 351,,Sculptor Dwarf Elliptical,01:00:09.35,-33:42:32.5,15.26,15.26,8.6,ESO,351,Galaxy,galaxies,Sculptor,,,large_dso
@@ -91,7 +90,6 @@ M 12,,,16:47:14.52,-01:56:52.2,11.1,,6.07,M,12,Globular Cluster,clusters,Ophiuch
 M 13,NGC 6205,"Great Hercules Globular, Hercules Globular Cluster",16:41:41.63,+36:27:40.7,16.5,,5.8,M,13,Globular Cluster,clusters,Hercules,16.6,16.6,large_dso
 M 14,,,17:37:36.16,-03:14:45.3,,,5.73,M,14,Globular Cluster,clusters,Ophiuchus,,,tiny_dso
 M 15,,,21:29:58.38,+12:10:00.6,11.1,,6.3,M,15,Globular Cluster,clusters,Pegasus,,,large_dso
-M 16,NGC 6611,"Eagle Nebula, Eagle nebula",18:18:48.17,-13:48:26.0,120.0,25.0,6.0,M,16,Nebula,nebulae,Serpens Cauda,35.0,35.0,large_dso
 M 16,NGC 6611,"Eagle Nebula, Eagle nebula",18:18:48.17,-13:48:26.0,120.0,25.0,6.0,M,16,Nebula,nebulae,Serpens Cauda,35.0,35.0,large_dso
 M 17,NGC 6618,"Checkmark Nebula,Lobster Nebula,Swan Nebula,omega Nebula, M  17",18:20:47.11,-16:10:17.5,12.6,,7.0,M,17,Nebula,nebulae,Sagittarius,46.0,46.0,large_dso
 M 18,,,18:19:58.49,-17:06:07.1,6.0,,6.9,M,18,Open Cluster,clusters,Sagittarius,,,small_dso

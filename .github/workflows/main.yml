@@ -39,7 +39,7 @@ jobs:
           path: DwarfStellariumGoto.zip
 
       - name: Install Rust and Cargo
-        run: sudo apt-get install rustc cargo
+        run: sudo apt-get install rustc cargo libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf -y
 
       - name: Run Tauri build
         run: npm run tauri build

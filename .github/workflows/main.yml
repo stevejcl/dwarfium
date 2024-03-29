@@ -38,25 +38,11 @@ jobs:
           name: DwarfStellariumGoto-${{ steps.get_version.outputs.version }}
           path: DwarfStellariumGoto.zip
 
-      - name: Install Rust and Cargo
-        run: sudo apt update && sudo apt-get install rustc cargo libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf -y
-
-      - name: Run Tauri build
-        run: npm run tauri build
-
-      - name: Create MSI artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: DwarfStellariumGoto-MSI-${{ steps.get_version.outputs.version }}
-          path: src-tauri/target/release/bundle/msi/
-
       - name: Release with ncipollo/release-action
         id: release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: |
-            DwarfStellariumGoto.zip
-            src-tauri/target/release/bundle/msi/
+          artifacts: DwarfStellariumGoto.zip
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
           skipIfReleaseExists: true

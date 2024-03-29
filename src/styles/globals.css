@@ -395,3 +395,22 @@ img {
     -moz-transition: opacity .55s ease-in-out;
     -webkit-transition: opacity .55s ease-in-out;
 }
+
+/*refresh*/
+.btn-refresh {
+    position: relative;
+    /* overflow: hidden; */
+    padding: 0px 0px 0px 0px;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    /* text-transform: capitalize; */
+    background: transparent;
+    
+}
+    .btn-refresh:hover {
+        transform: rotate(360deg) scale(1.2);
+        transition: all 0.4s ease-in-out;
+    }

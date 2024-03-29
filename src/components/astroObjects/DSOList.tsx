@@ -232,8 +232,8 @@ export default function DSOList(props: PropType) {
         <h4 className="mt-3">
           {objects.length} {pluralize(objects.length, "Object", "Objects")}
         </h4>
-        {objects.map((object, i) => (
-          <DSOObject key={i} object={object} />
+        {objects.map((object) => (
+          <DSOObject key={object.designation} object={object} />
         ))}
       </div>
     </div>

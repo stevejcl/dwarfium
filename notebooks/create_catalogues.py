@@ -111,8 +111,13 @@ ngc_df = pd.read_csv(openngc_path, usecols=openngc_columns, dtype={'M': pd.Int64
 ngc_df = ngc_df[ngc_df['Type'] != 'Dup']
 ngc_df.loc[ngc_df['M'] == 65, 'Common names'] = 'Leo Triplet'
 
+log_df(ngc_df)
 
 df = format_ngc_catalog(ngc_df)
+
+log_df(ngc_df)
+# (13340, 18)
+
 df[df['Name']=='IC0359A'][['Name', 'M',  'Name catalog', 'Name number (with zeros)', 'Name number']]
 
 df[df['Name']=='IC4715'][['Name', 'M',  'Name catalog','Name number (with zeros)', 'Name number']]
@@ -145,6 +150,7 @@ merge2_df = merge_df.merge(best500_df,
 
 merge2_df['Name number'] = merge2_df['Name number'].astype(pd.Int64Dtype())
 
+log_df(merge2_df)
 # tmp file for control
 #merge2_df.to_csv(best_500dso_path_merge, index=False)
 
@@ -209,6 +215,7 @@ combine_df = pd.concat([combine1_df, filter3_df])
 cols = [col for col in combine_df.columns if col != 'Notes']
 combine_df.drop_duplicates(inplace=True, subset=cols, keep='first')
 
+log_df(combine_df)
 
 # Apply the function to extract the number from the 'Name' column
 combine_df['No Old Value'] = (combine_df['Name'].isna()) & (combine_df['Best_500'] == True)
@@ -239,6 +246,7 @@ combine_df.to_csv(ngc_draft_path, index=False)
 ## Create DSO  Catalog
 
 draft_df = pd.read_csv(ngc_draft_path, dtype={'Name number': pd.Int64Dtype()})
+log_df(draft_df)
 
 draft_df.columns
 
@@ -263,6 +271,7 @@ for index, row in tmp_df.iterrows():
     tmp_df.at[index, 'Common Names'] = ', '.join(common_names)
 
 log_df(tmp_df)
+
 tmp_df = tmp_df[
     [
         'Name normalized', 'Alternate Names', 'Common Names', 
@@ -277,7 +286,11 @@ tmp_df = tmp_df.sort_values(['Name catalog', 'Name number'])
 
 log_df(tmp_df)
 # (236, 15)
+
+## delete rows with duplicate names
+
 dups = tmp_df[tmp_df.duplicated(subset=['Name'])]['Name'].values
+
 dup_df = tmp_df[tmp_df['Name'].isin(dups)][['Name','Alternate Names', 'Common Names', 'Type']]
 dup_df
 
@@ -297,10 +310,12 @@ def get_index_by_common_name(name):
         print(name, 'not found..')
  
 names = [
+    'Coalsack Nebula',
     'Flaming Star Nebula, Flaming Star nebula', 
     'omi Vel Cluster',
     'Southern Pleiades, tet Car Cluster',
-    'Small Sgr Star Cloud', 
+    'Small Sgr Star Cloud',
+    'Eagle Nebula, Eagle nebula',
     'M  25',
     'M  67',
     'Filamentary nebula, Veil Nebula,Filamentary Nebula,Western Veil',
@@ -496,10 +511,10 @@ df[small_sizes].shape
 # bright and  tiny
 df[tiny_sizes].shape
 
-df[(df['Notes'] == 'large_dso')].shape
+df[(df['Notes'] == 'tiny_dso')].shape
 
 df[(df['Notes'] == 'small_dso')].shape
 
-df[(df['Notes'] == 'tiny_dso')].shape
+df[(df['Notes'] == 'large_dso')].shape
 
 df[(df['Type'] == 'Star') ].shape

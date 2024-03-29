@@ -41,15 +41,6 @@ export default function DSOObject(props: AstronomyObjectPropType) {
     });
   }, []);
 
-  let raDecimal: undefined | number;
-  let decDecimal: undefined | number;
-  if (object.ra) {
-    raDecimal = convertHMSToDecimalDegrees(object.ra);
-  }
-  if (object.dec) {
-    decDecimal = convertDMSToDecimalDegrees(object.dec);
-  }
-
   const [forceUpdate, setForceUpdate] = useState(false);
 
   // Recalculate all data
@@ -85,6 +76,15 @@ export default function DSOObject(props: AstronomyObjectPropType) {
   }
 
   function renderAltAz() {
+    let raDecimal: undefined | number;
+    let decDecimal: undefined | number;
+    if (object.ra) {
+      raDecimal = convertHMSToDecimalDegrees(object.ra);
+    }
+    if (object.dec) {
+      decDecimal = convertDMSToDecimalDegrees(object.dec);
+    }
+
     if (
       connectionCtx.latitude &&
       connectionCtx.longitude &&

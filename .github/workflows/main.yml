@@ -42,7 +42,7 @@ jobs:
         run: sudo apt-get install rustc cargo
 
       - name: Run Tauri build
-        run: npm run tauri
+        run: npm run tauri build
 
       - name: Create MSI artifact
         uses: actions/upload-artifact@v3

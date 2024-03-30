@@ -4,8 +4,10 @@ import { IRCut, modeAuto, modeManual } from "dwarfii_api";
 import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
 import { getExposureNameByIndex, getGainNameByIndex } from "@/lib/data_utils";
 import BatteryMeter from "@/components/BatteryMeter";
+import { useSetupConnection } from "@/hooks/useSetupConnection";
 
 export default function StatusBar() {
+  useSetupConnection();
   let connectionCtx = useContext(ConnectionContext);
 
   let connection =

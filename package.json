@@ -1,6 +1,6 @@
 {
   "name": "stellarium-goto",
-  "version": "2.0.4-beta",
+  "version": "2.0.5-beta",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,6 +13,7 @@
     "CI": "npm run lint && npm run format && npm run typecheck && npm run test",
     "test": "jest",
     "test:watch": "jest . --watch",
+    "tauri": "tauri",
     "zipsite": "npm run build && cp -r dist DwarfStellariumGoto && tar -czvf DwarfStellariumGoto.tar.gz DwarfStellariumGoto && rm -rf DwarfStellariumGoto"
   },
   "dependencies": {
@@ -43,6 +44,7 @@
     "ws": "^8.16.0"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^1.5.11",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/papaparse": "^5.3.7",

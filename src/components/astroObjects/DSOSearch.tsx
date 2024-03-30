@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 export default function DSOSearch({ updateSearchText }) {
-
-  const [searchTxtValue, setSearchTxtValue] = useState('');
+  const [searchTxtValue, setSearchTxtValue] = useState("");
 
   function searchHandler() {
     updateSearchText(searchTxtValue);

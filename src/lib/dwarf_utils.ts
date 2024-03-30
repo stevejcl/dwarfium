@@ -40,7 +40,8 @@ function sleep(ms) {
 
 export async function turnOnTeleCameraFn(
   connectionCtx: ConnectionContextType,
-  setTelephotoCameraStatus: any | undefined = undefined
+  setTelephotoCameraStatus: any | undefined = undefined,
+  setSrcTeleCamera: any | undefined = undefined
 ) {
   if (connectionCtx.IPDwarf === undefined) {
     return;
@@ -54,7 +55,17 @@ export async function turnOnTeleCameraFn(
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_OPEN_CAMERA) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
         logger(txt_info, result_data, connectionCtx);
-        if (setTelephotoCameraStatus) setTelephotoCameraStatus("on");
+        if (setTelephotoCameraStatus) {
+          setTelephotoCameraStatus("on");
+          setSrcTeleCamera(true);
+        }
+        return;
+      } else {
+        logger(txt_info, result_data, connectionCtx);
+        if (setTelephotoCameraStatus) {
+          setTelephotoCameraStatus("off");
+          setSrcTeleCamera(false);
+        }
         return;
       }
     }
@@ -86,7 +97,8 @@ export async function turnOnTeleCameraFn(
 
 export async function turnOnWideCameraFn(
   connectionCtx: ConnectionContextType,
-  setWideangleCameraStatus: any | undefined = undefined
+  setWideangleCameraStatus: any | undefined = undefined,
+  setSrcWideCamera: any | undefined = undefined
 ) {
   if (connectionCtx.IPDwarf === undefined) {
     return;
@@ -96,7 +108,17 @@ export async function turnOnWideCameraFn(
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_OPEN_CAMERA) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
         logger(txt_info, result_data, connectionCtx);
-        if (setWideangleCameraStatus) setWideangleCameraStatus("on");
+        if (setWideangleCameraStatus) {
+          setWideangleCameraStatus("on");
+          setSrcWideCamera(true);
+        }
+        return;
+      } else {
+        logger(txt_info, result_data, connectionCtx);
+        if (setWideangleCameraStatus) {
+          setWideangleCameraStatus("off");
+          setSrcWideCamera(false);
+        }
         return;
       }
     }

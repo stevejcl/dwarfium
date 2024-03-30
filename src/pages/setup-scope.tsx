@@ -29,6 +29,7 @@ export default function SetupScope() {
         <hr />
         <ConnectStellarium />
       </div>
+      <br />
     </section>
   );
 }

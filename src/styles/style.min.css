@@ -15,6 +15,7 @@ a, abbr, acronym, address, applet, big, blockquote, body, cite, code, dd, del, d
     padding: 0;
     vertical-align: baseline;
     font-family: "Josefin Sans",sans-serif
+
 }
 
 body {
@@ -27,7 +28,7 @@ body {
 }
 
 a {
-    color: inherit;
+    color: aquamarine;
     outline: none !important;
     text-decoration: none
 }
@@ -338,7 +339,7 @@ header {
 .btn-more02 {
     position: relative;
     /*overflow: hidden;*/
-    padding: 11px 10px 10px 10px;
+   /* padding: 11px 10px 10px 10px;*/
     color: #0a051d !important;
     border: solid 2px rgba(255, 255, 255, .2588235294) !important;
     border-radius: 5px;

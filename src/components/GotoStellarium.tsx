@@ -219,7 +219,7 @@ export default function ManualGoto() {
         <div className="col-sm-4">
           <button
             className={`btn ${
-              RA !== undefined ? "btn-more02" : "btn-more02"
+              RA !== undefined ? "btn-secondary" : "btn-more02"
             } me-4 mb-2`}
             onClick={gotoFn}
             disabled={RA === undefined}

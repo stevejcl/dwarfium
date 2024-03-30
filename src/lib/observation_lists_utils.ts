@@ -24,6 +24,7 @@ function formatObjectStellarium(object: ObjectStellarium): AstroObject {
       abbrevNameConstellations[
         object.constellation as keyof typeof abbrevNameConstellations
       ],
+    notes: "",
   } as AstroObject;
 
   if (object.designation) {
@@ -74,7 +75,7 @@ export function processObjectListOpenNGC(objects: ObjectOpenNGC[]) {
         objectNumber: object["Name number"],
         constellation: object.Constellation,
         size: formatObjectSizeOpenNGC(object),
-        notes: object.Notes
+        notes: object.Notes,
       };
     })
     .sort((a, b) => {

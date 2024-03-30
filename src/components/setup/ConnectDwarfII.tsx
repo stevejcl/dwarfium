@@ -89,8 +89,9 @@ export default function ConnectDwarfII() {
           if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
             if (result_data.data.errorTxt)
               setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
-            else
+            else if (result_data.data.code)
               setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
+            else setErrorTxt(errorTxt + " " + "Error");
           }
           logger("Need Go LIVE", {}, connectionCtx);
           setGoLive(true);
@@ -203,7 +204,9 @@ export default function ConnectDwarfII() {
       goLiveMessage = "Need Go Live";
     }
     if (connecting) {
-      return <span className="text-warning-connect right-align">Connecting...</span>;
+      return (
+        <span className="text-warning-connect right-align">Connecting...</span>
+      );
     }
     if (connectionCtx.connectionStatus === undefined) {
       return <></>;

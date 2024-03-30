@@ -9,22 +9,27 @@ export default function Home() {
           <br />
           <br />
           <br />
-          <h1>Dwarf II App</h1>
+          <h1>
+            <u>Dwarf II App</u>
+          </h1>
+          <br />
           <p>
             This website allows you to control parts of the Dwarf II using the
             Dwarf API.
           </p>
-          Features:
+          <br />
+          <b>Features:</b>
           <ul>
-            <li>Object list with over 250 objects.</li>
-            <li>Import objects lists from Telescopius.</li>
-            <li>Import Mosaic lists from Telescopius.</li>
+            <li> 1. Object list with over 850 objects.</li>
+            <li> 2. Import objects lists from Telescopius.</li>
+            <li> 3. Import Mosaic lists from Telescopius.</li>
             <li>
-              Connect to Stellarium planeterium app to help select targets.
+              4. Connect to Stellarium planeterium app to help select targets.
             </li>
-            <li>Take Astro photos.</li>
-            <li>1x1 binning for astro photos.</li>
+            <li> 5. Take Astro photos.</li>
+            <li> 6. 1x1 binning for astro photos.</li>
           </ul>
+          <br />
           <p>
             This website and the Dwarf API are in beta phase. The API
             hasn&apos;t been officially released, and the API doesn&apos;t have
@@ -32,7 +37,8 @@ export default function Home() {
             limited list of features. Only use this app if you are comfortable
             with being testers for beta software.
           </p>
-          Bugs:
+          <br />
+          <b>Bugs:</b>
           <ul>
             <li>
               Dwarf II&apos;s internal date url does not work in the browser

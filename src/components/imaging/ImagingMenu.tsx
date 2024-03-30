@@ -781,7 +781,7 @@ export default function ImagingMenu(props: PropType) {
         </Link>
       </li>
       <li className={`nav-item ${styles.box}`}>
-        {showWideAngle && (
+        {!showWideAngle && (
           <Link
             href="#"
             className=""
@@ -801,7 +801,7 @@ export default function ImagingMenu(props: PropType) {
             ></i>
           </Link>
         )}
-        {!showWideAngle && (
+        {showWideAngle && (
           <Link
             href="#"
             className=""

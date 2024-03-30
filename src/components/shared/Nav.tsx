@@ -7,8 +7,7 @@ export default function Nav() {
         <a className="navbar-brand">
           <img alt="logo" src="/DWARFLAB_LOGO_Green.png" />
         </a>
-        
-          
+
         <button
           className="navbar-toggler"
           type="button"

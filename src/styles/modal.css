@@ -97,7 +97,7 @@
 
 
 p {
-    font-size: 1.4em;
+    font-size: 22px;
     line-height: 1.5;
     color: lighten(#5f6377, 20%);
     // last &:last-child

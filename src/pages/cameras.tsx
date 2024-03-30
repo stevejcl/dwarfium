@@ -29,7 +29,12 @@ export default function AstroPhoto() {
     return (
       <>
         <section className="daily-horp d-inline-block w-100">
-          <div className="container">
+                <div className="container">
+                    {""}
+                    <br />
+                    <br />
+                    <br />
+                   
             <Head>
               <title>Astro Photos</title>
             </Head>
@@ -44,7 +49,32 @@ export default function AstroPhoto() {
             {noCoordinates && (
               <p className="text-danger">You must set your location.</p>
             )}
-          </div>
+                </div>
+                {""}
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
         </section>
       </>
     );

@@ -28,7 +28,8 @@ export default function SetupScope() {
         <ConnectDwarf />
         <hr />
         <ConnectStellarium />
-      </div>
+        </div>
+        <br />
     </section>
   );
 }

@@ -159,7 +159,10 @@ export default function DSOObject(props: AstronomyObjectPropType) {
         <div className="col-md-5">
           {riseSetTime}
           <br></br>
-          {altAz}
+                  {altAz} <button
+                      className="btn-refresh"
+                      onClick={handleRefreshClick}><i className="fa fa-refresh" aria-hidden="true"></i>
+                  </button>
           <br></br>
           {raDec}
         </div>
@@ -183,10 +186,6 @@ export default function DSOObject(props: AstronomyObjectPropType) {
             disabled={!connectionCtx.connectionStatus}
           >
             Goto
-          </button>
-          <button
-            className={`btn ${"btn-more02"} me-2 mb-2`}
-            onClick={handleRefreshClick}>Refresh
           </button>
           <br />
           <GotoModal

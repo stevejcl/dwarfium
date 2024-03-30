@@ -31,6 +31,19 @@ npm install
 npm run dev
 ```
 
+4. Production ready build.
+
+```bash
+npm run buld
+```
+5. Build desktop App based on your OS
+
+In order to build the desktop app you need to install [Rust](https://www.rust-lang.org/learn/get-started)
+
+```bash
+npm run tauri build
+```
+
 ## Setup for non-coders
 
 If you just want to get the site up and running on your machine, then follow these steps.
@@ -53,3 +66,6 @@ python -m http.server
 Stellarium remote control plugin starts a webserver that allows people to access Stellarium desktop app through a web browser. When people select an object in Stellarium, they can access information about that object through `http://<localhost or IP>:<port>/api/main/status`.
 
 This app connects to `/api/main/status`, and parses the returned data to get the object name, right acension and declination. The app then sends a goto command to the DWARF II with RA, declination, latitude, and longitude data via Dwarf II API.
+
+The Desktop App wraps the webservice in a windowed environment.
+Rust is providing the webservice and servers the pages.

@@ -337,22 +337,19 @@ export default function ConnectDwarfSTA() {
 
       <p>
         In order for this site to connect to the Dwarf II, the Dwarf II must
-        have the STA mode configured and on, after startup a bluetoth connection
-        must be made to to that.
+        have the STA mode configured and on. 
       </p>
 
       <ol>
         <li className="mb-2">
-          You can use the Dwarf II mobile app to connect first to the telescope
-          to enable STA Mode. But due to the new host / node functionnality, the
-          mobile app must be closed and killed from task manager
+          When using for the first time, you need the DwarfLab mobile app to establish the connection, then without restarting the dwarf, connect to it via the Connect Bluetooth button. The configuration will then be saved.
+          <br/>
         </li>
         <li className="mb-2">
-          You can also use this Button to enable it after startup without the
-          mobile app.
+          Then, for the next starts of the Dwarf, you can connect directly to it via Bluetooth, without using the mobile application.
         </li>
         <li className="mb-2">
-          Click Connect. This site will try to connect with Bluetooth to Dwarf
+          Click Connect. This site will try to connect via Bluetooth to Dwarf
           II.
         </li>
         <form onSubmit={checkConnection} className="mb-3">

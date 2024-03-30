@@ -55,22 +55,22 @@ export default function AutoGoto() {
                 <ul>
                   <li>
                     Large (&gt; 15 arcminutes) and relatively bright (under 10
-                    magnitude). 116 objects.
+                    magnitude). 119 objects.
                   </li>
                   <li>
-                    Large (&gt; 15 arcminutes) and unknown brightness. 83
+                    Large (&gt; 15 arcminutes) and unknown brightness. 84
                     objects.
                   </li>
                   <li>
                     Small (&lt; 15 arcminutes), relatively bright (under 10
-                    magnitude), with common names. 29 objects.
+                    magnitude), with common names. 234 objects.
                   </li>
-                  <li>50 of the brightest stars with common names.</li>
+                  <li>118 of the brightest stars with common names, with at least one per constellation.</li>
                 </ul>
               </li>
               <li>
                 The Planets, Moon and Sun list has the planets in our solar
-                system and the Moon and The Sun. Be aware, Dwarf II is not good
+                system with the Moon and The Sun. Be aware, Dwarf II is not good
                 for taking images of the planets.
               </li>
             </ol>

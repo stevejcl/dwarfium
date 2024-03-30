@@ -18,7 +18,7 @@ export default function Home() {
           <br/>
           <b>Features:</b>
           <ul>
-            <li> 1. Object list with over 250 objects.</li>
+            <li> 1. Object list with over 850 objects.</li>
             <li> 2. Import objects lists from Telescopius.</li>
             <li> 3. Import Mosaic lists from Telescopius.</li>
             <li>

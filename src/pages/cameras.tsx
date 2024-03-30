@@ -14,7 +14,7 @@ export default function AstroPhoto() {
   useLoadIntialValues();
   let connectionCtx = useContext(ConnectionContext);
 
-  const [showWideangle, setShowWideangle] = useState(true);
+  const [showWideangle, setShowWideangle] = useState(false);
   const [useRawPreviewURL, setUseRawPreviewURL] = useState(false);
 
   let notConnected =
@@ -28,13 +28,13 @@ export default function AstroPhoto() {
   if (hasErrors) {
     return (
       <>
+       {" "}
         <section className="daily-horp d-inline-block w-100">
-                <div className="container">
-                    {""}
-                    <br />
-                    <br />
-                    <br />
-                   
+           <div className="container">
+             {""}
+             <br />
+             <br />
+             <br />
             <Head>
               <title>Astro Photos</title>
             </Head>

@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 
+import CmdHostLockDwarf from "@/components/setup/CmdHostLockDwarf";
+
 import {
   Dwarfii_Api,
   messageCameraTeleGetSystemWorkingState,
@@ -74,7 +76,10 @@ export default function ConnectDwarf() {
           connectionCtx.setConnectionStatus(true);
           if (result_data.data.errorTxt)
             setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
-          else setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
+          else if (result_data.data.code)
+            setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
+          else 
+            setErrorTxt(errorTxt + " " + "Error") 
         }
       } else if (
         result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE
@@ -245,6 +250,12 @@ export default function ConnectDwarf() {
     );
   }
 
+  const renderCmdHostLockDwarf = () => {
+    // Your logic for rendering CmdHostLockDwarf
+    // Example:
+    return <CmdHostLockDwarf />;
+  };
+
   return (
     <div>
       <h2>Connect to Dwarf II</h2>
@@ -256,14 +267,11 @@ export default function ConnectDwarf() {
 
       <ol>
         <li className="mb-2">
-          Use the Dwarf II mobile app to connect to the telescope. You can use
-          the Dwarf wifi or set the Dwarf II to STA mode and use your normal
-          wifi network.
+          After rebooting, you must first connect to the DwarfII via Bluetooth.
         </li>
         <li className="mb-2">
-          You can also enable <b>Activate Wi-Fi at Startup</b> on the Dwarf II
-          with the mobile app. Then no need to use the app to Calibrate, make
-          Goto and Imaging from this website.
+          Then connect to it with the wifi connect button. Then no need to use the app to Calibrate, make
+          Goto and Imaging Session from this website.
         </li>
         <li className="mb-2">
           Visit this site on a device that is connected to the same wifi network
@@ -300,6 +308,7 @@ export default function ConnectDwarf() {
             <i className="icon-wifi" /> Connect
           </button>{" "}
           {renderConnectionStatus()}
+          {renderCmdHostLockDwarf()}
         </form>
       </ol>
     </div>

@@ -150,6 +150,15 @@ body {
     height: fit-content;
     margin-top: -30px;
 }
+.sethostmode-dwarf {
+    display: flex;
+    justify-content: space-between;
+    width: 30rem;
+    float: right !important;
+    height: fit-content;
+    margin-right: 50%;
+    margin-top: -40px;
+}
 .right-align { margin-left: auto; margin-right: 10px;}
 .con {
     margin-right: 1rem !important;

@@ -80,7 +80,7 @@ export default function ConnectStellarium() {
           <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
             Youtube video
           </Link>{" "}
-          demostrates setting up Stellarium's Remote Control plugin (0 to 1:40);
+          demonstrates setting up Stellarium's Remote Control plugin (0 to 1:40);
           skip the part about NINA. Click "Enable CORS for the following origin"
           and enter in "*".
         </li>

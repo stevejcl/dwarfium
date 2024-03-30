@@ -43,8 +43,8 @@ export default function DwarfCameras(props: PropType) {
   const [wideangleCameraStatus, setWideangleCameraStatus] = useState<
     string | undefined
   >("off");
-  const [wideCameraSrc, setWideCameraSrc] = useState('');
-  const [teleCameraSrc, setTeleCameraSrc] = useState('');
+  const [wideCameraSrc, setWideCameraSrc] = useState("");
+  const [teleCameraSrc, setTeleCameraSrc] = useState("");
 
   let IPDwarf = connectionCtx.IPDwarf || DwarfIP;
 
@@ -60,23 +60,25 @@ export default function DwarfCameras(props: PropType) {
 
   function turnOnCameraHandler(cameraId: number, connectionCtx) {
     if (cameraId === telephotoCamera) {
-      turnOnTeleCameraFn(connectionCtx, setTelephotoCameraStatus, setSrcTeleCamera);
+      turnOnTeleCameraFn(
+        connectionCtx,
+        setTelephotoCameraStatus,
+        setSrcTeleCamera
+      );
     } else {
-      turnOnWideCameraFn(connectionCtx, setWideangleCameraStatus, setSrcWideCamera);
+      turnOnWideCameraFn(
+        connectionCtx,
+        setWideangleCameraStatus,
+        setSrcWideCamera
+      );
     }
   }
 
-  function checkCameraStatus(
-    connectionCtx: ConnectionContextType
-  ) {
-      if (wideCameraSrc)
-        setWideangleCameraStatus("on");
-      else
-        setWideangleCameraStatus("off");
-      if (teleCameraSrc)
-        setTelephotoCameraStatus("on");
-      else
-        setTelephotoCameraStatus("off");
+  function checkCameraStatus(connectionCtx: ConnectionContextType) {
+    if (wideCameraSrc) setWideangleCameraStatus("on");
+    else setWideangleCameraStatus("off");
+    if (teleCameraSrc) setTelephotoCameraStatus("on");
+    else setTelephotoCameraStatus("off");
     setTimeout(() => {
       checkCameraStatusLater(connectionCtx);
     }, 2000);
@@ -84,37 +86,39 @@ export default function DwarfCameras(props: PropType) {
 
   const customMessageHandlerTeleWide = (txt_info, result_data) => {
     if (
-        result_data.cmd ==
-        Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE
-      ) {
-        if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
-          setTelephotoCameraStatus("off");
-          setTelephotoCameraStatus("off");
-          if (result_data.data.errorTxt)
-            setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
-          else setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
-        }     
-    } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_OPEN_CAMERA) {
+      result_data.cmd ==
+      Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE
+    ) {
+      if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
+        setTelephotoCameraStatus("off");
+        setTelephotoCameraStatus("off");
+        if (result_data.data.errorTxt)
+          setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
+        else setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
+      }
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_OPEN_CAMERA
+    ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
         logger(txt_info, result_data, connectionCtx);
         setTelephotoCameraStatus("on");
         setSrcTeleCamera(true);
         return;
-      }
-      else {
+      } else {
         logger(txt_info, result_data, connectionCtx);
         setTelephotoCameraStatus("off");
         setSrcTeleCamera(false);
         return;
       }
-    } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_OPEN_CAMERA) {
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_OPEN_CAMERA
+    ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
         logger(txt_info, result_data, connectionCtx);
         setWideangleCameraStatus("on");
         setSrcWideCamera(true);
         return;
-      }
-      else {
+      } else {
         logger(txt_info, result_data, connectionCtx);
         setWideangleCameraStatus("off");
         setSrcWideCamera(false);
@@ -175,9 +179,7 @@ export default function DwarfCameras(props: PropType) {
     }
   };
 
-  function checkCameraStatusLater(
-    connectionCtx: ConnectionContextType
-  ) {
+  function checkCameraStatusLater(connectionCtx: ConnectionContextType) {
     if (connectionCtx.IPDwarf === undefined) {
       return;
     }
@@ -193,7 +195,7 @@ export default function DwarfCameras(props: PropType) {
     let WS_Packet3 = messageCameraWideOpenCamera();
     txtInfoCommand = "CheckCamera";
     webSocketHandler.prepare(
-      [WS_Packet1,WS_Packet2,WS_Packet3],
+      [WS_Packet1, WS_Packet2, WS_Packet3],
       txtInfoCommand,
       [
         Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE,
@@ -212,9 +214,9 @@ export default function DwarfCameras(props: PropType) {
       console.error(" Can't launch Web Socket Run Action!");
     }
   }
- 
+
   // Function to set the source for the wide-angle camera
-  function setSrcWideCamera(status : boolean) {
+  function setSrcWideCamera(status: boolean) {
     console.info("Render setSrcWideCamera : ", status);
     if (status) {
       const url = wideangleURL(IPDwarf);
@@ -226,7 +228,7 @@ export default function DwarfCameras(props: PropType) {
   }
 
   // Function to set the source for the tele camera
-  function setSrcTeleCamera(status : boolean) {
+  function setSrcTeleCamera(status: boolean) {
     console.info("Render setSrcTeleCamera : ", status);
     if (status) {
       const url = rawPreviewURL(IPDwarf);
@@ -236,16 +238,21 @@ export default function DwarfCameras(props: PropType) {
       setTeleCameraSrc(url);
     }
   }
-  
+
   function renderWideAngle() {
     console.info("Render showWideangle : ", showWideangle);
     console.info("Render SRC : ", wideCameraSrc);
     return (
       <div className={`${showWideangle ? "" : "d-none"}`}>
-        <img id="idWideCamera"
-          onLoad={() => (wideCameraSrc) ? setWideangleCameraStatus("on") : setWideangleCameraStatus("off")}
+        <img
+          id="idWideCamera"
+          onLoad={() =>
+            wideCameraSrc
+              ? setWideangleCameraStatus("on")
+              : setWideangleCameraStatus("off")
+          }
           src={wideCameraSrc}
-          alt={(wideCameraSrc) ? "livestream for wideangle camera" : ""}
+          alt={wideCameraSrc ? "livestream for wideangle camera" : ""}
           className={styles.wideangle}
         ></img>
       </div>
@@ -257,10 +264,15 @@ export default function DwarfCameras(props: PropType) {
     // TODO: use rawPreviewURL vs   telephotoURL,
     return (
       <div className="camera-container">
-        <img id="idTeleCamera"
-          onLoad={() => (teleCameraSrc) ? setTelephotoCameraStatus("on") : setTelephotoCameraStatus("off")}
+        <img
+          id="idTeleCamera"
+          onLoad={() =>
+            teleCameraSrc
+              ? setTelephotoCameraStatus("on")
+              : setTelephotoCameraStatus("off")
+          }
           src={teleCameraSrc}
-          alt={(teleCameraSrc) ? "livestream for telephoto camera" : ""}
+          alt={teleCameraSrc ? "livestream for telephoto camera" : ""}
           className={styles.telephoto}
         ></img>
       </div>

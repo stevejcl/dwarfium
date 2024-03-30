@@ -78,8 +78,7 @@ export default function ConnectDwarf() {
             setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
           else if (result_data.data.code)
             setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
-          else 
-            setErrorTxt(errorTxt + " " + "Error") 
+          else setErrorTxt(errorTxt + " " + "Error");
         }
       } else if (
         result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE
@@ -225,7 +224,7 @@ export default function ConnectDwarf() {
       goLiveMessage = "Need Go Live";
     }
     if (connecting) {
-        return <span className="text-warning-connect">Connecting...</span>;
+      return <span className="text-warning-connect">Connecting...</span>;
     }
     if (connectionCtx.connectionStatus === undefined) {
       return <></>;
@@ -270,8 +269,8 @@ export default function ConnectDwarf() {
           After rebooting, you must first connect to the DwarfII via Bluetooth.
         </li>
         <li className="mb-2">
-          Then connect to it with the wifi connect button. Then no need to use the app to Calibrate, make
-          Goto and Imaging Session from this website.
+          Then connect to it with the wifi connect button. Then no need to use
+          the app to Calibrate, make Goto and Imaging Session from this website.
         </li>
         <li className="mb-2">
           Visit this site on a device that is connected to the same wifi network

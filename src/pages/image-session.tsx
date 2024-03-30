@@ -205,9 +205,10 @@ export default function AstroPhoto() {
               </thead>
               <tbody>
                 {sessions.map((session, index) => (
-                    <tr className="active-row" key={index}>
+                  <tr className="active-row" key={index}>
                     <td>
-                            <img className="thumblarge"
+                      <img
+                        className="thumblarge"
                         src={`http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`}
                         alt="Thumbnail"
                       />
@@ -252,10 +253,8 @@ export default function AstroPhoto() {
           <br />
           <br />
           <br />
-
         </div>
-          </section>
-         
+      </section>
     </>
   );
 }

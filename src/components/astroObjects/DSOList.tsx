@@ -29,7 +29,7 @@ export default function DSOList(props: PropType) {
 
   const [objects, setObjects] = useState(dsoObjects);
   const [selectedCategories, setSelectedCategories] = useState(["all"]);
-  const [searchTxtValue, setSearchTxtValue] = useState(''); 
+  const [searchTxtValue, setSearchTxtValue] = useState("");
 
   useEffect(() => {
     filterObjects();
@@ -38,7 +38,7 @@ export default function DSOList(props: PropType) {
   // Function to update the search text in the context
   const updateSearchTextInContext = (searchValue) => {
     if (searchValue === "") {
-      setSearchTxtValue("")
+      setSearchTxtValue("");
       connectionCtx.setSearchTxt("");
     }
 
@@ -46,7 +46,6 @@ export default function DSOList(props: PropType) {
       if (/^[\w\s]{0,255}$/i.test(searchValue)) {
         setSearchTxtValue(searchValue);
         connectionCtx.setSearchTxt(searchValue);
-
       }
     } else {
       setSearchTxtValue("");
@@ -59,7 +58,9 @@ export default function DSOList(props: PropType) {
     if (targetCategory === "all") {
       setSelectedCategories((prev) => {
         // Filter out categories that are not in categoriesToKeep
-        const filteredCategories = prev.filter((type) => categoriesToKeep.includes(type));
+        const filteredCategories = prev.filter((type) =>
+          categoriesToKeep.includes(type)
+        );
 
         // Add "all" if it's not already in the array
         if (!filteredCategories.includes("all")) {
@@ -71,15 +72,23 @@ export default function DSOList(props: PropType) {
     } else if (selectedCategories.includes(targetCategory)) {
       setSelectedCategories((prev) => {
         // Filter out targetCategory
-        const filteredCategories = prev.filter((type) => type !== targetCategory);
+        const filteredCategories = prev.filter(
+          (type) => type !== targetCategory
+        );
 
         // Check if all remaining categories are from KeepCategory
-        const allCategoriesAreKeep = filteredCategories.every(category => category === "visible" || category === "large" || category === "small" || category === "tiny");
+        const allCategoriesAreKeep = filteredCategories.every(
+          (category) =>
+            category === "visible" ||
+            category === "large" ||
+            category === "small" ||
+            category === "tiny"
+        );
 
         // If there are no categories left or all remaining categories are from KeepCategory, add "ALL"
-        if ((filteredCategories.length === 0) || allCategoriesAreKeep) {
-           filteredCategories.push("all");
-        }        
+        if (filteredCategories.length === 0 || allCategoriesAreKeep) {
+          filteredCategories.push("all");
+        }
         return filteredCategories;
       });
       // add category
@@ -103,7 +112,7 @@ export default function DSOList(props: PropType) {
 
     let sizeDso: string[] = [];
     if (selectedCategories.includes("large")) {
-      sizeDso.push("large_dso")
+      sizeDso.push("large_dso");
     }
     if (selectedCategories.includes("small")) {
       sizeDso.push("small_dso");
@@ -117,11 +126,12 @@ export default function DSOList(props: PropType) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
-                ((sizeDso.length === 0) || (sizeDso.includes(object.notes?.toString() ?? ""))) &&
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.visible &&
                 object.displayName
                   .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase()) 
+                  .includes(dataSearchTxt.toLowerCase())
               );
             })
           );
@@ -129,10 +139,11 @@ export default function DSOList(props: PropType) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
-                ((sizeDso.length === 0) || (sizeDso.includes(object.notes?.toString() ?? ""))) &&
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.displayName
-                .toLowerCase()
-                .includes(dataSearchTxt.toLowerCase())
+                  .toLowerCase()
+                  .includes(dataSearchTxt.toLowerCase())
               );
             })
           );
@@ -141,8 +152,9 @@ export default function DSOList(props: PropType) {
         if (selectedCategories.includes("visible")) {
           setObjects(
             dsoObjects.filter((object) => {
-              return ( 
-                ((sizeDso.length === 0) || (sizeDso.includes(object.notes?.toString() ?? ""))) && 
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.visible
               );
             })
@@ -151,7 +163,8 @@ export default function DSOList(props: PropType) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
-                ((sizeDso.length === 0) || (sizeDso.includes(object.notes?.toString() ?? "")))
+                sizeDso.length === 0 ||
+                sizeDso.includes(object.notes?.toString() ?? "")
               );
             })
           );
@@ -163,7 +176,8 @@ export default function DSOList(props: PropType) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
-                ((sizeDso.length === 0) || (sizeDso.includes(object.notes?.toString() ?? ""))) &&
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
                 selectedCategories.includes(object.typeCategory) &&
                 object.visible &&
                 object.displayName
@@ -176,7 +190,8 @@ export default function DSOList(props: PropType) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
-                ((sizeDso.length === 0) || (sizeDso.includes(object.notes?.toString() ?? ""))) &&
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
                 selectedCategories.includes(object.typeCategory) &&
                 object.displayName
                   .toLowerCase()
@@ -190,7 +205,8 @@ export default function DSOList(props: PropType) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
-                ((sizeDso.length === 0) || (sizeDso.includes(object.notes?.toString() ?? ""))) &&
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.visible &&
                 selectedCategories.includes(object.typeCategory)
               );
@@ -201,7 +217,8 @@ export default function DSOList(props: PropType) {
             dsoObjects.filter((object) => {
               return (
                 selectedCategories.includes(object.typeCategory) &&
-                ((sizeDso.length === 0) || (sizeDso.includes(object.notes?.toString() ?? "")))
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? ""))
               );
             })
           );
@@ -227,7 +244,7 @@ export default function DSOList(props: PropType) {
           ))}
         </ul>
         <hr />
-        <DSOSearch updateSearchText={updateSearchTextInContext}/>
+        <DSOSearch updateSearchText={updateSearchTextInContext} />
         <hr />
         <h4 className="mt-3">
           {objects.length} {pluralize(objects.length, "Object", "Objects")}

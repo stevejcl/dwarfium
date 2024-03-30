@@ -65,7 +65,10 @@ export default function AutoGoto() {
                     Small (&lt; 15 arcminutes), relatively bright (under 10
                     magnitude), with common names. 234 objects.
                   </li>
-                  <li>118 of the brightest stars with common names, with at least one per constellation.</li>
+                  <li>
+                    118 of the brightest stars with common names, with at least
+                    one per constellation.
+                  </li>
                 </ul>
               </li>
               <li>

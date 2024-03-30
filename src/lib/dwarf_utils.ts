@@ -60,8 +60,7 @@ export async function turnOnTeleCameraFn(
           setSrcTeleCamera(true);
         }
         return;
-      }
-      else {
+      } else {
         logger(txt_info, result_data, connectionCtx);
         if (setTelephotoCameraStatus) {
           setTelephotoCameraStatus("off");
@@ -114,8 +113,7 @@ export async function turnOnWideCameraFn(
           setSrcWideCamera(true);
         }
         return;
-      }
-      else {
+      } else {
         logger(txt_info, result_data, connectionCtx);
         if (setWideangleCameraStatus) {
           setWideangleCameraStatus("off");

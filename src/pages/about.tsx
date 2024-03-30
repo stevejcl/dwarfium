@@ -11,23 +11,34 @@ export default function About() {
           <br />
           <br />
           <br />
-          <h1><u>About</u></h1>
-          <br/>
+          <h1>
+            <u>About</u>
+          </h1>
+          <br />
           <p>
             The project is made by Wai-Yin Kwan with the help of JC LESAINT This
             website is a side project to combine their interest in coding,
             astronomy and the Dwarf II API. To report bugs or view the original
             code, visit his{" "}
-                      <Link href="https://github.com/DwarfTelescopeUsers/dwarfii-stellarium-goto" target="_blank">
+            <Link
+              href="https://github.com/DwarfTelescopeUsers/dwarfii-stellarium-goto"
+              target="_blank"
+            >
               Github repo.
             </Link>
-          </p><br/>
-          <h2><u>Data Credits</u></h2>
+          </p>
+          <br />
+          <h2>
+            <u>Data Credits</u>
+          </h2>
           <p>The data for the objects lists comes from several sources.</p>
           <ul>
             <li>
               The data about the DSO comes from{" "}
-                          <Link href="https://github.com/mattiaverga/OpenNGC" target="_blank">
+              <Link
+                href="https://github.com/mattiaverga/OpenNGC"
+                target="_blank"
+              >
                 OpenNGC objects database
               </Link>
               .
@@ -39,27 +50,39 @@ export default function About() {
             </li>
             <li>
               The data about the stars comes from{" "}
-                          <Link href="https://github.com/astronexus/HYG-Database" target="_blank">
+              <Link
+                href="https://github.com/astronexus/HYG-Database"
+                target="_blank"
+              >
                 HYG Stellar database
               </Link>
               .
             </li>
             <li>
               The data about the visual magnitude of planets and Moon comes from{" "}
-                          <Link href="https://en.wikipedia.org/wiki/Apparent_magnitude" target="_blank">
+              <Link
+                href="https://en.wikipedia.org/wiki/Apparent_magnitude"
+                target="_blank"
+              >
                 Wikipedia.
               </Link>
             </li>
             <li>
               The constellation data comes from{" "}
-                          <Link href="https://en.wikipedia.org/wiki/IAU_designated_constellations" target="_blank">
+              <Link
+                href="https://en.wikipedia.org/wiki/IAU_designated_constellations"
+                target="_blank"
+              >
                 Wikipedia.
               </Link>
             </li>
           </ul>
           <p>
             The{" "}
-                      <Link href="https://github.com/DwarfTelescopeUsers/dwarfii-stellarium-goto/tree/main/notebooks" target="_blank">
+            <Link
+              href="https://github.com/DwarfTelescopeUsers/dwarfii-stellarium-goto/tree/main/notebooks"
+              target="_blank"
+            >
               Jupyter notebooks
             </Link>{" "}
             in the Github repo shows the steps I took transform the raw data
@@ -67,16 +90,22 @@ export default function About() {
           </p>
           <p>
             This site use code from{" "}
-                      <Link href="https://github.com/commenthol/astronomia" target="_blank">
+            <Link
+              href="https://github.com/commenthol/astronomia"
+              target="_blank"
+            >
               Astronomia
             </Link>{" "}
             and{" "}
-                      <Link href="https://www.celestialprogramming.com" target="_blank">
+            <Link href="https://www.celestialprogramming.com" target="_blank">
               celestialprogramming.com
             </Link>{" "}
             to do the astronomical calculations.
-          </p><br/>
-          <h2><u>User Data</u></h2>
+          </p>
+          <br />
+          <h2>
+            <u>User Data</u>
+          </h2>
           <p>
             The info entered in by the users is stored in the browser&apos;s
             database (localStorage). Since the data is stored in your browser,

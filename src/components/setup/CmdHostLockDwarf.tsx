@@ -49,31 +49,31 @@ export default function CmdHostLockDwarf() {
     webSocketHandler.prepare(
       WS_Packet,
       txtInfoCommand,
-      [
-        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE,
-      ],
+      [Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE],
       customMessageHandler
     );
 
     if (!webSocketHandler.run()) {
       console.error(" Can't launch Web Socket Run Action!");
     }
-  }
+  };
 
   function renderHostLock() {
-    if ((connectionCtx.connectionStatus === true) && !(connectionCtx.connectionStatusSlave)) {
+    if (
+      connectionCtx.connectionStatus === true &&
+      !connectionCtx.connectionStatusSlave
+    ) {
       return (
-        <button onClick={handleClickLockHost} className="btn btn-more02 me-3 right-align">
-          {isHostLock ? 'unLock Host Mode' : 'Lock  Host  Mode'}
+        <button
+          onClick={handleClickLockHost}
+          className="btn btn-more02 me-3 right-align"
+        >
+          {isHostLock ? "unLock Host Mode" : "Lock  Host  Mode"}
         </button>
       );
     }
-    return  null;
+    return null;
   }
 
-  return (
-          <div className="sethostmode-dwarf">
-          {renderHostLock()}
-          </div>
-  );
+  return <div className="sethostmode-dwarf">{renderHostLock()}</div>;
 }

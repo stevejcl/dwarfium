@@ -37,9 +37,6 @@ export default function GotoModal(props: PropTypes) {
           <pre>{JSON.stringify(messages, null, 2)}</pre>
         </div>
       </Modal.Body>
-      </Modal>
-      
-
-
+    </Modal>
   );
 }

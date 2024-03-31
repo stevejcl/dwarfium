@@ -50,18 +50,20 @@ npm run tauri build
 
 If you just want to get the site up and running on your machine, then follow these steps.
 
-1. Download the file [DwarfStellariumGoto.tar.gz](https://github.com//DwarfTelescopeUsers/dwarfii-stellarium-goto/releases/tag/v0.1.4-beta).
+1. Download desired [Release](https://github.com/stevejcl/dwarfii-stellarium-goto/releases).
 
-2. Unzip the file. A DwarfStellariumGoto directory will be created. The website is a static html site (html, javascript, and css), so it should work on any OS that can run a browser and a web server.
+2. For Webbrowser version:
 
-3. Start a server inside the DwarfStellariumGoto directory. I recommend using Python's webserver, but you can use any webserver you want.
+2.1 Unzip the file. A DwarfStellariumGoto directory will be created. The website is a static html site (html, javascript, and css), so it should work on any OS that can run a browser and a web server.
+
+2.2. Start a server inside the DwarfStellariumGoto directory. I recommend using Python's webserver, but you can use any webserver you want.
 
 ```bash
 cd DwarfStellariumGoto
 python -m http.server
 ```
 
-4. Visit the site in a browser. If you use the Python's server, visit [localhost:8000](http://localhost:8000/)
+2.3. Visit the site in a browser. If you use the Python's server, visit [localhost:8000](http://localhost:8000/)
 
 ## Details
 

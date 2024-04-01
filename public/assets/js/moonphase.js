@@ -230,7 +230,7 @@ var submitButtonHandler = function (event) {
 // this function will get the latitude and longitude to be used in the weather search 
 var getLatLong = function (selectedCity) {
     // this creates a URL for the api request based off of the city entered
-    var apiUrl = "https://api.positionstack.com/v1/forward?access_key=f17a81d114fb01bebd0af5544d9e26f5&query=" + selectedCity + "&limit=1";
+    var apiUrl = "https://api.positionstack.com/v1/forward?access_key=API_KEY&query=" + selectedCity + "&limit=1";
 
     // fetch request to get lat and long from url we just created
     fetch(apiUrl).then(function (response) {
@@ -271,7 +271,7 @@ function getWeather() {
         // Weather Fetch
         fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
             headers: {
-                'Authorization': 'bc7f2624-f039-11ee-91db-0242ac130002-bc7f2700-f039-11ee-91db-0242ac130002' // 10request =>day
+                'Authorization': 'API_KEY' // 10request =>day
             }
         }).then((response) => response.json()).then((res) => {
 
@@ -295,7 +295,7 @@ function getWeather() {
 
         // Precipitation Fetch
         
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=current,minute,hourly,alert&appid=8352dc977a32e35f1cb28fc1232ea2f5`, {
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=current,minute,hourly,alert&appid=API_KEY`, {
         }).then((response) => response.json()).then((res) => {
             // Pulling in Precipitation
             const precipitation = res.daily[0].rain
@@ -320,7 +320,7 @@ function getWeather() {
 
         fetch(`https://api.stormglass.io/v2/astronomy/point?lat=${lat}&lng=${lng}&end=${end}`, {
             headers: {
-                'Authorization': 'bc7f2624-f039-11ee-91db-0242ac130002-bc7f2700-f039-11ee-91db-0242ac130002'
+                'Authorization': 'API_KEY'
             }
         }).then((response) => response.json()).then((res) => {
             // Pulling in Moon Phase
@@ -375,7 +375,7 @@ function showWeather() {
         const airTempDisplay = localStorage.getItem('savedAirTemperature')
         const celsius = Math.round(parseInt(airTempDisplay));
         const fahrenheit = Math.round(celsius * 9 / 5 + 32);
-        airTempEl.textContent = `Temperature: ${celsius}°C/ ${fahrenheit}°F`;
+        airTempEl.textContent = `Temperature: ${celsius}Â°C/ ${fahrenheit}Â°F`;
 
         // Display Precipitation
         const precipitationDisplay = localStorage.getItem('savedPrecipitation');

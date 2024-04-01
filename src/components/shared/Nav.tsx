@@ -164,6 +164,14 @@ export default function Nav() {
                 >
                   Clouds
                 </Link>
+                <Link
+                  className="nav-link active drop"
+                  aria-current="page"
+                  href="/moonphase"
+                 >
+                  Moonphases
+                 </Link>
+
               </div>
             </div>
             <li className="nav-item">

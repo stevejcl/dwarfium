@@ -1,7 +1,12 @@
-﻿
+﻿import React, { ChangeEvent, ChangeEventHandler } from 'react';
+
 import Script from 'next/script'
 export default function Moonphase() {
 
+const handleChange: ChangeEventHandler<HTMLInputElement> = (event: ChangeEvent<HTMLInputElement>) => {
+    // Handle change event logic here
+    window["loadPage"]();
+};
 
     return (
         <div>
@@ -19,7 +24,7 @@ export default function Moonphase() {
                             <div className="weather-by-city">
                                 <h2 className="is-size-3 ml-3 is-inline is-mobile">Moon Phase by City : </h2>
                                 <form className="form is-inline is-mobile ml-4">
-                                    <input name="city" type="text" id="input" />
+                                    <input name="city" type="text" id="input_city" />
                                     <div className="form-buttons is-inline is-mobile" />
                                     <button
                                         type="submit"
@@ -55,7 +60,7 @@ export default function Moonphase() {
                                 name="start"
                                 min="2021-01"
                                 defaultValue="2021-10"
-                                onChange="loadPage()"
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="columns is-mobile">

@@ -80,7 +80,7 @@ var submitButton = document.querySelector("#search-btn");
 // variable for the close button on city search error modal
 var errorCloseButton = document.querySelector("#error-close");
 //variable for the input to search a city 
-var cityInputEl = document.querySelector("input");
+var cityInputEl = document.querySelector("#input_city");
 // variable for the error modal box
 var errorBox = document.querySelector(".error-modal-container");
 
@@ -230,7 +230,7 @@ var submitButtonHandler = function (event) {
 // this function will get the latitude and longitude to be used in the weather search 
 var getLatLong = function (selectedCity) {
     // this creates a URL for the api request based off of the city entered
-    var apiUrl = "https://api.positionstack.com/v1/forward?access_key=API_KEY&query=" + selectedCity + "&limit=1";
+    var apiUrl = "http://api.positionstack.com/v1/forward?access_key=API_KEY&query=" + selectedCity + "&limit=1";
 
     // fetch request to get lat and long from url we just created
     fetch(apiUrl).then(function (response) {

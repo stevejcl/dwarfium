@@ -6,9 +6,13 @@ import "@/styles/style.min.css";
 import "@/styles/all.min.css";
 import "@/styles/navbar.css";
 import "@/styles/modal.css";
+import "@/styles/moonphase.css";
+
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "@/fontello/css/custom-focus.css";
+
+
 import type { AppProps } from "next/app";
 import { useEffect } from "react";
 

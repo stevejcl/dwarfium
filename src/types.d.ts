@@ -238,6 +238,10 @@ export type ImagingSession = {
   sessionElaspsedTime: string;
   imagesTaken: number;
   imagesStacked: number;
+  isRecording: boolean;
+  isStackedCountStart: boolean;
+  endRecording: boolean;
+  isGoLive: boolean;
 };
 
 export type AstroSavePosition = {

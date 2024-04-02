@@ -115,9 +115,9 @@ export async function calibrationHandler(
       ) {
         setErrors("");
         setSuccess("");
-        setErrors("Error function Busy, verify need Go Live");
+        setErrors("Error function Busy, verify => Go Live");
         if (callback) {
-          callback("Error function Busy, verify need Go Live");
+          callback("Error function Busy, verify => Go Live");
         }
         console.error("Error CALIBRATION CODE_ASTRO_FUNCTION_BUSY");
       }

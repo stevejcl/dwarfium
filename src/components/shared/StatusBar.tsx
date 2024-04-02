@@ -162,19 +162,22 @@ export default function StatusBar() {
                 </div>
               </span>
             )}
-            {Object.keys(connectionCtx.imagingSession).length > 0 && (
-              <>
-                <span className="me-3">
-                  Taken: {connectionCtx.imagingSession.imagesTaken}
-                </span>
-                <span className="me-3">
-                  Stacked: {connectionCtx.imagingSession.imagesStacked}
-                </span>
-                <span className="me-3">
-                  Time: {connectionCtx.imagingSession.sessionElaspsedTime}
-                </span>
-              </>
-            )}
+            {Object.keys(connectionCtx.imagingSession).length > 0 &&
+              (connectionCtx.imagingSession.isRecording ||
+                connectionCtx.imagingSession.endRecording ||
+                connectionCtx.imagingSession.isGoLive) && (
+                <>
+                  <span className="me-3">
+                    Taken: {connectionCtx.imagingSession.imagesTaken}
+                  </span>
+                  <span className="me-3">
+                    Stacked: {connectionCtx.imagingSession.imagesStacked}
+                  </span>
+                  <span className="me-3">
+                    Time: {connectionCtx.imagingSession.sessionElaspsedTime}
+                  </span>
+                </>
+              )}
           </div>
         </div>
       </div>

@@ -35,6 +35,7 @@ export default function AstroPhoto() {
             <br />
             <br />
             <br />
+            <br />
             <Head>
               <title>Astro Photos</title>
             </Head>

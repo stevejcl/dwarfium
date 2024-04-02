@@ -49,7 +49,7 @@ export function saveConnectionStatusDB(status: boolean) {
 export function fetchConnectionStatusDB(): boolean | undefined {
   let status = localStorage.getItem("connectionStatus");
   if (status) {
-    return status === "true";
+    return status === "false";
   }
 }
 
@@ -115,7 +115,7 @@ export function saveConnectionStatusStellariumDB(status: boolean) {
 export function fetchConnectionStatusStellariumDB(): boolean | undefined {
   let status = localStorage.getItem("connectionStatusStellarium");
   if (status) {
-    return status === "true";
+    return status === "false";
   }
 }
 
@@ -244,7 +244,15 @@ export function fetchImagingSessionDb() {
   let data = localStorage.getItem("imagingSession");
   if (data) {
     let obj = JSON.parse(data);
-    ["startTime", "imagesTaken", "imagesStacked"].forEach((field) => {
+    [
+      "startTime",
+      "imagesTaken",
+      "imagesStacked",
+      "isRecording",
+      "isStackedCountStart",
+      "endRecording",
+      "isGoLive",
+    ].forEach((field) => {
       if (obj[field] !== undefined) {
         obj[field] = Number(obj[field]);
       }

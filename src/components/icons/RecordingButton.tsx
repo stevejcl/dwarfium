@@ -2,9 +2,11 @@ import styles from "@/components/icons/RecordButton.module.css";
 
 type PropType = {
   onClick: () => void;
+  color_stroke: string;
+  title: string;
 };
 export default function RecordingButton(props: PropType) {
-  const { onClick } = props;
+  const { onClick, title, color_stroke } = props;
 
   return (
     <svg
@@ -16,13 +18,13 @@ export default function RecordingButton(props: PropType) {
       width="100%"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <title>Stop Recording</title>
+      <title>{title}</title>
       <g className={styles.outerring}>
         <path
           d="M2 32C2 15.4317 15.4317 2 32 2C48.5683 2 62 15.4317 62 32C62 48.5683 48.5683 62 32 62C15.4317 62 2 48.5683 2 32Z"
           fill="none"
           opacity="1"
-          stroke="currentColor"
+          stroke={color_stroke}
           strokeLinecap="butt"
           strokeLinejoin="round"
           strokeWidth="4"

@@ -3,22 +3,10 @@ import type { FormEvent, ChangeEvent } from "react";
 
 import CmdHostLockDwarf from "@/components/setup/CmdHostLockDwarf";
 
-import {
-  Dwarfii_Api,
-  messageCameraTeleGetSystemWorkingState,
-  messageCameraTeleOpenCamera,
-  messageCameraWideOpenCamera,
-  WebSocketHandler,
-} from "dwarfii_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import {
-  saveConnectionStatusDB,
-  saveInitialConnectionTimeDB,
-  saveIPDwarfDB,
-} from "@/db/db_utils";
-import { logger } from "@/lib/logger";
+import { saveIPDwarfDB } from "@/db/db_utils";
 
-import { getAllTelescopeISPSetting } from "@/lib/dwarf_utils";
+import { connectionHandler } from "@/lib/connect_utils";
 
 export default function ConnectDwarf() {
   let connectionCtx = useContext(ConnectionContext);
@@ -31,7 +19,6 @@ export default function ConnectDwarf() {
   async function checkConnection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    let getInfoCamera = true;
     const formData = new FormData(e.currentTarget);
     const formIP = formData.get("ip");
     let IPDwarf = formIP?.toString();
@@ -44,170 +31,15 @@ export default function ConnectDwarf() {
     connectionCtx.setIPDwarf(IPDwarf);
     saveIPDwarfDB(IPDwarf);
 
-    console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
-    const webSocketHandler = connectionCtx.socketIPDwarf
-      ? connectionCtx.socketIPDwarf
-      : new WebSocketHandler(IPDwarf);
-
-    connectionCtx.setSocketIPDwarf(webSocketHandler);
-
-    // Force IP
-    await webSocketHandler.setNewIpDwarf(IPDwarf);
-
-    const customMessageHandler = (txt_info, result_data) => {
-      if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_SDCARD_INFO) {
-        connectionCtx.setAvailableSizeDwarf(result_data.data.availableSize);
-        connectionCtx.setTotalSizeDwarf(result_data.data.totalSize);
-        connectionCtx.setConnectionStatus(true);
-        connectionCtx.setInitialConnectionTime(Date.now());
-        saveConnectionStatusDB(true);
-        saveInitialConnectionTimeDB();
-      } else if (
-        result_data.cmd ==
-        Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE
-      ) {
-        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-          connectionCtx.setConnectionStatus(true);
-          if (getInfoCamera) {
-            getAllTelescopeISPSetting(connectionCtx, webSocketHandler);
-            getInfoCamera = false;
-          }
-        } else {
-          connectionCtx.setConnectionStatus(true);
-          if (result_data.data.errorTxt)
-            setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
-          else if (result_data.data.code)
-            setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
-          else setErrorTxt(errorTxt + " " + "Error");
-        }
-      } else if (
-        result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE
-      ) {
-        if (result_data.data.mode == 1) {
-          console.log("WARNING SLAVE MODE");
-          connectionCtx.setConnectionStatusSlave(true);
-          setSlavemode(true);
-        } else {
-          console.log("OK : HOST MODE");
-          connectionCtx.setConnectionStatusSlave(false);
-          setSlavemode(false);
-        }
-      } else if (
-        result_data.cmd ==
-        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING
-      ) {
-        if (
-          result_data.data.state ==
-          Dwarfii_Api.OperationState.OPERATION_STATE_STOPPED
-        ) {
-          if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
-            if (result_data.data.errorTxt)
-              setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
-            else
-              setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
-          }
-          logger("Need Go LIVE", {}, connectionCtx);
-          setGoLive(true);
-        }
-      } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_ELE) {
-        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-          connectionCtx.setBatteryLevelDwarf(result_data.data.value);
-        }
-      } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_CHARGE) {
-        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-          connectionCtx.setBatteryStatusDwarf(result_data.data.value);
-        }
-      } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_POWER_OFF) {
-        setErrorTxt(" The DwarfII is powering Off!");
-        console.error("The DwarfII is powering Off!");
-        setConnecting(false);
-        connectionCtx.setConnectionStatus(false);
-        saveConnectionStatusDB(false);
-        // force stop webSocketHandler
-        webSocketHandler.cleanup(true);
-      } else {
-        logger("", result_data, connectionCtx);
-      }
-      logger(txt_info, result_data, connectionCtx);
-    };
-
-    const customErrorHandler = () => {
-      console.error("ConnectDwarf : Socket Close!");
-      setConnecting(false);
-      connectionCtx.setConnectionStatus(false);
-      saveConnectionStatusDB(false);
-    };
-
-    const customStateHandler = (state) => {
-      if (state != connectionCtx.connectionStatus) {
-        connectionCtx.setConnectionStatus(state);
-        saveConnectionStatusDB(state);
-      }
-    };
-
-    webSocketHandler.closeTimerHandler = () => {
-      setConnecting(false);
-    };
-    webSocketHandler.onStopTimerHandler = () => {
-      setConnecting(false);
-      saveConnectionStatusDB(false);
-    };
-
-    // close socket is request takes too long
-    webSocketHandler.closeSocketTimer = setTimeout(() => {
-      webSocketHandler.handleClose("");
-      console.log(" -> Close Timer.....");
-      setConnecting(false);
-      connectionCtx.setConnectionStatus(false);
-      saveConnectionStatusDB(false);
-    }, 5000);
-
-    // function for connection and reconnection
-    const customReconnectHandler = () => {
-      startConnect();
-    };
-
-    function startConnect() {
-      console.log("ConnectDwarf startConnect Function started");
-
-      setSlavemode(false);
-      setGoLive(false);
-      connectionCtx.setConnectionStatusSlave(false);
-      setConnecting(true);
-
-      // Send Commands : cmdCameraTeleGetSystemWorkingState
-      let WS_Packet = messageCameraTeleGetSystemWorkingState();
-      let WS_Packet1 = messageCameraTeleOpenCamera();
-      let WS_Packet2 = messageCameraWideOpenCamera();
-      let txtInfoCommand = "Connection";
-
-      webSocketHandler.prepare(
-        [WS_Packet, WS_Packet1, WS_Packet2],
-        txtInfoCommand,
-        [
-          "*", // Get All Data
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_SDCARD_INFO,
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_ELE,
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_CHARGE,
-          Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE,
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE,
-          Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_OPEN_CAMERA,
-          Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_OPEN_CAMERA,
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING,
-        ],
-        customMessageHandler,
-        customStateHandler,
-        customErrorHandler,
-        customReconnectHandler
-      );
-    }
-
-    // Start Connection
-    startConnect();
-
-    if (!webSocketHandler.run()) {
-      console.error(" Can't launch Web Socket Run Action!");
-    }
+    connectionHandler(
+      connectionCtx,
+      IPDwarf,
+      true,
+      setConnecting,
+      setSlavemode,
+      setGoLive,
+      setErrorTxt
+    );
   }
 
   function ipHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -221,7 +53,7 @@ export default function ConnectDwarf() {
   function renderConnectionStatus() {
     let goLiveMessage = "";
     if (goLive) {
-      goLiveMessage = "Need Go Live";
+      goLiveMessage = "=> Go Live";
     }
     if (connecting) {
       return <span className="text-warning-connect">Connecting...</span>;
@@ -309,6 +141,10 @@ export default function ConnectDwarf() {
           {renderConnectionStatus()}
           {renderCmdHostLockDwarf()}
         </form>
+        <li className="mb-4">
+          If you see the message: =&gt; Go Live, you have an Imaging Session
+          completed, go to the Camera Page and Click on Live button.
+        </li>
       </ol>
     </div>
   );

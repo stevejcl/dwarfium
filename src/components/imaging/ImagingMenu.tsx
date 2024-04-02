@@ -21,7 +21,6 @@ import {
 import ImagingAstroSettings from "@/components/imaging/ImagingAstroSettings";
 import RecordingButton from "@/components/icons/RecordingButton";
 import RecordButton from "@/components/icons/RecordButton";
-import { logger } from "@/lib/logger";
 import { validateAstroSettings } from "@/components/imaging/form_validations";
 import { ImagingSession } from "@/types";
 import { saveImagingSessionDb, removeImagingSessionDb } from "@/db/db_utils";
@@ -44,9 +43,6 @@ export default function ImagingMenu(props: PropType) {
   const [astroFocus, setAstroFocus] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [validSettings, setValidSettings] = useState(isValid());
-  const [isRecording, setIsRecording] = useState(false);
-  const [endRecording, setEndRecording] = useState(false);
-  const [isStackedCountStart, setIsStackedCountStart] = useState(false);
   const [timerGlobal, setTimerGlobal] =
     useState<ReturnType<typeof setInterval>>();
 
@@ -56,42 +52,47 @@ export default function ImagingMenu(props: PropType) {
   useEffect(() => {
     let testTimer: string | any = "";
     if (timerGlobal) testTimer = timerGlobal.toString();
-    logger(" TG --- Global Timer:", testTimer, connectionCtx);
-    if (isRecording)
-      logger("TG setIsRecording True:", testTimer, connectionCtx);
-    else logger("TG setIsRecording False:", testTimer, connectionCtx);
-    if (endRecording) logger("TG endRecording True:", testTimer, connectionCtx);
-    else logger("TG endRecording False:", testTimer, connectionCtx);
+    console.debug(" TG --- Global Timer:", testTimer, connectionCtx);
+    if (connectionCtx.imagingSession.isRecording)
+      console.debug("TG isRecording True:", testTimer, connectionCtx);
+    else console.debug("TG isRecording False:", testTimer, connectionCtx);
+    if (connectionCtx.imagingSession.endRecording)
+      console.debug("TG endRecording True:", testTimer, connectionCtx);
+    else console.debug("TG endRecording False:", testTimer, connectionCtx);
   }, [timerGlobal]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     let testTimer: string | any = "";
     if (timerGlobal) testTimer = timerGlobal.toString();
-    if (isRecording) logger("setIsRecording True:", testTimer, connectionCtx);
-    else logger("setIsRecording False:", testTimer, connectionCtx);
-  }, [isRecording]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (connectionCtx.imagingSession.isRecording)
+      console.debug("setIsRecording True:", testTimer, connectionCtx);
+    else console.debug("setIsRecording False:", testTimer, connectionCtx);
+  }, [connectionCtx.imagingSession.isRecording]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     let testTimer: string | any = "";
     if (timerGlobal) testTimer = timerGlobal.toString();
-    if (endRecording) logger("endRecording True:", testTimer, connectionCtx);
-    else logger("endRecording false:", testTimer, connectionCtx);
-  }, [endRecording]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (connectionCtx.imagingSession.endRecording)
+      console.debug("endRecording True:", testTimer, connectionCtx);
+    else console.debug("endRecording false:", testTimer, connectionCtx);
+  }, [connectionCtx.imagingSession.endRecording]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     let testTimer: string | any = "";
     if (timerGlobal) testTimer = timerGlobal.toString();
-    if (endRecording) logger("endRecording True:", testTimer, connectionCtx);
-    else logger("endRecording false:", testTimer, connectionCtx);
-  }, [endRecording]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (connectionCtx.imagingSession.isStackedCountStart)
+      console.debug("isStackedCountStart True:", testTimer, connectionCtx);
+    else console.debug("isStackedCountStart false:", testTimer, connectionCtx);
+  }, [connectionCtx.imagingSession.isStackedCountStart]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     let testTimer: string | any = "";
     if (timerGlobal) testTimer = timerGlobal.toString();
-    if (isStackedCountStart)
-      logger("isStackedCountStart True:", testTimer, connectionCtx);
-    else logger("isStackedCountStart false:", testTimer, connectionCtx);
-  }, [isStackedCountStart]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (connectionCtx.imagingSession.isGoLive) {
+      console.debug("isGoLive True:", testTimer, connectionCtx);
+      endImagingSession();
+    } else console.debug("isGoLive false:", testTimer, connectionCtx);
+  }, [connectionCtx.imagingSession.isGoLive]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function isValid() {
     let errors = validateAstroSettings(connectionCtx.astroSettings as any);
@@ -118,17 +119,6 @@ export default function ImagingMenu(props: PropType) {
     return timer;
   }
 
-  const customErrorHandler = () => {
-    console.error("ConnectDwarf : Socket Close!");
-    connectionCtx.setConnectionStatus(false);
-  };
-
-  const customStateHandler = (state) => {
-    if (state != connectionCtx.connectionStatus) {
-      connectionCtx.setConnectionStatus(state);
-    }
-  };
-
   function takeAstroPhotoHandler() {
     if (connectionCtx.IPDwarf == undefined) {
       return;
@@ -143,29 +133,44 @@ export default function ImagingMenu(props: PropType) {
       if (timerSession) {
         timerSessionInit = true;
         testTimer = timerSession.toString();
-        logger("startTimer timer:", testTimer, connectionCtx);
+        console.debug("startTimer timer:", testTimer, connectionCtx);
         setTimerGlobal(timerSession);
       } else timerSessionInit = false;
     }
 
     if (timerSessionInit && timerSession) {
       testTimer = timerSession.toString();
-      logger("startImagingSession timer:", testTimer, connectionCtx);
+      console.debug("startImagingSession timer:", testTimer, connectionCtx);
 
       let now = Date.now();
       connectionCtx.setImagingSession((prev) => {
         prev.startTime = now;
         return { ...prev };
       });
-      setIsRecording(true);
-      setIsStackedCountStart(false);
-
+      connectionCtx.setImagingSession((prev) => {
+        prev["isRecording"] = true;
+        return { ...prev };
+      });
+      connectionCtx.setImagingSession((prev) => {
+        prev["endRecording"] = false;
+        return { ...prev };
+      });
+      connectionCtx.setImagingSession((prev) => {
+        prev["isStackedCountStart"] = false;
+        return { ...prev };
+      });
+      saveImagingSessionDb("isRecording", true.toString());
+      saveImagingSessionDb("endRecording", false.toString());
+      saveImagingSessionDb("isStackedCountStart", false.toString());
       saveImagingSessionDb("startTime", now.toString());
-      setEndRecording(false);
 
       //startAstroPhotoHandler
 
-      logger("startAstroPhotoHandler current ST:", testTimer, connectionCtx);
+      console.debug(
+        "startAstroPhotoHandler current ST:",
+        testTimer,
+        connectionCtx
+      );
       connectionCtx.setImagingSession((prev) => {
         prev["imagesTaken"] = 0;
         return { ...prev };
@@ -177,8 +182,6 @@ export default function ImagingMenu(props: PropType) {
 
       const customMessageHandler = (txt_info, result_data) => {
         // CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING -> Start Capture
-        // CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING -> get details of shooting progress
-        // CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING  -> get state of shooting progress
         if (
           result_data.cmd ==
           Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING
@@ -187,94 +190,21 @@ export default function ImagingMenu(props: PropType) {
             result_data.data.code ==
             Dwarfii_Api.DwarfErrorCode.CODE_ASTRO_NEED_GOTO
           ) {
-            logger("Capture Need Goto ", {}, connectionCtx);
+            console.error("Capture Need Goto");
+            console.debug("Capture Need Goto ", {}, connectionCtx);
             return false;
           } else if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
-            logger("Start Capture error", {}, connectionCtx);
+            console.error("Capture error:", result_data.data.code);
+            console.debug("Start Capture error", {}, connectionCtx);
             endImagingSession();
             return false;
           } else {
-            logger("Start Capture ok", {}, connectionCtx);
+            console.debug("Start Capture ok", {}, connectionCtx);
           }
-        } else if (
-          result_data.cmd ==
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING
-        ) {
-          if (
-            result_data.data.state ==
-            Dwarfii_Api.OperationState.OPERATION_STATE_STOPPED
-          ) {
-            logger("Stop Capture", {}, connectionCtx);
-            //Call endImagingSession
-            endImagingSession();
-            return false;
-          }
-        } else if (
-          result_data.cmd ==
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING
-        ) {
-          if (
-            result_data.data.updateCountType == 0 ||
-            result_data.data.updateCountType == 2
-          ) {
-            connectionCtx.setImagingSession((prev) => {
-              prev["imagesTaken"] = result_data.data.currentCount;
-              return { ...prev };
-            });
-            saveImagingSessionDb(
-              "imagesTaken",
-              result_data.data.currentCount.toString()
-            );
-            logger(
-              "Photos count : ",
-              result_data.data.currentCount,
-              connectionCtx
-            );
-
-            if (timerSession) testTimer = timerSession.toString();
-            logger("takeAstroPhoto currentCount ST:", testTimer, connectionCtx);
-          }
-          if (
-            result_data.data.updateCountType == 1 ||
-            result_data.data.updateCountType == 2
-          ) {
-            connectionCtx.setImagingSession((prev) => {
-              prev["imagesStacked"] = result_data.data.stackedCount;
-              return { ...prev };
-            });
-            saveImagingSessionDb(
-              "imagesStacked",
-              result_data.data.stackedCount.toString()
-            );
-            logger(
-              "Photos stacked : ",
-              result_data.data.stackedCount,
-              connectionCtx
-            );
-            // update Camera to rawPreviewURL once first stacked image is done
-            if (result_data.data.stackedCount > 0 && !isStackedCountStart) {
-              setIsStackedCountStart(true);
-              //let payload = updateRawPreviewSource();
-              //logger("start swithRawPreview...", payload, connectionCtx);
-              //socketSend(socket, payload);
-              //setUseRawPreviewURL(true);
-            }
-          }
-          /*        } else if (message.interface === setRAWPreviewCmd) {
-          logger(
-            "setRAWPreviewCmd Camera to rawPreviewURL:",
-            message,
-            connectionCtx
-          );
-          let IPDwarf = connectionCtx.IPDwarf || DwarfIP;
-          let testPreviewURL = rawPreviewURL(IPDwarf);
-          if (testPreviewURL)
-            console.log("start UseRawPreviewURL : " + testPreviewURL);
-*/
         } else {
-          logger("", result_data, connectionCtx);
+          console.debug("", result_data, connectionCtx);
         }
-        logger(txt_info, result_data, connectionCtx);
+        console.debug(txt_info, result_data, connectionCtx);
       };
 
       console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
@@ -289,14 +219,8 @@ export default function ImagingMenu(props: PropType) {
       webSocketHandler.prepare(
         WS_Packet,
         txtInfoCommand,
-        [
-          Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING,
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING,
-          Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING,
-        ],
-        customMessageHandler,
-        customStateHandler,
-        customErrorHandler
+        [Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING],
+        customMessageHandler
       );
 
       if (!webSocketHandler.run()) {
@@ -312,64 +236,20 @@ export default function ImagingMenu(props: PropType) {
 
     const customMessageHandler = (txt_info, result_data) => {
       // CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING -> Stop Capture
-      // CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING -> get details of shooting progress
-      // CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING  -> get state of shooting progress
       if (
         result_data.cmd ==
         Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING
       ) {
         if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
-          logger("Stop Capture error", {}, connectionCtx);
+          console.debug("Stop Capture error", {}, connectionCtx);
         } else {
-          logger("Stop Capture ok", {}, connectionCtx);
+          console.debug("Stop Capture ok", {}, connectionCtx);
         }
         endImagingSession();
-      } else if (
-        result_data.cmd ==
-        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING
-      ) {
-        if (
-          result_data.data.state ==
-          Dwarfii_Api.OperationState.OPERATION_STATE_STOPPED
-        ) {
-          logger("Stop Capture.", {}, connectionCtx);
-          endImagingSession();
-          return false;
-        }
-      } else if (
-        result_data.cmd ==
-        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING
-      ) {
-        if (
-          result_data.data.updateCountType == 0 ||
-          result_data.data.updateCountType == 2
-        ) {
-          connectionCtx.setImagingSession((prev) => {
-            prev["imagesTaken"] = result_data.data.currentCount;
-            return { ...prev };
-          });
-          saveImagingSessionDb(
-            "imagesTaken",
-            result_data.data.currentCount.toString()
-          );
-        }
-        if (
-          result_data.data.updateCountType == 1 ||
-          result_data.data.updateCountType == 2
-        ) {
-          connectionCtx.setImagingSession((prev) => {
-            prev["imagesStacked"] = result_data.data.stackedCount;
-            return { ...prev };
-          });
-          saveImagingSessionDb(
-            "imagesStacked",
-            result_data.data.stackedCount.toString()
-          );
-        }
       } else {
-        logger("", result_data, connectionCtx);
+        console.debug("", result_data, connectionCtx);
       }
-      logger(txt_info, result_data, connectionCtx);
+      console.debug(txt_info, result_data, connectionCtx);
     };
 
     console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
@@ -384,14 +264,8 @@ export default function ImagingMenu(props: PropType) {
     webSocketHandler.prepare(
       WS_Packet,
       txtInfoCommand,
-      [
-        Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING,
-        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING,
-        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING,
-      ],
-      customMessageHandler,
-      customStateHandler,
-      customErrorHandler
+      [Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING],
+      customMessageHandler
     );
 
     if (!webSocketHandler.run()) {
@@ -408,14 +282,16 @@ export default function ImagingMenu(props: PropType) {
       // CMD_ASTRO_GO_LIVE -> Stop Capture
       if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_ASTRO_GO_LIVE) {
         if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
-          logger("Go Live error", {}, connectionCtx);
+          console.debug("Go Live error", {}, connectionCtx);
         } else {
-          logger("Go Live ok", {}, connectionCtx);
+          console.debug("Go Live ok", {}, connectionCtx);
         }
+        saveImagingSessionDb("goLive", false.toString());
+        saveImagingSessionDb("endRecording", false.toString());
       } else {
-        logger("", result_data, connectionCtx);
+        console.debug("", result_data, connectionCtx);
       }
-      logger(txt_info, result_data, connectionCtx);
+      console.debug(txt_info, result_data, connectionCtx);
     };
 
     console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
@@ -431,9 +307,7 @@ export default function ImagingMenu(props: PropType) {
       WS_Packet,
       txtInfoCommand,
       [Dwarfii_Api.DwarfCMD.CMD_ASTRO_GO_LIVE],
-      customMessageHandler,
-      customStateHandler,
-      customErrorHandler
+      customMessageHandler
     );
 
     if (!webSocketHandler.run()) {
@@ -445,25 +319,57 @@ export default function ImagingMenu(props: PropType) {
     let testTimer: string | any = "";
     if (timerSession) {
       testTimer = timerSession.toString();
-      logger("ImagingSession tS clearInterval:", testTimer, connectionCtx);
+      console.debug(
+        "ImagingSession tS clearInterval:",
+        testTimer,
+        connectionCtx
+      );
     }
     if (timerGlobal) {
       testTimer = timerGlobal.toString();
-      logger("ImagingSession tG clearInterval:", testTimer, connectionCtx);
+      console.debug(
+        "ImagingSession tG clearInterval:",
+        testTimer,
+        connectionCtx
+      );
     }
     // timerSession if Photos Session is completed !
     if (timerSession) clearInterval(timerSession);
     if (timerGlobal) clearInterval(timerGlobal);
     timerSessionInit = false;
-    setEndRecording(true);
-    setIsRecording(false);
+    if (connectionCtx.imagingSession.isRecording) {
+      connectionCtx.setImagingSession((prev) => {
+        prev["isRecording"] = false;
+        return { ...prev };
+      });
+    }
+    if (connectionCtx.imagingSession.endRecording) {
+      connectionCtx.setImagingSession((prev) => {
+        prev["endRecording"] = true;
+        return { ...prev };
+      });
+    }
+    saveImagingSessionDb("isRecording", false.toString());
+    saveImagingSessionDb("endRecording", true.toString());
   }
 
   function endPreview() {
+    saveImagingSessionDb("endRecording", false.toString());
+    if (connectionCtx.imagingSession.endRecording) {
+      connectionCtx.setImagingSession((prev) => {
+        prev["endRecording"] = false;
+        return { ...prev };
+      });
+    }
+    saveImagingSessionDb("isGoLive", false.toString());
+    if (connectionCtx.imagingSession.isGoLive) {
+      connectionCtx.setImagingSession((prev) => {
+        prev["isGoLive"] = false;
+        return { ...prev };
+      });
+    }
     connectionCtx.setImagingSession({} as ImagingSession);
     removeImagingSessionDb();
-
-    setEndRecording(false);
     setUseRawPreviewURL(false);
 
     setTimeout(() => {
@@ -570,14 +476,14 @@ export default function ImagingMenu(props: PropType) {
           Dwarfii_Api.DwarfCMD.CMD_FOCUS_STOP_MANUAL_CONTINU_FOCUS
       ) {
         if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
-          logger("Focus error", {}, connectionCtx);
+          console.debug("Focus error", {}, connectionCtx);
         } else {
-          logger("Focus ok", {}, connectionCtx);
+          console.debug("Focus ok", {}, connectionCtx);
         }
       } else {
-        logger("", result_data, connectionCtx);
+        console.debug("", result_data, connectionCtx);
       }
-      logger(txt_info, result_data, connectionCtx);
+      console.debug(txt_info, result_data, connectionCtx);
     };
 
     console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
@@ -624,9 +530,7 @@ export default function ImagingMenu(props: PropType) {
       WS_Packet,
       txtInfoCommand,
       Cmd,
-      customMessageHandler,
-      customStateHandler,
-      customErrorHandler
+      customMessageHandler
     );
 
     if (!webSocketHandler.run()) {
@@ -643,14 +547,41 @@ export default function ImagingMenu(props: PropType) {
       // display clickable record button if all fields are completed
     } else if (validSettings) {
       console.log("Record Button2");
-      if (isRecording) {
+      if (
+        connectionCtx.imagingSession.isRecording &&
+        !connectionCtx.imagingSession.endRecording
+      ) {
         console.log("Record Button3");
-        return <RecordingButton onClick={stopAstroPhotoHandler} />;
-      } else if (endRecording) {
-        console.log("Record Button4");
+        return (
+          <RecordingButton
+            onClick={stopAstroPhotoHandler}
+            color_stroke={"red"}
+            title="Stop Recording"
+          />
+        );
+      } else if (connectionCtx.imagingSession.isGoLive) {
+        console.log("Record Button5");
         // Live Button is on
         return (
-          <RecordButton onClick={goLiveHandler} title="End of Recording" />
+          <RecordButton
+            onClick={() => {
+              goLiveHandler();
+              endPreview();
+            }}
+            title="End Current Session"
+          />
+        );
+      } else if (connectionCtx.imagingSession.endRecording) {
+        console.log("Record Button4");
+        return (
+          <RecordingButton
+            onClick={() => {
+              goLiveHandler();
+              endPreview();
+            }}
+            color_stroke={"currentColor"}
+            title="Wait till the End of Stacking"
+          />
         );
       } else {
         console.log("Record Button OK");
@@ -822,29 +753,53 @@ export default function ImagingMenu(props: PropType) {
           </Link>
         )}
       </li>
-      {!isRecording && connectionCtx.imagingSession.startTime && (
-        <li className={`nav-item ${styles.box}`}>
-          <Link
-            href="#"
-            className=""
-            onClick={() => {
-              goLiveHandler();
-              endPreview();
-            }}
-          >
-            Live
-          </Link>
-        </li>
-      )}
-      <hr />
-      {!isRecording && !endRecording && !astroFocus && (
-        <div onContextMenu={handleRightClick}>
+      {!connectionCtx.imagingSession.isRecording &&
+        connectionCtx.imagingSession.isGoLive && (
           <li className={`nav-item ${styles.box}`}>
             <Link
               href="#"
               className=""
-              onClick={focusAutoAstro}
-              title="Astro Auto Focus"
+              onClick={() => {
+                goLiveHandler();
+                endPreview();
+              }}
+              title="End Current Session"
+            >
+              Live
+            </Link>
+          </li>
+        )}
+      <hr />
+      {!connectionCtx.imagingSession.isRecording &&
+        !connectionCtx.imagingSession.endRecording &&
+        !astroFocus && (
+          <div onContextMenu={handleRightClick}>
+            <li className={`nav-item ${styles.box}`}>
+              <Link
+                href="#"
+                className=""
+                onClick={focusAutoAstro}
+                title="Astro Auto Focus"
+              >
+                <i
+                  className="icon-bullseye"
+                  style={{
+                    fontSize: "2rem",
+                  }}
+                ></i>
+              </Link>
+            </li>
+          </div>
+        )}
+      {!connectionCtx.imagingSession.isRecording &&
+        !connectionCtx.imagingSession.endRecording &&
+        astroFocus && (
+          <li className={`nav-item ${styles.box}`}>
+            <Link
+              href="#"
+              className=""
+              onClick={focusAutoAstroStop}
+              title="Astro Focus Stop"
             >
               <i
                 className="icon-bullseye"
@@ -854,94 +809,85 @@ export default function ImagingMenu(props: PropType) {
               ></i>
             </Link>
           </li>
-        </div>
-      )}
-      {!isRecording && !endRecording && astroFocus && (
-        <li className={`nav-item ${styles.box}`}>
-          <Link
-            href="#"
-            className=""
-            onClick={focusAutoAstroStop}
-            title="Astro Focus Stop"
-          >
-            <i
-              className="icon-bullseye"
-              style={{
-                fontSize: "2rem",
-              }}
-            ></i>
-          </Link>
-        </li>
-      )}
+        )}
       <hr />
-      {!isRecording && !endRecording && (
-        <li className={`nav-item ${styles.box}`}>
-          <Link href="#" className="" onClick={focusPlus} title="Focus + Click">
-            <i
-              className="icon-plus-squared-alt"
-              style={{
-                fontSize: "2rem",
-              }}
-            ></i>
-          </Link>
-        </li>
-      )}
+      {!connectionCtx.imagingSession.isRecording &&
+        !connectionCtx.imagingSession.endRecording && (
+          <li className={`nav-item ${styles.box}`}>
+            <Link
+              href="#"
+              className=""
+              onClick={focusPlus}
+              title="Focus + Click"
+            >
+              <i
+                className="icon-plus-squared-alt"
+                style={{
+                  fontSize: "2rem",
+                }}
+              ></i>
+            </Link>
+          </li>
+        )}
       <hr />
-      {!isRecording && !endRecording && (
-        <li className={`nav-item ${styles.box}`}>
-          <Link
-            href="#"
-            className=""
-            onClick={focusMinus}
-            title="Focus - Click"
-          >
-            <i
-              className="icon-minus-squared-alt"
-              style={{
-                fontSize: "2rem",
-              }}
-            ></i>
-          </Link>
-        </li>
-      )}
+      {!connectionCtx.imagingSession.isRecording &&
+        !connectionCtx.imagingSession.endRecording && (
+          <li className={`nav-item ${styles.box}`}>
+            <Link
+              href="#"
+              className=""
+              onClick={focusMinus}
+              title="Focus - Click"
+            >
+              <i
+                className="icon-minus-squared-alt"
+                style={{
+                  fontSize: "2rem",
+                }}
+              ></i>
+            </Link>
+          </li>
+        )}
       <hr />
-      {!isRecording && !endRecording && (
-        <li className={`nav-item ${styles.box}`}>
-          <Link
-            href="#"
-            className=""
-            onMouseDown={focusPlusLong}
-            onMouseUp={focusLongStop}
-            title="Focus + Long Press"
-          >
-            <i
-              className="icon-plus-squared"
-              style={{
-                fontSize: "2rem",
-              }}
-            ></i>
-          </Link>
-        </li>
-      )}
+      {!connectionCtx.imagingSession.isRecording &&
+        !connectionCtx.imagingSession.endRecording && (
+          <li className={`nav-item ${styles.box}`}>
+            <Link
+              href="#"
+              className=""
+              onMouseDown={focusPlusLong}
+              onMouseUp={focusLongStop}
+              title="Focus + Long Press"
+            >
+              <i
+                className="icon-plus-squared"
+                style={{
+                  fontSize: "2rem",
+                }}
+              ></i>
+            </Link>
+          </li>
+        )}
       <hr />
-      {!isRecording && !endRecording && (
-        <li className={`nav-item ${styles.box}`}>
-          <Link
-            href="#"
-            className=""
-            onMouseDown={focusMinusLong}
-            onMouseUp={focusLongStop}
-            title="Focus - Long Press"
-          >
-            <i
-              className="icon-minus-squared"
-              style={{
-                fontSize: "2rem",
-              }}
-            ></i>
-          </Link>
-        </li>
-      )}
+      {!connectionCtx.imagingSession.isRecording &&
+        !connectionCtx.imagingSession.endRecording && (
+          <li className={`nav-item ${styles.box}`}>
+            <Link
+              href="#"
+              className=""
+              onMouseDown={focusMinusLong}
+              onMouseUp={focusLongStop}
+              title="Focus - Long Press"
+            >
+              <i
+                className="icon-minus-squared"
+                style={{
+                  fontSize: "2rem",
+                }}
+              ></i>
+            </Link>
+          </li>
+        )}
     </ul>
   );
 }

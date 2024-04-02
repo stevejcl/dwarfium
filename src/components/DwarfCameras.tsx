@@ -168,17 +168,6 @@ export default function DwarfCameras(props: PropType) {
     logger(txt_info, result_data, connectionCtx);
   };
 
-  const customErrorHandler = () => {
-    console.error("ConnectDwarf : Socket Close!");
-    connectionCtx.setConnectionStatus(false);
-  };
-
-  const customStateHandler = (state) => {
-    if (state != connectionCtx.connectionStatus) {
-      connectionCtx.setConnectionStatus(state);
-    }
-  };
-
   function checkCameraStatusLater(connectionCtx: ConnectionContextType) {
     if (connectionCtx.IPDwarf === undefined) {
       return;
@@ -205,9 +194,7 @@ export default function DwarfCameras(props: PropType) {
         Dwarfii_Api.DwarfCMD.CMD_NOTIFY_ELE,
         Dwarfii_Api.DwarfCMD.CMD_NOTIFY_CHARGE,
       ],
-      customMessageHandlerTeleWide,
-      customStateHandler,
-      customErrorHandler
+      customMessageHandlerTeleWide
     );
 
     if (!webSocketHandler.run()) {
@@ -261,6 +248,7 @@ export default function DwarfCameras(props: PropType) {
 
   function renderMainCamera() {
     console.info("Render useRawPreviewURL : ", useRawPreviewURL);
+    console.info("Render SRC : ", teleCameraSrc);
     // TODO: use rawPreviewURL vs   telephotoURL,
     return (
       <div className="camera-container">

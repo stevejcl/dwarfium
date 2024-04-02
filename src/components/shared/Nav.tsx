@@ -168,10 +168,9 @@ export default function Nav() {
                   className="nav-link active drop"
                   aria-current="page"
                   href="/moonphase"
-                 >
+                >
                   Moonphases
-                 </Link>
-
+                </Link>
               </div>
             </div>
             <li className="nav-item">

@@ -52,7 +52,11 @@ export default function SetLocation() {
     let value = e.target.value.trim();
     if (value === "") return;
 
-    if (/^(-?\d{1,3}(.\d+)?|[-+]?(?:180(.0+)?|1[0-7]\d(.\d+)?|\d{1,2}(.\d+)?))$/.test(value)) {
+    if (
+      /^(-?\d{1,3}(.\d+)?|[-+]?(?:180(.0+)?|1[0-7]\d(.\d+)?|\d{1,2}(.\d+)?))$/.test(
+        value
+      )
+    ) {
       saveLongitudeDB(Number(value));
       connectionCtx.setLongitude(Number(value));
     }

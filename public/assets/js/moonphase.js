@@ -20,8 +20,6 @@ var sixthWeek = document.getElementsByClassName("sixth");
 var monthEl = document.querySelector(".month");
 var yearEl = document.querySelector(".year");
 var selectedMonth = document.getElementById("start");
-var clearCityButtonEl = document.querySelector('#clear-city');
-var weatherDataContainerEl = document.getElementById('weather-data-container');
 var weatherEl = document.getElementById('weather-container');
 
 document.getElementById('start').valueAsDate = new Date();
@@ -170,21 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-
-
-
-
-
-
-
-
-// document.getElementsByTagName('BODY')[0].addEventListener
-
-//function to open modal 
-
-
-//resets calendate styles and loads the calendarData array and loads the calendar HTML
 let loadPage = function () {
     sixthWeek[0].style.visibility = "hidden";
     calendar.style.height = "630px";
@@ -192,9 +175,12 @@ let loadPage = function () {
     loadArray();
     loadCalendar();
 }
-//Calls functioon to load initial calendar data for the current month/year
-loadPage();
 
+window.loadPage = loadPage;
+
+document.addEventListener("DOMContentLoaded", () => {
+    window.loadPage();
+});
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -202,155 +188,92 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
-
-// this function runs when the submit button is clicked 
-// this function runs when the submit button is clicked 
 var submitButtonHandler = function (event) {
     event.preventDefault();
-    // get city value from input element
     var selectedCity = cityInputEl.value.trim();
 
-    // if a city is entered then run code 
     if (selectedCity) {
         getLatLong(selectedCity);
 
         localStorage.setItem('savedCity', selectedCity);
-        // errorBox.setAttribute("class", "display: none");
 
     }
     else {
-        // error modal appears 
-
         errorBox.setAttribute("class", "display: block");
     }
 
 };
 
 
-// this function will get the latitude and longitude to be used in the weather search 
 var getLatLong = function (selectedCity) {
-    // this creates a URL for the api request based off of the city entered
-    var apiUrl = "http://api.positionstack.com/v1/forward?access_key=API_KEY&query=" + selectedCity + "&limit=1";
+    var apiUrl = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(selectedCity) + "&limit=1";
 
-    // fetch request to get lat and long from url we just created
-    fetch(apiUrl).then(function (response) {
-        // take response and convert it to data we cna use
-        response.json().then(function (data) {
-
-            // Hey Corrie, you can use these variables in your api call for the weather information. This will give you the latitude and longitude based on their search 
-            let lat = data.data[0].latitude;
-            let lon = data.data[0].longitude;
-
-
-
-
-            localStorage.setItem('savedLat', lat);
-            localStorage.setItem('savedLon', lon);
-
-            cityNameEl.textContent = "Your daily moon and weather information is populating!"
-            getWeather();
-
+    fetch(apiUrl)
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok.');
+            }
         })
-    })
+        .then(function (data) {
+            if (data.length > 0) {
+                // Extract latitude and longitude from response data
+                var lat = data[0].lat;
+                var lon = data[0].lon;
+
+                localStorage.setItem('savedLat', lat);
+                localStorage.setItem('savedLon', lon);
+
+                cityNameEl.textContent = "Your daily moon and weather information is populating!";
+                getWeather();
+            } else {
+                throw new Error('No location found for the provided city.');
+            }
+        })
         .catch(function (error) {
+            console.error('There was a problem with the fetch operation:', error);
             errorCatchBox.setAttribute("style", "display: block");
-        })
-
-
+        });
 };
 
-// Pulling the weather information
 function getWeather() {
     const lat = localStorage.getItem('savedLat');
     const lng = localStorage.getItem('savedLon');
+    let apiKey = localStorage.getItem('openweatherApiKey');
 
-    if (lat && lng) {
-        // Storm Glass API  
-        let params = 'cloudCover,precipitation,airTemperature';
+    if (lat && lng && apiKey) {
+        let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&exclude=current,minute,hourly,alert&appid=${apiKey}`;
 
-        // Weather Fetch
-        fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
-            headers: {
-                'Authorization': 'API_KEY' // 10request =>day
-            }
-        }).then((response) => response.json()).then((res) => {
+        fetch(apiUrl)
+            .then((response) => response.json())
+            .then((res) => {
+                const cloudCoverage = res.weather[0].description;
 
+                if (cloudCoverage) {
+                    localStorage.setItem('savedCloudCoverage', cloudCoverage);
+                }
 
-            // Pulling in Cloud Coverage
-            const cloudCoverage = res.hours[0].cloudCover.noaa + '%'
-            // Saving Cloud Coverage
-            localStorage.setItem('savedCloudCoverage', cloudCoverage);
-
-
-
-            // Pulling in Air Temp
-            const airTemp = res.hours[0].airTemperature.noaa
-            // Saving Temp
-            localStorage.setItem('savedAirTemperature', airTemp);
-        })
+                const temperature = res.main.temp;
+                if (temperature) {
+                    localStorage.setItem('savedTemperature', temperature);
+                }
+            })
             .catch(() => {
-                errorCatchBox.setAttribute("style", "display: block");
+                errorCatchBox.setAttribute('style', 'display: block');
             });
-
-
-        // Precipitation Fetch
-        
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=current,minute,hourly,alert&appid=API_KEY`, {
-        }).then((response) => response.json()).then((res) => {
-            // Pulling in Precipitation
-            const precipitation = res.daily[0].rain
-
-            if (precipitation) {
-                // Saving Precipitation
-                localStorage.setItem('savedPrecipitation', (precipitation));
-            }
-
-
-
-
-        })
-            .catch(() => {
-                errorCatchBox.setAttribute("style", "display: block");
-            });
-
-
-
-        // Astronomy Fetch 
-        let end = '2024-04-01';
-
-        fetch(`https://api.stormglass.io/v2/astronomy/point?lat=${lat}&lng=${lng}&end=${end}`, {
-            headers: {
-                'Authorization': 'API_KEY'
-            }
-        }).then((response) => response.json()).then((res) => {
-            // Pulling in Moon Phase
-            const moonPhase = res.data[0].moonPhase.current.text
-            // Saving Moon Phase
-            localStorage.setItem('savedMoonPhase', moonPhase);
-
-            // Pulling in Moon Rise
-            const moonRise = res.data[0].moonrise
-            const moonRiseDate = moonRise.replace(/202.+?-.+?-.+?T0/, '');
-            const moonRiseTime = moonRiseDate.slice(0, -9)
-            // Saving Moon Rise
-            localStorage.setItem('savedMoonRise', moonRiseTime);
-
-            // Pulling in Moon Rise
-            const moonSet = res.data[0].moonset
-            const moonSetDate = moonSet.replace(/202.+?-.+?-.+?T/, '');
-            const moonSetTime = moonSetDate.slice(0, -9)
-            // Saving Moon Rise
-            localStorage.setItem('savedMoonSet', moonSetTime);
-
-
-        })
-            .catch(() => {
-                errorCatchBox.setAttribute("style", "display: block");
-            });
-
+    } else {
+        // Clear existing weather data
+        localStorage.removeItem('savedCloudCoverage');
+        localStorage.removeItem('savedTemperature');
+        // Update UI to inform the user that weather data is not available
+        cloudCoverEl.textContent = "Weather data is not available. Please enter a valid API Key.";
+        airTempEl.textContent = "";
+        // You can handle other UI elements similarly
     }
+
     setTimeout(showWeather, 5000);
-};
+}
 
 // Function to display saved Weather/Astrology info
 function showWeather() {
@@ -372,34 +295,10 @@ function showWeather() {
         cloudCoverEl.textContent = `Cloud Coverage: ${cloudCoverageDisplay}`;
 
         // Display Air Temparature Information
-        const airTempDisplay = localStorage.getItem('savedAirTemperature')
-        const celsius = Math.round(parseInt(airTempDisplay));
+        const airTempDisplay = localStorage.getItem('savedTemperature')
+        const celsius = Math.round(airTempDisplay - 273.15);
         const fahrenheit = Math.round(celsius * 9 / 5 + 32);
         airTempEl.textContent = `Temperature: ${celsius}°C/ ${fahrenheit}°F`;
-
-        // Display Precipitation
-        const precipitationDisplay = localStorage.getItem('savedPrecipitation');
-        var precipitationEl = document.querySelector('#precipitation')
-
-        if (precipitationDisplay) {
-            precipitationEl.textContent = `Precipitation: ${precipitationDisplay}mm`;
-        }
-        else {
-            precipitationEl.textContent = `Precipitation: None forecasted`;
-        }
-
-
-        // Displaying Moon Phase
-        const moonPhaseDisplay = localStorage.getItem('savedMoonPhase');
-        moonPhaseEl.textContent = `Moon Phase: ${moonPhaseDisplay}`;
-
-        // Displaying Moon Rise
-        const moonRiseDisplay = localStorage.getItem('savedMoonRise');
-        moonRiseEl.textContent = `Moon Rise: ${moonRiseDisplay} am`;
-
-        // Displaying Moon Set
-        const moonSetDisplay = localStorage.getItem('savedMoonSet');
-        moonSetEl.textContent = `Moon Set: ${moonSetDisplay} pm`;
     }
     else {
         cityNameEl.textContent = "Enter a City to Get Started!"
@@ -407,17 +306,29 @@ function showWeather() {
 };
 
 getWeather();
-// event listener for error modal close button
 errorCloseButton.addEventListener("click", function () {
     errorBox.setAttribute("style", "display: none");
 });
 
+let apiKey = localStorage.getItem('openweatherApiKey');
 
-// variables for the box to catch general errors
+if (apiKey) {
+    document.getElementById('api-key').value = apiKey;
+}
+
+document.getElementById('save-api-key').addEventListener('click', function () {
+    let apiKeyInput = document.getElementById('api-key').value.trim();
+
+    if (apiKeyInput) {
+        localStorage.setItem('openweatherApiKey', apiKeyInput);
+        alert('API Key saved successfully!');
+    } else {
+        alert('Please enter an API Key!');
+    }
+});
 var errorCatchBox = document.querySelector("#error-catch-container");
 var errorCatchCloseButton = document.querySelector("#error-catch-close");
-
-// event listener for general error modal close button 
+ 
 errorCatchCloseButton.addEventListener("click", function () {
     errorCatchBox.setAttribute("style", "display: none");
 })

@@ -69,7 +69,7 @@ export default function ImportObjectListModal(props: PropTypes) {
       setError("List name is required.");
       return;
     }
-    if (objectListsNames.includes(formName)) {
+    if (objectListsNames.includes(formName.toString())) {
       setError(`There is a list already named "${formName}".`);
       return;
     }
@@ -105,7 +105,7 @@ export default function ImportObjectListModal(props: PropTypes) {
     if (objectListsNames.includes(e.currentTarget.value)) {
       setError(`There is a list already named "${e.currentTarget.value}".`);
     } else {
-      setListName (e.currentTarget.value);
+      setListName(e.currentTarget.value);
     }
   }
 

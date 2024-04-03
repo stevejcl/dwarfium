@@ -296,7 +296,9 @@ export default function ManualGoto() {
       </div>
       <div className="row mb-3">
         <div className="col-sm-4 text-end">
-          <p>You can gently move the Center: </p>
+          <p>
+            You can gently move the Center:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </p>
         </div>
         <div className="col-sm-8">
           <ol>

@@ -54,6 +54,10 @@ export default function Goto() {
         {gotoType === "lists" && <GotoLists />}
         {gotoType === "stellarium" && <GotoStellarium />}
         {gotoType === "userLists" && <GotoUserLists />}
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     </section>
   );

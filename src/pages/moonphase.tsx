@@ -2,8 +2,7 @@
 
 import Script from "next/script";
 export default function Moonphase() {
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (
-  ) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = () => {
     // Handle change event logic here
     window["loadPage"]();
   };

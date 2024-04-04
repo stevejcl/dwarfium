@@ -3,7 +3,7 @@
 import { useState, useContext, useEffect } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Link from "next/link";
-
+import CameraJoystick from "@/components/imaging/CameraJoystick";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
   Dwarfii_Api,
@@ -308,6 +308,7 @@ export default function DwarfCameras(props: PropType) {
           {renderMainCamera()}
         </TransformComponent>
       </TransformWrapper>
+      <CameraJoystick />
     </div>
   );
 }

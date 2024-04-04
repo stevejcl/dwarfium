@@ -218,7 +218,7 @@ export type ObjectTelescopius = {
 };
 
 export type AstroSettings = {
-  rightAcension?: string;
+  rightAscension?: string;
   declination?: string;
   gain?: number | string;
   gainMode?: number;
@@ -246,7 +246,7 @@ export type ImagingSession = {
 
 export type AstroSavePosition = {
   displayName: string;
-  rightAcension: number;
+  rightAscension: number;
   declination: number;
   altitude: number;
   azimuth: number;

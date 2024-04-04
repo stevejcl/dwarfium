@@ -275,7 +275,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
           binning: connectionCtx.astroSettings.binning,
           fileFormat: connectionCtx.astroSettings.fileFormat,
           count: connectionCtx.astroSettings.count || 0,
-          rightAcension: connectionCtx.astroSettings.rightAcension,
+          rightAscension: connectionCtx.astroSettings.rightAscension,
           declination: connectionCtx.astroSettings.declination,
           quality: connectionCtx.astroSettings.quality,
           target: connectionCtx.astroSettings.target,

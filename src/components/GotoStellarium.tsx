@@ -20,6 +20,7 @@ import {
   convertDecimalDegreesToDMS,
 } from "@/lib/math_utils";
 import GotoModal from "./astroObjects/GotoModal";
+import ImportManualModal from "./ImportManualModal";
 
 type Message = {
   [k: string]: string;
@@ -33,6 +34,7 @@ export default function ManualGoto() {
   const [declination, setDeclination] = useState<string | undefined>();
   const [objectName, setObjectName] = useState<string | undefined>();
   const [showModal, setShowModal] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
   const prevErrors = usePrevious(gotoErrors);
   const prevSuccess = usePrevious(gotoSuccess);
@@ -144,6 +146,10 @@ export default function ManualGoto() {
     }
   }
 
+  function importManualData() {
+    setShowImportModal(true);
+  }
+
   function gotoFn() {
     setShowModal(true);
 
@@ -178,7 +184,7 @@ export default function ManualGoto() {
       <ol>
         <li>Select an object in Stellarium.</li>
         <li>
-          Import right acension and declination from Stellarium by clicking
+          Import right ascension and declination from Stellarium by clicking
           'Import Data'.
         </li>
         <li>Start goto by clicking 'Goto'</li>
@@ -188,11 +194,18 @@ export default function ManualGoto() {
           connectionCtx.connectionStatusStellarium
             ? "btn btn-more02"
             : "btn-more02"
-        } mb-3`}
+        } me-4 mb-3`}
         onClick={fetchStellariumData}
         disabled={!connectionCtx.connectionStatusStellarium}
       >
         Import Data
+      </button>
+      <button
+        className={`btn btn btn-more02
+        } me-4 mb-3`}
+        onClick={importManualData}
+      >
+        Import Manual Data
       </button>
       {errors && <p className="text-danger">{errors}</p>}
       <div className="row mb-3">
@@ -208,7 +221,7 @@ export default function ManualGoto() {
         <div className="col-sm-8">{objectName}</div>
       </div>
       <div className="row mb-3">
-        <div className="col-sm-4">Right Acension</div>
+        <div className="col-sm-4">Right Ascension</div>
         <div className="col-sm-8">{RA}</div>
       </div>
       <div className="row mb-3">
@@ -219,10 +232,10 @@ export default function ManualGoto() {
         <div className="col-sm-4">
           <button
             className={`btn ${
-              RA !== undefined ? "btn-secondary" : "btn-more02"
+              RA !== undefined ? "btn-more02" : "btn-more02"
             } me-4 mb-2`}
             onClick={gotoFn}
-            disabled={RA === undefined}
+            disabled={!connectionCtx.connectionStatus || RA === undefined}
           >
             Goto
           </button>
@@ -240,7 +253,9 @@ export default function ManualGoto() {
                 setErrors
               )
             }
-            disabled={RA === undefined}
+            disabled={
+              !connectionCtx.connectionStatusStellarium || RA === undefined
+            }
           >
             Center
           </button>
@@ -303,13 +318,20 @@ export default function ManualGoto() {
         <div className="col-sm-8">
           <ol>
             <li>Click on buttons to move the center to </li>
-            <li>+/- 1 min for right acension, +/- 0.1° for declination</li>
+            <li>+/- 1 min for right ascension, +/- 0.1° for declination</li>
             <li>The coordinates will be updated</li>
             <li>Re-Center in Stellarium by clicking 'Center'</li>
             <li>Then Start goto by clicking 'Goto'</li>
           </ol>
         </div>
       </div>
+      <ImportManualModal
+        showImportModal={showImportModal}
+        setShowImportModal={setShowImportModal}
+        setRA={setRA}
+        setDeclination={setDeclination}
+        setObjectName={setObjectName}
+      />
       <GotoModal
         object={
           {

@@ -30,6 +30,95 @@ export function range(start: number, stop: number, step: number) {
   );
 }
 
+export function parseRaToFloat(raString) {
+  // If the input is already in decimal format, return it directly
+  if (!raString.includes(":")) {
+    return parseFloat(raString);
+  }
+
+  // Split the RA string into hours, minutes, and seconds
+  const raParts = raString.split(":").map(parseFloat);
+  // Handle the case where hours, minutes, and seconds are given without leading zeros
+  let hours, minutes, seconds;
+  if (raParts.length === 3) {
+    [hours, minutes, seconds] = raParts;
+  } else if (raParts.length === 2) {
+    // Handle the case where only two parts are provided (e.g., "1:0:7.49" or "01:07:07.49")
+    hours = raParts[0];
+    minutes = Math.floor(raParts[1] / 100); // Extract minutes from the second part
+    seconds = raParts[1] % 100; // Extract seconds from the second part
+  } else {
+    return false; // Invalid format
+  }
+
+  // Validate RA format
+  if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+    return false;
+  }
+
+  // Convert to decimal hour
+  const raDecimal = hours + minutes / 60 + seconds / 3600;
+
+  return raDecimal;
+}
+
+export function formatRa(raDecimal) {
+  if (raDecimal === false) {
+    return "Invalid RA";
+  }
+
+  const hours = Math.floor(raDecimal);
+  const minutesDecimal = (raDecimal % 1) * 60;
+  const minutes = Math.floor(minutesDecimal);
+  const seconds = (minutesDecimal % 1) * 60;
+
+  return `${hours}h ${minutes}m ${seconds.toFixed(2)}s`;
+}
+
+export function parseDecToFloat(decString) {
+  // If the input is already in decimal format, return it directly
+  if (!decString.includes(":")) {
+    return parseFloat(decString);
+  }
+
+  // Split the Dec string into degrees, minutes, and seconds
+  let sign = 1;
+  let decStringModified = decString;
+  if (decString.charAt(0) === "-") {
+    sign = -1;
+    decStringModified = decString.substring(1);
+  }
+
+  const decParts = decStringModified.split(":").map(parseFloat);
+
+  // Validate Dec format
+  if (decParts.length !== 3 || decParts.some(isNaN)) {
+    return false;
+  }
+
+  const [degrees, minutes, seconds] = decParts;
+
+  // Convert to decimal degrees
+  const decDecimal = sign * degrees + minutes / 60 + seconds / 3600;
+
+  return decDecimal;
+}
+
+export function formatDec(decDecimal) {
+  if (decDecimal === false) {
+    return "Invalid Dec";
+  }
+
+  const absDecDecimal = Math.abs(decDecimal);
+  const degrees = Math.floor(absDecDecimal);
+  const minutes = Math.floor((absDecDecimal % 1) * 60);
+  const seconds = (absDecDecimal * 3600) % 60;
+
+  const sign = decDecimal < 0 ? "-" : "+";
+
+  return `${sign}${degrees}° ${minutes}' ${seconds.toFixed(1)}"`;
+}
+
 // https://www.vedantu.com/question-answer/calculate-the-right-ascension-and-decli-class-11-physics-cbse-5ff94d1cbfdd3912f3ab841e
 export function convertHMSToDecimalDegrees(
   text: string,

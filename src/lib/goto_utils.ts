@@ -347,12 +347,12 @@ export async function startGotoHandler(
     ? convertDMSToDecimalDegrees(declination!)
     : 0;
 
-  connectionCtx.astroSettings.rightAcension = RA!;
+  connectionCtx.astroSettings.rightAscension = RA!;
   connectionCtx.astroSettings.declination = declination!;
 
   if (!connectionCtx.isSavedPosition && RA_number && declination_number) {
     let today = new Date();
-    connectionCtx.astroSavePosition.rightAcension = RA_number;
+    connectionCtx.astroSavePosition.rightAscension = RA_number;
     connectionCtx.astroSavePosition.declination = declination_number;
     connectionCtx.astroSavePosition.strLocalTime =
       toIsoStringInLocalTime(today);
@@ -470,7 +470,7 @@ export function savePositionHandler(
   //Save Position
 
   if (
-    connectionCtx.astroSavePosition.rightAcension &&
+    connectionCtx.astroSavePosition.rightAscension &&
     connectionCtx.astroSavePosition.declination &&
     connectionCtx.astroSavePosition.strLocalTime
   ) {
@@ -478,7 +478,7 @@ export function savePositionHandler(
     let results = computeRaDecToAltAz(
       connectionCtx.latitude!,
       connectionCtx.longitude!,
-      connectionCtx.astroSavePosition.rightAcension! * 15,
+      connectionCtx.astroSavePosition.rightAscension! * 15,
       connectionCtx.astroSavePosition.declination!,
       connectionCtx.astroSavePosition.strLocalTime,
       connectionCtx.timezone

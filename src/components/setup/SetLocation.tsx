@@ -8,6 +8,12 @@ import { logger } from "@/lib/logger";
 
 export default function SetLocation() {
   let connectionCtx = useContext(ConnectionContext);
+  const [latitude, setLatitude] = useState<string | undefined>(
+    connectionCtx.latitude?.toString()
+  );
+  const [longitude, setLongitude] = useState<string | undefined>(
+    connectionCtx.longitude?.toString()
+  );
   const [errors, setErrors] = useState<string | undefined>();
 
   function browserCoordinatesHandler() {
@@ -26,6 +32,8 @@ export default function SetLocation() {
         saveLongitudeDB(coords.longitude);
         connectionCtx.setLatitude(coords.latitude);
         connectionCtx.setLongitude(coords.longitude);
+        setLatitude(coords.latitude.toString());
+        setLongitude(coords.longitude.toString());
       },
       (err) => {
         logger("getCoordinates err:", err, connectionCtx);
@@ -40,19 +48,18 @@ export default function SetLocation() {
     let value = e.target.value.trim();
     //if (value === "") return;
     if (value == "-" || value == "+") {
-      saveLatitudeDB(value);
-      connectionCtx.setLatitude(value);
+      setLatitude(value);
       return;
     }
 
     // old : if (/^(-?\d{1,2}(.\d+)?|[-+]?(?:90(.0+)?|[1-8]?\d(.\d+)?))$/.test(value)) {
     if (/^(|[-+]?(90?(\.0*)?|[1-8]?\d(\.\d*)?))$/.test(value)) {
       if (!value.endsWith(".")) {
+        setLatitude(value);
         saveLatitudeDB(Number(value));
         connectionCtx.setLatitude(Number(value));
       } else if (!isNaN(parseFloat(value))) {
-        saveLatitudeDB(value);
-        connectionCtx.setLatitude(value);
+        setLatitude(value);
       }
     }
   }
@@ -62,8 +69,7 @@ export default function SetLocation() {
 
     let value = e.target.value.trim();
     if (value == "-" || value == "+") {
-      saveLongitudeDB(value);
-      connectionCtx.setLongitude(value);
+      setLongitude(value);
       return;
     }
 
@@ -72,11 +78,11 @@ export default function SetLocation() {
       /^(|[-+]?(180(\.0+)?|1[0-7]?\d(\.\d*)?|\d{1,2}(\.\d*)?))$/.test(value)
     ) {
       if (!value.endsWith(".")) {
+        setLongitude(value);
         saveLongitudeDB(Number(value));
         connectionCtx.setLongitude(Number(value));
       } else if (!isNaN(parseFloat(value))) {
-        saveLongitudeDB(value);
-        connectionCtx.setLongitude(value);
+        setLongitude(value);
       }
     }
   }
@@ -120,7 +126,7 @@ export default function SetLocation() {
               name="latitude"
               placeholder="-12.3456"
               required
-              value={connectionCtx.latitude || ""}
+              value={latitude || connectionCtx.latitude || ""}
               onChange={(e) => latitudeHandler(e)}
             />
           </div>
@@ -139,7 +145,7 @@ export default function SetLocation() {
               name="longitude"
               placeholder="56.7890"
               required
-              value={connectionCtx.longitude || ""}
+              value={longitude || connectionCtx.longitude || ""}
               onChange={(e) => longitudeHandler(e)}
             />
           </div>

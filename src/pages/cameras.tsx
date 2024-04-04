@@ -102,13 +102,23 @@ export default function AstroPhoto() {
                   showWideangle={showWideangle}
                   useRawPreviewURL={useRawPreviewURL}
                 />
+                <br />
+                <br />
+                <br />
+                <br />
               </main>
 
               <div className="dropdown-wrapper px-0">
+                <br />
+                <br />
                 <ImagingMenu
                   setShowWideangle={setShowWideangle}
                   setUseRawPreviewURL={setUseRawPreviewURL}
                 />
+                <br />
+                <br />
+                <br />
+                <br />
               </div>
             </div>
           </div>

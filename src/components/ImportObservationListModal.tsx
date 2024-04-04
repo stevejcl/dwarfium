@@ -43,8 +43,10 @@ export default function ImportObjectListModal(props: PropTypes) {
   // Function to handle file selection
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    const modifiedName = modifyListName(file.name); // Modify the file name as needed
-    setListName(modifiedName);
+    if (file) {
+      const modifiedName = modifyListName(file.name); // Modify the file name as needed
+      setListName(modifiedName);
+    }
   };
 
   // Function to modify the file name as needed
@@ -67,6 +69,11 @@ export default function ImportObjectListModal(props: PropTypes) {
       setError("List name is required.");
       return;
     }
+    if (objectListsNames.includes(formName.toString())) {
+      setError(`There is a list already named "${formName}".`);
+      return;
+    }
+    setError(``);
     let name = formName.toString();
 
     // handle list csv
@@ -97,6 +104,8 @@ export default function ImportObjectListModal(props: PropTypes) {
     setError("");
     if (objectListsNames.includes(e.currentTarget.value)) {
       setError(`There is a list already named "${e.currentTarget.value}".`);
+    } else {
+      setListName(e.currentTarget.value);
     }
   }
 

@@ -6,6 +6,7 @@ import "@/styles/style.min.css";
 import "@/styles/all.min.css";
 import "@/styles/navbar.css";
 import "@/styles/modal.css";
+import "@/styles/sliding-pane.css";
 import "@/styles/moonphase.css";
 
 import "bootstrap-icons/font/bootstrap-icons.css";

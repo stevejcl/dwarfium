@@ -30,6 +30,9 @@ export default function SetupScope() {
         <ConnectStellarium />
       </div>
       <br />
+      <br />
+      <br />
+      <br />
     </section>
   );
 }

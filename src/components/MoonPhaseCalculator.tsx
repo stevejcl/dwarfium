@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Moon } from "lunarphase-js";
 
 const MoonPhaseCalculator = ({ date }) => {
-  const [moonPhase, setMoonPhase] = useState(null);
-  const [moonAge, setMoonAge] = useState(null);
-  const [moonImage, setMoonImage] = useState(null);
+  const [moonPhase, setMoonPhase] = useState<string | null>(null);
+  // const [setMoonAge] = useState(null);
+  const [moonImage, setMoonImage] = useState<string | null>(null);
 
   useEffect(() => {
     calculateMoonPhase();
@@ -17,7 +17,7 @@ const MoonPhaseCalculator = ({ date }) => {
     setMoonPhase(getMoonPhaseName(phase));
 
     const age = Moon.lunarAge(date);
-    setMoonAge(Math.round(age));
+    //setMoonAge = Math.round(age);
 
     const imageName = `Moon-${Math.floor(age)}.jpg`;
     setMoonImage(imageName);

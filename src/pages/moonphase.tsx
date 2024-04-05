@@ -1,565 +1,112 @@
-﻿import React, { ChangeEventHandler } from "react";
+﻿import React, { useState, useEffect } from "react";
+import MoonPhaseCalculator from "../components/MoonPhaseCalculator";
 
-import Script from "next/script";
 export default function Moonphase() {
-  const handleChange: ChangeEventHandler<HTMLInputElement> = () => {
-    // Handle change event logic here
-    window["loadPage"]();
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const [selectedMonth, setSelectedMonth] = useState(
+    `${currentYear}-${currentMonth}`
+  );
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+
+  const handleCityChange = (event) => {
+    setSelectedCity(event.target.value);
+  };
+
+  useEffect(() => {}, [selectedMonth, selectedCity]);
+
+  const renderMoonPhasesTable = () => {
+    const [year, month] = selectedMonth.split("-");
+    const daysCount = new Date(year, month, 0).getDate();
+    const firstDayOfMonth = new Date(year, month - 1, 1).getDay(); // Get the day of the week for the first day of the month (0 for Sunday, 1 for Monday, etc.)
+    const moonPhasesTable = [];
+
+    let currentDay = 1; // Initialize the current day to 1
+
+    for (let row = 0; row < 5; row++) {
+      const rowData = [];
+      for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+        if (row === 0 && dayOfWeek < firstDayOfMonth) {
+          // If it's the first row and the current day of the week is before the first day of the month, display an empty cell
+          rowData.push(<td key={dayOfWeek}></td>);
+        } else if (currentDay <= daysCount) {
+          // Display the current day
+          const date = new Date(year, parseInt(month) - 1, currentDay);
+          const phase = <MoonPhaseCalculator date={date} city={selectedCity} />;
+          const phaseName = phase.toString().toLowerCase().replace(" ", "-");
+          const imagePath = `/assets/images/${phaseName}-realistic.png`;
+          rowData.push(
+            <td key={currentDay}>
+              <div className="moon-phase">
+                {currentDay}
+                {phase}
+              </div>
+            </td>
+          );
+          currentDay++; // Move to the next day
+        } else {
+          // If all days have been displayed, display an empty cell
+          rowData.push(<td key={dayOfWeek}></td>);
+        }
+      }
+      moonPhasesTable.push(<tr key={row}>{rowData}</tr>);
+    }
+
+    return moonPhasesTable;
   };
 
   return (
     <div>
       <section className="daily-horp d-inline-block w-100">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <div className="container">
-          <main>
-            <label htmlFor="api-key">Enter OpenWeather API Key:</label>
-            <input type="text" id="api-key" />
-            <button id="save-api-key">Save API Key</button>
-
-            <div className="weather-by-city">
-              <h2 className="is-size-3 ml-3 is-inline is-mobile">
-                Moon Phase by City :{" "}
-              </h2>
-              <form className="form is-inline is-mobile ml-4">
-                <input name="city" type="text" id="input_city" />
-                <div className="form-buttons is-inline is-mobile" />
-                <button
-                  type="submit"
-                  id="search-btn"
-                  className="city-search-btn is-inline"
-                >
-                  Search
-                </button>
-                <button
-                  id="clear-city"
-                  className="city-search-btn is-inline ml-2"
-                  type="button"
-                >
-                  Clear City
-                </button>
-              </form>
-            </div>
-            {/* container for modal*/}
-            <div className="error-modal-container">
-              <div className="error-modal">
-                <h3>Please search a valid city!</h3>
-                <button id="error-close">Close</button>
-              </div>
-            </div>
-
-            <div className="month-input">
-              <label htmlFor="start" className="is-size-3">
-                Select Month :
-              </label>
-              <input
-                type="month"
-                id="start"
-                name="start"
-                min="2021-01"
-                defaultValue="2021-10"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="columns is-mobile">
-              <div className="calendar">
-                <div className="monthYear columns is-mobile">
-                  <div className="month column">Month</div>
-                  <div className="year column">Year</div>
-                </div>
-                <div className="weekDays columns is-mobile">
-                  <div className="column">SUN</div>
-                  <div className="column">MON</div>
-                  <div className="column">TUE</div>
-                  <div className="column">WED</div>
-                  <div className="column">THU</div>
-                  <div className="column">FRI</div>
-                  <div className="column">SAT</div>
-                </div>
-                <div className="weeks first columns is-mobile">
-                  <div className="days column" data-wom={1} data-dow={0}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={1} data-dow={1}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={1} data-dow={2}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={1} data-dow={3}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={1} data-dow={4}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={1} data-dow={5}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={1} data-dow={6}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                </div>
-                <div className="weeks second columns is-mobile">
-                  <div className="days column" data-wom={2} data-dow={0}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={2} data-dow={1}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={2} data-dow={2}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={2} data-dow={3}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={2} data-dow={4}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={2} data-dow={5}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={2} data-dow={6}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                </div>
-                <div className="weeks third columns is-mobile">
-                  <div className="days column" data-wom={3} data-dow={0}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={3} data-dow={1}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={3} data-dow={2}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={3} data-dow={3}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={3} data-dow={4}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={3} data-dow={5}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={3} data-dow={6}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                </div>
-                <div className="weeks fourth columns is-mobile">
-                  <div className="days column" data-wom={4} data-dow={0}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={4} data-dow={1}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={4} data-dow={2}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={4} data-dow={3}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={4} data-dow={4}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={4} data-dow={5}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={4} data-dow={6}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                </div>
-                <div className="weeks fifth columns is-mobile">
-                  <div className="days column" data-wom={5} data-dow={0}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={5} data-dow={1}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={5} data-dow={2}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={5} data-dow={3}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={5} data-dow={4}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={5} data-dow={5}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={5} data-dow={6}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                </div>
-                <div className="weeks sixth columns is-mobile">
-                  <div className="days column" data-wom={6} data-dow={0}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={6} data-dow={1}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={6} data-dow={2}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={6} data-dow={3}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={6} data-dow={4}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={6} data-dow={5}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                  <div className="days column" data-wom={6} data-dow={6}>
-                    <code className="dayBox is-pulled-left" />
-                    <img
-                      src=""
-                      alt=""
-                      className="is-pulled-right img-moon"
-                      height={80}
-                      width={80}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div id="weather-container" className="weather ml-2">
-                {/* error modal for any other errors */}
-                <div id="error-catch-container">
-                  <div className="error-catch-modal">
-                    <h2>There has been an error!</h2>
-                    <button id="error-catch-close">Try again</button>
-                  </div>
-                </div>
-                <h3 className="weather-background">Daily Moon Phase</h3>
-                <div id="weather-data-container" className="weather-background">
-                  <div
-                    id="city-name"
-                    className="is-inline mb-4 weather-background"
-                  />
-                  <br />
-                  <div
-                    id="weather-today"
-                    className="is-inline mb-4 weather-background"
-                  />
-                  <div id="weather-info">
-                    <div
-                      id="cloud-coverage"
-                      className="has-text-left mb-3 weather-background"
-                    />
-                    <div
-                      id="air-temp"
-                      className="has-text-left mb-3 weather-background"
-                    />
-                    <div
-                      id="precipitation"
-                      className="has-text-left mb-3 weather-background"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </main>
-          {""}
-          <br />
-          <br />
-          <br />
-          <br />
+        <div className="level">
+          <div className="month-input">
+            <label htmlFor="start" className="is-size-3">
+              Select Month :
+            </label>
+            <input
+              type="month"
+              id="start"
+              name="start"
+              min="2024-01"
+              defaultValue="2024-01"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="city-input">
+            <label htmlFor="city" className="is-size-3">
+              Select City :
+            </label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={selectedCity}
+              onChange={handleCityChange}
+            />
+          </div>
+        </div>
+        <div className="calendar">
+          <table>
+            <thead>
+              <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+              </tr>
+            </thead>
+            <tbody>{renderMoonPhasesTable()}</tbody>
+          </table>
         </div>
       </section>
-
-      <Script src="../assets/js/moonphase.js" async />
     </div>
   );
 }

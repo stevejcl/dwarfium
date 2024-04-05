@@ -303,6 +303,17 @@ export function saveLoggerStatusDb(value: string): void {
   localStorage.setItem("loggerStatus", value);
 }
 
+export function fetchLoggerViewDb(): boolean | undefined {
+  let data = localStorage.getItem("loggerView");
+  if (data) {
+    return data === "true" ? true : false;
+  } else false;
+}
+
+export function saveLoggerViewDb(value: string): void {
+  localStorage.setItem("loggerView", value);
+}
+
 export function fetchLogMessagesDb() {
   let data = localStorage.getItem("logMessages");
   if (data) {

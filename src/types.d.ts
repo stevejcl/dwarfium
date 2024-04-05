@@ -70,6 +70,8 @@ export type ConnectionContextType = {
   setLogger: Dispatch<SetStateAction<{ [k: string]: any }[] | undefined>>;
   loggerStatus: boolean | undefined;
   setLoggerStatus: Dispatch<SetStateAction<boolean | undefined>>;
+  loggerView: boolean;
+  setLoggerView: Dispatch<SetStateAction<boolean>>;
 
   deleteConnection: () => void;
 };

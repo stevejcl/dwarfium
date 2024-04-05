@@ -151,7 +151,7 @@ export default function ManualGoto() {
   }
 
   function gotoFn() {
-    setShowModal(true);
+    setShowModal(connectionCtx.loggerView);
 
     startGotoHandler(
       connectionCtx,

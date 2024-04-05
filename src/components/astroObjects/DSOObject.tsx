@@ -129,7 +129,7 @@ export default function DSOObject(props: AstronomyObjectPropType) {
   }
 
   function gotoFn() {
-    setShowModal(true);
+    setShowModal(connectionCtx.loggerView);
     startGotoHandler(
       connectionCtx,
       setErrors,

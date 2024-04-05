@@ -17,6 +17,7 @@ import {
   fetchConnectionStatusDB,
   fetchAstroSettingsDb,
   fetchLoggerStatusDb,
+  fetchLoggerViewDb,
   fetchLogMessagesDb,
   fetchImagingSessionDb,
   fetchTimezoneDB,
@@ -131,6 +132,11 @@ export function useLoadIntialValues() {
       if (data !== undefined) {
         connectionCtx.setLoggerStatus(data);
       }
+    }
+
+    let data = fetchLoggerViewDb();
+    if (data !== undefined) {
+      connectionCtx.setLoggerView(data);
     }
 
     if (connectionCtx.logger === undefined) {

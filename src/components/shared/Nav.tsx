@@ -60,6 +60,13 @@ export default function Nav() {
                 >
                   Session-Data
                 </Link>
+                <Link
+                  className="nav-link active drop"
+                  aria-current="page"
+                  href="/skymap"
+                >
+                  SkyMap
+                </Link>
               </div>
             </div>
 

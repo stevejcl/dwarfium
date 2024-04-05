@@ -76,7 +76,7 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
     } else {
       planet = 7;
     }
-    setShowModal(true);
+    setShowModal(connectionCtx.loggerView);
     startGotoHandler(
       connectionCtx,
       setErrors,

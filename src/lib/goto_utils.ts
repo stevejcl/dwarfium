@@ -280,7 +280,11 @@ export async function startGotoHandler(
     ) {
       if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
         setGotoSuccess("");
-        setGotoErrors("Error GOTO : " + result_data.data.errorPlainTxt);
+        if (result_data.data.errorPlainTxt)
+          setGotoErrors("Error GOTO : " + result_data.data.errorPlainTxt);
+        else if (result_data.data.errorTxt)
+          setGotoErrors("Error GOTO : " + result_data.data.errorTxt);
+        else setGotoErrors("Error GOTO : " + result_data.data.code);
         if (
           result_data.data.code ==
             Dwarfii_Api.DwarfErrorCode.CODE_ASTRO_GOTO_FAILED ||

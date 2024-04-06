@@ -118,3 +118,29 @@ p {
     background-color: rgba(0, 0, 0, .5);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
+
+.SlideModal {
+  position: fixed;
+  bottom: -150vh;
+  background-color: #fff;
+  width: 80%;
+  height: 20%;
+  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.15);
+  left: 10%;
+  padding: 0 12px 12px;
+  transition: all 0.3s ease-out;
+  z-index: 10;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s;
+  will-change: transform;
+    border: 1px solid #af645d;
+    border-radius: 5px;
+    box-shadow: none;
+    background-color: #191d1e;
+    background-clip: padding-box;
+}
+
+.SlideModal.Show {
+  bottom: 0;
+}
+

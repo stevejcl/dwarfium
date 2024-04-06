@@ -41,8 +41,9 @@
   transform: translateX(-100%);
 }
 .slide-pane_from_bottom {
-  height: 30vh;
-  margin-top: 70vh;
+  height: 22vh;
+  margin-top: 78vh;
+  margin-left: 10%;
   transform: translateY(100%);
 }
 .slide-pane_from_bottom.content-after-open {
@@ -53,6 +54,16 @@
 }
 .slide-pane__overlay {
   position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0);
+
+}
+.slide-pane__overlay_hide {
+  position: fixed;
+  height:0px;
   top: 0px;
   left: 0px;
   right: 0px;

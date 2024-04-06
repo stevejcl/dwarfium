@@ -26,7 +26,7 @@ body {
     margin-left: 0px;
     margin-top: 10px;
     height: 34px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .battery-meter {
@@ -145,10 +145,10 @@ body {
 .connect-dwarf {
     display: flex;
     justify-content: space-between;
-    width: 30rem;
+    width: 60rem;
     float: right !important;
     height: fit-content;
-    margin-top: -30px;
+    margin-top: -40px;
 }
 .sethostmode-dwarf {
     display: flex;
@@ -159,6 +159,7 @@ body {
     margin-right: 50%;
     margin-top: -40px;
 }
+.top-align { top:0; margin-top: 0; margin-bottom: 2px; }
 .right-align { margin-left: auto; margin-right: 10px;}
 .con {
     margin-right: 1rem !important;
@@ -253,6 +254,11 @@ h1 {
 p {
     font-size: 1.2em;
 }
+
+.minilink {
+    font-size: 0.6em;
+}
+
 /*image-session*/
 .container-image-session {
     width: 100%;
@@ -422,7 +428,17 @@ img {
     background: transparent;
     
 }
-    .btn-refresh:hover {
-        transform: rotate(360deg) scale(1.2);
-        transition: all 0.4s ease-in-out;
-    }
+ 
+.btn-refresh:hover {
+    transform: rotate(360deg) scale(1.2);
+    transition: all 0.4s ease-in-out;
+}
+
+.speed-meter {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-left: 300px;
+  width: 180px;
+  bottom:5%
+}

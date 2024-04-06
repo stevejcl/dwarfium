@@ -40,7 +40,7 @@ export default function AstroPhoto() {
               <title>Astro Photos</title>
             </Head>
             <StatusBar />
-
+            <hr></hr>
             <h1>Astro Photos</h1>
 
             {notConnected && (
@@ -94,10 +94,10 @@ export default function AstroPhoto() {
             <title>Astro Photos</title>
           </Head>
           <StatusBar />
+          <hr></hr>
           <div className="container">
             <div className="row px-0">
               <main className="col">
-                <br />
                 <DwarfCameras
                   showWideangle={showWideangle}
                   useRawPreviewURL={useRawPreviewURL}
@@ -115,6 +115,11 @@ export default function AstroPhoto() {
                   setShowWideangle={setShowWideangle}
                   setUseRawPreviewURL={setUseRawPreviewURL}
                 />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
                 <br />
                 <br />
                 <br />

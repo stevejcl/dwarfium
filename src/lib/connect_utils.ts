@@ -60,7 +60,11 @@ export async function connectionHandler(
         }
       } else {
         connectionCtx.setConnectionStatus(true);
-        if (result_data.data.errorTxt)
+        if (result_data.data.errorPlainTxt)
+          setErrorTxt(
+            (prevError) => prevError + " " + result_data.data.errorPlainTxt
+          );
+        else if (result_data.data.errorTxt)
           setErrorTxt(
             (prevError) => prevError + " " + result_data.data.errorTxt
           );

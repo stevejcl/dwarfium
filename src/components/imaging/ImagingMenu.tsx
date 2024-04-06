@@ -24,6 +24,7 @@ import RecordButton from "@/components/icons/RecordButton";
 import { validateAstroSettings } from "@/components/imaging/form_validations";
 import { ImagingSession } from "@/types";
 import { saveImagingSessionDb, removeImagingSessionDb } from "@/db/db_utils";
+import CameraAddOn from "@/components/imaging/CameraAddOn";
 import {
   turnOnTeleCameraFn,
   calculateSessionTime,
@@ -43,6 +44,7 @@ export default function ImagingMenu(props: PropType) {
   const [astroFocus, setAstroFocus] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [validSettings, setValidSettings] = useState(isValid());
+  const [showModal, setShowModal] = useState(false);
   const [timerGlobal, setTimerGlobal] =
     useState<ReturnType<typeof setInterval>>();
 
@@ -675,13 +677,57 @@ export default function ImagingMenu(props: PropType) {
     isLongPress = false;
   }
   */
+  function anim_close() {
+    const joystickContainer = document.querySelector(
+      ".joystick-container"
+    ) as HTMLElement;
+    // Check if the element is found
+    if (joystickContainer) {
+      const animationDuration = 500; // 0.5 seconds
+      const start = performance.now();
+
+      const animateHide = (timestamp) => {
+        const elapsed = timestamp - start;
+        const opacity = 1 - elapsed / animationDuration;
+
+        joystickContainer.style.opacity = opacity.toString();
+
+        if (opacity > 0) {
+          requestAnimationFrame(animateHide);
+        } else {
+          joystickContainer.style.display = "none";
+        }
+      };
+      requestAnimationFrame(animateHide);
+    }
+  }
 
   return (
     <ul className="nav nav-pills flex-column mb-auto border">
       <li className={`nav-item ${styles.box}`}>
-        <Link href="#" className="">
-          Astro
-        </Link>
+        {!showModal && (
+          <Link
+            href="#"
+            className=""
+            onClick={() => {
+              setShowModal(true);
+            }}
+          >
+            Astro
+          </Link>
+        )}
+        {showModal && (
+          <Link
+            href="#"
+            className=""
+            onClick={() => {
+              setShowModal(false);
+              anim_close();
+            }}
+          >
+            Photo
+          </Link>
+        )}
       </li>
       <li className={`nav-item ${styles.box}`}>
         <Link href="#" className="" title="Show Settings">
@@ -888,6 +934,7 @@ export default function ImagingMenu(props: PropType) {
             </Link>
           </li>
         )}
+      <CameraAddOn showModal={showModal} />
     </ul>
   );
 }

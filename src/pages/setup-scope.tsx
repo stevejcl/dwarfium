@@ -15,6 +15,7 @@ export default function SetupScope() {
       <div className="container">
         <br /> <br /> <br /> <br />
         <StatusBar />
+        <hr></hr>
         <h2>First Steps</h2>
         <p>
           Use the Dwarf II mobile app from Dwarf Labs to take dark frames, focus

@@ -61,21 +61,10 @@ export default function Moonphase() {
 
   return (
     <div>
-      <section className="daily-horp d-inline-block w-100">
-        <div className="month-input">
-          <label htmlFor="start" className="is-size-3">
-            Select Month :
-          </label>
-          <input
-            type="month"
-            id="start"
-            name="start"
-            min="2024-01"
-            value={selectedMonth}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="city-input">
+          <section className="daily-horp d-inline-block w-100">
+              <div className="container">
+       
+                     <div className="city-input">
           <label htmlFor="city" className="is-size-3">
             Select City :
           </label>
@@ -85,24 +74,38 @@ export default function Moonphase() {
             name="city"
             value={selectedCity}
             onChange={handleCityChange}
-          />
+            />
+            <label htmlFor="start" className="is-size-3">
+             Select Month :
+            </label>
+            <input
+              type="month"
+              id="start"
+              name="start"
+              min="2024-01"
+              value={selectedMonth}
+              onChange={handleChange}
+             />
         </div>
-        <div className="calendar">
-          <table>
-            <thead>
-              <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-              </tr>
-            </thead>
-            <tbody>{renderMoonPhasesTable()}</tbody>
-          </table>
-        </div>
+
+                      <div className="calendar">
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Sun</th>
+                                      <th>Mon</th>
+                                      <th>Tue</th>
+                                      <th>Wed</th>
+                                      <th>Thu</th>
+                                      <th>Fri</th>
+                                      <th>Sat</th>
+                                  </tr>
+                              </thead>
+                              <tbody>{renderMoonPhasesTable()}</tbody>
+                          </table>
+                      </div>
+                  </div>
+        
       </section>
     </div>
   );

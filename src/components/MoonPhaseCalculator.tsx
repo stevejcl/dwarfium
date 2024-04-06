@@ -44,12 +44,15 @@ const MoonPhaseCalculator = ({ date }) => {
   };
 
   return (
-      <div className="prosA">
-
-          <div className="prosP" >{moonPhase}</div>
+    <div className="prosA">
+      <div className="prosP">{moonPhase}</div>
       {moonImage && (
-        <img className="moonimg" src={`../assets/images/Moon/${moonImage}`} alt="Moon" />
-      )} 
+        <img
+          className="moonimg"
+          src={`../assets/images/Moon/${moonImage}`}
+          alt="Moon"
+        />
+      )}
     </div>
   );
 };

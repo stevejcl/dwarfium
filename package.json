@@ -1,6 +1,6 @@
 {
   "name": "stellarium-goto",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,6 +17,7 @@
     "zipsite": "npm run build && cp -r dist DwarfStellariumGoto && tar -czvf DwarfStellariumGoto.tar.gz DwarfStellariumGoto && rm -rf DwarfStellariumGoto"
   },
   "dependencies": {
+    "@fseehawer/react-circular-slider": "^2.6.4",
     "@types/node": "20.2.1",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -38,7 +39,6 @@
     "papaparse": "^5.4.1",
     "prettier": "^2.8.8",
     "protobufjs": "^7.2.6",
-    "rc-slider": "^10.5.0",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",

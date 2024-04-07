@@ -58,12 +58,12 @@ export default function CameraJoystick() {
       joystickClass: "joystick",
       distortion: true,
       x: "93%",
-      y: "15%",
+      y: "10%",
       mouseClickButton: "ALL",
       hideContextMenu: false,
     },
     ({ x, y, leveledX, leveledY, distance, angle }) => {
-      console.error(x, y, leveledX, leveledY, distance, angle);
+      console.debug(x, y, leveledX, leveledY, distance, angle);
       let newTimeMotorCmd = Date.now();
       let elapsedTime = newTimeMotorCmd - gLastTimeMotorCmd;
       let newMotorState = distance > 0;
@@ -78,7 +78,7 @@ export default function CameraJoystick() {
         gMotorState = newMotorState;
         gLastTimeMotorCmd = newTimeMotorCmd;
         // Send Stop command
-        console.error("stop_motor");
+        console.debug("stop_motor");
         stop_motor();
       } else if (newMotorState && elapsedTime > 500) {
         setMotorState(newMotorState);
@@ -91,13 +91,17 @@ export default function CameraJoystick() {
         }
         angle_dec = 360 - angle_dec;
         let vector = Math.sqrt(leveledX * leveledX + leveledY * leveledY) / 10;
-        console.error(elapsedTime, angle_dec, vector);
+        console.debug(elapsedTime, angle_dec, vector);
         joystick(angle_dec, vector);
       } else {
-        console.error("command motor not send", elapsedTime);
+        console.debug("command motor not send", elapsedTime);
       }
     }
   );
+
+  function close() {
+    staticJoystick.destroy();
+  }
 
   function log(value) {
     console.log(value); //eslint-disable-line

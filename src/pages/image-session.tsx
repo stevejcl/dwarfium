@@ -190,6 +190,7 @@ export default function AstroPhoto() {
             <title>Session Data</title>
           </Head>
           <StatusBar />
+          <hr></hr>
           <div className="container-image-session">
             {notification && <div className="notification">{notification}</div>}
             <table className="styled-table">

@@ -1,9 +1,12 @@
 /*  eslint-disable @next/next/no-img-element */
 
 import { useState, useContext, useEffect } from "react";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {
+  TransformWrapper,
+  TransformComponent,
+  useControls,
+} from "react-zoom-pan-pinch";
 import Link from "next/link";
-import CameraJoystick from "@/components/imaging/CameraJoystick";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
   Dwarfii_Api,
@@ -47,14 +50,18 @@ export default function DwarfCameras(props: PropType) {
   const [teleCameraSrc, setTeleCameraSrc] = useState("");
 
   let IPDwarf = connectionCtx.IPDwarf || DwarfIP;
+  const defaultTeleCameraSrc = "/images/dwarflab_camera.png";
+  const defaultWideCameraSrc = "/images/dwarfII.png";
 
   useEffect(() => {
+    console.debug("Start Of Effect DwarfCameras");
     checkCameraStatus(connectionCtx);
     return () => {
       setWideangleCameraStatus("off");
       setTelephotoCameraStatus("off");
-      setWideCameraSrc("");
-      setTeleCameraSrc("");
+      setWideCameraSrc(defaultWideCameraSrc);
+      setTeleCameraSrc(defaultTeleCameraSrc);
+      console.debug("End Of Effect DwarfCameras");
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -75,9 +82,9 @@ export default function DwarfCameras(props: PropType) {
   }
 
   function checkCameraStatus(connectionCtx: ConnectionContextType) {
-    if (wideCameraSrc) setWideangleCameraStatus("on");
+    if (wideCameraSrc !== defaultWideCameraSrc) setWideangleCameraStatus("on");
     else setWideangleCameraStatus("off");
-    if (teleCameraSrc) setTelephotoCameraStatus("on");
+    if (teleCameraSrc !== defaultTeleCameraSrc) setTelephotoCameraStatus("on");
     else setTelephotoCameraStatus("off");
     setTimeout(() => {
       checkCameraStatusLater(connectionCtx);
@@ -92,8 +99,12 @@ export default function DwarfCameras(props: PropType) {
       if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
         setTelephotoCameraStatus("off");
         setTelephotoCameraStatus("off");
-        if (result_data.data.errorTxt)
-          setErrorTxt(errorTxt + " " + result_data.data.errorTxt);
+        if (result_data.data.errorPlainTxt)
+          setErrorTxt(errorTxt + " " + result_data.data.errorPlainTxt);
+        else if (result_data.data.errorTxt)
+          setErrorTxt(
+            (prevError) => prevError + " " + result_data.data.errorTxt
+          );
         else setErrorTxt(errorTxt + " " + "Error: " + result_data.data.code);
       }
     } else if (
@@ -221,7 +232,7 @@ export default function DwarfCameras(props: PropType) {
       const url = rawPreviewURL(IPDwarf);
       setTeleCameraSrc(url);
     } else {
-      const url = "";
+      const url = "/images/dwarlab_camera.png";
       setTeleCameraSrc(url);
     }
   }
@@ -234,7 +245,7 @@ export default function DwarfCameras(props: PropType) {
         <img
           id="idWideCamera"
           onLoad={() =>
-            wideCameraSrc
+            wideCameraSrc !== defaultWideCameraSrc
               ? setWideangleCameraStatus("on")
               : setWideangleCameraStatus("off")
           }
@@ -255,7 +266,7 @@ export default function DwarfCameras(props: PropType) {
         <img
           id="idTeleCamera"
           onLoad={() =>
-            teleCameraSrc
+            teleCameraSrc !== defaultTeleCameraSrc
               ? setTelephotoCameraStatus("on")
               : setTelephotoCameraStatus("off")
           }
@@ -267,26 +278,120 @@ export default function DwarfCameras(props: PropType) {
     );
   }
 
+  const Controls = () => {
+    const { resetTransform, zoomIn, zoomOut } = useControls();
+    return (
+      <>
+        <button
+          className="btn btn-more02 me-3 top-align"
+          onClick={() => resetTransform()}
+        >
+          Reset view
+        </button>
+        <button
+          className="btn btn-more02 me-3 top-align"
+          onClick={() => zoomIn()}
+        >
+          Zoom In
+        </button>
+        <button
+          className="btn btn-more02 me-3 top-align"
+          onClick={() => zoomOut()}
+        >
+          Zoom Out
+        </button>
+      </>
+    );
+  };
   return (
-    <div className={styles.section}>
-      {wideangleCameraStatus === "off" && (
+    <div>
+      {wideangleCameraStatus !== "off" && telephotoCameraStatus !== "off" && (
+        <div className="py-2 clearfix">
+          <span className="text-danger">{errorTxt}&nbsp;</span>
+        </div>
+      )}
+      {wideangleCameraStatus === "off" && telephotoCameraStatus === "off" && (
+        <div className="py-2 clearfix">
+          <span className="text-danger">{errorTxt}</span>
+          <div className="float-end">
+            <Link
+              className="minilink me-4"
+              target="_blank"
+              href={wideangleURL(IPDwarf)}
+            >
+              {wideangleURL(IPDwarf)}
+            </Link>
+            <Link
+              className="minilink"
+              target="_blank"
+              href={telephotoURL(IPDwarf)}
+            >
+              {telephotoURL(IPDwarf)}
+            </Link>
+          </div>
+        </div>
+      )}
+      {wideangleCameraStatus === "off" && telephotoCameraStatus !== "off" && (
         <div className="py-2 clearfix">
           <div className="float-end">
+            <Link
+              className="minilink me-4"
+              target="_blank"
+              href={wideangleURL(IPDwarf)}
+            >
+              {wideangleURL(IPDwarf)}
+            </Link>
+          </div>
+        </div>
+      )}
+      {wideangleCameraStatus !== "off" && telephotoCameraStatus === "off" && (
+        <div className="py-2 clearfix">
+          <div className="float-end">
+            <Link
+              className="minilink"
+              target="_blank"
+              href={telephotoURL(IPDwarf)}
+            >
+              {telephotoURL(IPDwarf)}
+            </Link>
+          </div>
+        </div>
+      )}
+      <TransformWrapper>
+        <Controls />
+        {wideangleCameraStatus === "off" && telephotoCameraStatus === "off" && (
+          <div className="float-end">
             <button
-              className="btn btn-more02"
+              className="btn btn-more02 me-4"
               onClick={() =>
                 turnOnCameraHandler(wideangleCamera, connectionCtx)
               }
             >
               Turn on wideangle camera
             </button>
-            <br />
-            <Link href={wideangleURL(IPDwarf)}>{wideangleURL(IPDwarf)}</Link>
+            <button
+              className="btn btn-more02"
+              onClick={() =>
+                turnOnCameraHandler(telephotoCamera, connectionCtx)
+              }
+            >
+              Turn on telephoto camera
+            </button>
           </div>
-        </div>
-      )}
-      {telephotoCameraStatus === "off" && (
-        <div className="py-2">
+        )}
+        {wideangleCameraStatus === "off" && telephotoCameraStatus !== "off" && (
+          <div className="float-end">
+            <button
+              className="btn btn-more02 me-4"
+              onClick={() =>
+                turnOnCameraHandler(wideangleCamera, connectionCtx)
+              }
+            >
+              Turn on wideangle camera
+            </button>
+          </div>
+        )}
+        {wideangleCameraStatus !== "off" && telephotoCameraStatus === "off" && (
           <div className="float-end">
             <button
               className="btn btn-more02"
@@ -296,19 +401,13 @@ export default function DwarfCameras(props: PropType) {
             >
               Turn on telephoto camera
             </button>
-            <br />
-            <Link href={telephotoURL(IPDwarf)}>{telephotoURL(IPDwarf)}</Link>
           </div>
-        </div>
-      )}
-      <span className="text-danger">{errorTxt}</span>
-      <TransformWrapper>
+        )}
         <TransformComponent>
           {renderWideAngle()}
           {renderMainCamera()}
         </TransformComponent>
       </TransformWrapper>
-      <CameraJoystick />
     </div>
   );
 }

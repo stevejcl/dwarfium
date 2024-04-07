@@ -122,7 +122,7 @@ export default function CameraAddOn(props: PropTypes) {
       let containerSelector = '.joystick-container-' + idString;
 
       // Get the elements matching the constructed selectors
-      let containerElement = document.querySelector(containerSelector);
+      let containerElement = document.querySelector(containerSelector) as HTMLElement;;
 
       // Check if the elements exist
       if (containerElement) {

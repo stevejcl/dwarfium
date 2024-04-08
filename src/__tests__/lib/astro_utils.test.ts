@@ -24,6 +24,7 @@ let Vega: AstroObject = {
   constellation: "",
   alternateNames: "",
   notes: "",
+  favorite: false,
 };
 // NYC -4, HK +8
 let lat_NYC = 40.7128;
@@ -49,6 +50,7 @@ describe("getRiseSetTime", () => {
       constellation: "",
       alternateNames: "",
       notes: "",
+      favorite: false,
     };
     let expected = {
       rise: {
@@ -237,6 +239,7 @@ describe("getRiseSetTimePlanet", () => {
       constellation: "",
       alternateNames: "",
       notes: "",
+      favorite: false,
     };
     let expected = {
       rise: { hours: 12, minutes: 26, seconds: 9 },

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
 
 import DSOList from "@/components/astroObjects/DSOList";
@@ -7,12 +7,23 @@ import dsoCatalog from "../../data/catalogs/dso_catalog.json";
 import { processObjectListOpenNGC } from "@/lib/observation_lists_utils";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { saveCurrentObjectListNameDb } from "@/db/db_utils";
+import { fetchObjectFavoriteNamesDb } from "@/db/db_utils";
 
 let dsoObject = processObjectListOpenNGC(dsoCatalog);
 console.info("DSO processObjectListOpenNGC");
 
 export default function AutoGoto() {
   let connectionCtx = useContext(ConnectionContext);
+  let [objectFavoriteNames, setObjectFavoriteNames] = useState<string[]>([]);
+
+  useEffect(() => {
+    // get objects lists from local storage on page load
+    let favoriteNames = fetchObjectFavoriteNamesDb();
+    if (favoriteNames) {
+      setObjectFavoriteNames(favoriteNames);
+    }
+  }, []);
+
   function selectListHandler(e: ChangeEvent<HTMLSelectElement>) {
     connectionCtx.setCurrentObjectListName(e.target.value);
     saveCurrentObjectListNameDb(e.target.value);
@@ -91,7 +102,11 @@ export default function AutoGoto() {
           </>
         )}
         {connectionCtx.currentObjectListName === "dso" && (
-          <DSOList objects={dsoObject}></DSOList>
+          <DSOList
+            objects={dsoObject}
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+          ></DSOList>
         )}
         {connectionCtx.currentObjectListName === "planets" && (
           <PlanetsList></PlanetsList>

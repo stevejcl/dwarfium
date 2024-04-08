@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 import { AstroObject } from "@/types";
 import DSOObject from "@/components/astroObjects/DSOObject";
@@ -8,6 +9,7 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 
 let objectTypesMenu = [
   { value: "all", label: "All" },
+  { value: "favorite", label: "Favorites" },
   { value: "visible", label: "Visible" },
   { value: "clusters", label: "Clusters" },
   { value: "galaxies", label: "Galaxies" },
@@ -21,11 +23,14 @@ let objectTypesMenu = [
 
 type PropType = {
   objects: AstroObject[];
+  objectFavoriteNames: string[];
+  setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
 };
 
 export default function DSOList(props: PropType) {
   let connectionCtx = useContext(ConnectionContext);
   let dsoObjects: AstroObject[] = props.objects;
+  const { objectFavoriteNames, setObjectFavoriteNames } = props;
 
   const [objects, setObjects] = useState(dsoObjects);
   const [selectedCategories, setSelectedCategories] = useState(["all"]);
@@ -33,6 +38,17 @@ export default function DSOList(props: PropType) {
 
   useEffect(() => {
     filterObjects();
+    let nb = 0;
+    objects.forEach((object) => {
+      if (
+        objectFavoriteNames &&
+        objectFavoriteNames.includes(object.displayName)
+      ) {
+        object.favorite = true;
+        nb += 1;
+      }
+    });
+    console.debug("DSO favorites found:", nb);
   }, [selectedCategories, dsoObjects, searchTxtValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Function to update the search text in the context
@@ -54,7 +70,7 @@ export default function DSOList(props: PropType) {
   };
 
   function selectCategoryHandler(targetCategory: string) {
-    const categoriesToKeep = ["visible", "large", "small", "tiny"];
+    const categoriesToKeep = ["favorite", "visible", "large", "small", "tiny"];
     if (targetCategory === "all") {
       setSelectedCategories((prev) => {
         // Filter out categories that are not in categoriesToKeep
@@ -79,6 +95,7 @@ export default function DSOList(props: PropType) {
         // Check if all remaining categories are from KeepCategory
         const allCategoriesAreKeep = filteredCategories.every(
           (category) =>
+            category === "favorite" ||
             category === "visible" ||
             category === "large" ||
             category === "small" ||
@@ -122,13 +139,43 @@ export default function DSOList(props: PropType) {
     }
     if (selectedCategories.includes("all")) {
       if (dataSearchTxt) {
-        if (selectedCategories.includes("visible")) {
+        if (
+          selectedCategories.includes("visible") &&
+          selectedCategories.includes("favorite")
+        ) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
+                object.favorite &&
+                object.visible &&
+                object.displayName
+                  .toLowerCase()
+                  .includes(dataSearchTxt.toLowerCase())
+              );
+            })
+          );
+        } else if (selectedCategories.includes("visible")) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
                 (sizeDso.length === 0 ||
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.visible &&
+                object.displayName
+                  .toLowerCase()
+                  .includes(dataSearchTxt.toLowerCase())
+              );
+            })
+          );
+        } else if (selectedCategories.includes("favorite")) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
+                object.favorite &&
                 object.displayName
                   .toLowerCase()
                   .includes(dataSearchTxt.toLowerCase())
@@ -149,13 +196,37 @@ export default function DSOList(props: PropType) {
           );
         }
       } else {
-        if (selectedCategories.includes("visible")) {
+        if (
+          selectedCategories.includes("visible") &&
+          selectedCategories.includes("favorite")
+        ) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
+                object.favorite &&
+                object.visible
+              );
+            })
+          );
+        } else if (selectedCategories.includes("visible")) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
                 (sizeDso.length === 0 ||
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.visible
+              );
+            })
+          );
+        } else if (selectedCategories.includes("favorite")) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
+                object.favorite
               );
             })
           );
@@ -172,7 +243,25 @@ export default function DSOList(props: PropType) {
       }
     } else {
       if (dataSearchTxt) {
-        if (selectedCategories.includes("visible")) {
+        if (
+          selectedCategories.includes("visible") &&
+          selectedCategories.includes("favorite")
+        ) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
+                selectedCategories.includes(object.typeCategory) &&
+                object.favorite &&
+                object.visible &&
+                object.displayName
+                  .toLowerCase()
+                  .includes(dataSearchTxt.toLowerCase())
+              );
+            })
+          );
+        } else if (selectedCategories.includes("visible")) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
@@ -180,6 +269,20 @@ export default function DSOList(props: PropType) {
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 selectedCategories.includes(object.typeCategory) &&
                 object.visible &&
+                object.displayName
+                  .toLowerCase()
+                  .includes(dataSearchTxt.toLowerCase())
+              );
+            })
+          );
+        } else if (selectedCategories.includes("favorite")) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
+                selectedCategories.includes(object.typeCategory) &&
+                object.favorite &&
                 object.displayName
                   .toLowerCase()
                   .includes(dataSearchTxt.toLowerCase())
@@ -201,13 +304,39 @@ export default function DSOList(props: PropType) {
           );
         }
       } else {
-        if (selectedCategories.includes("visible")) {
+        if (
+          selectedCategories.includes("visible") &&
+          selectedCategories.includes("favorite")
+        ) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
+                object.favorite &&
+                object.visible &&
+                selectedCategories.includes(object.typeCategory)
+              );
+            })
+          );
+        } else if (selectedCategories.includes("visible")) {
           setObjects(
             dsoObjects.filter((object) => {
               return (
                 (sizeDso.length === 0 ||
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.visible &&
+                selectedCategories.includes(object.typeCategory)
+              );
+            })
+          );
+        } else if (selectedCategories.includes("favorite")) {
+          setObjects(
+            dsoObjects.filter((object) => {
+              return (
+                (sizeDso.length === 0 ||
+                  sizeDso.includes(object.notes?.toString() ?? "")) &&
+                object.favorite &&
                 selectedCategories.includes(object.typeCategory)
               );
             })
@@ -250,7 +379,12 @@ export default function DSOList(props: PropType) {
           {objects.length} {pluralize(objects.length, "Object", "Objects")}
         </h4>
         {objects.map((object) => (
-          <DSOObject key={object.designation} object={object} />
+          <DSOObject
+            key={object.designation}
+            object={object}
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+          />
         ))}
       </div>
     </div>

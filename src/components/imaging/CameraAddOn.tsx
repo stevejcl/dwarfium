@@ -115,28 +115,30 @@ export default function CameraAddOn(props: PropTypes) {
       );
       setJoystickId(staticJoystick);
 
-	  // Define the idString variable
+      // Define the idString variable
       let idString = staticJoystick.id;
 
       // Construct the CSS class selectors using the idString
-      let containerSelector = '.joystick-container-' + idString;
+      let containerSelector = ".joystick-container-" + idString;
 
       // Get the elements matching the constructed selectors
-      let containerElement = document.querySelector(containerSelector) as HTMLElement;;
+      let containerElement = document.querySelector(
+        containerSelector
+      ) as HTMLElement;
 
       // Check if the elements exist
       if (containerElement) {
-          // Modify CSS properties of the elements
-          containerElement.style.position = 'relative'; // fixed
-          containerElement.style.right = '10px';  // 80%
-          containerElement.style.left = '10px';  // 80%
-          containerElement.style.bottom = '75px'; //  11%
-          containerElement.style.transform =  'translate(0%,50%)'; //translate(50%,-50%)
+        // Modify CSS properties of the elements
+        containerElement.style.position = "relative"; // fixed
+        containerElement.style.right = "10px"; // 80%
+        containerElement.style.left = "10px"; // 80%
+        containerElement.style.bottom = "75px"; //  11% 75%
+        containerElement.style.transform = "translate(0%,50%)"; //translate(50%,-50%)
       }
-     
-      let joystickContainer = staticJoystick.container
-      let newParent = document.getElementById('main_SlidingPane');
-        console.error(newParent);
+
+      let joystickContainer = staticJoystick.container;
+      let newParent = document.getElementById("main_SlidingPane");
+      console.error(newParent);
 
       if (joystickContainer && newParent) {
         console.error("change Parent");
@@ -153,7 +155,6 @@ export default function CameraAddOn(props: PropTypes) {
         }
         console.error(newParent);
       }
-      
     }
   }
 
@@ -186,50 +187,50 @@ export default function CameraAddOn(props: PropTypes) {
         }}
         onRequestClose={() => {}}
       >
-	   <div id="main_SlidingPane" className="box-element">
-        <div className="speed-meter">
-          <CircularSlider
-            width={150}
-            min={1.1}
-            max={5}
-            initialValue={2}
-            label="SPEED"
-            labelColor="#005a58"
-            knobColor="#005a58"
-            progressColorFrom="#00bfbd"
-            progressColorTo="#009c9a"
-            progressSize={24}
-            trackColor="#eeeeee"
-            trackSize={24}
-            data={[
-              "1.1",
-              "1.2",
-              "1.4",
-              "1.6",
-              "1.8",
-              "2.0",
-              "2.2",
-              "2.4",
-              "2.6",
-              "2.8",
-              "3.0",
-              "3.2",
-              "3.4",
-              "3.6",
-              "3.8",
-              "4.0",
-              "4.2",
-              "4.4",
-              "4.6",
-              "4.8",
-              "5",
-            ]}
-            dataIndex={6}
-            onChange={(value) => {
-              setNewSpeed(value);
-            }}
-          />
-        </div>
+        <div id="main_SlidingPane" className="box-element">
+          <div className="speed-meter">
+            <CircularSlider
+              width={150}
+              min={1.1}
+              max={5}
+              initialValue={2}
+              label="SPEED"
+              labelColor="#005a58"
+              knobColor="#005a58"
+              progressColorFrom="#00bfbd"
+              progressColorTo="#009c9a"
+              progressSize={24}
+              trackColor="#eeeeee"
+              trackSize={24}
+              data={[
+                "1.1",
+                "1.2",
+                "1.4",
+                "1.6",
+                "1.8",
+                "2.0",
+                "2.2",
+                "2.4",
+                "2.6",
+                "2.8",
+                "3.0",
+                "3.2",
+                "3.4",
+                "3.6",
+                "3.8",
+                "4.0",
+                "4.2",
+                "4.4",
+                "4.6",
+                "4.8",
+                "5",
+              ]}
+              dataIndex={6}
+              onChange={(value) => {
+                setNewSpeed(value);
+              }}
+            />
+          </div>
         </div>
       </SlidingPane>
     </div>

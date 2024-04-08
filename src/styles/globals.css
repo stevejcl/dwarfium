@@ -440,7 +440,7 @@ img {
   flex-direction: row;
   margin-left: 10px;
   width: 500px;
-  bottom:5px
+  bottom:0px
 }
 
 .speed-meter {
@@ -449,5 +449,4 @@ img {
   flex-direction: row;
   margin-left: 50px;
   width: 180px;
-  bottom:60px
 }

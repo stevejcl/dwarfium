@@ -52,18 +52,18 @@ jobs:
           path: DwarfStellariumGoto.zip
   
       - name: install frontend dependencies
-        run: npm install # change this to npm or pnpm depending on which one you use
-
+        run: npm install 
       - uses: tauri-apps/tauri-action@v0
+        id: tauri_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'v__VERSION__-DesktopAPP'
+          tagName: app-v${{ steps.get_version.outputs.version }} 
+          releaseName: 'v${{ steps.get_version.outputs.version }}-DesktopAPP'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: false
           prerelease: false
-          
+
       - name: Release with ncipollo/release-action
         if: matrix.platform == 'ubuntu-20.04'
         id: release
@@ -75,3 +75,50 @@ jobs:
           skipIfReleaseExists: true
           tag: v${{ steps.get_version.outputs.version }}
 
+      # Extract app name from tag
+      - name: Extract app name
+        if: matrix.platform == 'ubuntu-20.04'
+        run: |
+          tag=$(echo "${{ steps.tauri_release.outputs.tag_name }}" | sed 's/^app-//')
+          app_name=$(echo "$tag" | sed 's/-DesktopAPP//')
+          echo "::set-output name=app_name::$app_name"
+
+      # Create updater.json
+      - name: Create updater.json
+        if: matrix.platform == 'ubuntu-20.04'
+        run: |
+          current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          app_name=${{ steps.extract_app_name.outputs.app_name }}
+
+          echo '{
+            "version": "${{ steps.get_version.outputs.version }}",
+            "notes": "See release notes for details.",
+            "pub_date": "'"$current_date"'",
+            "platforms": {
+              "linux-x86_64": {
+                "signature": "'"$content_of_linux_signature"'",
+                "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'-x86_64.AppImage.tar.gz"
+              },
+              "darwin-x86_64": {
+                "signature": "'"$content_of_darwin_signature"'",
+                "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'-x86_64.app.tar.gz"
+              },
+              "windows-x86_64": {
+                "signature": "'"$content_of_windows_signature"'",
+                "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'-x86_64-setup.nsis.zip"
+              }
+            }
+          }' > updater.json
+
+      # Update Gist with updater.json content
+      - name: Update Gist
+        if: matrix.platform == 'ubuntu-20.04'
+        run: |
+          # Extract content of updater.json
+          UPDATER_JSON_CONTENT=$(cat updater.json)
+
+          # Get Gist ID from secrets
+          GIST_ID="${{ secrets.GIST_ID }}"
+
+          # Make a PATCH request to update the gist
+          curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d "{\"files\":{\"updater.json\":{\"content\":\"$UPDATER_JSON_CONTENT\"}}}" "https://api.github.com/gists/$GIST_ID"

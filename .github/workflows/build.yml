@@ -80,7 +80,7 @@ jobs:
         run: |
             current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
             app_name="stellarium-goto"
-            tag="app-${{ steps.get_version.outputs.version }}"
+            tag="app-v${{ steps.get_version.outputs.version }}"
         
             echo '{
               "version": "${{ steps.get_version.outputs.version }}",
@@ -89,19 +89,19 @@ jobs:
               "platforms": {
                 "linux-x86_64": {
                   "signature": "'"$content_of_linux_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_amd64..AppImage"
+                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_amd64.AppImage"
                 },
                 "darwin-x86_64": {
                   "signature": "'"$content_of_darwin_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_-x64.app.tar.gz"
+                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_x64.app.tar.gz"
                 },
                 "windows-x86_64": {
                   "signature": "'"$content_of_windows_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_-x64-setup.exe"
+                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_x64-setup.exe"
                 },
                 "macos-x86_64": {
                   "signature": "'"$content_of_windows_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_-x64.dmg"
+                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_x64.dmg"
                 },
               }
             }' > update.json       

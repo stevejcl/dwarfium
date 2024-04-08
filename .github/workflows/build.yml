@@ -108,16 +108,16 @@ jobs:
                 "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'-x86_64-setup.nsis.zip"
               }
             }
-          }' > updater.json
+          }' > update.json
 
       - name: Update Gist
         if: matrix.platform == 'ubuntu-20.04'
         run: |
             # Extract content of updater.json
-            UPDATER_JSON_CONTENT=$(cat updater.json)
+            UPDATER_JSON_CONTENT=$(cat update.json)
         
             # Get Gist ID from secrets
             GIST_ID="${{ secrets.GIST_ID }}"
         
             # Make a PATCH request to update the gist
-            curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d "{\"files\":{\"updater.json\":{\"content\":\"$UPDATER_JSON_CONTENT\"}}}" "https://api.github.com/gists/$GIST_ID"
+            curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d "{\"files\":{\"update.json\":{\"content\":\"$UPDATER_JSON_CONTENT\"}}}" "https://api.github.com/gists/$GIST_ID"

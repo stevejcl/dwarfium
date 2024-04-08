@@ -54,7 +54,7 @@
     "updater": {
       "active": true,
       "endpoints": [
-        "https://gist.githubusercontent.com/acocalypso/539ff43a1771dfe5598e2aa7c4feaa4b/raw/4ff1c35bd238ea4206453384704884912c94294e/latest.json"
+        "https://gist.githubusercontent.com/acocalypso/539ff43a1771dfe5598e2aa7c4feaa4b/raw/latest.json"
       ],
       "dialog": true,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVBMzlDNzU4QTM3N0IyODYKUldTR3NuZWpXTWM1V2xubEVvWVlsU051RFdQSjJDT2JwVXlWRlZvMDd0Mk1hMWtMRTdhbWJ6Yi8K"

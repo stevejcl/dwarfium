@@ -29,7 +29,17 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
-      
+        env:
+          CI: true
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
       - name: Install dependencies
         run: npm install
   
@@ -40,25 +50,29 @@ jobs:
             cp -r dist DwarfStellariumGoto
             echo "python3 -m http.server" > DwarfStellariumGoto/start_server.bat
             zip -r DwarfStellariumGoto.zip DwarfStellariumGoto
-  
+
       - name: Get version number from package.json
         id: get_version
         run: echo "::set-output name=version::$(node -e 'console.log(require("./package.json").version)')"
-  
+
       - name: Create artifact DwarfStellariumGoto
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: DwarfStellariumGoto-${{ steps.get_version.outputs.version }}
           path: DwarfStellariumGoto.zip
-  
+
       - name: install frontend dependencies
         run: npm install
+        env:
+          CI: true
+
       - uses: tauri-apps/tauri-action@v0
         id: tauri_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+          CI: true
         with:
           tagName: app-v${{ steps.get_version.outputs.version }} 
           releaseName: 'v${{ steps.get_version.outputs.version }}-DesktopAPP'

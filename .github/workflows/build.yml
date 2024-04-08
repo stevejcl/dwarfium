@@ -79,44 +79,29 @@ jobs:
           skipIfReleaseExists: true
           tag: v${{ steps.get_version.outputs.version }}
 
-      - name: Create updater.json
-        if: matrix.platform == 'ubuntu-20.04'
-        run: |
-            current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-            app_name="stellarium-goto"
-            tag="app-v${{ steps.get_version.outputs.version }}"
-        
-            echo '{
-              "version": "${{ steps.get_version.outputs.version }}",
-              "notes": "See release notes for details.",
-              "pub_date": "'"$current_date"'",
-              "platforms": {
-                "linux-x86_64": {
-                  "signature": "'"$content_of_linux_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_amd64.AppImage"
-                },
-                "darwin-x86_64": {
-                  "signature": "'"$content_of_darwin_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_x64.app.tar.gz"
-                },
-                "windows-x86_64": {
-                  "signature": "'"$content_of_windows_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_x64-setup.exe"
-                },
-                "macos-x86_64": {
-                  "signature": "'"$content_of_windows_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_x64.dmg"
-                },
-              }
-            }' > update.json       
-
-      - name: Update Gist
-        if: matrix.platform == 'ubuntu-20.04'
-        uses: exuanbo/actions-deploy-gist@v1
+  update-gist:
+    runs-on: ubuntu-latest
+    needs: [publish-tauri-macos-latest, publish-tauri-ubuntu-20.04, publish-tauri-windows-latest]
+    steps:
+      - name: Get latest release
+        id: get_latest_release
+        uses: actions/github-script@v4
         with:
-          token: ${{ secrets.TOKEN }}
-          gist_id: ${{ secrets.GIST_ID }}
-          file_path: update.json
-          file_type: text
-          gist_description: "Updater JSON for the latest release"
-          gist_file_name: "update.json"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const response = await github.repos.getLatestRelease({ owner, repo });
+            return response.data;
+
+      - name: Get latest release content
+        id: get_latest_release_content
+        run: |
+          latest_release_assets=$(curl -s "${{ steps.get_latest_release.outputs.url }}/assets")
+          latest_release_json=$(echo "$latest_release_assets" | jq '[.[] | {name: .name, download_url: .browser_download_url}]')
+          echo "::set-output name=latest_release_json::$latest_release_json"
+
+      - name: Create updater.json
+        run: |
+          current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          latest_release_json=${{ steps.get_latest_release_content.outputs.latest_release_json }}
+          echo "$latest_release_json" > update.json

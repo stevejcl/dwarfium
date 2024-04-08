@@ -105,3 +105,13 @@ jobs:
           current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           latest_release_json=${{ steps.get_latest_release_content.outputs.latest_release_json }}
           echo "$latest_release_json" > update.json
+          
+      - name: Update Gist
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.TOKEN }}
+          gist_id: ${{ secrets.GIST_ID }}
+          file_path: update.json
+          file_type: text
+          gist_description: "Updater JSON for the latest release"
+          gist_file_name: "update.json"

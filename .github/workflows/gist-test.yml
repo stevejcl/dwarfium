@@ -19,7 +19,7 @@ jobs:
       - name: Download latest.json
         run: |
           latest_release_tag=${{ steps.get_latest_release.outputs.result }}
-          latest_json_url=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${latest_release_tag}" | jq -r '.assets_url')
+          latest_json_url=https://github.com/acocalypso/dwarfii-stellarium-goto/releases/download/app-v2.0.9/latest.json
           curl -L "$latest_json_url" -o latest.json
    
       - name: Update Gist

@@ -112,18 +112,11 @@ jobs:
 
       - name: Update Gist
         if: matrix.platform == 'ubuntu-20.04'
-        run: |
-            # Extract content of updater.json
-            UPDATER_JSON_CONTENT=$(cat update.json)
-        
-            # Get Gist ID from secrets
-            GIST_ID="${{ secrets.GIST_ID }}"
-        
-            # Make a PATCH request to update the gist
-            curl -L \
-              -X PATCH \
-              -H "Accept: application/vnd.github+json" \
-              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              https://api.github.com/gists/$GIST_ID \
-              -d "{\"files\":{\"update.json\":{\"content\":\"$UPDATER_JSON_CONTENT\"}}}"
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          gist_id: ${{ secrets.GIST_ID }}
+          file_path: update.json
+          file_type: text
+          gist_description: "Updater JSON for the latest release"
+          gist_file_name: "update.json"

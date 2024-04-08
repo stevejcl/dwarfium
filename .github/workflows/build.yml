@@ -75,19 +75,12 @@ jobs:
           skipIfReleaseExists: true
           tag: v${{ steps.get_version.outputs.version }}
 
-      # Extract app name from tag
-      - name: Extract app name
+      - name: Create updater.json
         if: matrix.platform == 'ubuntu-20.04'
         run: |
-          tag=$(echo "${{ steps.tauri_release.outputs.tag_name }}" | sed 's/^app-//')
-          app_name=$(echo "$tag" | sed 's/-DesktopAPP//')
-          echo "::set-output name=app_name::$app_name"
-
-          - name: Create updater.json
-          if: matrix.platform == 'ubuntu-20.04'
-          run: |
             current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-            app_name=${{ steps.extract_app_name.outputs.app_name }}
+            app_name="stellarium-goto"
+            tag="app-${{ steps.get_version.outputs.version }}"
         
             echo '{
               "version": "${{ steps.get_version.outputs.version }}",
@@ -96,26 +89,22 @@ jobs:
               "platforms": {
                 "linux-x86_64": {
                   "signature": "'"$content_of_linux_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'-x86_64.AppImage.tar.gz"
+                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_amd64..AppImage"
                 },
                 "darwin-x86_64": {
                   "signature": "'"$content_of_darwin_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'-x86_64.app.tar.gz"
+                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_-x64.app.tar.gz"
                 },
                 "windows-x86_64": {
                   "signature": "'"$content_of_windows_signature"'",
-                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'-x86_64-setup.nsis.zip"
-                }
+                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_-x64-setup.exe"
+                },
+                "macos-x86_64": {
+                  "signature": "'"$content_of_windows_signature"'",
+                  "url": "https://github.com/${{ github.repository }}/releases/download/'"$tag"'/'"$app_name"'_${{ steps.get_version.outputs.version }}_-x64.dmg"
+                },
               }
-            }' > update.json
-        
-      - name: Save update.json as artifact
-        if: matrix.platform == 'ubuntu-20.04'
-        uses: actions/upload-artifact@v2
-        with:
-          name: update-json
-          path: update.json
-        
+            }' > update.json       
 
       - name: Update Gist
         if: matrix.platform == 'ubuntu-20.04'

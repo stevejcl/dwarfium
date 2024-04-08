@@ -110,15 +110,14 @@ jobs:
             }
           }' > updater.json
 
-      # Update Gist with updater.json content
       - name: Update Gist
         if: matrix.platform == 'ubuntu-20.04'
         run: |
-          # Extract content of updater.json
-          UPDATER_JSON_CONTENT=$(cat updater.json)
-
-          # Get Gist ID from secrets
-          GIST_ID="${{ secrets.GIST_ID }}"
-
-          # Make a PATCH request to update the gist
-          curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d "{\"files\":{\"updater.json\":{\"content\":\"$UPDATER_JSON_CONTENT\"}}}" "https://api.github.com/gists/$GIST_ID"
+            # Extract content of updater.json
+            UPDATER_JSON_CONTENT=$(cat updater.json)
+        
+            # Get Gist ID from secrets
+            GIST_ID="${{ secrets.GIST_ID }}"
+        
+            # Make a PATCH request to update the gist
+            curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d "{\"files\":{\"updater.json\":{\"content\":\"$UPDATER_JSON_CONTENT\"}}}" "https://api.github.com/gists/$GIST_ID"

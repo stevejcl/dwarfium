@@ -13,13 +13,19 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const response = await github.repos.getLatestRelease(context.repo);
-            return response.data.tag_name;
-   
+            const { owner, repo } = context.repo;
+            const response = await github.repos.listReleases({ owner, repo });
+            const latestTag = response.data
+              .filter(release => release.tag_name.startsWith('app-v'))
+              .map(release => release.tag_name)
+              .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
+              .pop();
+            return latestTag;
+
       - name: Download latest.json
         run: |
           latest_release_tag=${{ steps.get_latest_release.outputs.result }}
-          latest_json_url=https://github.com/acocalypso/dwarfii-stellarium-goto/releases/download/app-v2.0.9/latest.json
+          latest_json_url="https://github.com/acocalypso/dwarfii-stellarium-goto/releases/download/${latest_release_tag}/latest.json"
           curl -L "$latest_json_url" -o latest.json
    
       - name: Update Gist

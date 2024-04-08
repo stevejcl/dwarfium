@@ -81,7 +81,7 @@ jobs:
 
   update-gist:
     runs-on: ubuntu-latest
-    needs: [publish-tauri-macos-latest, publish-tauri-ubuntu-20.04, publish-tauri-windows-latest]
+    needs: [publish-tauri]
     steps:
       - name: Get latest release
         id: get_latest_release

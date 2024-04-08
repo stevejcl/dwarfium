@@ -52,7 +52,7 @@ jobs:
           path: DwarfStellariumGoto.zip
   
       - name: install frontend dependencies
-        run: npm install 
+        run: npm install
       - uses: tauri-apps/tauri-action@v0
         id: tauri_release
         env:
@@ -63,6 +63,8 @@ jobs:
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: false
           prerelease: false
+          includeUpdaterJson: true
+          updaterJsonKeepUniversal: false
 
       - name: Release with ncipollo/release-action
         if: matrix.platform == 'ubuntu-20.04'

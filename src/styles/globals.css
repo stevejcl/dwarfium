@@ -434,11 +434,20 @@ img {
     transition: all 0.4s ease-in-out;
 }
 
+.box-element {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  width: 500px;
+  bottom:5px
+}
+
 .speed-meter {
   align-items: center;
   display: flex;
   flex-direction: row;
-  margin-left: 300px;
+  margin-left: 50px;
   width: 180px;
-  bottom:5%
+  bottom:60px
 }

@@ -114,7 +114,7 @@ jobs:
         if: matrix.platform == 'ubuntu-20.04'
         uses: exuanbo/actions-deploy-gist@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           gist_id: ${{ secrets.GIST_ID }}
           file_path: update.json
           file_type: text

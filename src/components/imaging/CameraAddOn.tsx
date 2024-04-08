@@ -114,6 +114,46 @@ export default function CameraAddOn(props: PropTypes) {
         }
       );
       setJoystickId(staticJoystick);
+
+	  // Define the idString variable
+      let idString = staticJoystick.id;
+
+      // Construct the CSS class selectors using the idString
+      let containerSelector = '.joystick-container-' + idString;
+
+      // Get the elements matching the constructed selectors
+      let containerElement = document.querySelector(containerSelector) as HTMLElement;;
+
+      // Check if the elements exist
+      if (containerElement) {
+          // Modify CSS properties of the elements
+          containerElement.style.position = 'relative'; // fixed
+          containerElement.style.right = '10px';  // 80%
+          containerElement.style.left = '10px';  // 80%
+          containerElement.style.bottom = '75px'; //  11%
+          containerElement.style.transform =  'translate(0%,50%)'; //translate(50%,-50%)
+      }
+     
+      let joystickContainer = staticJoystick.container
+      let newParent = document.getElementById('main_SlidingPane');
+        console.error(newParent);
+
+      if (joystickContainer && newParent) {
+        console.error("change Parent");
+        // Remove joystickContainer from its current parent
+        joystickContainer.parentNode.removeChild(joystickContainer);
+
+        // Insert joystickContainer as the first child of the new parent
+        if (newParent.firstChild) {
+          console.error("change firstChild");
+          newParent.insertBefore(joystickContainer, newParent.firstChild);
+        } else {
+          console.error("no firstChild");
+          newParent.appendChild(joystickContainer);
+        }
+        console.error(newParent);
+      }
+      
     }
   }
 
@@ -146,6 +186,7 @@ export default function CameraAddOn(props: PropTypes) {
         }}
         onRequestClose={() => {}}
       >
+	   <div id="main_SlidingPane" className="box-element">
         <div className="speed-meter">
           <CircularSlider
             width={150}
@@ -188,6 +229,7 @@ export default function CameraAddOn(props: PropTypes) {
               setNewSpeed(value);
             }}
           />
+        </div>
         </div>
       </SlidingPane>
     </div>

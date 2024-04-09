@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "stellarium-goto",
-    "version": "2.0.7"
+    "version": "2.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -52,7 +52,12 @@
       "dangerousUseHttpScheme": true
     },    
     "updater": {
-      "active": false
+      "active": true,
+      "endpoints": [
+        "https://gist.githubusercontent.com/stevejcl/0957e6a73b3f8a8c804f80a41eefadf4/raw/latest.json"
+      ],
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVBMzlDNzU4QTM3N0IyODYKUldTR3NuZWpXTWM1V2xubEVvWVlsU051RFdQSjJDT2JwVXlWRlZvMDd0Mk1hMWtMRTdhbWJ6Yi8K"
     },
     "windows": [
       {

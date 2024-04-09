@@ -180,6 +180,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Aries",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "+24°21'08\"",
@@ -194,6 +195,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Gemini",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "+31°44'22\"",
@@ -208,6 +210,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Cygnus",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "+30°42'18\"",
@@ -222,6 +225,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Cygnus",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "-2°30'04\"",
@@ -236,6 +240,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Orion",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "+61°26'50\"",
@@ -250,6 +255,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Cassiopeia",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "-32°15'10\"",
@@ -264,6 +270,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Scorpius",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "-20°45'32\"",
@@ -278,6 +285,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Canis Major",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "+13°05'33\"",
@@ -292,6 +300,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Leo",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
       {
         dec: "-69°45'27\"",
@@ -306,6 +315,7 @@ describe("processObjectListStellarium", () => {
         constellation: "Dorado",
         alternateNames: "",
         notes: "",
+        favorite: false,
       },
     ];
 

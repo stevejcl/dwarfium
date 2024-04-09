@@ -6,6 +6,7 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 import DSOList from "@/components/astroObjects/DSOList";
 import ImportObjectListModal from "@/components/ImportObservationListModal";
 import DeleteObjectListModal from "./DeleteObservationListModal";
+import { fetchObjectFavoriteNamesDb } from "@/db/db_utils";
 import { AstroObject } from "@/types";
 import {
   fetchObjectListsDb,
@@ -16,6 +17,7 @@ import {
 export default function GotoUserLists() {
   let connectionCtx = useContext(ConnectionContext);
 
+  let [objectFavoriteNames, setObjectFavoriteNames] = useState<string[]>([]);
   let [objectListsNames, setObjectListsNames] = useState<string[]>([]);
   let [objectLists, setObjectLists] = useState<{
     [k: string]: AstroObject[];
@@ -32,6 +34,11 @@ export default function GotoUserLists() {
     let lists = fetchObjectListsDb();
     if (lists) {
       setObjectLists(lists);
+    }
+    // get objects lists from local storage on page load
+    let favoriteNames = fetchObjectFavoriteNamesDb();
+    if (favoriteNames) {
+      setObjectFavoriteNames(favoriteNames);
     }
   }, []);
 
@@ -103,6 +110,8 @@ export default function GotoUserLists() {
           objectLists[connectionCtx.currentUserObjectListName] && (
             <DSOList
               objects={objectLists[connectionCtx.currentUserObjectListName]}
+              objectFavoriteNames={objectFavoriteNames}
+              setObjectFavoriteNames={setObjectFavoriteNames}
             ></DSOList>
           )}
 

@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect, useMemo } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { AstroObject } from "@/types";
@@ -14,23 +15,27 @@ import {
   convertDMSToDecimalDegrees,
 } from "@/lib/math_utils";
 import { toIsoStringInLocalTime } from "@/lib/date_utils";
+import { saveObjectFavoriteNamesDb } from "@/db/db_utils";
 
 import GotoModal from "./GotoModal";
 
 type AstronomyObjectPropType = {
   object: AstroObject;
+  objectFavoriteNames: string[];
+  setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
 };
 type Message = {
   [k: string]: string;
 };
 export default function DSOObject(props: AstronomyObjectPropType) {
-  const { object } = props;
+  const { object, objectFavoriteNames, setObjectFavoriteNames } = props;
 
   let connectionCtx = useContext(ConnectionContext);
   const [errors, setErrors] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [showModal, setShowModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
+  const [forceFavoriteUpdate, setForceFavoriteUpdate] = useState(false);
 
   useEffect(() => {
     eventBus.on("clearErrors", () => {
@@ -39,13 +44,36 @@ export default function DSOObject(props: AstronomyObjectPropType) {
     eventBus.on("clearSuccess", () => {
       setSuccess(undefined);
     });
-  }, []);
+  }, [forceFavoriteUpdate]);
 
   const [forceUpdate, setForceUpdate] = useState(false);
 
   // Recalculate all data
   const handleRefreshClick = () => {
     setForceUpdate((prev) => !prev);
+  };
+
+  // Reactualize Object
+  const handleFavoriteClick = () => {
+    let updatedListsNames;
+    if (object.favorite) {
+      object.favorite = false;
+      if (!objectFavoriteNames) updatedListsNames.push(object.displayName);
+      else
+        updatedListsNames = objectFavoriteNames.filter(
+          (name) => name != object.displayName
+        );
+      setObjectFavoriteNames(updatedListsNames);
+      saveObjectFavoriteNamesDb(updatedListsNames.join("|"));
+    } else {
+      object.favorite = true;
+      updatedListsNames = objectFavoriteNames
+        .concat(object.displayName)
+        .join("|");
+      saveObjectFavoriteNamesDb(updatedListsNames);
+      setObjectFavoriteNames(objectFavoriteNames.concat(object.displayName));
+    }
+    setForceFavoriteUpdate((prev) => !prev);
   };
 
   // Memorize the calculated data using useMemo
@@ -146,7 +174,19 @@ export default function DSOObject(props: AstronomyObjectPropType) {
 
   return (
     <div className="border-bottom p-2">
-      <h3 className="fs-5 mb-0">{object.displayName}</h3>
+      <h3 className="fs-5 mb-0">
+        {!object.favorite && (
+          <button className="btn-refresh" onClick={handleFavoriteClick}>
+            <i className="bi bi-heart" aria-hidden="true"></i>
+          </button>
+        )}
+        {object.favorite && (
+          <button className="btn-refresh" onClick={handleFavoriteClick}>
+            <i className="bi bi-heart-fill" aria-hidden="true"></i>
+          </button>
+        )}{" "}
+        {object.displayName}
+      </h3>
       <div className="mb-2">{object.alternateNames}</div>
       <div className="row">
         <div className="col-md-4">

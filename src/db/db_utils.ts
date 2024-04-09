@@ -154,6 +154,19 @@ export function fetchUrlStellariumDB(): string | undefined {
   }
 }
 
+export function saveObjectFavoriteNamesDb(name: string) {
+  localStorage.setItem("objectFavoriteNames", name);
+}
+
+export function fetchObjectFavoriteNamesDb(): string[] | undefined {
+  let data = localStorage.getItem("objectFavoriteNames");
+  if (data) {
+    let names = data.split("|");
+    names.sort();
+    return names;
+  }
+}
+
 export function saveObjectListsNamesDb(names: string) {
   localStorage.setItem("objectListsNames", names);
 }

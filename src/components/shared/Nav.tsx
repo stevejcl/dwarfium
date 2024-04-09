@@ -165,9 +165,9 @@ export default function Nav() {
                 <Link
                   className="nav-link active drop"
                   aria-current="page"
-                  href="/construction"
+                  href="/weather"
                 >
-                  Forecast
+                  Weather
                 </Link>
                 <Link
                   className="nav-link active drop"

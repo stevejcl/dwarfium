@@ -115,7 +115,7 @@ jobs:
       - name: Download latest.json
         run: |
           latest_release_tag=${{ steps.get_latest_release.outputs.result }}
-          latest_json_url="https://github.com/acocalypso/dwarfii-stellarium-goto/releases/download/${latest_release_tag}/latest.json"
+          latest_json_url="https://github.com/${GITHUB_REPOSITORY}/releases/download/${latest_release_tag}/latest.json"
           curl -L "$latest_json_url" -o latest.json
    
       - name: Update Gist

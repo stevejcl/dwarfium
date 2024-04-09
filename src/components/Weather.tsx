@@ -2,32 +2,32 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 interface ForecastData {
-    list: {
-      dt_txt: string;
-      main: {
-        temp: number;
-      };
-      weather: {
-        description: string;
-      }[];
-    }[];
-  }
-
-interface WeatherData {
-    name: string;
+  list: {
+    dt_txt: string;
     main: {
       temp: number;
-      feels_like: number;
-      humidity: number;
-      pressure: number;
-    };
-    wind: {
-        speed: number;
     };
     weather: {
       description: string;
     }[];
-  }
+  }[];
+}
+
+interface WeatherData {
+  name: string;
+  main: {
+    temp: number;
+    feels_like: number;
+    humidity: number;
+    pressure: number;
+  };
+  wind: {
+    speed: number;
+  };
+  weather: {
+    description: string;
+  }[];
+}
 
 const Weather = () => {
   const [city, setCity] = useState("");

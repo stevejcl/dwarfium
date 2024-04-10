@@ -37,6 +37,12 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     any | undefined
   >();
   const [totalSizeDwarf, setTotalSizeDwarf] = useState<any | undefined>();
+  const [statusPowerLightsDwarf, setStatusPowerLightsDwarf] = useState<
+    any | undefined
+  >();
+  const [statusRingLightsDwarf, setStatusRingLightsDwarf] = useState<
+    any | undefined
+  >();
 
   const [connectionStatusStellarium, setConnectionStatusStellarium] = useState<
     boolean | undefined
@@ -110,6 +116,10 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setAvailableSizeDwarf,
     totalSizeDwarf,
     setTotalSizeDwarf,
+    statusPowerLightsDwarf,
+    setStatusPowerLightsDwarf,
+    statusRingLightsDwarf,
+    setStatusRingLightsDwarf,
     connectionStatusStellarium,
     setConnectionStatusStellarium,
     IPStellarium,

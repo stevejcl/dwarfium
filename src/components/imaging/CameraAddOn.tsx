@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import SlidingPane from "react-sliding-pane";
 import JoystickController from "joystick-controller";
 import CircularSlider from "@fseehawer/react-circular-slider";
@@ -15,33 +15,14 @@ type PropTypes = {
 
 export default function CameraAddOn(props: PropTypes) {
   const { showModal } = props;
-  //  const [motorState, setMotorState] = useState(0);
-  //  const [lastTimeMotorCmd, setLastTimeMotorCmd] = useState(0);
-  const [joystickId, setJoystickId] = useState(undefined);
-  const [speed, setSpeed] = useState(2.2);
 
-  let connectionCtx = useContext(ConnectionContext);
+  const [joystickId, setJoystickId] = useState(undefined);
+  const joystickSpeed = useRef(2.2);
 
   let gLastTimeMotorCmd = Date.now();
   let gMotorState = false;
 
-  function joystick(angle_dec, vector) {
-    const webSocketHandler = connectionCtx.socketIPDwarf
-      ? connectionCtx.socketIPDwarf
-      : new WebSocketHandler(connectionCtx.IPDwarf);
-
-    if (webSocketHandler.isConnected()) {
-      let txtInfoCommand = "";
-      let speed_dwarf = ((speed - 1) * 30) / 4;
-      let WS_Packet = messageStepMotorServiceJoystick(
-        angle_dec,
-        vector,
-        speed_dwarf
-      );
-      txtInfoCommand = "Joystick";
-      webSocketHandler.prepare(WS_Packet, txtInfoCommand);
-    }
-  }
+  let connectionCtx = useContext(ConnectionContext);
 
   function stop_motor() {
     const webSocketHandler = connectionCtx.socketIPDwarf
@@ -78,6 +59,7 @@ export default function CameraAddOn(props: PropTypes) {
         },
         ({ x, y, leveledX, leveledY, distance, angle }) => {
           console.debug(x, y, leveledX, leveledY, distance, angle);
+          console.debug("joystickSpeed", joystickSpeed.current);
           let newTimeMotorCmd = Date.now();
           let elapsedTime = newTimeMotorCmd - gLastTimeMotorCmd;
           let newMotorState = distance > 0;
@@ -85,18 +67,14 @@ export default function CameraAddOn(props: PropTypes) {
           if (
             newMotorState === false &&
             gMotorState != newMotorState &&
-            elapsedTime > 100
+            elapsedTime > 50
           ) {
-            //setMotorState(newMotorState);
-            //setLastTimeMotorCmd(newTimeMotorCmd);
             gMotorState = newMotorState;
             gLastTimeMotorCmd = newTimeMotorCmd;
             // Send Stop command
             console.debug("stop_motor");
             stop_motor();
-          } else if (newMotorState && elapsedTime > 500) {
-            //setMotorState(newMotorState);
-            //setLastTimeMotorCmd(newTimeMotorCmd);
+          } else if (newMotorState && elapsedTime > 400) {
             gMotorState = newMotorState;
             gLastTimeMotorCmd = newTimeMotorCmd;
             let angle_dec = (angle * 180) / 3.14116;
@@ -107,7 +85,7 @@ export default function CameraAddOn(props: PropTypes) {
             let vector =
               Math.sqrt(leveledX * leveledX + leveledY * leveledY) / 10;
             console.debug(elapsedTime, angle_dec, vector);
-            joystick(angle_dec, vector);
+            move_joystick(angle_dec, vector, joystickSpeed.current);
           } else {
             console.debug("command motor not send", elapsedTime);
           }
@@ -138,28 +116,46 @@ export default function CameraAddOn(props: PropTypes) {
 
       let joystickContainer = staticJoystick.container;
       let newParent = document.getElementById("main_SlidingPane");
-      console.error(newParent);
 
       if (joystickContainer && newParent) {
-        console.error("change Parent");
         // Remove joystickContainer from its current parent
         joystickContainer.parentNode.removeChild(joystickContainer);
 
         // Insert joystickContainer as the first child of the new parent
         if (newParent.firstChild) {
-          console.error("change firstChild");
           newParent.insertBefore(joystickContainer, newParent.firstChild);
         } else {
-          console.error("no firstChild");
+          console.debug("no firstChild");
           newParent.appendChild(joystickContainer);
         }
-        console.error(newParent);
+        staticJoystick.recenterJoystick();
       }
     }
   }
 
-  function setNewSpeed(value) {
-    setSpeed(value);
+  function updateNewSpeed(value) {
+    joystickSpeed.current = value;
+  }
+
+  function move_joystick(angle_dec, vector, motorspeed) {
+    const webSocketHandler = connectionCtx.socketIPDwarf
+      ? connectionCtx.socketIPDwarf
+      : new WebSocketHandler(connectionCtx.IPDwarf);
+
+    if (webSocketHandler.isConnected()) {
+      let txtInfoCommand = "";
+      console.debug("actual motorspeed: ", motorspeed);
+
+      let speed_dwarf = ((motorspeed - 1) * 30) / 4;
+      console.debug("new speed: ", speed_dwarf);
+      let WS_Packet = messageStepMotorServiceJoystick(
+        angle_dec,
+        vector,
+        speed_dwarf
+      );
+      txtInfoCommand = "Joystick";
+      webSocketHandler.prepare(WS_Packet, txtInfoCommand);
+    }
   }
 
   function close_joystick(joystick_id) {
@@ -193,7 +189,7 @@ export default function CameraAddOn(props: PropTypes) {
               width={150}
               min={1.1}
               max={5}
-              initialValue={2}
+              initialValue={2.2}
               label="SPEED"
               labelColor="#005a58"
               knobColor="#005a58"
@@ -227,7 +223,7 @@ export default function CameraAddOn(props: PropTypes) {
               ]}
               dataIndex={6}
               onChange={(value) => {
-                setNewSpeed(value);
+                updateNewSpeed(value);
               }}
             />
           </div>

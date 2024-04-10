@@ -28,6 +28,10 @@ export type ConnectionContextType = {
   setAvailableSizeDwarf: Dispatch<SetStateAction<number | undefined>>;
   totalSizeDwarf: number | undefined;
   setTotalSizeDwarf: Dispatch<SetStateAction<number | undefined>>;
+  statusPowerLightsDwarf: boolean | undefined;
+  setStatusPowerLightsDwarf: Dispatch<SetStateAction<boolean | undefined>>;
+  statusRingLightsDwarf: boolean | undefined;
+  setStatusRingLightsDwarf: Dispatch<SetStateAction<boolean | undefined>>;
 
   connectionStatusStellarium: boolean | undefined;
   setConnectionStatusStellarium: Dispatch<SetStateAction<boolean | undefined>>;

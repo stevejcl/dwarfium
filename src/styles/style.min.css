@@ -412,6 +412,10 @@ header {
             width: 100%
         }
 
+.btn-2lines{
+    /*overflow: hidden;*/
+    padding: 1px 10px 10px 10px;
+}
 
 .weather {
     padding: 0 0 0 0;

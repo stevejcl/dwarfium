@@ -14,6 +14,10 @@ import {
   messageCameraWideCloseCamera,
   messageRgbPowerReboot,
   messageRgbPowerDown,
+  messageRgbPowerCloseRGB,
+  messageRgbPowerOpenRGB,
+  messageRgbPowerPowerIndOFF,
+  messageRgbPowerPowerIndON,
   //  messageCameraTeleGetAllFeatureParams,
   WebSocketHandler,
 } from "dwarfii_api";
@@ -631,6 +635,76 @@ export async function stopGotoHandler(
   if (!webSocketHandler.run()) {
     console.error(" Can't launch Web Socket Run Action!");
   }
+}
+
+export async function PowerLightsHandlerFn(
+  setOff: boolean,
+  connectionCtx: ConnectionContextType,
+  setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
+  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+) {
+  if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+  setGotoErrors(undefined);
+  eventBus.dispatch("clearErrors", { message: "clear errors" });
+
+  // Send Command : CmdRGBPowerPowerIndON or CmdRGBPowerPowerIndOFF
+  let WS_Packet1 = {};
+  let txtInfoCommand = "Switch Power Light";
+  if (setOff) {
+    WS_Packet1 = messageRgbPowerPowerIndOFF();
+  } else WS_Packet1 = messageRgbPowerPowerIndON();
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  await sleep(10);
+
+  webSocketHandler.prepare(WS_Packet1, txtInfoCommand, [
+    Dwarfii_Api.DwarfCMD.CMD_RGB_POWER_POWERIND_ON,
+    Dwarfii_Api.DwarfCMD.CMD_RGB_POWER_POWERIND_OFF,
+    Dwarfii_Api.DwarfCMD.CMD_NOTIFY_POWER_IND_STATE,
+  ]);
+
+  await sleep(100);
+}
+
+export async function RingLightsHandlerFn(
+  setOff: boolean,
+  connectionCtx: ConnectionContextType,
+  setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
+  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+) {
+  if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+  setGotoErrors(undefined);
+  eventBus.dispatch("clearErrors", { message: "clear errors" });
+
+  // Send Command : cmdRgbPowerOpenRGB or cmdRgbCloseRGB
+  let WS_Packet1 = {};
+  let txtInfoCommand = "Switch Ring Light";
+  if (setOff) {
+    WS_Packet1 = messageRgbPowerCloseRGB();
+  } else WS_Packet1 = messageRgbPowerOpenRGB();
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  await sleep(10);
+
+  webSocketHandler.prepare(WS_Packet1, txtInfoCommand, [
+    Dwarfii_Api.DwarfCMD.CMD_RGB_POWER_OPEN_RGB,
+    Dwarfii_Api.DwarfCMD.CMD_RGB_POWER_CLOSE_RGB,
+    Dwarfii_Api.DwarfCMD.CMD_NOTIFY_POWER_IND_STATE,
+  ]);
+
+  await sleep(100);
 }
 
 export async function shutDownHandler(

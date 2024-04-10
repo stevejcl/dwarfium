@@ -10,6 +10,8 @@ import {
   shutDownHandler,
   savePositionHandler,
   gotoPositionHandler,
+  RingLightsHandlerFn,
+  PowerLightsHandlerFn,
 } from "@/lib/goto_utils";
 import {
   turnOnTeleCameraFn,
@@ -89,6 +91,34 @@ export default function CalibrationDwarf() {
     );
   }
 
+  function RingLightsOffFn() {
+    setShowModal(connectionCtx.loggerView);
+    RingLightsHandlerFn(true, connectionCtx, setErrors, (options) => {
+      setGotoMessages((prev) => prev.concat(options));
+    });
+  }
+
+  function RingLightsOnFn() {
+    setShowModal(connectionCtx.loggerView);
+    RingLightsHandlerFn(false, connectionCtx, setErrors, (options) => {
+      setGotoMessages((prev) => prev.concat(options));
+    });
+  }
+
+  function PowerLightsOffFn() {
+    setShowModal(connectionCtx.loggerView);
+    PowerLightsHandlerFn(true, connectionCtx, setErrors, (options) => {
+      setGotoMessages((prev) => prev.concat(options));
+    });
+  }
+
+  function PowerLightsOnFn() {
+    setShowModal(connectionCtx.loggerView);
+    PowerLightsHandlerFn(false, connectionCtx, setErrors, (options) => {
+      setGotoMessages((prev) => prev.concat(options));
+    });
+  }
+
   function shutDownFn() {
     setShowModal(connectionCtx.loggerView);
     shutDownHandler(false, connectionCtx, setErrors, (options) => {
@@ -142,6 +172,82 @@ export default function CalibrationDwarf() {
         updateTelescopeISPSetting("IR", 0, connectionCtx);
       }, 4500);
     }
+  }
+
+  function showStatusRingLightsDwarf() {
+    if (connectionCtx.statusRingLightsDwarf)
+      return (
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus
+              ? "btn-more02 btn-2lines"
+              : "btn-more02 btn-2lines"
+          } me-4 mt-3`}
+          onClick={RingLightsOffFn}
+          disabled={!connectionCtx.connectionStatus}
+        >
+          Lights
+          <br />
+          Ring On
+        </button>
+      );
+    else
+      return (
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus
+              ? "btn-more03 btn-2lines"
+              : "btn-more03 btn-2lines"
+          } me-4 mt-3`}
+          onClick={RingLightsOnFn}
+          disabled={!connectionCtx.connectionStatus}
+        >
+          Lights
+          <br />
+          Ring Off
+        </button>
+      );
+  }
+
+  function showStatusPowerLightsDwarf() {
+    if (connectionCtx.statusPowerLightsDwarf)
+      return (
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus
+              ? "btn-more02 btn-2lines"
+              : "btn-more02 btn-2lines"
+          } me-4 mt-3`}
+          onClick={PowerLightsOffFn}
+          disabled={
+            !connectionCtx.connectionStatus ||
+            connectionCtx.statusRingLightsDwarf === undefined
+          }
+        >
+          Lights
+          <br />
+          Power On
+        </button>
+      );
+    else
+      return (
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus
+              ? "btn-more03 btn-2lines"
+              : "btn-more03 btn-2lines"
+          } me-4 mt-3`}
+          onClick={PowerLightsOnFn}
+          disabled={
+            !connectionCtx.connectionStatus ||
+            connectionCtx.statusPowerLightsDwarf === undefined
+          }
+        >
+          Lights
+          <br />
+          Power Off
+        </button>
+      );
   }
 
   return (
@@ -230,6 +336,8 @@ export default function CalibrationDwarf() {
           </button>
         </div>
         <div className="col-sm-4 text-end">
+          {showStatusRingLightsDwarf()}
+          {showStatusPowerLightsDwarf()}
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more03" : "btn-more03"

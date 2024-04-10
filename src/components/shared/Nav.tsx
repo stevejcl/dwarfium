@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import React, { useState } from "react";
 
 export default function Nav() {
@@ -124,21 +125,16 @@ export default function Nav() {
             </ul>
           </div>
           <div className="d-none d-lg-block">
-                      <div className="right-menu">
-
+            <div className="right-menu">
               <ul>
                 <li>
-                  <a
-                    data-bs-toggle="modal-version"
-                   
-                                      className="btn version-btn"
-                                      onClick={handleToggleModal}
-                                      data-bs-target="#versionModal"
-                                      style={{ zIndex: 1051 }}
+                  <span
+                    className="version-text"
+                    onClick={handleToggleModal}
+                    style={{ cursor: "pointer", zIndex: 1051 }}
                   >
-                    {" "}
-                    Version{" "}
-                  </a>
+                    Version
+                  </span>
                 </li>
               </ul>
             </div>
@@ -146,6 +142,7 @@ export default function Nav() {
         </div>
       </nav>
 
+      {/* Version modal */}
       <div
         className={`modal-version fade${modalOpen ? " show" : ""}`}
         id="versionModal"
@@ -165,7 +162,7 @@ export default function Nav() {
               ></button>
             </div>
             <div className="modal-body-version">
-              <p >Version Number: {versionNumber}</p>
+              <p>Version Number: {versionNumber}</p>
             </div>
           </div>
         </div>

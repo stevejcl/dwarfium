@@ -76,6 +76,8 @@ export type ConnectionContextType = {
   setLoggerStatus: Dispatch<SetStateAction<boolean | undefined>>;
   loggerView: boolean;
   setLoggerView: Dispatch<SetStateAction<boolean>>;
+  PiPView: boolean;
+  setPiPView: Dispatch<SetStateAction<boolean>>;
 
   deleteConnection: () => void;
 };

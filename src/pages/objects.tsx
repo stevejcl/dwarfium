@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import GotoStellarium from "@/components/GotoStellarium";
 import GotoLists from "@/components/GotoLists";
@@ -7,6 +7,7 @@ import StatusBar from "@/components/shared/StatusBar";
 import CalibrationDwarf from "@/components/shared/CalibrationDwarf";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import { useLoadIntialValues } from "@/hooks/useLoadIntialValues";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 
 import ResizablePIP from "@/components/ResizablePIP";
 import DwarfCameras from "@/components/DwarfCameras";
@@ -15,6 +16,7 @@ export default function Goto() {
   const [gotoType, setGotoType] = useState("lists");
   useSetupConnection();
   useLoadIntialValues();
+  let connectionCtx = useContext(ConnectionContext);
 
   return (
     <section className="daily-horp-object d-inline-block w-100">
@@ -54,20 +56,22 @@ export default function Goto() {
           </li>
         </ul>
         <hr />
-        <div className="float-right-align">
-          <ResizablePIP
-            width={320}
-            height={180}
-            minConstraints={[320, 180]}
-            maxConstraints={[1280, 720]}
-          >
-            <DwarfCameras
-              showWideangle={false}
-              useRawPreviewURL={false}
-              showControls={false}
-            />
-          </ResizablePIP>
-        </div>
+        {connectionCtx.connectionStatus && connectionCtx.PiPView && (
+          <div className="float-right-align">
+            <ResizablePIP
+              width={320}
+              height={180}
+              minConstraints={[320, 180]}
+              maxConstraints={[1280, 720]}
+            >
+              <DwarfCameras
+                showWideangle={false}
+                useRawPreviewURL={false}
+                showControls={false}
+              />
+            </ResizablePIP>
+          </div>
+        )}
         {gotoType === "lists" && <GotoLists />}
         {gotoType === "stellarium" && <GotoStellarium />}
         {gotoType === "userLists" && <GotoUserLists />}

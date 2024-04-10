@@ -18,6 +18,7 @@ import {
   fetchAstroSettingsDb,
   fetchLoggerStatusDb,
   fetchLoggerViewDb,
+  fetchPiPViewDb,
   fetchLogMessagesDb,
   fetchImagingSessionDb,
   fetchTimezoneDB,
@@ -137,6 +138,11 @@ export function useLoadIntialValues() {
     let data = fetchLoggerViewDb();
     if (data !== undefined) {
       connectionCtx.setLoggerView(data);
+    }
+
+    let dataPiP = fetchPiPViewDb();
+    if (dataPiP !== undefined) {
+      connectionCtx.setPiPView(dataPiP);
     }
 
     if (connectionCtx.logger === undefined) {

@@ -327,6 +327,17 @@ export function saveLoggerViewDb(value: string): void {
   localStorage.setItem("loggerView", value);
 }
 
+export function fetchPiPViewDb(): boolean | undefined {
+  let data = localStorage.getItem("PiPView");
+  if (data) {
+    return data === "true" ? true : false;
+  } else false;
+}
+
+export function savePiPViewDb(value: string): void {
+  localStorage.setItem("PiPView", value);
+}
+
 export function fetchLogMessagesDb() {
   let data = localStorage.getItem("logMessages");
   if (data) {

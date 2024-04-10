@@ -2,7 +2,7 @@ import { useState, useContext, useEffect, useRef } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { getExposureIndexByName, getGainIndexByName } from "@/lib/data_utils";
-import { saveLoggerViewDb } from "@/db/db_utils";
+import { saveLoggerViewDb, savePiPViewDb } from "@/db/db_utils";
 
 import {
   calibrationHandler,
@@ -143,6 +143,16 @@ export default function CalibrationDwarf() {
     connectionCtx.setLoggerView((prev) => !prev);
   }
 
+  function togglePiP() {
+    if (connectionCtx.PiPView) {
+      savePiPViewDb("false");
+    } else {
+      savePiPViewDb("true");
+    }
+
+    connectionCtx.setPiPView((prev) => !prev);
+  }
+
   function initCamera() {
     {
       setTimeout(() => {
@@ -265,12 +275,22 @@ export default function CalibrationDwarf() {
       <div className="row mb-3">
         <div className="col-sm-1 nav nav-pills text-end">
           <div
+            title="Show Logs"
             className={`daily-horp nav nav-pills nav-item nav-link rounded-pill ${
               connectionCtx.loggerView ? "active" : ""
-            }  me-8 mb-0`}
+            }  me-2 mb-0`}
             onClick={toggleLogger}
           >
-            Log
+            <i className="bi bi-info-square"></i>
+          </div>
+          <div
+            title="Show Camera Preview"
+            className={`daily-horp nav nav-pills nav-item nav-link rounded-pill ${
+              connectionCtx.PiPView ? "active" : ""
+            }  me-2 mb-0`}
+            onClick={togglePiP}
+          >
+            <i className="bi bi-pip" aria-hidden="true"></i>
           </div>
         </div>
         <div className="col-sm-3">

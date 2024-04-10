@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import React, { useState } from "react";
+import Modal from "react-bootstrap/Modal";
 
 export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -143,30 +144,23 @@ export default function Nav() {
       </nav>
 
       {/* Version modal */}
-      <div
-        className={`modal-version fade${modalOpen ? " show" : ""}`}
-        id="versionModal"
-        tabIndex={0}
-        data-bs-backdrop="false"
+      <Modal
+        dialogClassName="modal-dialog-version"
+        show={modalOpen}
+        onHide={handleToggleModal}
       >
-        <div className="modal-dialog-version">
-          <div className="modal-content-version">
-            <div className="modal-header">
-              <h5 className="modal-title-version">Version</h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal-version"
-                aria-label="Close"
-                onClick={handleToggleModal}
-              ></button>
-            </div>
-            <div className="modal-body-version">
-              <p>Version Number: {versionNumber}</p>
-            </div>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <div className="modal-title-version">Version</div>
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <div className="modal-body-version">
+            <p>Version Number: {versionNumber}</p>
           </div>
-        </div>
-      </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

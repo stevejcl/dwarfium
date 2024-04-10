@@ -61,11 +61,11 @@ export default function Goto() {
             minConstraints={[320, 180]}
             maxConstraints={[1280, 720]}
           >
-          <DwarfCameras
-            showWideangle={false}
-            useRawPreviewURL={false}
-            showControls={false}
-          />
+            <DwarfCameras
+              showWideangle={false}
+              useRawPreviewURL={false}
+              showControls={false}
+            />
           </ResizablePIP>
         </div>
         {gotoType === "lists" && <GotoLists />}

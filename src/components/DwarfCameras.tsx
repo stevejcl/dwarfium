@@ -304,125 +304,127 @@ export default function DwarfCameras(props: PropType) {
       </>
     );
   };
-  
+
   if (showControls)
-  return (
-    <div>
-      {wideangleCameraStatus !== "off" && telephotoCameraStatus !== "off" && (
-        <div className="py-2 clearfix">
-          <span className="text-danger">{errorTxt}&nbsp;</span>
-        </div>
-      )}
-      {wideangleCameraStatus === "off" && telephotoCameraStatus === "off" && (
-        <div className="py-2 clearfix">
-          <span className="text-danger">{errorTxt}</span>
-          <div className="float-end">
-            <Link
-              className="minilink me-4"
-              target="_blank"
-              href={wideangleURL(IPDwarf)}
-            >
-              {wideangleURL(IPDwarf)}
-            </Link>
-            <Link
-              className="minilink"
-              target="_blank"
-              href={telephotoURL(IPDwarf)}
-            >
-              {telephotoURL(IPDwarf)}
-            </Link>
-          </div>
-        </div>
-      )}
-      {wideangleCameraStatus === "off" && telephotoCameraStatus !== "off" && (
-        <div className="py-2 clearfix">
-          <div className="float-end">
-            <Link
-              className="minilink me-4"
-              target="_blank"
-              href={wideangleURL(IPDwarf)}
-            >
-              {wideangleURL(IPDwarf)}
-            </Link>
-          </div>
-        </div>
-      )}
-      {wideangleCameraStatus !== "off" && telephotoCameraStatus === "off" && (
-        <div className="py-2 clearfix">
-          <div className="float-end">
-            <Link
-              className="minilink"
-              target="_blank"
-              href={telephotoURL(IPDwarf)}
-            >
-              {telephotoURL(IPDwarf)}
-            </Link>
-          </div>
-        </div>
-      )}
-      <TransformWrapper>
-          <Controls />
-          {wideangleCameraStatus === "off" && telephotoCameraStatus === "off" && (
-            <div className="float-end">
-              <button
-                className="btn btn-more02 me-4"
-                onClick={() =>
-                  turnOnCameraHandler(wideangleCamera, connectionCtx)
-                }
-              >
-                Turn on wideangle camera
-              </button>
-              <button
-                className="btn btn-more02"
-                onClick={() =>
-                  turnOnCameraHandler(telephotoCamera, connectionCtx)
-                }
-              >
-                Turn on telephoto camera
-              </button>
-            </div>
-          )}
-          {wideangleCameraStatus === "off" && telephotoCameraStatus !== "off" && (
-            <div className="float-end">
-              <button
-                className="btn btn-more02 me-4"
-                onClick={() =>
-                  turnOnCameraHandler(wideangleCamera, connectionCtx)
-                }
-              >
-                Turn on wideangle camera
-              </button>
-            </div>
-          )}
-          {wideangleCameraStatus !== "off" && telephotoCameraStatus === "off" && (
-            <div className="float-end">
-              <button
-                className="btn btn-more02"
-                onClick={() =>
-                  turnOnCameraHandler(telephotoCamera, connectionCtx)
-                }
-              >
-                Turn on telephoto camera
-              </button>
-            </div>
-          )}
-        <TransformComponent>
-          {renderWideAngle()}
-          {renderMainCamera()}
-        </TransformComponent>
-      </TransformWrapper>
-    </div>
-  );
-  
-  else 
     return (
-    <div>
-      <TransformWrapper>
-        <TransformComponent>
-          {renderWideAngle()}
-          {renderMainCamera()}
-        </TransformComponent>
-      </TransformWrapper>
-    </div>
-  );
+      <div>
+        {wideangleCameraStatus !== "off" && telephotoCameraStatus !== "off" && (
+          <div className="py-2 clearfix">
+            <span className="text-danger">{errorTxt}&nbsp;</span>
+          </div>
+        )}
+        {wideangleCameraStatus === "off" && telephotoCameraStatus === "off" && (
+          <div className="py-2 clearfix">
+            <span className="text-danger">{errorTxt}</span>
+            <div className="float-end">
+              <Link
+                className="minilink me-4"
+                target="_blank"
+                href={wideangleURL(IPDwarf)}
+              >
+                {wideangleURL(IPDwarf)}
+              </Link>
+              <Link
+                className="minilink"
+                target="_blank"
+                href={telephotoURL(IPDwarf)}
+              >
+                {telephotoURL(IPDwarf)}
+              </Link>
+            </div>
+          </div>
+        )}
+        {wideangleCameraStatus === "off" && telephotoCameraStatus !== "off" && (
+          <div className="py-2 clearfix">
+            <div className="float-end">
+              <Link
+                className="minilink me-4"
+                target="_blank"
+                href={wideangleURL(IPDwarf)}
+              >
+                {wideangleURL(IPDwarf)}
+              </Link>
+            </div>
+          </div>
+        )}
+        {wideangleCameraStatus !== "off" && telephotoCameraStatus === "off" && (
+          <div className="py-2 clearfix">
+            <div className="float-end">
+              <Link
+                className="minilink"
+                target="_blank"
+                href={telephotoURL(IPDwarf)}
+              >
+                {telephotoURL(IPDwarf)}
+              </Link>
+            </div>
+          </div>
+        )}
+        <TransformWrapper>
+          <Controls />
+          {wideangleCameraStatus === "off" &&
+            telephotoCameraStatus === "off" && (
+              <div className="float-end">
+                <button
+                  className="btn btn-more02 me-4"
+                  onClick={() =>
+                    turnOnCameraHandler(wideangleCamera, connectionCtx)
+                  }
+                >
+                  Turn on wideangle camera
+                </button>
+                <button
+                  className="btn btn-more02"
+                  onClick={() =>
+                    turnOnCameraHandler(telephotoCamera, connectionCtx)
+                  }
+                >
+                  Turn on telephoto camera
+                </button>
+              </div>
+            )}
+          {wideangleCameraStatus === "off" &&
+            telephotoCameraStatus !== "off" && (
+              <div className="float-end">
+                <button
+                  className="btn btn-more02 me-4"
+                  onClick={() =>
+                    turnOnCameraHandler(wideangleCamera, connectionCtx)
+                  }
+                >
+                  Turn on wideangle camera
+                </button>
+              </div>
+            )}
+          {wideangleCameraStatus !== "off" &&
+            telephotoCameraStatus === "off" && (
+              <div className="float-end">
+                <button
+                  className="btn btn-more02"
+                  onClick={() =>
+                    turnOnCameraHandler(telephotoCamera, connectionCtx)
+                  }
+                >
+                  Turn on telephoto camera
+                </button>
+              </div>
+            )}
+          <TransformComponent>
+            {renderWideAngle()}
+            {renderMainCamera()}
+          </TransformComponent>
+        </TransformWrapper>
+      </div>
+    );
+  else
+    return (
+      <div>
+        <TransformWrapper>
+          <TransformComponent>
+            {renderWideAngle()}
+            {renderMainCamera()}
+          </TransformComponent>
+        </TransformWrapper>
+      </div>
+    );
 }

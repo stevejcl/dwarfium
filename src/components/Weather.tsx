@@ -44,13 +44,20 @@ const Weather = () => {
   };
 
   const handleApiKeyChange = (e) => {
-    setApiKey(e.target.value);
+    const newApiKey = e.target.value;
+    setApiKey(newApiKey);
+    localStorage.setItem("weatherApiKey", newApiKey);
+  };
+
+  const handleCityChange = (e) => {
+    const newCity = e.target.value;
+    setCity(newCity); // Update state with the new city
+    localStorage.setItem("weatherCity", newCity); // Update localStorage
   };
 
   const getForecastTableData = () => {
     if (!forecastData) return null;
 
-    // Group forecast data by day
     const groupedByDay: { [date: string]: any } = {};
     forecastData.list.forEach((forecast) => {
       const date = new Date(forecast.dt * 1000).toLocaleDateString();
@@ -59,9 +66,8 @@ const Weather = () => {
       }
     });
 
-    // Create forecast rows
     const forecastRows = Object.values(groupedByDay).map((forecast) => {
-      const date = new Date(forecast.dt * 1000); // Convert timestamp to date
+      const date = new Date(forecast.dt * 1000);
       const averageTemp = forecast.main.temp;
       const description = `${forecast.weather[0].description} <img src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" alt="Weather Icon" />`;
 
@@ -95,7 +101,7 @@ const Weather = () => {
           type="text"
           placeholder="Enter city name"
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={handleCityChange}
         />
         <input
           type="text"

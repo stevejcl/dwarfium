@@ -1,218 +1,181 @@
 import Link from "next/link";
+import React, { useState } from "react";
 
 export default function Nav() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const versionNumber = "2.1.1";
+
+  const handleToggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light">
-      <div className="container">
-        <a className="navbar-brand">
-          <img alt="logo" src="/DWARFLAB_LOGO_Green.png" />
-        </a>
+    <>
+      <nav className="navbar navbar-expand-lg navbar-light">
+        <div className="container">
+          <a className="navbar-brand">
+            <img alt="logo" src="/DWARFLAB_LOGO_Green.png" />
+          </a>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-        <div
-          className="collapse navbar-collapse"
-          id="navbarSupportedContent"
-          data-toggle="collapse"
-          data-bs-target="#navbarSupportedContent.show"
-        >
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" href="/">
-                Home
-              </Link>
-            </li>
-            <div className="dropdown">
-              <button className="dropbtn">
-                DwarfII <i className="fa fa-caret-down"></i>
-              </button>
-              <div className="dropdown-content">
-                <Link
-                  className="nav-link active drop"
-                  aria-current="page"
-                  href="/setup-scope"
-                >
-                  Setup
+          <div
+            className="collapse navbar-collapse"
+            id="navbarSupportedContent"
+            data-toggle="collapse"
+            data-bs-target="#navbarSupportedContent.show"
+          >
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" href="/">
+                  Home
                 </Link>
-                <Link
-                  className="nav-link active drop"
-                  aria-current="page"
-                  href="/objects"
-                >
-                  Objects
-                </Link>
-                <Link
-                  className="nav-link active drop"
-                  aria-current="page"
-                  href="/cameras"
-                >
-                  Camera
-                </Link>
-                <Link
-                  className="nav-link active drop"
-                  aria-current="page"
-                  href="/image-session"
-                >
-                  Session-Data
-                </Link>
-                <Link
-                  className="nav-link active drop"
-                  aria-current="page"
-                  href="/skymap"
-                >
-                  SkyMap
-                </Link>
-              </div>
-            </div>
-
-            {/* <div className="dropdownmega">
-              <button className="dropbtnmega">
-                Stellarium <i className="fa fa-caret-down"></i>
-              </button>
-              <div className="dropdownmega-content">
-                <div className="rowmega">
-                  <div className="columnmega">
-                    <h3 className="class1">Category 1</h3>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                  </div>
-                  <div className="columnmega">
-                    <h3 className="class1">Category 2</h3>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                  </div>
-                  <div className="columnmega">
-                    <h3 className="class1">Category 3</h3>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                    <Link
-                      className="nav-link active drop"
-                      aria-current="page"
-                      href="/"
-                    >
-                      Link
-                    </Link>
-                  </div>
+              </li>
+              <div className="dropdown">
+                <button className="dropbtn">
+                  DwarfII <i className="fa fa-caret-down"></i>
+                </button>
+                <div className="dropdown-content">
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/setup-scope"
+                  >
+                    Setup
+                  </Link>
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/objects"
+                  >
+                    Objects
+                  </Link>
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/cameras"
+                  >
+                    Camera
+                  </Link>
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/image-session"
+                  >
+                    Session-Data
+                  </Link>
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/skymap"
+                  >
+                    SkyMap
+                  </Link>
                 </div>
               </div>
-            </div> */}
 
-            <div className="dropdown">
-              <button className="dropbtn">
-                Weather <i className="fa fa-caret-down"></i>
-              </button>
-              <div className="dropdown-content">
-                <Link
-                  className="nav-link active drop"
-                  aria-current="page"
-                  href="/weather"
-                >
-                  Weather
-                </Link>
-                <Link
-                  className="nav-link active drop"
-                  aria-current="page"
-                  href="/construction"
-                >
-                  Clouds
-                </Link>
-                <Link
-                  className="nav-link active drop"
-                  aria-current="page"
-                  href="/moonphase"
-                >
-                  Moonphases
-                </Link>
+              <div className="dropdown">
+                <button className="dropbtn">
+                  Weather <i className="fa fa-caret-down"></i>
+                </button>
+                <div className="dropdown-content">
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/weather"
+                  >
+                    Weather
+                  </Link>
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/construction"
+                  >
+                    Clouds
+                  </Link>
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/moonphase"
+                  >
+                    Moonphases
+                  </Link>
+                </div>
               </div>
-            </div>
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                href="/about"
-              >
-                About
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="d-none d-lg-block">
-          <div className="right-menu">
-            {/*<ul>
-              <li>
-                <a
-                  data-bs-toggle="modal"
-                  href="#registerModal"
-                  className="btn consult-btn"
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  href="/about"
                 >
-                  {" "}
-                  Modal popup{" "}
-                </a>
+                  About
+                </Link>
               </li>
-            </ul>*/}
+            </ul>
+          </div>
+          <div className="d-none d-lg-block">
+            <div className="right-menu">
+              {/*<ul>
+                <li>
+                  <a
+                    data-bs-toggle="modal"
+                    href="#registerModal"
+                    className="btn consult-btn"
+                  >
+                    {" "}
+                    Modal popup{" "}
+                  </a>
+                </li>
+              </ul>*/}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <button
+        className="btn btn-primary rounded-circle position-fixed end-0 bottom-0 m-3"
+        onClick={handleToggleModal}
+        data-bs-toggle="modal"
+        data-bs-target="#versionModal"
+        style={{ zIndex: 1051 }}
+      >
+        {modalOpen ? "Close" : "Version"}
+      </button>
+
+      <div
+        className={`modal fade${modalOpen ? " show" : ""}`}
+        id="versionModal"
+        tabIndex={0}
+        data-bs-backdrop="false"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Version</h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                onClick={handleToggleModal}
+              ></button>
+            </div>
+            <div className="modal-body">
+              <p>Version Number: {versionNumber}</p>
+            </div>
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }

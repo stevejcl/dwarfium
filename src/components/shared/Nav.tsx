@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 
 export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
-  const versionNumber = "2.1.1";
+  const versionNumber = "2.1.2";
 
   const handleToggleModal = () => {
     setModalOpen(!modalOpen);

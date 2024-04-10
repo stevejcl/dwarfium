@@ -3,6 +3,7 @@ import axios from "axios";
 
 interface ForecastData {
   list: {
+    dt: number;
     dt_txt: string;
     main: {
       temp: number;
@@ -13,30 +14,12 @@ interface ForecastData {
   }[];
 }
 
-interface WeatherData {
-  name: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    humidity: number;
-    pressure: number;
-  };
-  wind: {
-    speed: number;
-  };
-  weather: {
-    description: string;
-  }[];
-}
-
 const Weather = () => {
   const [city, setCity] = useState("");
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [forecastData, setForecastData] = useState<ForecastData | null>(null);
   const [apiKey, setApiKey] = useState("");
 
   useEffect(() => {
-    // Access localStorage only in the client-side code
     if (typeof window !== "undefined") {
       const storedApiKey = localStorage.getItem("weatherApiKey");
       setApiKey(storedApiKey || "");
@@ -45,17 +28,11 @@ const Weather = () => {
 
   const fetchData = async () => {
     try {
-      // Fetch current weather data
-      const currentWeatherResponse = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
-      );
-      setWeatherData(currentWeatherResponse.data);
-
-      // Fetch forecast data
       const forecastResponse = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`
       );
       setForecastData(forecastResponse.data);
+      console.log(forecastResponse);
     } catch (error) {
       console.error(error);
     }
@@ -73,16 +50,26 @@ const Weather = () => {
   const getForecastTableData = () => {
     if (!forecastData) return null;
 
-    const forecastTableRows = forecastData.list.map((forecast) => {
-      const dateTime = forecast.dt_txt;
-      const temperature = forecast.main.temp;
-      const description = forecast.weather[0].description;
+    // Group forecast data by day
+    const groupedByDay: { [date: string]: any } = {};
+    forecastData.list.forEach((forecast) => {
+      const date = new Date(forecast.dt * 1000).toLocaleDateString();
+      if (!groupedByDay[date]) {
+        groupedByDay[date] = forecast;
+      }
+    });
+
+    // Create forecast rows
+    const forecastRows = Object.values(groupedByDay).map((forecast) => {
+      const date = new Date(forecast.dt * 1000); // Convert timestamp to date
+      const averageTemp = forecast.main.temp;
+      const description = `${forecast.weather[0].description} <img src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" alt="Weather Icon" />`;
 
       return (
-        <tr key={dateTime}>
-          <td>{dateTime}</td>
-          <td>{temperature}&deg;C</td>
-          <td>{description}</td>
+        <tr key={forecast.dt}>
+          <td>{date.toLocaleDateString()}</td>
+          <td>{averageTemp.toFixed(1)}&deg;C</td>
+          <td dangerouslySetInnerHTML={{ __html: description }}></td>
         </tr>
       );
     });
@@ -92,11 +79,11 @@ const Weather = () => {
         <thead>
           <tr>
             <th>Date</th>
-            <th>Temperature (&deg;C)</th>
+            <th>Average Temperature (&deg;C)</th>
             <th>Description</th>
           </tr>
         </thead>
-        <tbody>{forecastTableRows}</tbody>
+        <tbody>{forecastRows}</tbody>
       </table>
     );
   };
@@ -117,18 +104,19 @@ const Weather = () => {
           onChange={handleApiKeyChange}
         />
         <button type="submit">Get Weather</button>
+        <p>
+          Get your own key here{" "}
+          <a
+            href="https://home.openweathermap.org/api_keys"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://home.openweathermap.org/api_keys
+          </a>
+        </p>
       </form>
-      {weatherData && forecastData ? (
+      {forecastData ? (
         <>
-          <div>
-            <h2>{weatherData.name}</h2>
-            <p>Temperature: {weatherData.main.temp}&deg;C</p>
-            <p>Description: {weatherData.weather[0].description}</p>
-            <p>Feels like : {weatherData.main.feels_like}&deg;C</p>
-            <p>Humidity : {weatherData.main.humidity}%</p>
-            <p>Pressure : {weatherData.main.pressure}</p>
-            <p>Wind Speed : {weatherData.wind.speed}m/s</p>
-          </div>
           <div>
             <h2>Forecast</h2>
             {getForecastTableData()}

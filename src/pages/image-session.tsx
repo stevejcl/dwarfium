@@ -15,6 +15,8 @@ export default function AstroPhoto() {
   const [progress, setProgress] = useState(0);
   const [downloadClicked, setDownloadClicked] = useState(false);
   const [sessionInfo, setSessionInfo] = useState<Record<string, any>>({});
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc"); // State to track sorting order
+  const [sortBy, setSortBy] = useState<string>(""); // State to track sorting property
 
   const fetchSessions = async () => {
     if (connectionCtx.IPDwarf === undefined) {
@@ -178,6 +180,21 @@ export default function AstroPhoto() {
     );
   };
 
+  // Sorting function
+  const sortByProperty = (prop: string) => {
+    let sortedSessions = [...sessions];
+    sortedSessions.sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a[prop] > b[prop] ? 1 : -1;
+      } else {
+        return a[prop] < b[prop] ? 1 : -1;
+      }
+    });
+    setSessions(sortedSessions);
+    setSortBy(prop);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
   return (
     <>
       <section className="daily-horp d-inline-block w-100">
@@ -193,12 +210,23 @@ export default function AstroPhoto() {
           <hr></hr>
           <div className="container-image-session">
             {notification && <div className="notification">{notification}</div>}
+            <p>You can sort the table by clicking on Target or Date </p>
             <table className="styled-table">
               <thead>
                 <tr>
                   <th>Preview</th>
-                  <th>Target</th>
-                  <th>Date</th>
+                  <th onClick={() => sortByProperty("name")}>
+                    Target{" "}
+                    {sortBy === "name" && (
+                      <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
+                    )}
+                  </th>
+                  <th onClick={() => sortByProperty("date")}>
+                    Date{" "}
+                    {sortBy === "date" && (
+                      <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
+                    )}
+                  </th>
                   <th>Shooting Info</th>
                   <th>Additional Info</th>
                   <th>Action</th>

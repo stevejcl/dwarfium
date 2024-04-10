@@ -8,6 +8,9 @@ import CalibrationDwarf from "@/components/shared/CalibrationDwarf";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import { useLoadIntialValues } from "@/hooks/useLoadIntialValues";
 
+import ResizablePIP from "@/components/ResizablePIP";
+import DwarfCameras from "@/components/DwarfCameras";
+
 export default function Goto() {
   const [gotoType, setGotoType] = useState("lists");
   useSetupConnection();
@@ -51,6 +54,20 @@ export default function Goto() {
           </li>
         </ul>
         <hr />
+        <div className="float-right-align">
+          <ResizablePIP
+            width={320}
+            height={180}
+            minConstraints={[320, 180]}
+            maxConstraints={[1280, 720]}
+          >
+          <DwarfCameras
+            showWideangle={false}
+            useRawPreviewURL={false}
+            showControls={false}
+          />
+          </ResizablePIP>
+        </div>
         {gotoType === "lists" && <GotoLists />}
         {gotoType === "stellarium" && <GotoStellarium />}
         {gotoType === "userLists" && <GotoUserLists />}

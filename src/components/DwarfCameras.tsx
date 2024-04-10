@@ -33,10 +33,11 @@ import {
 type PropType = {
   showWideangle: boolean;
   useRawPreviewURL: boolean;
+  showControls: boolean;
 };
 
 export default function DwarfCameras(props: PropType) {
-  const { showWideangle, useRawPreviewURL } = props;
+  const { showWideangle, useRawPreviewURL, showControls } = props;
   let connectionCtx = useContext(ConnectionContext);
 
   const [errorTxt, setErrorTxt] = useState("");
@@ -303,6 +304,8 @@ export default function DwarfCameras(props: PropType) {
       </>
     );
   };
+  
+  if (showControls)
   return (
     <div>
       {wideangleCameraStatus !== "off" && telephotoCameraStatus !== "off" && (
@@ -358,51 +361,63 @@ export default function DwarfCameras(props: PropType) {
         </div>
       )}
       <TransformWrapper>
-        <Controls />
-        {wideangleCameraStatus === "off" && telephotoCameraStatus === "off" && (
-          <div className="float-end">
-            <button
-              className="btn btn-more02 me-4"
-              onClick={() =>
-                turnOnCameraHandler(wideangleCamera, connectionCtx)
-              }
-            >
-              Turn on wideangle camera
-            </button>
-            <button
-              className="btn btn-more02"
-              onClick={() =>
-                turnOnCameraHandler(telephotoCamera, connectionCtx)
-              }
-            >
-              Turn on telephoto camera
-            </button>
-          </div>
-        )}
-        {wideangleCameraStatus === "off" && telephotoCameraStatus !== "off" && (
-          <div className="float-end">
-            <button
-              className="btn btn-more02 me-4"
-              onClick={() =>
-                turnOnCameraHandler(wideangleCamera, connectionCtx)
-              }
-            >
-              Turn on wideangle camera
-            </button>
-          </div>
-        )}
-        {wideangleCameraStatus !== "off" && telephotoCameraStatus === "off" && (
-          <div className="float-end">
-            <button
-              className="btn btn-more02"
-              onClick={() =>
-                turnOnCameraHandler(telephotoCamera, connectionCtx)
-              }
-            >
-              Turn on telephoto camera
-            </button>
-          </div>
-        )}
+          <Controls />
+          {wideangleCameraStatus === "off" && telephotoCameraStatus === "off" && (
+            <div className="float-end">
+              <button
+                className="btn btn-more02 me-4"
+                onClick={() =>
+                  turnOnCameraHandler(wideangleCamera, connectionCtx)
+                }
+              >
+                Turn on wideangle camera
+              </button>
+              <button
+                className="btn btn-more02"
+                onClick={() =>
+                  turnOnCameraHandler(telephotoCamera, connectionCtx)
+                }
+              >
+                Turn on telephoto camera
+              </button>
+            </div>
+          )}
+          {wideangleCameraStatus === "off" && telephotoCameraStatus !== "off" && (
+            <div className="float-end">
+              <button
+                className="btn btn-more02 me-4"
+                onClick={() =>
+                  turnOnCameraHandler(wideangleCamera, connectionCtx)
+                }
+              >
+                Turn on wideangle camera
+              </button>
+            </div>
+          )}
+          {wideangleCameraStatus !== "off" && telephotoCameraStatus === "off" && (
+            <div className="float-end">
+              <button
+                className="btn btn-more02"
+                onClick={() =>
+                  turnOnCameraHandler(telephotoCamera, connectionCtx)
+                }
+              >
+                Turn on telephoto camera
+              </button>
+            </div>
+          )}
+        <TransformComponent>
+          {renderWideAngle()}
+          {renderMainCamera()}
+        </TransformComponent>
+      </TransformWrapper>
+    </div>
+  );
+  
+  else 
+    return (
+    <div>
+      <TransformWrapper>
         <TransformComponent>
           {renderWideAngle()}
           {renderMainCamera()}

@@ -101,6 +101,7 @@ export default function AstroPhoto() {
                 <DwarfCameras
                   showWideangle={showWideangle}
                   useRawPreviewURL={useRawPreviewURL}
+                  showControls={true}
                 />
                 <br />
                 <br />

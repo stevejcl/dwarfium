@@ -209,6 +209,12 @@ export async function connectionHandler(
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
         connectionCtx.setBatteryStatusDwarf(result_data.data.value);
       }
+    } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_RGB_STATE) {
+      connectionCtx.setStatusRingLightsDwarf(result_data.data.state == 1);
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_POWER_IND_STATE
+    ) {
+      connectionCtx.setStatusPowerLightsDwarf(result_data.data.state == 1);
     } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_POWER_OFF) {
       setErrorTxt(" The DwarfII is powering Off!");
       console.error("The DwarfII is powering Off!");

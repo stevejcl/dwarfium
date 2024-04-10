@@ -180,15 +180,15 @@ export default function CalibrationDwarf() {
         <button
           className={`btn ${
             connectionCtx.connectionStatus
-              ? "btn-more03 btn-2lines"
-              : "btn-more03 btn-2lines"
+              ? "btn-more02 btn-2lines"
+              : "btn-more02 btn-2lines"
           } me-4 mt-3`}
           onClick={RingLightsOffFn}
           disabled={!connectionCtx.connectionStatus}
         >
           Lights
           <br />
-          Ring Off
+          Ring On
         </button>
       );
     else
@@ -196,15 +196,15 @@ export default function CalibrationDwarf() {
         <button
           className={`btn ${
             connectionCtx.connectionStatus
-              ? "btn-more02 btn-2lines"
-              : "btn-more02 btn-2lines"
+              ? "btn-more03 btn-2lines"
+              : "btn-more03 btn-2lines"
           } me-4 mt-3`}
           onClick={RingLightsOnFn}
           disabled={!connectionCtx.connectionStatus}
         >
           Lights
           <br />
-          Ring On
+          Ring Off
         </button>
       );
   }
@@ -215,8 +215,8 @@ export default function CalibrationDwarf() {
         <button
           className={`btn ${
             connectionCtx.connectionStatus
-              ? "btn-more03 btn-2lines"
-              : "btn-more03 btn-2lines"
+              ? "btn-more02 btn-2lines"
+              : "btn-more02 btn-2lines"
           } me-4 mt-3`}
           onClick={PowerLightsOffFn}
           disabled={
@@ -226,7 +226,7 @@ export default function CalibrationDwarf() {
         >
           Lights
           <br />
-          Power Off
+          Power On
         </button>
       );
     else
@@ -234,8 +234,8 @@ export default function CalibrationDwarf() {
         <button
           className={`btn ${
             connectionCtx.connectionStatus
-              ? "btn-more02 btn-2lines"
-              : "btn-more02 btn-2lines"
+              ? "btn-more03 btn-2lines"
+              : "btn-more03 btn-2lines"
           } me-4 mt-3`}
           onClick={PowerLightsOnFn}
           disabled={
@@ -245,7 +245,7 @@ export default function CalibrationDwarf() {
         >
           Lights
           <br />
-          Power On
+          Power Off
         </button>
       );
   }

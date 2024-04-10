@@ -177,17 +177,17 @@ ul {
     align-items: center;
 }
 
-.right-menu ul .consult-btn {
+.right-menu ul .version-btn {
     font-size: 1.3rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #0a051d;
-    background-color: #fff;
+    color: #fff;
+    background-color: #00B280;
     border-style: solid;
     border-width: 2px 2px 2px 2px;
     border-color: #2a2a2a !important;
     border-radius: 5px;
-    padding: 15px 26px 12px 26px;
+    padding: 10px 10px 10px 10px;
 }
 
 

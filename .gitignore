@@ -202,3 +202,4 @@ raw_data/mike_camilleri_list.csv
 
 .vs/
 src-tauri/target/
+/.vs

@@ -47,13 +47,13 @@ const Weather = () => {
     try {
       // Fetch current weather data
       const currentWeatherResponse = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&amp;appid=${apiKey}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
       );
       setWeatherData(currentWeatherResponse.data);
 
       // Fetch forecast data
       const forecastResponse = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&amp;appid=${apiKey}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`
       );
       setForecastData(forecastResponse.data);
     } catch (error) {

@@ -124,54 +124,48 @@ export default function Nav() {
             </ul>
           </div>
           <div className="d-none d-lg-block">
-            <div className="right-menu">
-              {/*<ul>
+                      <div className="right-menu">
+
+              <ul>
                 <li>
                   <a
-                    data-bs-toggle="modal"
-                    href="#registerModal"
-                    className="btn consult-btn"
+                    data-bs-toggle="modal-version"
+                   
+                                      className="btn version-btn"
+                                      onClick={handleToggleModal}
+                                      data-bs-target="#versionModal"
+                                      style={{ zIndex: 1051 }}
                   >
                     {" "}
-                    Modal popup{" "}
+                    Version{" "}
                   </a>
                 </li>
-              </ul>*/}
+              </ul>
             </div>
           </div>
         </div>
       </nav>
 
-      <button
-        className="btn btn-primary rounded-circle position-fixed end-0 bottom-0 m-3"
-        onClick={handleToggleModal}
-        data-bs-toggle="modal"
-        data-bs-target="#versionModal"
-        style={{ zIndex: 1051 }}
-      >
-        {modalOpen ? "Close" : "Version"}
-      </button>
-
       <div
-        className={`modal fade${modalOpen ? " show" : ""}`}
+        className={`modal-version fade${modalOpen ? " show" : ""}`}
         id="versionModal"
         tabIndex={0}
         data-bs-backdrop="false"
       >
-        <div className="modal-dialog">
-          <div className="modal-content">
+        <div className="modal-dialog-version">
+          <div className="modal-content-version">
             <div className="modal-header">
-              <h5 className="modal-title">Version</h5>
+              <h5 className="modal-title-version">Version</h5>
               <button
                 type="button"
                 className="btn-close"
-                data-bs-dismiss="modal"
+                data-bs-dismiss="modal-version"
                 aria-label="Close"
                 onClick={handleToggleModal}
               ></button>
             </div>
-            <div className="modal-body">
-              <p>Version Number: {versionNumber}</p>
+            <div className="modal-body-version">
+              <p >Version Number: {versionNumber}</p>
             </div>
           </div>
         </div>

@@ -1,0 +1,10 @@
+.pipResizableContent {
+  background: #202429;
+  margin: 20px;
+  border-radius: 0.28571429rem;
+  overflow: auto;
+}
+
+.pipResizableContent:hover {
+  cursor: default;
+}

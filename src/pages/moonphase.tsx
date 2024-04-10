@@ -8,17 +8,12 @@ export default function Moonphase() {
   const [selectedMonth, setSelectedMonth] = useState(
     `${currentYear}-${currentMonth}`
   );
-  const [selectedCity, setSelectedCity] = useState("");
 
   const handleChange = (event) => {
     setSelectedMonth(event.target.value);
   };
 
-  const handleCityChange = (event) => {
-    setSelectedCity(event.target.value);
-  };
-
-  useEffect(() => {}, [selectedMonth, selectedCity]);
+  useEffect(() => {}, [selectedMonth]);
 
   const renderMoonPhasesTable = () => {
     const [yearStr, monthStr] = selectedMonth.split("-");
@@ -64,16 +59,6 @@ export default function Moonphase() {
       <section className="daily-horp d-inline-block w-100">
         <div className="container">
           <div className="city-input">
-            <label htmlFor="city" className="is-size-3">
-              Select City :
-            </label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              value={selectedCity}
-              onChange={handleCityChange}
-            />
             <label htmlFor="start" className="is-size-3">
               Select Month :
             </label>

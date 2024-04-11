@@ -459,3 +459,29 @@ img {
   margin-left: 50px;
   width: 180px;
 }
+
+.joystick-button-up {
+  position: absolute;
+  top: 2%;
+  left: 65px;
+}
+.joystick-button-up {
+  position: absolute;
+  top: 0;
+  left: 65px;
+}
+.joystick-button-down {
+  position: absolute;
+  bottom: 0;
+  left: 65px;
+}
+.joystick-button-left {
+  position: absolute;
+  top: 40%;
+  left: 4px;
+}
+.joystick-button-right {
+  position: absolute;
+  top: 40%;
+  left: 128px;
+}

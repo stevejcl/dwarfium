@@ -6,6 +6,7 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
   messageStepMotorServiceJoystick,
   messageStepMotorServiceJoystickStop,
+  messageStepMotorServiceJoystickFixedAngle,
   WebSocketHandler,
 } from "dwarfii_api";
 
@@ -55,7 +56,7 @@ export default function CameraAddOn(props: PropTypes) {
           x: "80%",
           y: "11%",
           mouseClickButton: "ALL",
-          hideContextMenu: false,
+          hideContextMenu: true,
         },
         ({ x, y, leveledX, leveledY, distance, angle }) => {
           console.debug(x, y, leveledX, leveledY, distance, angle);
@@ -129,6 +130,36 @@ export default function CameraAddOn(props: PropTypes) {
           newParent.appendChild(joystickContainer);
         }
         staticJoystick.recenterJoystick();
+
+        // Create buttons div element
+        create_button_joystick(
+          joystickContainer,
+          "Up",
+          "joystick-button-up",
+          90,
+          "bi bi-arrow-up-circle"
+        );
+        create_button_joystick(
+          joystickContainer,
+          "Down",
+          "joystick-button-down",
+          270,
+          "bi bi-arrow-down-circle"
+        );
+        create_button_joystick(
+          joystickContainer,
+          "Left",
+          "joystick-button-left",
+          180,
+          "bi bi-arrow-left-circle"
+        );
+        create_button_joystick(
+          joystickContainer,
+          "Right",
+          "joystick-button-right",
+          0,
+          "bi bi-arrow-right-circle"
+        );
       }
     }
   }
@@ -137,7 +168,39 @@ export default function CameraAddOn(props: PropTypes) {
     joystickSpeed.current = value;
   }
 
-  function move_joystick(angle_dec, vector, motorspeed) {
+  function create_button_joystick(
+    divJoystickContainer,
+    title,
+    className,
+    angle,
+    icon
+  ) {
+    // Create a button div element
+    const newDiv = document.createElement("div");
+    // Set attributes and classes for the new div
+    newDiv.title = title;
+    newDiv.className = className;
+    // Create the inner content (icon)
+    const iconElement = document.createElement("i");
+    iconElement.className = icon;
+    // Add a mouseup event listener to the new div
+    newDiv.addEventListener("mousedown", function (event) {
+      // Handle the mousedown event here
+      if (event.button == 0)
+        move_joystick(angle, 0.8, joystickSpeed.current, false);
+      // right click
+      else move_joystick(angle, 0.8, joystickSpeed.current, true);
+    });
+    newDiv.addEventListener("mouseup", function () {
+      stop_motor();
+    });
+    // Append the icon to the new div
+    newDiv.appendChild(iconElement);
+    // Append the new div into the joystickContainer
+    divJoystickContainer.appendChild(newDiv);
+  }
+
+  function move_joystick(angle_dec, vector, motorspeed, fixed = false) {
     const webSocketHandler = connectionCtx.socketIPDwarf
       ? connectionCtx.socketIPDwarf
       : new WebSocketHandler(connectionCtx.IPDwarf);
@@ -148,11 +211,20 @@ export default function CameraAddOn(props: PropTypes) {
 
       let speed_dwarf = ((motorspeed - 1) * 30) / 4;
       console.debug("new speed: ", speed_dwarf);
-      let WS_Packet = messageStepMotorServiceJoystick(
-        angle_dec,
-        vector,
-        speed_dwarf
-      );
+      let WS_Packet;
+      if (!fixed) {
+        WS_Packet = messageStepMotorServiceJoystick(
+          angle_dec,
+          vector,
+          speed_dwarf
+        );
+      } else {
+        WS_Packet = messageStepMotorServiceJoystickFixedAngle(
+          angle_dec,
+          vector,
+          speed_dwarf
+        );
+      }
       txtInfoCommand = "Joystick";
       webSocketHandler.prepare(WS_Packet, txtInfoCommand);
     }

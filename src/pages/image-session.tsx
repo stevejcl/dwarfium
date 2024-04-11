@@ -15,8 +15,52 @@ export default function AstroPhoto() {
   const [progress, setProgress] = useState(0);
   const [downloadClicked, setDownloadClicked] = useState(false);
   const [sessionInfo, setSessionInfo] = useState<Record<string, any>>({});
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc"); // State to track sorting order
-  const [sortBy, setSortBy] = useState<string>(""); // State to track sorting property
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortBy, setSortBy] = useState<string>("");
+  const [thumbnailExists, setThumbnailExists] = useState<boolean[]>([]);
+
+  const fetchThumbnailExists = async (sessionName: string) => {
+    const thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+
+    try {
+      const response = await fetch(thumbnailUrl);
+      console.log(`Response status for ${sessionName}: ${response.status}`);
+
+      if (response.status === 200) {
+        console.log(`Thumbnail exists for session ${sessionName}: true`);
+        return true;
+      } else if (response.status === 404) {
+        console.log(`Thumbnail exists for session ${sessionName}: false`);
+        return false;
+      } else {
+        console.error(
+          "Unexpected status code while checking thumbnail existence:",
+          response.status
+        );
+        return false;
+      }
+    } catch (error) {
+      console.error("Error checking thumbnail existence:", error);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const loadThumbnailExists = async (sessionName: string, index: number) => {
+      console.log(`Loading thumbnail existence for session: ${sessionName}`);
+      const exists = await fetchThumbnailExists(sessionName);
+      console.log(`Thumbnail exists for session ${sessionName}: ${exists}`);
+      setThumbnailExists((prevState) => {
+        const newState = [...prevState];
+        newState[index] = exists;
+        return newState;
+      });
+    };
+
+    sessions.forEach((session, index) => {
+      loadThumbnailExists(session.name, index);
+    });
+  }, [sessions, connectionCtx.IPDwarf]);
 
   const fetchSessions = async () => {
     if (connectionCtx.IPDwarf === undefined) {
@@ -37,7 +81,6 @@ export default function AstroPhoto() {
         const folderDate = matches[3];
         if (!/dwarf_dark|solving_failed/i.test(folderName)) {
           try {
-            // Check if shotsInfo.json exists in the session folder
             await fetch(
               `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`
             );
@@ -236,11 +279,22 @@ export default function AstroPhoto() {
                 {sessions.map((session, index) => (
                   <tr className="active-row" key={index}>
                     <td>
-                      <img
-                        className="thumblarge"
-                        src={`http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`}
-                        alt="Thumbnail"
-                      />
+                      {thumbnailExists[index] === true ? (
+                        <img
+                          className="thumblarge"
+                          src={`http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`}
+                          alt="Thumbnail"
+                        />
+                      ) : thumbnailExists[index] === false ||
+                        thumbnailExists[index] === undefined ? (
+                        <img
+                          className="thumblarge"
+                          src="/images/404.jpg"
+                          alt="Thumbnail Not Available"
+                        />
+                      ) : (
+                        <div>Loading...</div>
+                      )}
                     </td>
                     <td className="session-name">{getTarget(session.name)}</td>
                     <td>{session.date}</td>

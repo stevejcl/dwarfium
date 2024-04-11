@@ -12,6 +12,17 @@ You have access to your session data for inspection and Download
 
 ![screenshot of session data](images/session-data.png) –
 
+# Dwarf II Camera
+
+You can control the telescope the same way as in the app.
+
+![screenshot of session data](images/camera.png) –
+
+# Automated updates for Application Version
+
+The Desktop Application is available for Windows, MAC Os and Linux
+
+![screenshot of session data](images/updates.png) –
 
 ## Setup for coders
 

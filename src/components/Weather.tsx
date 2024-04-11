@@ -10,6 +10,7 @@ interface ForecastData {
     };
     weather: {
       description: string;
+      icon: string;
     }[];
   }[];
 }
@@ -32,7 +33,6 @@ const Weather = () => {
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`
       );
       setForecastData(forecastResponse.data);
-      console.log(forecastResponse);
     } catch (error) {
       console.error(error);
     }
@@ -55,7 +55,7 @@ const Weather = () => {
     localStorage.setItem("weatherCity", newCity); // Update localStorage
   };
 
-  const getForecastTableData = () => {
+  const getForecastDivData = () => {
     if (!forecastData) return null;
 
     const groupedByDay: { [date: string]: any } = {};
@@ -66,31 +66,33 @@ const Weather = () => {
       }
     });
 
-    const forecastRows = Object.values(groupedByDay).map((forecast) => {
+    const forecastDivs = Object.values(groupedByDay).map((forecast) => {
       const date = new Date(forecast.dt * 1000);
       const averageTemp = forecast.main.temp;
-      const description = `${forecast.weather[0].description} <img src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" alt="Weather Icon" />`;
+      const description = `${forecast.weather[0].description}`;
+      const iconUrl = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
 
       return (
-        <tr key={forecast.dt}>
-          <td>{date.toLocaleDateString()}</td>
-          <td>{averageTemp.toFixed(1)}&deg;C</td>
-          <td dangerouslySetInnerHTML={{ __html: description }}></td>
-        </tr>
+        <div key={forecast.dt} className="forecast-item">
+          <div>{date.toLocaleDateString()}</div>
+          <div>{averageTemp.toFixed(1)}&deg;C</div>
+          <div>
+            {description}
+            <img src={iconUrl} alt="Weather Icon" />
+          </div>
+        </div>
       );
     });
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Average Temperature (&deg;C)</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>{forecastRows}</tbody>
-      </table>
+      <div className="forecast-container">
+        <div className="forecast-header">
+          <div>Date</div>
+          <div>Average Temperature (&deg;C)</div>
+          <div>Description</div>
+        </div>
+        {forecastDivs}
+      </div>
     );
   };
 
@@ -125,7 +127,7 @@ const Weather = () => {
         <>
           <div>
             <h2>Forecast</h2>
-            {getForecastTableData()}
+            {getForecastDivData()}
           </div>
         </>
       ) : (

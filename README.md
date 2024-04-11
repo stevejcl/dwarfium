@@ -83,4 +83,4 @@ Stellarium remote control plugin starts a webserver that allows people to access
 This app connects to `/api/main/status`, and parses the returned data to get the object name, right acension and declination. The app then sends a goto command to the DWARF II with RA, declination, latitude, and longitude data via Dwarf II API.
 
 The Desktop App wraps the webservice in a windowed environment.
-Rust is providing the webservice and servers the pages.
+Rust is providing the webservice and serves the pages.

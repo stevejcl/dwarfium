@@ -29,12 +29,12 @@ export default function Moonphase() {
       const rowData: React.JSX.Element[] = [];
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
         if (row === 0 && dayOfWeek < firstDayOfMonth) {
-          rowData.push(<td key={dayOfWeek}></td>);
+          rowData.push(<td key={`empty-${row}-${dayOfWeek}`}></td>);
         } else if (currentDay <= daysCount) {
           const date = new Date(year, month - 1, currentDay);
           const phase = <MoonPhaseCalculator date={date} />;
           rowData.push(
-            <td key={currentDay}>
+            <td key={`day-${year}-${month}-${currentDay}`}>
               <div className="moon-phase">
                 {currentDay}
                 {phase}
@@ -43,11 +43,11 @@ export default function Moonphase() {
           );
           currentDay++;
         } else {
-          rowData.push(<td key={dayOfWeek}></td>);
+          rowData.push(<td key={`empty-${row}-${dayOfWeek}`}></td>);
         }
       }
       if (rowData.length > 0) {
-        moonPhasesTable.push(<tr key={row}>{rowData}</tr>);
+        moonPhasesTable.push(<tr key={`row-${row}`}>{rowData}</tr>);
       }
     }
 

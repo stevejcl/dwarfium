@@ -569,3 +569,30 @@ img {
         font-size: 14px;
     }
 }
+
+.forecast-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .forecast-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  
+  .forecast-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .forecast-item img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .forecast-container-main {
+    margin-top: 150px;
+  }

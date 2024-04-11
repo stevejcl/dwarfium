@@ -246,7 +246,7 @@ export default function CameraAddOn(props: PropTypes) {
         title="Camera Add On"
         hideHeader={true}
         from="bottom"
-        width="80%"
+        width="1500px"
         onAfterOpen={() => {
           setTimeout(init_joystick, 500);
         }}
@@ -298,86 +298,93 @@ export default function CameraAddOn(props: PropTypes) {
                 updateNewSpeed(value);
               }}
             />
-                  </div>
-                  <div className="containerCamera">
-                      <div className="pane">
-                          <div className="column">
-                              <div className="header">
-                                  <div className="title">Photo</div>
-                                  
-                              </div>
-                              <div className="separator"></div>
-                              <img src="/images/photocamera.png" className="cameraAddon-image"/>
-                              <div className="button-container">
-                                  <button className="button">Tele</button>
-                                  <button className="button">Wide</button>
-                              </div>
-                          </div>
-                          <div className="column">
-                              <div className="header">
-                                  <div className="title">Video</div>
-
-                              </div>
-                              <div className="separator"></div>
-                              <img src="/images/photocamera.png" className="cameraAddon-image"/>
-                              <div className="button-container">
-                                  <button className="button-cent">Tele</button>
-                                  
-                              </div>
-                          </div>
-                          <div className="column">
-                              <div className="header">
-                                  <div className="title">Panorama</div>
-
-                              </div>
-                              <div className="separator"></div>
-                              <img src="/images/photocamera.png" className="cameraAddon-image" />
-                              <div className="button-container">
-                                  <button className="button-cent">Tele</button>
-                                 
-                              </div>
-                          </div>
-                          <div className="column">
-                              <div className="header">
-                                  <div className="title">Burst Photo</div>
-
-                              </div>
-                              <div className="separator"></div>
-                              <img src="/images/photocamera.png" className="cameraAddon-image"/>
-                              <div className="button-container">
-                                  <button className="button">Tele</button>
-                                  <button className="button">Wide</button>
-                              </div>
-                          </div>
-                          <div className="column">
-                              <div className="header">
-                                  <div className="title">Time Laps</div>
-
-                              </div>
-                              <div className="separator"></div>
-                              <img src="/images/photocamera.png" className="cameraAddon-image"/>
-                              <div className="button-container">
-                                  <button className="button">Tele</button>
-                                  <button className="button">Wide</button>
-                              </div>
-                          </div>
-                          <div className="column">
-                              <div className="header">
-                                  <div className="title">Settings</div>
-
-                              </div>
-                              <div className="separator"></div>
-                              <img src="/images/photocamera.png" className="cameraAddon-image"/>
-                              <div className="button-container">
-                                  
-                                  <button className="button-cent">Wide</button>
-                              </div>
-                          </div>
-                          
-                      </div>
-                  </div>
+          </div>
+          <div className="containerCamera">
+            <div className="pane">
+              <div className="column">
+                <div className="header">
+                  <div className="title">Photo</div>
+                </div>
+                <div className="separator"></div>
+                <img
+                  src="/images/photocamera.png"
+                  className="cameraAddon-image"
+                />
+                <div className="button-container">
+                  <button className="button">Tele</button>
+                  <button className="button">Wide</button>
+                </div>
               </div>
-              
+              <div className="column">
+                <div className="header">
+                  <div className="title">Video</div>
+                </div>
+                <div className="separator"></div>
+                <img
+                  src="/images/photocamera.png"
+                  className="cameraAddon-image"
+                />
+                <div className="button-container">
+                  <button className="button-cent">Tele</button>
+                </div>
+              </div>
+              <div className="column">
+                <div className="header">
+                  <div className="title">Panorama</div>
+                </div>
+                <div className="separator"></div>
+                <img
+                  src="/images/photocamera.png"
+                  className="cameraAddon-image"
+                />
+                <div className="button-container">
+                  <button className="button-cent">Tele</button>
+                </div>
+              </div>
+              <div className="column">
+                <div className="header">
+                  <div className="title">Burst Photo</div>
+                </div>
+                <div className="separator"></div>
+                <img
+                  src="/images/photocamera.png"
+                  className="cameraAddon-image"
+                />
+                <div className="button-container">
+                  <button className="button">Tele</button>
+                  <button className="button">Wide</button>
+                </div>
+              </div>
+              <div className="column">
+                <div className="header">
+                  <div className="title">Time Laps</div>
+                </div>
+                <div className="separator"></div>
+                <img
+                  src="/images/photocamera.png"
+                  className="cameraAddon-image"
+                />
+                <div className="button-container">
+                  <button className="button">Tele</button>
+                  <button className="button">Wide</button>
+                </div>
+              </div>
+              <div className="column">
+                <div className="header">
+                  <div className="title">Settings</div>
+                </div>
+                <div className="separator"></div>
+                <img
+                  src="/images/photocamera.png"
+                  className="cameraAddon-image"
+                />
+                <div className="button-container">
+                  <button className="button-cent">Wide</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </SlidingPane>
     </div>
   );

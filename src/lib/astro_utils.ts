@@ -325,8 +325,7 @@ export function convertTimePartsToString(
   let second = padNumber(timeParts.seconds === 60 ? 59 : timeParts.seconds);
 
   // control only for today
-  if (hour >= 24)
-  {
+  if (parseInt(hour, 10) >= 24) {
     return "-";
   }
   // convert utc time to local time for a given timezone

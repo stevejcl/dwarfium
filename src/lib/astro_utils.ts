@@ -324,6 +324,11 @@ export function convertTimePartsToString(
   // to avoid invalid date and avoid incrementing minute and hour.
   let second = padNumber(timeParts.seconds === 60 ? 59 : timeParts.seconds);
 
+  // control only for today
+  if (hour >= 24)
+  {
+    return "-";
+  }
   // convert utc time to local time for a given timezone
   let options: any = {
     timeZone: timezone,
@@ -379,7 +384,7 @@ export function renderLocalRiseSetTime(
       times.error = err.message;
       object.visible = false;
     } else {
-      // console.debug("err", err);
+      console.error("err", err);
     }
   }
 

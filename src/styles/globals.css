@@ -448,7 +448,8 @@ img {
     display: flex;
     flex-direction: row;
     margin-left: 10px;
-    width: 500px;
+    height: 22vh;
+    width: auto;
     bottom: 0px;
     margin-top: -40px;
 }
@@ -458,6 +459,7 @@ img {
   display: flex;
   flex-direction: row;
   margin-left: 50px;
+  margin-right: 19px;
   width: 180px;
 }
 
@@ -504,7 +506,7 @@ img {
 .column {
     flex: 1;
     background-color: #191D1E;
-    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
     box-sizing: border-box;
     text-align: center;
     padding: 15px;
@@ -568,7 +570,7 @@ img {
 /* Adjust width for different screen sizes */
 @media (max-width: 768px) {
     .column {
-        font-size: 14px;
+        font-size: 8px;
     }
 }
 

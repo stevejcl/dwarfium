@@ -246,7 +246,7 @@ export default function CameraAddOn(props: PropTypes) {
         title="Camera Add On"
         hideHeader={true}
         from="bottom"
-        width="80%"
+        width="1500px"
         onAfterOpen={() => {
           setTimeout(init_joystick, 500);
         }}

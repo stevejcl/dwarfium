@@ -41,9 +41,10 @@
   transform: translateX(-100%);
 }
 .slide-pane_from_bottom {
-  height: 22vh;
+  height: 24vh;
   margin-top: 78vh;
-  margin-left: 10%;
+  margin-left: auto;
+  margin-right: auto;
   transform: translateY(100%);
 }
 .slide-pane_from_bottom.content-after-open {

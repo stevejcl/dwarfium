@@ -1,4 +1,5 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import SlidingPane from "react-sliding-pane";
 import JoystickController from "joystick-controller";
 import CircularSlider from "@fseehawer/react-circular-slider";
@@ -12,13 +13,197 @@ import {
 
 type PropTypes = {
   showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 };
+// Define a generic event handler type that can handle events from both HTMLButtonElement and HTMLImageElement
+type GenericMouseEventHandler<T extends HTMLElement> =
+  React.MouseEventHandler<T>;
 
 export default function CameraAddOn(props: PropTypes) {
-  const { showModal } = props;
+  const { showModal, setShowModal } = props;
 
   const [joystickId, setJoystickId] = useState(undefined);
   const joystickSpeed = useRef(2.2);
+
+  const [activeAction, setActiveAction] = useState<string | undefined>(
+    undefined
+  ); // State to track active action
+  const [activeBtnPhoto, setActiveBtnPhoto] = useState("tele"); // State to track active button
+  const [activeBtnVideo, setActiveBtnVideo] = useState("tele"); // State to track active button
+  const [activeBtnPano, setActiveBtnPano] = useState("tele"); // State to track active button
+  const [activeBtnBurst, setActiveBtnBurst] = useState("tele"); // State to track active button
+  const [activeBtnTimeLapse, setActiveBtnTimeLapse] = useState("tele"); // State to track active button
+  const [activeBtnSettings, setActiveBtnSettings] = useState("wide"); // State to track active button
+
+  // Size > 1500
+  let closePane = useRef(true);
+  let ChangeWindowSize = useRef(window.innerWidth);
+  let maxRange = useRef(70);
+  let radius = useRef(75);
+  let joystickRadius = useRef(45);
+  let xValue = useRef("80%");
+  let yValue = useRef("11%");
+  let rightContainer = useRef("10px");
+  let leftContainer = useRef("10px");
+  let bottomContainer = useRef("75px");
+  let WidthSlidePane = useRef("1500px");
+  let WidthCircularSlider = useRef(150);
+  let trackSize = useRef(24);
+
+  useEffect(() => {
+    const handleResize = () => {
+      //setWindowWidth(window.innerWidth);
+      update_control();
+    };
+    update_control();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const PhotosModeActions = [
+    "Photo",
+    "Video",
+    "Panorama",
+    "Burst",
+    "Time Lapse",
+    "Settings",
+  ];
+
+  const handleBtnPhotoClick = (buttonName) => {
+    // Update state to set the active button
+    setActiveBtnPhoto(
+      buttonName === activeBtnPhoto
+        ? buttonName === "tele"
+          ? "wide"
+          : "tele"
+        : buttonName
+    );
+  };
+  const handleBtnVideoClick = (buttonName) => {
+    // Update state to set the active button
+    setActiveBtnVideo(buttonName);
+  };
+  const handleBtnPanoClick = (buttonName) => {
+    // Update state to set the active button
+    setActiveBtnPano(buttonName);
+  };
+  const handleBtnBurstClick = (buttonName) => {
+    // Update state to set the active button
+    setActiveBtnBurst(
+      buttonName === activeBtnBurst
+        ? buttonName === "tele"
+          ? "wide"
+          : "tele"
+        : buttonName
+    );
+  };
+  const handleBtnTimeLapseClick = (buttonName) => {
+    // Update state to set the active button
+    setActiveBtnTimeLapse(
+      buttonName === activeBtnTimeLapse
+        ? buttonName === "tele"
+          ? "wide"
+          : "tele"
+        : buttonName
+    );
+  };
+  const handleBtnSettingsClick = (buttonName) => {
+    // Update state to set the active button
+    setActiveBtnSettings(buttonName);
+  };
+  // action Click   Image
+  const handleClickActionPhoto: GenericMouseEventHandler<
+    HTMLImageElement
+  > = () => {
+    // Update state to set the active button
+    setActiveAction(PhotosModeActions[0].toString());
+
+    // Simulate an action delay or any other operations
+    setTimeout(() => {
+      setActiveAction(undefined); // Reset activeAction to undefined after some delay
+    }, 1000); // Example: Reset after 1 second (1000 milliseconds)
+    setActiveAction(undefined);
+  };
+
+  const handleClickActionBurstPhoto: GenericMouseEventHandler<
+    HTMLImageElement
+  > = () => {
+    // Update state to set the active button
+    setActiveAction(PhotosModeActions[3]);
+
+    setActiveAction(undefined);
+  };
+
+  function update_control() {
+    if (window.innerWidth > 1500) {
+      maxRange.current = 70;
+      radius.current = 75;
+      joystickRadius.current = 45;
+      xValue.current = "80%";
+      yValue.current = "11%";
+      rightContainer.current = "10px";
+      leftContainer.current = "10px";
+      bottomContainer.current = "75px";
+      WidthSlidePane.current = "1500px";
+      WidthCircularSlider.current = 150;
+      trackSize.current = 24;
+      if (ChangeWindowSize.current < 1500) {
+        setShowModal(false);
+      }
+      ChangeWindowSize.current = window.innerWidth;
+    } else if (window.innerWidth > 1300 && window.innerWidth <= 1500) {
+      maxRange.current = 60;
+      radius.current = 55;
+      joystickRadius.current = 30;
+      xValue.current = "60%";
+      yValue.current = "10%";
+      rightContainer.current = "7px";
+      leftContainer.current = "7px";
+      bottomContainer.current = "57px";
+      WidthSlidePane.current = "1250px";
+      WidthCircularSlider.current = 110;
+      trackSize.current = 24;
+      if (ChangeWindowSize.current <= 1300 || ChangeWindowSize.current > 1500) {
+        setShowModal(false);
+      }
+      ChangeWindowSize.current = window.innerWidth;
+    } else if (window.innerWidth > 1200 && window.innerWidth <= 1300) {
+      maxRange.current = 60;
+      radius.current = 55;
+      joystickRadius.current = 30;
+      xValue.current = "60%";
+      yValue.current = "5%";
+      rightContainer.current = "7px";
+      leftContainer.current = "7px";
+      bottomContainer.current = "57px";
+      WidthSlidePane.current = "1100px";
+      WidthCircularSlider.current = 110;
+      trackSize.current = 24;
+      if (ChangeWindowSize.current <= 1200 || ChangeWindowSize.current > 1300) {
+        setShowModal(false);
+      }
+      ChangeWindowSize.current = window.innerWidth;
+    } else {
+      maxRange.current = 55;
+      radius.current = 50;
+      joystickRadius.current = 25;
+      xValue.current = "50%";
+      yValue.current = "1%";
+      rightContainer.current = "5px";
+      leftContainer.current = "5px";
+      bottomContainer.current = "50px";
+      WidthSlidePane.current = "1060px";
+      WidthCircularSlider.current = 100;
+      trackSize.current = 12;
+      if (ChangeWindowSize.current > 1200) {
+        setShowModal(false);
+      }
+      ChangeWindowSize.current = window.innerWidth;
+    }
+  }
 
   let gLastTimeMotorCmd = Date.now();
   let gMotorState = false;
@@ -42,10 +227,10 @@ export default function CameraAddOn(props: PropTypes) {
     if (!joystickId) {
       const staticJoystick = new JoystickController(
         {
-          maxRange: 70,
+          maxRange: maxRange.current,
           level: 10,
-          radius: 75,
-          joystickRadius: 45,
+          radius: radius.current,
+          joystickRadius: joystickRadius.current,
           opacity: 0.5,
           leftToRight: false,
           bottomToUp: true,
@@ -53,8 +238,8 @@ export default function CameraAddOn(props: PropTypes) {
           controllerClass: "joystick-controller",
           joystickClass: "joystick",
           distortion: true,
-          x: "80%",
-          y: "11%",
+          x: xValue.current,
+          y: yValue.current,
           mouseClickButton: "ALL",
           hideContextMenu: true,
         },
@@ -109,9 +294,9 @@ export default function CameraAddOn(props: PropTypes) {
       if (containerElement) {
         // Modify CSS properties of the elements
         containerElement.style.position = "relative"; // fixed
-        containerElement.style.right = "10px"; // 80%
-        containerElement.style.left = "10px"; // 80%
-        containerElement.style.bottom = "75px"; //  11% 75%
+        containerElement.style.right = rightContainer.current; // 80%
+        containerElement.style.left = leftContainer.current; // 80%
+        containerElement.style.bottom = bottomContainer.current; //  11% 75%
         containerElement.style.transform = "translate(0%,50%)"; //translate(50%,-50%)
       }
 
@@ -231,7 +416,7 @@ export default function CameraAddOn(props: PropTypes) {
   }
 
   function close_joystick(joystick_id) {
-    if (joystickId) {
+    if (joystick_id) {
       joystick_id.destroy();
       setJoystickId(undefined);
     }
@@ -242,11 +427,11 @@ export default function CameraAddOn(props: PropTypes) {
       <SlidingPane
         className="some-custom-class"
         overlayClassName="slide-pane__overlay_hide"
-        isOpen={showModal}
+        isOpen={showModal && closePane.current}
         title="Camera Add On"
         hideHeader={true}
         from="bottom"
-        width="1500px"
+        width={WidthSlidePane.current}
         onAfterOpen={() => {
           setTimeout(init_joystick, 500);
         }}
@@ -258,7 +443,7 @@ export default function CameraAddOn(props: PropTypes) {
         <div id="main_SlidingPane" className="box-element">
           <div className="speed-meter">
             <CircularSlider
-              width={150}
+              width={WidthCircularSlider.current}
               min={1.1}
               max={5}
               initialValue={2.2}
@@ -267,9 +452,9 @@ export default function CameraAddOn(props: PropTypes) {
               knobColor="#005a58"
               progressColorFrom="#00bfbd"
               progressColorTo="#009c9a"
-              progressSize={24}
+              progressSize={trackSize.current}
               trackColor="#eeeeee"
-              trackSize={24}
+              trackSize={trackSize.current}
               data={[
                 "1.1",
                 "1.2",
@@ -309,10 +494,31 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
+                  alt="Take Burst Photos"
+                  onClick={
+                    activeAction === undefined
+                      ? handleClickActionPhoto
+                      : undefined
+                  }
+                  style={{ cursor: "pointer" }}
                 />
                 <div className="button-container">
-                  <button className="button">Tele</button>
-                  <button className="button">Wide</button>
+                  <button
+                    className={`button ${
+                      activeBtnPhoto === "tele" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnPhotoClick("tele")}
+                  >
+                    Tele
+                  </button>
+                  <button
+                    className={`button ${
+                      activeBtnPhoto === "wide" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnPhotoClick("wide")}
+                  >
+                    Wide
+                  </button>
                 </div>
               </div>
               <div className="column">
@@ -325,7 +531,14 @@ export default function CameraAddOn(props: PropTypes) {
                   className="cameraAddon-image"
                 />
                 <div className="button-container">
-                  <button className="button-cent">Tele</button>
+                  <button
+                    className={`button-cent ${
+                      activeBtnVideo === "tele" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnVideoClick("tele")}
+                  >
+                    Tele
+                  </button>
                 </div>
               </div>
               <div className="column">
@@ -338,7 +551,14 @@ export default function CameraAddOn(props: PropTypes) {
                   className="cameraAddon-image"
                 />
                 <div className="button-container">
-                  <button className="button-cent">Tele</button>
+                  <button
+                    className={`button-cent ${
+                      activeBtnPano === "tele" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnPanoClick("tele")}
+                  >
+                    Tele
+                  </button>
                 </div>
               </div>
               <div className="column">
@@ -349,15 +569,35 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
+                  onClick={
+                    activeAction === undefined
+                      ? handleClickActionBurstPhoto
+                      : undefined
+                  }
+                  style={{ cursor: "pointer" }}
                 />
                 <div className="button-container">
-                  <button className="button">Tele</button>
-                  <button className="button">Wide</button>
+                  <button
+                    className={`button ${
+                      activeBtnBurst === "tele" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnBurstClick("tele")}
+                  >
+                    Tele
+                  </button>
+                  <button
+                    className={`button ${
+                      activeBtnBurst === "wide" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnBurstClick("wide")}
+                  >
+                    Wide
+                  </button>
                 </div>
               </div>
               <div className="column">
                 <div className="header">
-                  <div className="title">Time Laps</div>
+                  <div className="title">Time Lapse</div>
                 </div>
                 <div className="separator"></div>
                 <img
@@ -365,8 +605,22 @@ export default function CameraAddOn(props: PropTypes) {
                   className="cameraAddon-image"
                 />
                 <div className="button-container">
-                  <button className="button">Tele</button>
-                  <button className="button">Wide</button>
+                  <button
+                    className={`button ${
+                      activeBtnTimeLapse === "tele" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnTimeLapseClick("tele")}
+                  >
+                    Tele
+                  </button>
+                  <button
+                    className={`button ${
+                      activeBtnTimeLapse === "wide" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnTimeLapseClick("wide")}
+                  >
+                    Wide
+                  </button>
                 </div>
               </div>
               <div className="column">
@@ -379,7 +633,14 @@ export default function CameraAddOn(props: PropTypes) {
                   className="cameraAddon-image"
                 />
                 <div className="button-container">
-                  <button className="button-cent">Wide</button>
+                  <button
+                    className={`button-cent ${
+                      activeBtnSettings === "wide" ? "active" : ""
+                    }`}
+                    onClick={() => handleBtnSettingsClick("wide")}
+                  >
+                    Wide
+                  </button>
                 </div>
               </div>
             </div>

@@ -443,17 +443,24 @@ img {
     transition: all 0.4s ease-in-out;
 }
 
+/* need to calculate the top value for element in Photo Mode */
+:root {
+  --custom-heightmax: calc(100vh - 200px);
+  --custom-height1500: calc(100vh - 175px);
+  --custom-height1300: calc(100vh - 165px);
+  --custom-heightmin: calc(100vh - 155px);
+}
 .box-element {
-    align-items: center;
+    align-items: center;	
     display: flex;
     flex-direction: row;
     margin-left: 10px;
-    height: 22vh;
+    min-height: 200px;
+    height: 200px;
     width: auto;
     bottom: 0px;
     margin-top: -40px;
 }
-
 .speed-meter {
   align-items: center;
   display: flex;
@@ -461,12 +468,6 @@ img {
   margin-left: 50px;
   margin-right: 19px;
   width: 180px;
-}
-
-.joystick-button-up {
-  position: absolute;
-  top: 2%;
-  left: 65px;
 }
 .joystick-button-up {
   position: absolute;
@@ -487,6 +488,90 @@ img {
   position: absolute;
   top: 40%;
   left: 128px;
+}
+@media (max-width: 1500px) {
+  .box-element {
+    margin-left: 5px;
+    min-height: 160px;
+    height: 165px;
+    margin-top: -40px;
+  }
+  .speed-meter {
+    margin-left: 25px;
+    margin-right: 15px;
+    width: 120px;
+  }
+  .joystick-button-up {
+    position: absolute;
+    top: 0;
+    left: 45px;
+  }
+  .joystick-button-down {
+    position: absolute;
+    bottom: -5px;
+    left: 45px;
+  }
+  .joystick-button-right {
+    position: absolute;
+    top: 40%;
+    left: 90px;
+  }
+}
+@media (max-width: 1300px) {
+  .box-element {
+    margin-left: 5px;
+    min-height: 150px;
+    height: 150px;
+    margin-top: -40px;
+  }
+  .speed-meter {
+    margin-left: 25px;
+    margin-right: 9px;
+    width: 120px;
+  }
+  .joystick-button-up {
+    position: absolute;
+    top: 0;
+    left: 45px;
+  }
+  .joystick-button-down {
+    position: absolute;
+    bottom: 0;
+    left: 45px;
+  }
+  .joystick-button-right {
+    position: absolute;
+    top: 40%;
+    left: 88px;
+  }
+}
+@media (max-width: 1200px) {
+  .box-element {
+    margin-left: 5px;
+    min-height: 140px;
+    height: 120px;
+    margin-top: -40px;
+  }
+  .speed-meter {
+    margin-left: 25px;
+    margin-right: 9px;
+    width: 110px;
+  }
+  .joystick-button-up {
+    position: absolute;
+    top: 0;
+    left: 42px;
+  }
+  .joystick-button-down {
+    position: absolute;
+    bottom: -5px;
+    left: 42px;
+  }
+  .joystick-button-right {
+    position: absolute;
+    top: 40%;
+    left: 80px;
+  }
 }
 
 .containerCamera {
@@ -509,7 +594,7 @@ img {
     border-left: 1px solid #ccc;
     box-sizing: border-box;
     text-align: center;
-    padding: 15px;
+    padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 180px;
    
@@ -518,14 +603,14 @@ img {
     width: 100%;
     height: 1px;
     background-color: #ccc;
-    margin: 10px 0;
+    margin: 0px 0 10px 0;
 }
 
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .title {
@@ -538,39 +623,159 @@ img {
 .button-container {
     display: flex;
     gap: 10px; /* Space between buttons */
+     margin-top:20px;
 }
 
 .button {
     padding: 0px 15px;
-    background-color: #00AE83;
-    color: #fff;
-    border: none;
+    background-color: #0a051d;
+    color: #d3a417;
+    border: solid 2px rgba(255, 255, 255, .2588235294) !important;
     border-radius: 5px;
+    border-color: #d3a417 !important;
     cursor: pointer;
+}
+.button:hover {
+    border-color: #d3a417 !important;
+    color: #fff !important
+}
+.button:hover::before {
+    width: 100%
+}
+.button.active {
+  background-color: #00AE83;
+  color: #fff ;
+  border-color: #fff !important;
+}
+.button:hover.active {
+    border-color: #d3a417 !important;
+    color: #fff !important
 }
 .button-cent {
     padding: 0px 15px;
-    background-color: #00AE83;
-    color: #fff;
-    border: none;
+    background-color: #0a051d;
+    color: #d3a417;
+    border: solid 2px rgba(255, 255, 255, .2588235294) !important;
     border-radius: 5px;
+    border-color: #d3a417 !important;
     cursor: pointer;
     margin-left: 28%;
+}
+.button-cent:hover {
+    border-color: #d3a417 !important;
+    color: #fff !important
+}
+.button-cent:hover::before {
+    width: 100%
+}
+.button-cent.active {
+  background-color: #00AE83;
+  color: #fff ;
+  border-color: #fff !important;
+}
+.button-cent:hover.active {
+    border-color: #d3a417 !important;
+    color: #fff !important
 }
     .button:last-child {
         margin-right: 0; /* Remove margin from last button */
     }
 .cameraAddon-image {
-    width: 100px; /* Set the width */
+    width: 80px; /* Set the width */
     height: auto; /* Maintain aspect ratio */
     border-radius: 50%; /* Rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow */
     margin-top: -6px;
 }
 /* Adjust width for different screen sizes */
-@media (max-width: 768px) {
+@media (max-width: 1500px) {
+    .title {
+        font-size: 16px;
+    }
+    .cameraAddon-image {
+        width: 60px;
+    }
+    .column {
+        font-size: 12px;
+        width: 150px;
+    }
+}
+@media (max-width: 1300px) {
+    .button {
+        padding: 0px 12px;
+    }
+    .button-cent {
+        padding: 0px 12px;
+    }
+    .title {
+        font-size: 14px;
+    }
+    .cameraAddon-image {
+        width: 50px;
+    }
+    .column {
+        font-size: 10px;
+        width: 130px;
+    }
+}
+@media (max-width: 1060px) {
+    .button {
+        padding: 0px 8px;
+    }
+    .button-cent {
+        padding: 0px 8px;
+    }
+    .title {
+        font-size: 12px;
+    }
+    .cameraAddon-image {
+        width: 50px;
+    }
     .column {
         font-size: 8px;
+        width: 100px;
+    }
+}
+@media (max-width: 890px) {
+    .button {
+        padding: 0px 4px;
+    }
+    .button-cent {
+        padding: 0px 4px;
+    }
+    .title {
+        font-size: 8px;
+    }
+    .cameraAddon-image {
+        width: 50px;
+    }
+    .button-container {
+        gap: 5px; /* Space between buttons */
+    }
+    .column {
+        font-size: 7px;
+        width: 80px;
+    }
+}
+@media (max-width: 760px) {
+    .button {
+        padding: 0px 0px;
+    }
+    .button-cent {
+        padding: 0px 0px;
+    }
+    .title {
+        font-size: 5px;
+    }
+    .cameraAddon-image {
+        width: 50px;
+    }
+    .button-container {
+        gap: 2px; /* Space between buttons */
+    }
+    .column {
+        font-size: 8px;
+        width: 60px;
     }
 }
 

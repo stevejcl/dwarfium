@@ -934,7 +934,7 @@ export default function ImagingMenu(props: PropType) {
             </Link>
           </li>
         )}
-      <CameraAddOn showModal={showModal} />
+      <CameraAddOn showModal={showModal} setShowModal={setShowModal} />
     </ul>
   );
 }

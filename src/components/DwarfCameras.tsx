@@ -371,7 +371,7 @@ export default function DwarfCameras(props: PropType) {
                     turnOnCameraHandler(wideangleCamera, connectionCtx)
                   }
                 >
-                  Turn on wideangle camera
+                  Turn on wideangle cam.
                 </button>
                 <button
                   className="btn btn-more02"
@@ -379,7 +379,7 @@ export default function DwarfCameras(props: PropType) {
                     turnOnCameraHandler(telephotoCamera, connectionCtx)
                   }
                 >
-                  Turn on telephoto camera
+                  Turn on telephoto cam.
                 </button>
               </div>
             )}
@@ -392,7 +392,7 @@ export default function DwarfCameras(props: PropType) {
                     turnOnCameraHandler(wideangleCamera, connectionCtx)
                   }
                 >
-                  Turn on wideangle camera
+                  Turn on wideangle cam.
                 </button>
               </div>
             )}
@@ -405,7 +405,7 @@ export default function DwarfCameras(props: PropType) {
                     turnOnCameraHandler(telephotoCamera, connectionCtx)
                   }
                 >
-                  Turn on telephoto camera
+                  Turn on telephoto cam.
                 </button>
               </div>
             )}

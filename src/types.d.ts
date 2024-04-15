@@ -262,3 +262,11 @@ export type AstroSavePosition = {
   lst: number;
   strLocalTime: string;
 };
+
+export type ReactAnimatedWeatherProps = {
+  icon: string;
+  color: string;
+  size: number;
+  animate?: boolean;
+  code: string;
+};

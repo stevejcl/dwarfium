@@ -1,5 +1,20 @@
+import React from "react";
 import WeatherIcon from "./WeatherIcon";
-function WeatherForecastDay(props) {
+
+interface WeatherForecastDayProps {
+  data: {
+    dt: number;
+    weather: {
+      icon: string;
+    }[];
+    main: {
+      temp_max: number;
+      temp_min: number;
+    };
+  };
+}
+
+const WeatherForecastDay: React.FC<WeatherForecastDayProps> = (props) => {
   function day() {
     let date = new Date(props.data.dt * 1000);
     let day = date.getDay();
@@ -10,16 +25,17 @@ function WeatherForecastDay(props) {
   return (
     <div>
       <div className="WeatherForecast-day">{day()}</div>
-      <WeatherIcon code={props.data.weather[0].icon} size={36} />
+      <WeatherIcon icon={props.data.weather[0].icon} size={36} />
       <div className="WeatherForecast-temperatures">
         <span className="WeatherForecast-temperature__max">
-          {Math.round(props.data.temp.max)}° |
+          {Math.round(props.data.main.temp_max)}° |
         </span>
         <span className="WeatherForecast-temperature__min">
-          {Math.round(props.data.temp.min)}°
+          {Math.round(props.data.main.temp_min)}°
         </span>
       </div>
     </div>
   );
-}
+};
+
 export default WeatherForecastDay;

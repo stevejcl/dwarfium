@@ -11,8 +11,6 @@ import "@/styles/moonphase.css";
 import "@/styles/weather.css";
 import "@/styles/astrocalendar.css";
 
-
-
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "@/fontello/css/custom-focus.css";
 

@@ -529,6 +529,7 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
+                  alt="photocamera"
                 />
                 <div className="button-container">
                   <button
@@ -549,6 +550,7 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
+                  alt="photocamera"
                 />
                 <div className="button-container">
                   <button
@@ -568,6 +570,7 @@ export default function CameraAddOn(props: PropTypes) {
                 <div className="separator"></div>
                 <img
                   src="/images/photocamera.png"
+                  alt="photocamera"
                   className="cameraAddon-image"
                   onClick={
                     activeAction === undefined
@@ -603,6 +606,7 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
+                  alt="photocamera"
                 />
                 <div className="button-container">
                   <button
@@ -631,6 +635,7 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
+                  alt="photocamera"
                 />
                 <div className="button-container">
                   <button

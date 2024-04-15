@@ -43,7 +43,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img src="/images/meteor-shower.png"/>
+                                        <img alt="meteor-shower" src="/images/meteor-shower.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -58,7 +58,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img src="/images/meteor-shower.png"/>
+                                        <img alt="meteor-shower" src="/images/meteor-shower.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -73,7 +73,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img src="/images/meteor-shower.png"/>
+                                        <img alt="meteor-shower" src="/images/meteor-shower.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -90,7 +90,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="sui" src="/images/conjunction.png"/>
+                                        <img alt="conjunction" src="/images/conjunction.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -105,7 +105,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="si" src="/images/conjunction.png"/>
+                                        <img alt="conjunction" src="/images/conjunction.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -120,7 +120,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="sui" src="/images/conjunction.png"/>
+                                        <img alt="conjunction" src="/images/conjunction.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -137,7 +137,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/planets.png"/>
+                                        <img alt="planets" src="/images/planets.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -153,7 +153,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/planets.png"/>
+                                        <img alt="planets" src="/images/planets.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -169,7 +169,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                       <img alt="card" src="/images/planets.png"/>
+                                        <img alt="planets" src="/images/planets.png"/>
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -187,7 +187,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/astronomy.png" />
+                                        <img alt="astronomy" src="/images/astronomy.png" />
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -202,7 +202,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/astronomy.png" />
+                                        <img alt="astronomy" src="/images/astronomy.png" />
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -217,7 +217,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/astronomy.png" />
+                                        <img alt="astronomy" src="/images/astronomy.png" />
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -234,7 +234,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/sun-events.png" />
+                                        <img alt="sun" src="/images/sun-events.png" />
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -250,7 +250,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/sun-events.png" />
+                                        <img alt="sun" src="/images/sun-events.png" />
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -266,7 +266,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/sun-events.png" />
+                                        <img alt="sun" src="/images/sun-events.png" />
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">
@@ -282,7 +282,7 @@ export default function AstroCalendar() {
                             <div className="row align-items-center">
                                 <div className="col-lg-2">
                                     <figure className="mx-auto mb-lg-0">
-                                        <img alt="card" src="/images/sun-events.png" />
+                                        <img alt="sun" src="/images/sun-events.png" />
                                     </figure>
                                 </div>
                                 <div className="col-lg-10">

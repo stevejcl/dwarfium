@@ -115,6 +115,15 @@ export default function Nav() {
                 </div>
               </div>
               <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/astro-calendar"
+                   >
+                   Astronomy calendar
+                  </Link>
+              </li>
+              <li className="nav-item">
                 <Link
                   className="nav-link active"
                   aria-current="page"

@@ -1,0 +1,38 @@
+.comon-heading {
+    font-size: 45px;
+    text-transform: capitalize;
+}
+
+.comin-divu-main {
+    background: rgba(255, 255, 255, .1215686275);
+    box-shadow: #0c071e 1px 2px 30px;
+    padding: 0 10px 0 20px;
+    height: 215px;
+    margin: 25px 0;
+    border-radius: 10px;
+}
+
+
+.comin-divu-main figure {
+    width: 90px;
+    position: relative;
+}
+    .comin-divu-main h5 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #60CC69 !important;
+    }
+    .comin-divu-main .btn {
+        color: #fff !important;
+        padding: 0 !important;
+        font-size: 1.6rem;
+        font-weight: 600;
+        text-transform: capitalize;
+        transition: all .5s linear;
+    }
+    .comin-divu-main figure img {
+        transform: scale(1.8);
+        border-radius:50%;
+        filter: brightness(1);
+    }

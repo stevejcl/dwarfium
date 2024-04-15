@@ -786,5 +786,11 @@ footer .colm-footer h5 {
     color: #fff;
     background-color: #00AE83;
 }
+.mb-2 {
+    margin-bottom: .5rem !important;
+}
 
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+}
 /*# sourceMappingURL=style.min.css.map */

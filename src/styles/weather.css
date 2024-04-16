@@ -91,6 +91,11 @@
     width: 8.33333333%;
     margin-left: -62px;
 }
+.col-api {
+    flex: 0 0 auto;
+    width: 10.333333%;
+    margin-left: -62px;
+}
 .text-capitalize {
     text-transform: capitalize !important;
     font-size: xx-large;

@@ -5,7 +5,6 @@ export default function About() {
     <div>
       <section className="daily-horp-userlist d-inline-block w-100">
         <div className="container">
-          {" "}
           <br />
           <br />
           <br />
@@ -16,9 +15,9 @@ export default function About() {
           </h1>
           <br />
           <p>
-            The project is made by Wai-Yin Kwan with the help of JC LESAINT This
-            website is a side project to combine their interest in coding,
-            astronomy and the Dwarf II API. To report bugs or view the original
+            The project is made by Wai-Yin Kwan with the help of JC LESAINT.
+            This website is a side project to combine their interest in coding,
+            astronomy, and the Dwarf II API. To report bugs or view the original
             code, visit his{" "}
             <Link
               href="https://github.com/DwarfTelescopeUsers/dwarfii-stellarium-goto"
@@ -44,7 +43,7 @@ export default function About() {
               .
             </li>
             <li>
-              Dr Michael Camilleri, Auckland Astronomical Society, New Zealand
+              Dr. Michael Camilleri, Auckland Astronomical Society, New Zealand,
               provided object names and sizes for the DSO that are 15 arc
               minutes or larger.
             </li>
@@ -85,11 +84,11 @@ export default function About() {
             >
               Jupyter notebooks
             </Link>{" "}
-            in the Github repo shows the steps I took transform the raw data
+            in the Github repo show the steps I took to transform the raw data
             into the objects lists.
           </p>
           <p>
-            This site use code from{" "}
+            This site uses code from{" "}
             <Link
               href="https://github.com/commenthol/astronomia"
               target="_blank"
@@ -100,19 +99,41 @@ export default function About() {
             <Link href="https://www.celestialprogramming.com" target="_blank">
               celestialprogramming.com
             </Link>{" "}
-            to do the astronomical calculations.
+            to perform astronomical calculations.
           </p>
           <br />
           <h2>
             <u>User Data</u>
           </h2>
           <p>
-            The info entered in by the users is stored in the browser&apos;s
+            The information entered by users is stored in the browser&apos;s
             database (localStorage). Since the data is stored in your browser,
             other users of the site will not be able to access your data. This
-            also means if a user uses multiple browsers or devices, the data can
-            not be synced between the different browsers or devices.
+            also means if a user uses multiple browsers or devices, the data
+            cannot be synced between different browsers or devices.
           </p>
+          <br />
+          <h2>
+            <u>Additional Data Sources</u>
+          </h2>
+          <p>
+            Weather data is pulled from{" "}
+            <Link href="https://openweathermap.org/" target="_blank">
+              OpenWeather
+            </Link>
+            .
+          </p>
+          <p>
+            RSS feed for deep sky objects is provided by{" "}
+            <Link
+              href="https://in-the-sky.org/rss.php?feed=deepsky"
+              target="_blank"
+            >
+              in-the-sky.org
+            </Link>
+            .
+          </p>
+          <br />
           <br />
           <br />
           <br />

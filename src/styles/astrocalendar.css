@@ -1,13 +1,14 @@
 .comon-heading {
     font-size: 45px;
     text-transform: capitalize;
+    color: #00B280;
 }
 
 .comin-divu-main {
     background: rgba(255, 255, 255, .1215686275);
     box-shadow: #0c071e 1px 2px 30px;
     padding: 0 10px 0 20px;
-    height: 215px;
+    height: 180px;
     margin: 25px 0;
     border-radius: 10px;
 }
@@ -27,12 +28,23 @@
         color: #fff !important;
         padding: 0 !important;
         font-size: 1.6rem;
-        font-weight: 600;
+        font-weight: 100;
         text-transform: capitalize;
         transition: all .5s linear;
     }
     .comin-divu-main figure img {
         transform: scale(1.8);
-        border-radius:50%;
-        filter: brightness(1);
+        border-radius: 50%;
+        filter: brightness(1)invert(1);
     }
+.rss-feed-title {
+    color: #00B280;
+    font-size: 2.0rem;
+}
+.rss-feed-pubDate {
+    color: #A3A1A1;
+    font-size: 1.6rem;
+}
+.text-green {
+    color: #00B280 !important;
+}

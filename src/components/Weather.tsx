@@ -109,7 +109,7 @@ function Weather() {
               className="form-control-weather"
             />
           </div>
-          <div className="col-search">
+          <div className="col-api">
             <button
               type="submit"
               onClick={handleSaveApiKey}

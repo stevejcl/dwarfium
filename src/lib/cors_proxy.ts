@@ -6,9 +6,7 @@ export const fetchWithCorsProxy = async (url) => {
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
-    // Parse the response as text
     const responseData = await response.text();
-    // Return the parsed XML data
     return responseData;
   } catch (error) {
     console.error("Error fetching data:", error);

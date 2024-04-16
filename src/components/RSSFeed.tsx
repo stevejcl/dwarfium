@@ -11,11 +11,9 @@ const RSSFeed = () => {
 
     const fetchFeed = async () => {
       try {
-        // Fetch XML data from the RSS feed URL using your CORS proxy
+
         const xmlData = await fetchWithCorsProxy(rssUrl);
-        // Parse the XML data using rss-parser
         const feed = await parser.parseString(xmlData);
-        // Set the feed items in state
         setFeedItems(feed.items);
       } catch (error) {
         console.error("Error fetching RSS feed:", error);

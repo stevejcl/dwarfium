@@ -18,7 +18,7 @@ function WeatherInfo(props) {
       </ul>
       <div className="row mt-3">
         <div className="col-6">
-          <WeatherIcon code={props.infoData.icon} size={62} />
+          <WeatherIcon icon={props.infoData.icon} size={62} />
           <WeatherTemperature celsius={props.infoData.temperature} />
         </div>
         <div className="col-6">

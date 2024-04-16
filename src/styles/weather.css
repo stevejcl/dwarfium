@@ -21,6 +21,7 @@
         position: relative;
         top: 5px;
     }
+   
 
     .Weather .temperature {
         position: relative;
@@ -67,6 +68,16 @@
     margin-left: 15%;
     margin-top: -11%;
 }
+.Temperature {
+    margin-top: 10px;
+    font-size: 48px;
+    color: #00AE83;
+    margin-left: -90px;
+}
+.units {
+    margin-top: 10px;
+    margin-left: -95px;
+}
 .WeatherForecast {
     text-align: center;
     margin-top: 5%;
@@ -107,4 +118,9 @@
 }
 .svg-temp {
     fill: white;
+}
+.canvas-info {
+    position: relative;
+    top: 48px;
+    margin-left: -17%;
 }

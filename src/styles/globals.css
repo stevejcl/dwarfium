@@ -401,9 +401,8 @@ select {
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
- h1, h2, h3 {
-    color: #60cc69;
-   
+h1, h2, h3 {
+    color: #00AE83;
 }
 .mb-2 {
     margin-bottom: .5rem !important;
@@ -805,3 +804,13 @@ img {
   .forecast-container-main {
     margin-top: 150px;
   }
+
+.thumblarge{
+    height: 125px;
+}
+.centered-cell {
+    text-align: center;
+}
+.sorting {
+    visibility: visible;
+}

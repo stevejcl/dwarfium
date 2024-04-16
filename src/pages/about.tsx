@@ -15,8 +15,8 @@ export default function About() {
           </h1>
           <br />
           <p>
-            The project is made by Wai-Yin Kwan with the help of JC LESAINT This
-            website is a side project to combine their interest in coding,
+            The project is made by Wai-Yin Kwan with the help of JC LESAINT.
+            This website is a side project to combine their interest in coding,
             astronomy, and the Dwarf II API. To report bugs or view the original
             code, visit his{" "}
             <Link
@@ -106,7 +106,7 @@ export default function About() {
             <u>User Data</u>
           </h2>
           <p>
-            The information entered by users is stored in the browser's
+            The information entered by users is stored in the browser&apos;s
             database (localStorage). Since the data is stored in your browser,
             other users of the site will not be able to access your data. This
             also means if a user uses multiple browsers or devices, the data
@@ -118,10 +118,7 @@ export default function About() {
           </h2>
           <p>
             Weather data is pulled from{" "}
-            <Link
-              href="https://openweathermap.org/"
-              target="_blank"
-            >
+            <Link href="https://openweathermap.org/" target="_blank">
               OpenWeather
             </Link>
             .

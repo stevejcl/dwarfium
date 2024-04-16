@@ -1,5 +1,6 @@
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import { useLoadIntialValues } from "@/hooks/useLoadIntialValues";
+import RSSFeed from "@/components/RSSFeed";
 
 export default function AstroCalendar() {
   useSetupConnection();
@@ -22,6 +23,8 @@ export default function AstroCalendar() {
             Calendar Year 2024{" "}
           </h1>
         </div>
+
+        <RSSFeed />
 
         <ul
           className="nav nav-pills mb-3 mt-5 justify-content-center"

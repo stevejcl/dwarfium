@@ -127,6 +127,15 @@ export default function Nav() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
+                  href="/rssfeed"
+                >
+                  RSS Feed
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
                   href="/about"
                 >
                   About

@@ -79,57 +79,59 @@ function Weather() {
     localStorage.setItem("apiKey", apiKey);
   }
 
-  if (weatherData.ready) {
-    return (
-      <div className="Weather">
-        <form onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col-3">
-              <input
-                type="search"
-                value={cityInput}
-                placeholder="Enter a city..."
-                className="form-control-weather"
-                autoFocus={true}
-                onChange={handleCityInput}
-              />
-            </div>
-            <div className="col-search">
-              <input
-                type="submit"
-                value="Search"
-                className="btn btn-more02 w-100"
-              />
-            </div>
-            <div className="col-3">
-              <input
-                type="text"
-                value={apiKey}
-                onChange={handleApiKeyChange}
-                placeholder="Enter API-key"
-                className="form-control-weather"
-              />
-            </div>
-            <div className="col-search">
-              <button
-                type="submit"
-                onClick={handleSaveApiKey}
-                className="btn btn-more02 w-100"
-              >
-                Save API Key
-              </button>
-            </div>
+  return (
+    <div className="Weather">
+      <form onSubmit={handleSubmit}>
+        <div className="row">
+          <div className="col-3">
+            <input
+              type="search"
+              value={cityInput}
+              placeholder="Enter a city..."
+              className="form-control-weather"
+              autoFocus={true}
+              onChange={handleCityInput}
+            />
           </div>
-        </form>
-        <WeatherInfo infoData={weatherData} />
-        <WeatherForecast
-          coordinates={weatherData.coordinates || { lat: 0, lon: 0 }}
-        />
-      </div>
-    );
-  } else {
-    return <div>Loading...</div>;
-  }
+          <div className="col-search">
+            <input
+              type="submit"
+              value="Search"
+              className="btn btn-more02 w-100"
+            />
+          </div>
+          <div className="col-3">
+            <input
+              type="text"
+              value={apiKey}
+              onChange={handleApiKeyChange}
+              placeholder="Enter API-key"
+              className="form-control-weather"
+            />
+          </div>
+          <div className="col-search">
+            <button
+              type="submit"
+              onClick={handleSaveApiKey}
+              className="btn btn-more02 w-100"
+            >
+              Save API Key
+            </button>
+          </div>
+        </div>
+      </form>
+      {weatherData.ready ? (
+        <>
+          <WeatherInfo infoData={weatherData} />
+          <WeatherForecast
+            coordinates={weatherData.coordinates || { lat: 0, lon: 0 }}
+          />
+        </>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </div>
+  );
 }
 
 export default Weather;

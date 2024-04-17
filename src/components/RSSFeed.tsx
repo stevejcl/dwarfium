@@ -52,7 +52,8 @@ const RSSFeed = () => {
             </div>
             <div className="col-lg-10">
               <h5 className="text-white">
-                          <span className="rss-feed-title">{item.title}</span> <br /><span className="rss-feed-pubDate">{item.pubDate}</span>
+                <span className="rss-feed-title">{item.title}</span> <br />
+                <span className="rss-feed-pubDate">{item.pubDate}</span>
               </h5>
               <p className="mt-2">{item.contentSnippet}</p>
               <a

@@ -572,3 +572,335 @@ export const getWBColorTempIndexByValue = (name) => {
   );
   return foundOption ? foundOption.index : allowedWBColorTemp.defaultValueIndex;
 };
+
+export const allowedCountBurst = {
+  defaultValueIndex: 0,
+  values: [
+    {
+      index: 0,
+      name: "3",
+    },
+    {
+      index: 3,
+      name: "5",
+    },
+    {
+      index: 6,
+      name: "10",
+    },
+    {
+      index: 9,
+      name: "15",
+    },
+    {
+      index: 12,
+      name: "20",
+    },
+    {
+      index: 15,
+      name: "30",
+    },
+    {
+      index: 18,
+      name: "40",
+    },
+    {
+      index: 21,
+      name: "50",
+    },
+    {
+      index: 24,
+      name: "60",
+    },
+    {
+      index: 27,
+      name: "70",
+    },
+    {
+      index: 30,
+      name: "80",
+    },
+    {
+      index: 33,
+      name: "90",
+    },
+    {
+      index: 36,
+      name: "100",
+    },
+    {
+      index: 39,
+      name: "120",
+    },
+    {
+      index: 42,
+      name: "150",
+    },
+    {
+      index: 45,
+      name: "200",
+    },
+    {
+      index: 48,
+      name: "300",
+    },
+    {
+      index: 51,
+      name: "400",
+    },
+    {
+      index: 54,
+      name: "500",
+    },
+    {
+      index: 57,
+      name: "600",
+    },
+    {
+      index: 60,
+      name: "700",
+    },
+    {
+      index: 63,
+      name: "900",
+    },
+    {
+      index: 66,
+      name: "1000",
+    },
+  ],
+};
+
+export const getCountBurstValueByIndex = (index) => {
+  const foundOption = allowedCountBurst.values.find(
+    (option) => option.index === index
+  );
+  return foundOption ? foundOption.name : "Select";
+};
+
+export const getCountBurstIndexByValue = (name) => {
+  const foundOption = allowedCountBurst.values.find(
+    (option) => option.name === name
+  );
+  return foundOption
+    ? foundOption.index
+    : allowedIntervalBurst.defaultValueIndex;
+};
+
+export const allowedIntervalBurst = {
+  defaultValueIndex: 0,
+  values: [
+    {
+      index: 0,
+      name: "Off",
+    },
+    {
+      index: 1,
+      name: "1 s",
+    },
+    {
+      index: 3,
+      name: "2 s",
+    },
+    {
+      index: 6,
+      name: "3 s",
+    },
+    {
+      index: 9,
+      name: "4 s",
+    },
+    {
+      index: 12,
+      name: "5 s",
+    },
+    {
+      index: 15,
+      name: "8 s",
+    },
+    {
+      index: 18,
+      name: "10 s",
+    },
+    {
+      index: 21,
+      name: "15 s",
+    },
+    {
+      index: 24,
+      name: "20 s",
+    },
+    {
+      index: 27,
+      name: "25 s",
+    },
+    {
+      index: 30,
+      name: "30 s",
+    },
+    {
+      index: 33,
+      name: "60 s",
+    },
+  ],
+};
+
+export const getIntervalBurstValueByIndex = (index) => {
+  const foundOption = allowedIntervalBurst.values.find(
+    (option) => option.index === index
+  );
+  return foundOption ? foundOption.name : "Select";
+};
+
+export const getIntervalBurstIndexByValue = (name) => {
+  const foundOption = allowedIntervalBurst.values.find(
+    (option) => option.name === name
+  );
+  return foundOption
+    ? foundOption.index
+    : allowedIntervalBurst.defaultValueIndex;
+};
+
+export const allowedIntervalTimeLapse = {
+  defaultValueIndex: 0,
+  values: [
+    {
+      index: 0,
+      name: "1 s",
+    },
+    {
+      index: 3,
+      name: "2 s",
+    },
+    {
+      index: 6,
+      name: "3 s",
+    },
+    {
+      index: 9,
+      name: "4 s",
+    },
+    {
+      index: 12,
+      name: "5 s",
+    },
+    {
+      index: 15,
+      name: "8 s",
+    },
+    {
+      index: 18,
+      name: "10 s",
+    },
+    {
+      index: 21,
+      name: "15 s",
+    },
+    {
+      index: 24,
+      name: "20 s",
+    },
+    {
+      index: 27,
+      name: "25 s",
+    },
+    {
+      index: 30,
+      name: "30 s",
+    },
+    {
+      index: 33,
+      name: "60 s",
+    },
+  ],
+};
+
+export const getIntervalTimeLapseValueByIndex = (index) => {
+  const foundOption = allowedIntervalTimeLapse.values.find(
+    (option) => option.index === index
+  );
+  return foundOption ? foundOption.name : "Select";
+};
+
+export const getIntervalTimeLapseIndexByValue = (name) => {
+  const foundOption = allowedIntervalTimeLapse.values.find(
+    (option) => option.name === name
+  );
+  return foundOption
+    ? foundOption.index
+    : allowedIntervalBurst.defaultValueIndex;
+};
+
+export const allowedTotalTimeTimeLapse = {
+  defaultValueIndex: 0,
+  values: [
+    {
+      index: 3,
+      name: "∞",
+    },
+    {
+      index: 6,
+      name: "5 min",
+    },
+    {
+      index: 9,
+      name: "8 min",
+    },
+    {
+      index: 12,
+      name: "10 min",
+    },
+    {
+      index: 15,
+      name: "20 min",
+    },
+    {
+      index: 18,
+      name: "30 min",
+    },
+    {
+      index: 21,
+      name: "40 min",
+    },
+    {
+      index: 24,
+      name: "50 min",
+    },
+    {
+      index: 27,
+      name: "60 min",
+    },
+    {
+      index: 30,
+      name: "120 min",
+    },
+    {
+      index: 33,
+      name: "180 min",
+    },
+    {
+      index: 36,
+      name: "240 min",
+    },
+    {
+      index: 39,
+      name: "300 min",
+    },
+  ],
+};
+
+export const getTotalTimeTimeLapseValueByIndex = (index) => {
+  const foundOption = allowedTotalTimeTimeLapse.values.find(
+    (option) => option.index === index
+  );
+  return foundOption ? foundOption.name : "Select";
+};
+
+export const getTotalTimeTimeLapseIndexByValue = (name) => {
+  const foundOption = allowedIntervalBurst.values.find(
+    (option) => option.name === name
+  );
+  return foundOption
+    ? foundOption.index
+    : allowedTotalTimeTimeLapse.defaultValueIndex;
+};

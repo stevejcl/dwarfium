@@ -25,8 +25,6 @@ export default function AstroCalendar() {
         </div>
 
         <RSSFeed />
-
-              
       </div>
     </section>
   );

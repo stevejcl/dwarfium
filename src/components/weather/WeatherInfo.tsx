@@ -16,10 +16,12 @@ function WeatherInfo(props) {
         </li>
         <li className="text-capitalize">{props.infoData.description}</li>
       </ul>
-          <div className="row mt-3">
-              <div className="col-1"></div>
+      <div className="row mt-3">
+        <div className="col-1"></div>
         <div className="col-5">
-                  <div className="canvas-info"><WeatherIcon icon={props.infoData.icon} size={62} /></div>
+          <div className="canvas-info">
+            <WeatherIcon icon={props.infoData.icon} size={62} />
+          </div>
           <WeatherTemperature celsius={props.infoData.temperature} />
         </div>
         <div className="col-5">

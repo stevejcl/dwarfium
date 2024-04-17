@@ -702,32 +702,53 @@ export default function ImagingMenu(props: PropType) {
     }
   }
 
+  function checkPhotoMode() {
+    if (
+      connectionCtx.imagingSession.isRecording ||
+      connectionCtx.imagingSession.endRecording ||
+      connectionCtx.imagingSession.isGoLive
+    ) {
+      if (showModal) setShowModal(false);
+      return (
+        <Link href="#" className="" onClick={() => {}}>
+          Astro
+        </Link>
+      );
+    }
+    return "";
+  }
+
   return (
     <ul className="nav nav-pills flex-column mb-auto border">
       <li className={`nav-item ${styles.box}`}>
-        {!showModal && (
-          <Link
-            href="#"
-            className=""
-            onClick={() => {
-              setShowModal(true);
-            }}
-          >
-            Astro
-          </Link>
-        )}
-        {showModal && (
-          <Link
-            href="#"
-            className=""
-            onClick={() => {
-              setShowModal(false);
-              anim_close();
-            }}
-          >
-            Photo
-          </Link>
-        )}
+        {checkPhotoMode()}
+        {!showModal &&
+          !connectionCtx.imagingSession.isRecording &&
+          !connectionCtx.imagingSession.endRecording && (
+            <Link
+              href="#"
+              className=""
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
+              Astro
+            </Link>
+          )}
+        {showModal &&
+          !connectionCtx.imagingSession.isRecording &&
+          !connectionCtx.imagingSession.endRecording && (
+            <Link
+              href="#"
+              className=""
+              onClick={() => {
+                setShowModal(false);
+                anim_close();
+              }}
+            >
+              Photo
+            </Link>
+          )}
       </li>
       <li className={`nav-item ${styles.box}`}>
         <Link href="#" className="" title="Show Settings">

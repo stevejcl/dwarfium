@@ -261,13 +261,17 @@ export default function AstroPhoto() {
                   <th onClick={() => sortByProperty("name")}>
                     Target{" "}
                     {sortBy === "name" && (
-                      <span className="sorting">{sortOrder === "asc" ? "▲" : "▼"}</span>
+                      <span className="sorting">
+                        {sortOrder === "asc" ? "▲" : "▼"}
+                      </span>
                     )}
                   </th>
                   <th onClick={() => sortByProperty("date")}>
                     Date{" "}
                     {sortBy === "date" && (
-                      <span className="sorting">{sortOrder === "asc" ? "▲" : "▼"}</span>
+                      <span className="sorting">
+                        {sortOrder === "asc" ? "▲" : "▼"}
+                      </span>
                     )}
                   </th>
                   <th>Shooting Info</th>
@@ -300,7 +304,7 @@ export default function AstroPhoto() {
                     <td>{session.date}</td>
                     <td>{getShootingInfo(session.name)}</td>
                     <td>{getAdditionalInfo(session.name)}</td>
-                        <td colSpan={2} className="centered-cell">
+                    <td colSpan={2} className="centered-cell">
                       <button
                         className="btn btn-more02"
                         onClick={() => getSessionData(session.name)}

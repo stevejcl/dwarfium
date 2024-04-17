@@ -3,6 +3,13 @@ import type { Dispatch, SetStateAction } from "react";
 import SlidingPane from "react-sliding-pane";
 import JoystickController from "joystick-controller";
 import CircularSlider from "@fseehawer/react-circular-slider";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
+import Link from "next/link";
+import CameraPanoSettings from "@/components/imaging/CameraPanoSettings";
+import CameraBurstSettings from "@/components/imaging/CameraBurstSettings";
+import CameraTimeLapseSettings from "@/components/imaging/CameraTimeLapseSettings";
+
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
   messageStepMotorServiceJoystick,
@@ -10,6 +17,17 @@ import {
   messageStepMotorServiceJoystickFixedAngle,
   WebSocketHandler,
 } from "dwarfii_api";
+import {
+  startPhoto,
+  startVideo,
+  stopVideo,
+  startPano,
+  stopPano,
+  startBurst,
+  stopBurst,
+  startTimeLapse,
+  stopTimeLapse,
+} from "@/lib/photo_utils";
 
 type PropTypes = {
   showModal: boolean;
@@ -21,6 +39,8 @@ type GenericMouseEventHandler<T extends HTMLElement> =
 
 export default function CameraAddOn(props: PropTypes) {
   const { showModal, setShowModal } = props;
+
+  const [errorTxt, setErrorTxt] = useState("");
 
   const [joystickId, setJoystickId] = useState(undefined);
   const joystickSpeed = useRef(2.2);
@@ -34,6 +54,16 @@ export default function CameraAddOn(props: PropTypes) {
   const [activeBtnBurst, setActiveBtnBurst] = useState("tele"); // State to track active button
   const [activeBtnTimeLapse, setActiveBtnTimeLapse] = useState("tele"); // State to track active button
   const [activeBtnSettings, setActiveBtnSettings] = useState("wide"); // State to track active button
+  const [showSettingsPanoMenu, setShowSettingsPanoMenu] = useState(false);
+  const [showSettingsBurstMenu, setShowSettingsBurstMenu] = useState(false);
+  const [showSettingsTimeLapseMenu, setShowSettingsTimeLapseMenu] =
+    useState(false);
+  const [rowValue, setRowValue] = useState<number>(3);
+  const [colValue, setColValue] = useState<number>(3);
+  const [countValue, setCountValue] = useState<number>(0);
+  const [intervalBurstValue, setIntervalBurstValue] = useState<number>(0);
+  const [intervalIndexValue, setIntervalIndexValue] = useState<number>(0);
+  const [totalTimeIndexValue, setTotalTimeIndexValue] = useState<number>(3);
 
   // Size > 1500
   let closePane = useRef(true);
@@ -49,6 +79,15 @@ export default function CameraAddOn(props: PropTypes) {
   let WidthSlidePane = useRef("1500px");
   let WidthCircularSlider = useRef(150);
   let trackSize = useRef(24);
+
+  let gLastTimeMotorCmd = Date.now();
+  let gMotorState = false;
+
+  let connectionCtx = useContext(ConnectionContext);
+  let PhotoMode =
+    !connectionCtx.imagingSession.isRecording &&
+    !connectionCtx.imagingSession.endRecording;
+  setShowModal((prev) => prev && PhotoMode);
 
   useEffect(() => {
     const handleResize = () => {
@@ -72,6 +111,11 @@ export default function CameraAddOn(props: PropTypes) {
     "Settings",
   ];
 
+  const CameraType = {
+    tele: 0,
+    wide: 1,
+  };
+
   const handleBtnPhotoClick = (buttonName) => {
     // Update state to set the active button
     setActiveBtnPhoto(
@@ -82,6 +126,7 @@ export default function CameraAddOn(props: PropTypes) {
         : buttonName
     );
   };
+
   const handleBtnVideoClick = (buttonName) => {
     // Update state to set the active button
     setActiveBtnVideo(buttonName);
@@ -114,25 +159,120 @@ export default function CameraAddOn(props: PropTypes) {
     // Update state to set the active button
     setActiveBtnSettings(buttonName);
   };
-  // action Click   Image
+
+  // action Click   Photo
   const handleClickActionPhoto: GenericMouseEventHandler<
     HTMLImageElement
-  > = () => {
+  > = async () => {
     // Update state to set the active button
     setActiveAction(PhotosModeActions[0].toString());
+    // Wait for startPhoto() to finish before continuing
+    await startPhoto(CameraType[activeBtnPhoto], connectionCtx, setErrorTxt);
 
-    // Simulate an action delay or any other operations
-    setTimeout(() => {
-      setActiveAction(undefined); // Reset activeAction to undefined after some delay
-    }, 1000); // Example: Reset after 1 second (1000 milliseconds)
     setActiveAction(undefined);
   };
 
-  const handleClickActionBurstPhoto: GenericMouseEventHandler<
+  // action Click   Start Video
+  const handleClickActionStartVideo: GenericMouseEventHandler<
     HTMLImageElement
-  > = () => {
+  > = async () => {
     // Update state to set the active button
-    setActiveAction(PhotosModeActions[3]);
+    setActiveAction(PhotosModeActions[1].toString());
+
+    // Wait for startVideo() to finish before continuing
+    await startVideo(CameraType[activeBtnVideo], connectionCtx, setErrorTxt);
+  };
+
+  // action Click   Stop Video
+  const handleClickActionStopVideo: GenericMouseEventHandler<
+    HTMLImageElement
+  > = async () => {
+    // Wait for stopVideo() to finish before continuing
+    await stopVideo(CameraType[activeBtnVideo], connectionCtx, setErrorTxt);
+
+    setActiveAction(undefined);
+  };
+
+  // action Click   Start Pano
+  const handleClickActionStartPano: GenericMouseEventHandler<
+    HTMLImageElement
+  > = async () => {
+    // Update state to set the active button
+    setActiveAction(PhotosModeActions[2].toString());
+
+    // Wait for startPano() to finish before continuing
+    await startPano(
+      CameraType[activeBtnPano],
+      rowValue,
+      colValue,
+      connectionCtx,
+      setErrorTxt,
+      setActiveAction
+    );
+  };
+
+  // action Click   Stop Pano
+  const handleClickActionStopPano: GenericMouseEventHandler<
+    HTMLImageElement
+  > = async () => {
+    // Wait for stopPano() to finish before continuing
+    await stopPano(CameraType[activeBtnPano], connectionCtx, setErrorTxt);
+
+    setActiveAction(undefined);
+  };
+
+  // action Click   Start Burst
+  const handleClickActionStartBurst: GenericMouseEventHandler<
+    HTMLImageElement
+  > = async () => {
+    // Update state to set the active button
+    setActiveAction(PhotosModeActions[3].toString());
+
+    // Wait for startBurst() to finish before continuing
+    await startBurst(
+      CameraType[activeBtnBurst],
+      countValue,
+      intervalBurstValue,
+      connectionCtx,
+      setErrorTxt,
+      setActiveAction
+    );
+  };
+
+  // action Click   Stop Burst
+  const handleClickActionStopBurst: GenericMouseEventHandler<
+    HTMLImageElement
+  > = async () => {
+    // Wait for stopBurst() to finish before continuing
+    await stopBurst(CameraType[activeBtnBurst], connectionCtx, setErrorTxt);
+
+    setActiveAction(undefined);
+  };
+
+  // action Click   Start Time Lapse
+  const handleClickActionStartTimeLapse: GenericMouseEventHandler<
+    HTMLImageElement
+  > = async () => {
+    // Update state to set the active button
+    setActiveAction(PhotosModeActions[4].toString());
+
+    // Wait for startBurst() to finish before continuing
+    await startTimeLapse(
+      CameraType[activeBtnBurst],
+      intervalIndexValue,
+      totalTimeIndexValue,
+      connectionCtx,
+      setErrorTxt,
+      setActiveAction
+    );
+  };
+
+  // action Click   Stop Time Lapse
+  const handleClickActionStopTimeLapse: GenericMouseEventHandler<
+    HTMLImageElement
+  > = async () => {
+    // Wait for stopTimeLapse() to finish before continuing
+    await stopTimeLapse(CameraType[activeBtnBurst], connectionCtx, setErrorTxt);
 
     setActiveAction(undefined);
   };
@@ -204,11 +344,6 @@ export default function CameraAddOn(props: PropTypes) {
       ChangeWindowSize.current = window.innerWidth;
     }
   }
-
-  let gLastTimeMotorCmd = Date.now();
-  let gMotorState = false;
-
-  let connectionCtx = useContext(ConnectionContext);
 
   function stop_motor() {
     const webSocketHandler = connectionCtx.socketIPDwarf
@@ -424,6 +559,22 @@ export default function CameraAddOn(props: PropTypes) {
 
   return (
     <div>
+      {errorTxt && showModal && closePane.current && (
+        <div
+          className="slide-pane_from_bottom"
+          style={{
+            position: "fixed",
+            top: "-40px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "fit-content",
+            padding: "10px",
+            zIndex: 1,
+          }}
+        >
+          {errorTxt}
+        </div>
+      )}
       <SlidingPane
         className="some-custom-class"
         overlayClassName="slide-pane__overlay_hide"
@@ -494,7 +645,7 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
-                  alt="Take Burst Photos"
+                  alt="Take Photos"
                   onClick={
                     activeAction === undefined
                       ? handleClickActionPhoto
@@ -529,7 +680,15 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
-                  alt="photocamera"
+                  alt="Take Videos"
+                  onClick={
+                    activeAction === undefined
+                      ? handleClickActionStartVideo
+                      : activeAction === PhotosModeActions[1].toString()
+                      ? handleClickActionStopVideo
+                      : undefined
+                  }
+                  style={{ cursor: "pointer" }}
                 />
                 <div className="button-container">
                   <button
@@ -545,12 +704,46 @@ export default function CameraAddOn(props: PropTypes) {
               <div className="column">
                 <div className="header">
                   <div className="title">Panorama</div>
+                  <Link href="#" className="" title="Show Settings">
+                    <OverlayTrigger
+                      trigger="click"
+                      placement={"left"}
+                      show={showSettingsPanoMenu}
+                      onToggle={() => setShowSettingsPanoMenu((p) => !p)}
+                      overlay={
+                        <Popover id="popover-positioned-left">
+                          <Popover.Body>
+                            <CameraPanoSettings
+                              colValue={colValue}
+                              setColValue={setColValue}
+                              rowValue={rowValue}
+                              setRowValue={setRowValue}
+                              setShowSettingsMenu={setShowSettingsPanoMenu}
+                            />
+                          </Popover.Body>
+                        </Popover>
+                      }
+                    >
+                      <i
+                        className="bi bi-sliders"
+                        style={{ fontSize: "1.75rem" }}
+                      ></i>
+                    </OverlayTrigger>
+                  </Link>
                 </div>
                 <div className="separator"></div>
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
-                  alt="photocamera"
+                  alt="Take Panoramas"
+                  onClick={
+                    activeAction === undefined
+                      ? handleClickActionStartPano
+                      : activeAction === PhotosModeActions[2].toString()
+                      ? handleClickActionStopPano
+                      : undefined
+                  }
+                  style={{ cursor: "pointer" }}
                 />
                 <div className="button-container">
                   <button
@@ -566,15 +759,43 @@ export default function CameraAddOn(props: PropTypes) {
               <div className="column">
                 <div className="header">
                   <div className="title">Burst Photo</div>
+                  <Link href="#" className="" title="Show Settings">
+                    <OverlayTrigger
+                      trigger="click"
+                      placement={"left"}
+                      show={showSettingsBurstMenu}
+                      onToggle={() => setShowSettingsBurstMenu((p) => !p)}
+                      overlay={
+                        <Popover id="popover-positioned-left">
+                          <Popover.Body>
+                            <CameraBurstSettings
+                              countValue={countValue}
+                              setCountValue={setCountValue}
+                              intervalValue={intervalBurstValue}
+                              setIntervalValue={setIntervalBurstValue}
+                              setShowSettingsMenu={setShowSettingsBurstMenu}
+                            />
+                          </Popover.Body>
+                        </Popover>
+                      }
+                    >
+                      <i
+                        className="bi bi-sliders"
+                        style={{ fontSize: "1.75rem" }}
+                      ></i>
+                    </OverlayTrigger>
+                  </Link>
                 </div>
                 <div className="separator"></div>
                 <img
                   src="/images/photocamera.png"
-                  alt="photocamera"
                   className="cameraAddon-image"
+                  alt="Take Burst Photos"
                   onClick={
                     activeAction === undefined
-                      ? handleClickActionBurstPhoto
+                      ? handleClickActionStartBurst
+                      : activeAction === PhotosModeActions[3].toString()
+                      ? handleClickActionStopBurst
                       : undefined
                   }
                   style={{ cursor: "pointer" }}
@@ -601,12 +822,45 @@ export default function CameraAddOn(props: PropTypes) {
               <div className="column">
                 <div className="header">
                   <div className="title">Time Lapse</div>
+                  <Link href="#" className="" title="Show Settings">
+                    <OverlayTrigger
+                      trigger="click"
+                      placement={"left"}
+                      show={showSettingsTimeLapseMenu}
+                      onToggle={() => setShowSettingsTimeLapseMenu((p) => !p)}
+                      overlay={
+                        <Popover id="popover-positioned-left">
+                          <Popover.Body>
+                            <CameraTimeLapseSettings
+                              intervalIndexValue={intervalIndexValue}
+                              setIntervalIndexValue={setIntervalIndexValue}
+                              totalTimeIndexValue={totalTimeIndexValue}
+                              setTotalTimeIndexValue={setTotalTimeIndexValue}
+                              setShowSettingsMenu={setShowSettingsTimeLapseMenu}
+                            />
+                          </Popover.Body>
+                        </Popover>
+                      }
+                    >
+                      <i
+                        className="bi bi-sliders"
+                        style={{ fontSize: "1.75rem" }}
+                      ></i>
+                    </OverlayTrigger>
+                  </Link>
                 </div>
                 <div className="separator"></div>
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
-                  alt="photocamera"
+                  alt="Take Time Lapse"
+                  onClick={
+                    activeAction === undefined
+                      ? handleClickActionStartTimeLapse
+                      : activeAction === PhotosModeActions[4].toString()
+                      ? handleClickActionStopTimeLapse
+                      : undefined
+                  }
                 />
                 <div className="button-container">
                   <button
@@ -635,7 +889,7 @@ export default function CameraAddOn(props: PropTypes) {
                 <img
                   src="/images/photocamera.png"
                   className="cameraAddon-image"
-                  alt="photocamera"
+                  alt="Settings"
                 />
                 <div className="button-container">
                   <button

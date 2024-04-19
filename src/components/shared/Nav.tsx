@@ -7,7 +7,6 @@ export default function Nav() {
   const [devEnabled, setDevEnabled] = useState(false);
   const versionNumber = "2.1.3";
 
-  // Load dev state from local storage on component mount
   useEffect(() => {
     const devState = localStorage.getItem("devState");
     setDevEnabled(devState === "true");
@@ -174,7 +173,6 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* Version modal */}
       <Modal
         dialogClassName="modal-dialog-version"
         show={modalOpen}

@@ -10,7 +10,10 @@ export default function WitSensorData() {
     <section className="daily-horp d-inline-block w-100">
       <div className="container">
         <ApplicationProvider application={application}>
-          <div className="WitSensor">
+          <div className="witsensor">
+            <div className="witimage">
+              <img src="/images/witmotion.png" alt="WitMotion" />
+            </div>
             <Grid2 container spacing={2}>
               <Inner />
             </Grid2>

@@ -815,6 +815,15 @@ img {
     visibility: visible;
 }
 
-.WitSensor{
+.witsensor{
     margin-top: 150px;
 }
+
+.witimage {
+    text-align: right;
+    margin-top: 20px;
+  }
+  
+.witimage img {
+    width: 150px;
+  }

@@ -133,6 +133,16 @@ export default function About() {
             </Link>
             .
           </p>
+          <p>
+            Witmotion Sensor integration based on {" "}
+            <Link
+              href="https://github.com/LiDline/witmotion_wt901blecl_ts"
+              target="_blank"
+            >
+              LiDLine Node integration
+            </Link>
+            .
+          </p>
           <br />
           <br />
           <br />

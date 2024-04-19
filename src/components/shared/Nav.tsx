@@ -1,14 +1,26 @@
 import Link from "next/link";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 
 export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [devEnabled, setDevEnabled] = useState(false);
   const versionNumber = "2.1.3";
+
+  // Load dev state from local storage on component mount
+  useEffect(() => {
+    const devState = localStorage.getItem("devState");
+    setDevEnabled(devState === "true");
+  }, []);
 
   const handleToggleModal = () => {
     setModalOpen(!modalOpen);
+  };
+
+  const handleDevOptionChange = (e) => {
+    const isChecked = e.target.checked;
+    setDevEnabled(isChecked);
+    localStorage.setItem("devState", isChecked);
   };
 
   return (
@@ -127,6 +139,16 @@ export default function Nav() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
+                  href="/wit-sensor"
+                  style={{ display: devEnabled ? "block" : "none" }}
+                >
+                  Sensor
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
                   href="/about"
                 >
                   About
@@ -167,6 +189,14 @@ export default function Nav() {
         <Modal.Body>
           <div className="modal-body-version">
             <p>Version Number: {versionNumber}</p>
+            <label>
+              <input
+                type="checkbox"
+                checked={devEnabled}
+                onChange={handleDevOptionChange}
+              />
+              Enable Witmotion Sensor
+            </label>
           </div>
         </Modal.Body>
       </Modal>

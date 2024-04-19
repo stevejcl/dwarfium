@@ -39,7 +39,7 @@ type GenericMouseEventHandler<T extends HTMLElement> =
 
 export default function CameraAddOn(props: PropTypes) {
   const { showModal, setShowModal } = props;
-  const [imgSrc] = useState<string>("../images/photo-camera-white.png");
+  //const [imgSrc] = useState<string>("../images/photo-camera-white.png");
   const [errorTxt, setErrorTxt] = useState("");
 
   const [joystickId, setJoystickId] = useState(undefined);
@@ -675,9 +675,8 @@ export default function CameraAddOn(props: PropTypes) {
             left: "50%",
             transform: "translateX(-50%)",
             width: "fit-content",
-            padding: "10px",
             height: "30px",
-            zIndex: 1,
+            padding: "0px",
           }}
         >
           {errorTxt}
@@ -751,8 +750,7 @@ export default function CameraAddOn(props: PropTypes) {
                 </div>
                 <div className="separator"></div>
                 <img
-                  id="TakePhoto"
-                  src={imgSrc}
+                  src="/images/photocamera.png"
                   className="cameraAddon-image"
                   alt="Take Photos"
                   onClick={
@@ -787,8 +785,7 @@ export default function CameraAddOn(props: PropTypes) {
                 </div>
                 <div className="separator"></div>
                 <img
-                  id="TakeVideo"
-                  src={imgSrc}
+                  src="/images/photocamera.png"
                   className="cameraAddon-image"
                   alt="Take Videos"
                   onClick={
@@ -843,8 +840,7 @@ export default function CameraAddOn(props: PropTypes) {
                 </div>
                 <div className="separator"></div>
                 <img
-                  id="TakePano"
-                  src={imgSrc}
+                  src="/images/photocamera.png"
                   className="cameraAddon-image"
                   alt="Take Panoramas"
                   onClick={
@@ -899,8 +895,7 @@ export default function CameraAddOn(props: PropTypes) {
                 </div>
                 <div className="separator"></div>
                 <img
-                  id="TakeBurstPhoto"
-                  src={imgSrc}
+                  src="/images/photocamera.png"
                   className="cameraAddon-image"
                   alt="Take Burst Photos"
                   onClick={
@@ -963,8 +958,7 @@ export default function CameraAddOn(props: PropTypes) {
                 </div>
                 <div className="separator"></div>
                 <img
-                  id="TakeTimeLapse"
-                  src={imgSrc}
+                  src="/images/photocamera.png"
                   className="cameraAddon-image"
                   alt="Take Time Lapse"
                   onClick={
@@ -1001,9 +995,10 @@ export default function CameraAddOn(props: PropTypes) {
                 </div>
                 <div className="separator"></div>
                 <img
-                  src="/images/settings-white.png"
+                  src="/images/photocamera.png"
                   className="cameraAddon-image"
                   alt="Settings"
+                  style={{ cursor: "pointer" }}
                 />
                 <div className="button-container">
                   <button

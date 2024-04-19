@@ -41,9 +41,9 @@ export async function startPhoto(
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_PHOTOGRAPH) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Take Photograph Tele Succcess");
+        setErrorTxt("Take Photograph Tele Success");
         if (callback) {
-          callback("Take Photograph Succcess");
+          callback("Take Photograph Success");
         }
       }
     } else if (
@@ -67,9 +67,9 @@ export async function startPhoto(
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_PHOTOGRAPH
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Take Photograph Wide Succcess");
+        setErrorTxt("Take Photograph Wide Success");
         if (callback) {
-          callback("Take Photograph Wide Succcess");
+          callback("Take Photograph Wide Success");
         }
       }
     } else if (
@@ -151,9 +151,9 @@ export async function startVideo(
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_START_RECORD) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Start Video Succcess");
+        setErrorTxt("Start Video Success");
         if (callback) {
-          callback("Start Video Succcess");
+          callback("Start Video Success");
         }
       }
     } else if (
@@ -241,7 +241,7 @@ export async function stopVideo(
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_STOP_RECORD) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Stop Recording Video Succcess");
+        setErrorTxt("Stop Recording Video Success");
       }
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_RECORD_TIME
@@ -249,7 +249,7 @@ export async function stopVideo(
       const errorText = `Record Time: ${result_data.data.recordTime}`;
       setErrorTxt(errorText);
       if (callback) {
-        callback("Stop Recording Video Succcess");
+        callback("Stop Recording Video Success");
       }
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_FUNCTION_STATE
@@ -331,9 +331,9 @@ export async function startPano(
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_PANORAMA_START_GRID) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Panorama Succcess");
+        setErrorTxt("Panorama Success");
         if (callback) {
-          callback("Panorama Succcess");
+          callback("Panorama Success");
         }
       }
     } else if (
@@ -451,7 +451,7 @@ export async function stopPano(
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_PANORAMA_STOP) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Stop Panorama Succcess");
+        setErrorTxt("Stop Panorama Success");
       }
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PANORAMA_PROGRESS
@@ -460,7 +460,7 @@ export async function stopPano(
       console.log(errorText);
       setErrorTxt(errorText);
       if (callback) {
-        callback("Stop Recording Video Succcess");
+        callback("Stop Recording Video Success");
       }
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_FUNCTION_STATE
@@ -541,9 +541,9 @@ export async function startBurst(
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_BURST) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Start Tele Burst Succcess");
+        setErrorTxt("Start Tele Burst Success");
         if (callback) {
-          callback("Start Tele Burst Succcess");
+          callback("Start Tele Burst Success");
         }
       }
     } else if (
@@ -557,9 +557,9 @@ export async function startBurst(
       }
     } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_BURST) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Start Wide Burst Succcess");
+        setErrorTxt("Start Wide Burst Success");
         if (callback) {
-          callback("Start Wide Burst Succcess");
+          callback("Start Wide Burst Success");
         }
       }
     } else if (
@@ -695,11 +695,11 @@ export async function stopBurst(
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_TELE_STOP_BURST) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Stop Wide Burst Succcess");
+        setErrorTxt("Stop Wide Burst Success");
       }
     } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_WIDE_STOP_BURST) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Stop Wide Burst Succcess");
+        setErrorTxt("Stop Wide Burst Success");
       }
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_BURST_PROGRESS
@@ -803,9 +803,9 @@ export async function startTimeLapse(
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_START_TIMELAPSE_PHOTO
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Start Tele TimeLapse Succcess");
+        setErrorTxt("Start Tele TimeLapse Success");
         if (callback) {
-          callback("Start Tele TimeLapse Succcess");
+          callback("Start Tele TimeLapse Success");
         }
       }
     } else if (
@@ -822,9 +822,9 @@ export async function startTimeLapse(
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_START_TIMELAPSE_PHOTO
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Start Wide TimeLapse Succcess");
+        setErrorTxt("Start Wide TimeLapse Success");
         if (callback) {
-          callback("Start Wide TimeLapse Succcess");
+          callback("Start Wide TimeLapse Success");
         }
       }
     } else if (
@@ -967,14 +967,14 @@ export async function stopTimeLapse(
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_STOP_TIMELAPSE_PHOTO
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Stop Wide TimeLapse Succcess");
+        setErrorTxt("Stop Wide TimeLapse Success");
       }
     } else if (
       result_data.cmd ==
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_STOP_TIMELAPSE_PHOTO
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        setErrorTxt("Stop Wide TimeLapse Succcess");
+        setErrorTxt("Stop Wide TimeLapse Success");
       }
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_TIMELAPSE_OUT_TIME

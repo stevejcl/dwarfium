@@ -682,7 +682,7 @@ img {
 .cameraAddon-image {
     width: 80px; /* Set the width */
     height: auto; /* Maintain aspect ratio */
-    border-radius: 50%; /* Rounded corners */
+    
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow */
     margin-top: -6px;
 }

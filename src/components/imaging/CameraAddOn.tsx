@@ -675,6 +675,8 @@ export default function CameraAddOn(props: PropTypes) {
                         transform: "translateX(-50%)",
                         width: "fit-content",
                         padding: "10px",
+                        height: "30px",
+                        zIndex: 1,
                         
                     }}
                 >
@@ -966,6 +968,7 @@ export default function CameraAddOn(props: PropTypes) {
                                                 ? handleClickActionStopTimeLapse
                                                 : undefined
                                     }
+                                    style={{ cursor: "pointer" }}
                                 />
                                 <div className="button-container">
                                     <button

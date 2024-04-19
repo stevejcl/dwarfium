@@ -825,7 +825,7 @@ export async function startTimeLapse(
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_TIMELAPSE_OUT_TIME
     ) {
-      const errorText = `TimeLapse Tele Progress: ${result_data.data.totalTime}s for an intervall of ${result_data.data.interval}s film duration of ${result_data.data.outTime}s`;
+      const errorText = `TimeLapse Tele Progress: ${result_data.data.totalTime}s for an interval of ${result_data.data.interval}s film duration of ${result_data.data.outTime}s`;
       console.log(errorText);
       setErrorTxt(errorText);
       if (callback) {
@@ -844,7 +844,7 @@ export async function startTimeLapse(
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_TIMELAPSE_OUT_TIME
     ) {
-      const errorText = `TimeLapse Tele Progress: ${result_data.data.totalTime} for intervall of ${result_data.data.outTime} of ${result_data.data.outTime}`;
+      const errorText = `TimeLapse Tele Progress: ${result_data.data.totalTime} for interval of ${result_data.data.outTime} of ${result_data.data.outTime}`;
       console.log(errorText);
       setErrorTxt(errorText);
       if (callback) {
@@ -993,7 +993,7 @@ export async function stopTimeLapse(
     } else if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_TIMELAPSE_OUT_TIME
     ) {
-      const errorText = `TimeLapse Tele Progress: ${result_data.data.totalTime} for intervall of ${result_data.data.outTime} of ${result_data.data.outTime}`;
+      const errorText = `TimeLapse Tele Progress: ${result_data.data.totalTime} for interval of ${result_data.data.outTime} of ${result_data.data.outTime}`;
       console.log(errorText);
       setErrorTxt(errorText);
       if (callback) {

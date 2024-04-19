@@ -675,7 +675,7 @@ export default function CameraAddOn(props: PropTypes) {
                         transform: "translateX(-50%)",
                         width: "fit-content",
                         padding: "10px",
-                        zIndex: 1,
+                        
                     }}
                 >
                     {errorTxt}

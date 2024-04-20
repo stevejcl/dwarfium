@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import WeatherInfo from "./weather/WeatherInfo";
 import WeatherForecast from "./weather/WeatherForecast";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 interface WeatherData {
   ready: boolean;
@@ -26,6 +26,7 @@ function Weather() {
     typeof window !== "undefined" ? localStorage.getItem("apiKey") || "" : ""
   );
   const [weatherData, setWeatherData] = useState<WeatherData>({ ready: false });
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (apiKey && cityInput) {
@@ -56,8 +57,13 @@ function Weather() {
     axios
       .get(apiUrl)
       .then(handleResponse)
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         console.error("Weather data fetch error:", error);
+        if (error.response && error.response.status === 429) {
+          setError("Error 429: You have exceeded the API rate limit. Please try again later.");
+        } else {
+          setError("An error occurred while fetching weather data.");
+        }
       });
   }
 
@@ -120,7 +126,11 @@ function Weather() {
           </div>
         </div>
       </form>
-      {weatherData.ready ? (
+      {error ? (
+        <div className="Error">
+          <p>{error}</p>
+        </div>
+      ) : weatherData.ready ? (
         <>
           <WeatherInfo infoData={weatherData} />
           <WeatherForecast

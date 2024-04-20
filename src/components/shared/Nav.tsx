@@ -112,7 +112,7 @@ export default function Nav() {
                   <Link
                     className="nav-link active drop"
                     aria-current="page"
-                    href="/construction"
+                    href="/clouds"
                   >
                     Clouds
                   </Link>

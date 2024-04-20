@@ -71,6 +71,7 @@ const Clouds = () => {
                         {""}
                         <br />
                         <br />
+                        <br />
                         <br/>
                 <form className="searchform">
                         <div className="Weather">
@@ -140,6 +141,7 @@ const Clouds = () => {
                 <br />
                 <br />
                 <br />
+              
                 
 
             </section>

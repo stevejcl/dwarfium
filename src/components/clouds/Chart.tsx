@@ -7,7 +7,7 @@ export interface ChartDataProps {
     windArray: string[];
 }
 
-const Chart = ({
+const CustomChart = ({
     forecastTimes,
     cloudArray,
     humidityArray,
@@ -101,4 +101,4 @@ const Chart = ({
     );
 };
 
-export default Chart;
+export default CustomChart;

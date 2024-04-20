@@ -36,6 +36,10 @@ function WeatherForecast(props: { coordinates: { lat: number; lon: number } }) {
         })
         .catch((error) => {
           console.error("Weather forecast API call failed:", error);
+          if (error.response && error.response.status === 429) {
+            console.error("You will get the error 429 if you are a user of a Free subscription and make more than 60 API calls per minute (surpassing the limit of your subscription).");
+            alert("Error 429: You have exceeded the API rate limit. Please try again later.");
+          }
         });
     } else {
       console.error("Invalid coordinates or API key provided.");

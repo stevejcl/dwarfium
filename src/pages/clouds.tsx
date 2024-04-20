@@ -21,7 +21,7 @@ const Clouds = () => {
         
         axios
             .get(
-                `https://api.openweathermap.org/data/2.5/forecast?q=Aalst&appid=d38f44f490b8ba6cbf9ffad50b678d82`
+                `https://api.openweathermap.org/data/2.5/forecast?q=Aalst&appid=`
             )
             .then(response => {
                 selectedDate.setHours(23, 0, 0, 0);

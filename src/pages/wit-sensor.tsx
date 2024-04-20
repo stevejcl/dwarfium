@@ -18,7 +18,27 @@ export default function WitSensorData() {
               <Inner />
             </Grid2>
           </div>
-        </ApplicationProvider>
+              </ApplicationProvider>
+              {""}
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
       </div>
     </section>
   );

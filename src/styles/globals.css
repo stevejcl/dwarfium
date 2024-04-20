@@ -7,12 +7,12 @@
 
 
 body {
-  background: url('/wallpaper.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-
+    background: url('/wallpaper.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    
 }
 
 /*#__next div {
@@ -574,8 +574,9 @@ img {
 }
 
 .containerCamera {
-    width: 100%;
+    width: fit-content;
     display: flex;
+    margin-top:30px;
    
 }
 
@@ -831,4 +832,12 @@ img {
     padding-top: .5rem !important;
     padding-bottom: .5rem !important;
     margin-top: -25px;
+}
+
+/* Add media queries for different screen sizes */
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: stretch; /* Stretch items to fill the width of the container */
+    }
 }

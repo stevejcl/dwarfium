@@ -835,7 +835,12 @@ export default function CameraAddOn(props: PropTypes) {
                     >
                       <i
                         className="bi bi-sliders"
-                        style={{ fontSize: "1.75rem" }}
+                         style={{
+                                 display: "flex",
+                                 alignItems: "center",
+                                 justifyContent: "center",
+                                 fontSize: "1.75rem"
+                               }}                                           
                       ></i>
                     </OverlayTrigger>
                   </Link>
@@ -891,7 +896,12 @@ export default function CameraAddOn(props: PropTypes) {
                     >
                       <i
                         className="bi bi-sliders"
-                        style={{ fontSize: "1.75rem" }}
+                        style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "1.75rem"
+                              }}
                       ></i>
                     </OverlayTrigger>
                   </Link>
@@ -955,7 +965,13 @@ export default function CameraAddOn(props: PropTypes) {
                     >
                       <i
                         className="bi bi-sliders"
-                        style={{ fontSize: "1.75rem" }}
+                        style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "1.75rem"
+                              }}
+                        
                       ></i>
                     </OverlayTrigger>
                   </Link>

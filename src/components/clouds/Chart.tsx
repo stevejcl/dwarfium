@@ -54,8 +54,8 @@ const Chart = ({
                                 size: 24,
                                 weight: 'bold',
                             },
-                            padding: 20, // Add padding to the title
-                            color: '#fff', // Text color
+                            padding: 20,
+                            color: '#fff',
                         },
                         legend: {
                             display: true,
@@ -63,8 +63,8 @@ const Chart = ({
                                 font: {
                                     size: 16,
                                 },
-                                padding: 10, // Add padding to the title
-                                color: '#fff', // Text color
+                                padding: 10, 
+                                color: '#fff',
                             },
                         },
                     },

@@ -1,4 +1,5 @@
 import { Line } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 export interface ChartDataProps {
     forecastTimes: string[];
@@ -7,7 +8,7 @@ export interface ChartDataProps {
     windArray: string[];
 }
 
-const CustomChart = ({
+const Chart = ({
     forecastTimes,
     cloudArray,
     humidityArray,
@@ -101,4 +102,4 @@ const CustomChart = ({
     );
 };
 
-export default CustomChart;
+export default Chart;

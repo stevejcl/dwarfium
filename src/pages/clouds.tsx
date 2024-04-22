@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CustomChart from '../components/clouds/Chart';
-import Daypicker from '../components/clouds/Daypicker';
+import CustomChart, { ChartDataProps } from '@/components/clouds/Chart';
+import Daypicker from '@/components/clouds/Daypicker';
 
 const Clouds = () => {
     const [forecastTimes, setForecastTimes] = useState<string[]>([]);

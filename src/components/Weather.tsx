@@ -60,7 +60,9 @@ function Weather() {
       .catch((error: AxiosError) => {
         console.error("Weather data fetch error:", error);
         if (error.response && error.response.status === 429) {
-          setError("Error 429: You have exceeded the API rate limit. Please try again later.");
+          setError(
+            "Error 429: You have exceeded the API rate limit. Please try again later."
+          );
         } else {
           setError("An error occurred while fetching weather data.");
         }

@@ -41,8 +41,8 @@ export const Graphs: React.FC<GraphsInterface> = ({ inputData }) => {
           z={inputData.vel.z}
           title={"Angular velocity"}
         />
-        </Grid2>
-        <Grid2 xs={4}>
+      </Grid2>
+      <Grid2 xs={4}>
         <SingleGraph
           counter={inputData.counter}
           x={inputData.ang.x}
@@ -50,13 +50,13 @@ export const Graphs: React.FC<GraphsInterface> = ({ inputData }) => {
           z={inputData.ang.z}
           title={"Angle"}
         />
-        </Grid2>
-        
-        <div>
-          <p>Angle Y: {inputData.ang.y[0].toFixed(2)}°</p>
-          <h3>Direction</h3>
-          <p>{calculateDirection(inputData.ang.z[0])}</p>
-        </div>
+      </Grid2>
+
+      <div>
+        <p>Angle Y: {inputData.ang.y[0].toFixed(2)}°</p>
+        <h3>Direction</h3>
+        <p>{calculateDirection(inputData.ang.z[0])}</p>
+      </div>
     </Grid2>
   );
 };

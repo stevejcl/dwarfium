@@ -16,8 +16,10 @@ const Clouds = () => {
   );
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     if (city && apiKey) {
       axios
         .get(
@@ -64,72 +66,74 @@ const Clouds = () => {
   return (
     <>
       {error && <div>{error}</div>}
-      <section className="daily-horp d-inline-block w-100">
-        <div className="container">
-          <br />
-          <br />
-          <br />
-          <br />
-          <form className="searchform">
-            <div className="Weather">
-              <div className="row">
-                <div className="col-3">
-                  <input
-                    type="search"
-                    value={city}
-                    placeholder="Enter a city..."
-                    className="form-control-weather"
-                    autoFocus={true}
-                    onChange={handleCityChange}
-                  />
-                </div>
-                {apiKey && (
-                  <>
-                    <div className="col-3">
-                      <input
-                        type="text"
-                        value={apiKey}
-                        placeholder="Enter API-key"
-                        className="form-control-weather"
-                        onChange={handleApiKeyChange}
-                      />
-                    </div>
-                    <div className="col-api">
-                      <button
-                        type="submit"
-                        className="btn btn-more02 w-100"
-                        onClick={handleApiKeySave}
-                      >
-                        Save API Key
-                      </button>
-                    </div>
-                  </>
-                )}
-                <div className="col-1">
-                  <Daypicker
-                    selectedDate={selectedDate}
-                    setSelectedDate={setSelectedDate}
-                  />
+      {isClient && (
+        <section className="daily-horp d-inline-block w-100">
+          <div className="container">
+            <br />
+            <br />
+            <br />
+            <br />
+            <form className="searchform">
+              <div className="Weather">
+                <div className="row">
+                  <div className="col-3">
+                    <input
+                      type="search"
+                      value={city}
+                      placeholder="Enter a city..."
+                      className="form-control-weather"
+                      autoFocus={true}
+                      onChange={handleCityChange}
+                    />
+                  </div>
+                  {apiKey && (
+                    <>
+                      <div className="col-3">
+                        <input
+                          type="text"
+                          value={apiKey}
+                          placeholder="Enter API-key"
+                          className="form-control-weather"
+                          onChange={handleApiKeyChange}
+                        />
+                      </div>
+                      <div className="col-api">
+                        <button
+                          type="submit"
+                          className="btn btn-more02 w-100"
+                          onClick={handleApiKeySave}
+                        >
+                          Save API Key
+                        </button>
+                      </div>
+                    </>
+                  )}
+                  <div className="col-1">
+                    <Daypicker
+                      selectedDate={selectedDate}
+                      setSelectedDate={setSelectedDate}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </div>
-        <CustomChart
-          forecastTimes={forecastTimes}
-          cloudArray={cloudArray}
-          humidityArray={humidityArray.map(String)}
-          windArray={windArray.map(String)}
-        />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </section>
+            </form>
+          </div>
+          <CustomChart
+            forecastTimes={forecastTimes}
+            cloudArray={cloudArray}
+            humidityArray={humidityArray.map(String)}
+            windArray={windArray.map(String)}
+          />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </section>
+      )}
     </>
   );
 };

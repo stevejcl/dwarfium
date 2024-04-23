@@ -128,7 +128,7 @@ export default function ConnectDwarf() {
                 className="form-control"
                 id="ip"
                 name="ip"
-                placeholder="127.00.00.00"
+                placeholder="127.0.0.1"
                 required
                 defaultValue={connectionCtx.IPDwarf}
                 onChange={(e) => ipHandler(e)}

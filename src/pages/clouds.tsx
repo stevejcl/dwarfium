@@ -17,6 +17,9 @@ const Clouds = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [initialRequestMade, setInitialRequestMade] = useState(false);
+  const [apiRequestCount, setApiRequestCount] = useState(0);
 
   useEffect(() => {
     setIsClient(true);
@@ -45,6 +48,9 @@ const Clouds = () => {
           setCloudArray(weatherTonight.map((hr) => hr.clouds.all));
           setHumidityArray(weatherTonight.map((hr) => hr.main.humidity));
           setWindArray(weatherTonight.map((hr) => hr.wind.speed));
+
+          setInitialRequestMade(true);
+          setApiRequestCount(1);
         })
         .catch((error) => setError(error.message));
     }
@@ -52,10 +58,12 @@ const Clouds = () => {
 
   const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value);
+    setInitialRequestMade(false);
   };
 
   const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
+    setInitialRequestMade(false);
   };
 
   const handleApiKeySave = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -134,6 +142,7 @@ const Clouds = () => {
           <br />
         </section>
       )}
+      <div>API Requests Made: {apiRequestCount}</div>
     </>
   );
 };

@@ -1,6 +1,7 @@
 # Dwarf II Stellarium Goto
 
 ![downloads](https://img.shields.io/github/downloads/stevejcl/dwarfii-stellarium-goto/total.svg)
+[![](https://dcbadge.vercel.app/api/server/5vFWbsXDfv)](https://discord.gg/5vFWbsXDfv)
 
 This website connects to the Dwarf II telescope to Stellarium via the [Dwarf II API](https://hj433clxpv.feishu.cn/docx/MiRidJmKOobM2SxZRVGcPCVknQg) and Stellarium remote control plugin. Once Dwarf II and Stellarium are connected, you can select an object in Stellarium, and then tell Dwarf II to go to that object.
 

@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest,ubuntu-20.04, windows-latest]
+        platform: [ubuntu-20.04, windows-latest]
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -32,13 +32,8 @@ jobs:
         env:
           CI: true
 
-     # - name: Cache dependencies
-     #   uses: actions/cache@v2
-     #   with:
-     #     path: ~/.npm
-     #     key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-     #     restore-keys: |
-     #       ${{ runner.os }}-npm-
+      - name: Install Tauri CLI
+        run: npm install -g @tauri-apps/cli
 
       - name: Install dependencies
         run: npm install
@@ -127,4 +122,3 @@ jobs:
           file_type: text
           gist_description: "Updater JSON for the latest release"
           gist_file_name: "latest.json"
-        

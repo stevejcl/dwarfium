@@ -143,9 +143,8 @@ body {
     text-align: center;
 }
 .connect-dwarf {
-    display: flex;
+    
     justify-content: space-between;
-    width: 60rem;
     float: right !important;
     height: fit-content;
     margin-top: -40px;
@@ -840,4 +839,40 @@ img {
         flex-direction: column; /* Stack items vertically on small screens */
         align-items: stretch; /* Stretch items to fill the width of the container */
     }
+}
+.connect-dwarf {
+    display: flex;
+    align-items: center;
+}
+
+    .connect-dwarf button {
+        margin-left: 10px; /* Adjust spacing between status and button */
+    }
+
+@media (max-width: 768px) {
+    .connect-dwarf {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-end;
+    }
+
+        .connect-dwarf button {
+            margin-left: 0; /* Remove left margin for the button on smaller screens */
+            margin-top: 10px; /* Add spacing between status and button on smaller screens */
+        }
+}
+.sethostmode-dwarf {
+    display: flex;
+    justify-content: flex-end; /* Align button to the right */
+}
+
+@media (max-width: 768px) {
+    .sethostmode-dwarf {
+        justify-content: center; /* Center button on smaller screens */
+        align-items: flex-end;
+        margin-right: 7%;
+    }
+
+        .sethostmode-dwarf button {
+            margin-top: 0px; /* Add some spacing between button and other elements */
+        }
 }

@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Dwarfium",
-    "version": "2.1.3"
+    "version": "2.1.2"
   },
   "tauri": {
     "allowlist": {

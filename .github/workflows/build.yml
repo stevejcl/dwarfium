@@ -47,19 +47,19 @@ jobs:
         if: matrix.platform == 'ubuntu-20.04'
         run: |
             npm run build
-            cp -r dist DwarfStellariumGoto
-            echo "python3 -m http.server" > DwarfStellariumGoto/start_server.bat
-            zip -r DwarfStellariumGoto.zip DwarfStellariumGoto
+            cp -r dist Dwarfium
+            echo "python3 -m http.server" > Dwarfium/start_server.bat
+            zip -r Dwarfium.zip Dwarfium
 
       - name: Get version number from package.json
         id: get_version
         run: echo "::set-output name=version::$(node -e 'console.log(require("./package.json").version)')"
 
-      - name: Create artifact DwarfStellariumGoto
+      - name: Create artifact Dwarfium
         uses: actions/upload-artifact@v2
         with:
-          name: DwarfStellariumGoto-${{ steps.get_version.outputs.version }}
-          path: DwarfStellariumGoto.zip
+          name: Dwarfium-${{ steps.get_version.outputs.version }}
+          path: Dwarfium.zip
 
       - name: install frontend dependencies
         run: npm install
@@ -87,7 +87,7 @@ jobs:
         id: release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: DwarfStellariumGoto.zip
+          artifacts: Dwarfium.zip
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
           skipIfReleaseExists: true

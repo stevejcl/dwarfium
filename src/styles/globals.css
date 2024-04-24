@@ -876,6 +876,22 @@ img {
             margin-top: 0px; /* Add some spacing between button and other elements */
         }
 }
+@media (max-width: 768px) {
+    /* Adjusting column widths for small screens */
+    .col-sm-1,
+    .col-sm-3,
+    .col-sm-4 {
+        flex: 0 0 auto;
+        max-width: none;
+    }
+
+    /* Adjusting margin for buttons on small screens */
+    button {
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
 .footer {
     position: fixed;
     bottom: 0;

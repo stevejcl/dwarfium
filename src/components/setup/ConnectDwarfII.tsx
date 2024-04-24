@@ -1,81 +1,71 @@
 import { useContext, useState } from "react";
-
 import { ConnectionContext } from "@/stores/ConnectionContext";
-
 import { connectionHandler } from "@/lib/connect_utils";
 
 function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export default function ConnectDwarfII() {
-  let connectionCtx = useContext(ConnectionContext);
+    const connectionCtx = useContext(ConnectionContext);
 
-  const [connecting, setConnecting] = useState(false);
-  const [slavemode, setSlavemode] = useState(false);
-  const [goLive, setGoLive] = useState(false);
-  const [errorTxt, setErrorTxt] = useState("");
+    const [connecting, setConnecting] = useState(false);
+    const [slavemode, setSlavemode] = useState(false);
+    const [goLive, setGoLive] = useState(false);
+    const [errorTxt, setErrorTxt] = useState("");
 
-  async function checkConnection() {
-    await sleep(100);
+    async function checkConnection() {
+        await sleep(100);
 
-    setConnecting(true);
-    setErrorTxt("");
+        setConnecting(true);
+        setErrorTxt("");
 
-    connectionHandler(
-      connectionCtx,
-      connectionCtx.IPDwarf,
-      false,
-      setConnecting,
-      setSlavemode,
-      setGoLive,
-      setErrorTxt
-    );
-  }
-
-  function renderConnectionStatus() {
-    let goLiveMessage = "";
-    if (goLive) {
-      goLiveMessage = "=> Go Live";
+        connectionHandler(
+            connectionCtx,
+            connectionCtx.IPDwarf,
+            false,
+            setConnecting,
+            setSlavemode,
+            setGoLive,
+            setErrorTxt
+        );
     }
-    if (connecting) {
-      return (
-        <span className="text-warning-connect right-align">Connecting...</span>
-      );
-    }
-    if (connectionCtx.connectionStatus === undefined) {
-      return <></>;
-    }
-    if (connectionCtx.connectionStatus === false) {
-      return (
-        <span className="text-danger-connect right-align">
-          Connection failed {errorTxt}.
-        </span>
-      );
-    }
-    if (connectionCtx.connectionStatusSlave || slavemode) {
-      return (
-        <span className="text-warning-connect right-align">
-          Connection successfull (Slave Mode) {goLiveMessage}
-          {errorTxt}.
-        </span>
-      );
+
+    function renderConnectionStatus() {
+        let goLiveMessage = "";
+        if (goLive) {
+            goLiveMessage = "=> Go Live";
+        }
+        if (connecting) {
+            return (
+                <span className="text-warning-connect">Connecting...</span>
+            );
+        }
+        if (connectionCtx.connectionStatus === undefined) {
+            return null;
+        }
+        if (connectionCtx.connectionStatus === false) {
+            return (
+                <span className="text-danger-connect">Connection failed {errorTxt}.</span>
+            );
+        }
+        if (connectionCtx.connectionStatusSlave || slavemode) {
+            return (
+                <span className="text-warning-connect">Connection successful (Slave Mode) {goLiveMessage} {errorTxt}.</span>
+            );
+        }
+
+        return (
+            <span className="text-success-connect">Connection successful. {goLiveMessage} {errorTxt}</span>
+        );
     }
 
     return (
-      <span className="text-success-connect right-align">
-        Connection successfull. {goLiveMessage}
-        {errorTxt}
-      </span>
+        <div className="connect-dwarf">
+            {renderConnectionStatus()}{" "}
+            <button className="btn btn-more02" onClick={checkConnection}>
+                Connect
+            </button>
+        </div>
     );
-  }
-
-  return (
-    <div className="connect-dwarf right-align">
-      {renderConnectionStatus()}{" "}
-      <button className="btn btn-more02" onClick={checkConnection}>
-        Connect
-      </button>
-    </div>
-  );
 }

@@ -97,7 +97,7 @@ export default function ConnectStellarium() {
               IP
             </label>
           </div>
-          <div className="col-md-2">
+          <div className="col-lg-2 col-md-10">
             <input
               className="form-control"
               id="ip"
@@ -114,7 +114,7 @@ export default function ConnectStellarium() {
               Port
             </label>
           </div>
-          <div className="col-md-2">
+          <div className="col-lg-2 col-md-10">
             <input
               className="form-control"
               id="port"

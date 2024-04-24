@@ -123,7 +123,7 @@ export default function ConnectDwarf() {
                 IP
               </label>
             </div>
-            <div className="col-md-2">
+            <div className="col-lg-2 col-md-10">
               <input
                 className="form-control"
                 id="ip"

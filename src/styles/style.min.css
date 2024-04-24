@@ -301,7 +301,7 @@ header {
 .btn-more03 {
     position: relative;
     overflow: hidden;
-    padding: 11px 10px 10px 10px;
+    /*padding: 11px 10px 10px 10px;*/
     color: #0a051d !important;
     border: solid 2px rgba(255, 255, 255, .2588235294) !important;
     border-radius: 5px;

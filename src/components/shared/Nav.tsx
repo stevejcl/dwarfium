@@ -4,8 +4,8 @@ import Modal from "react-bootstrap/Modal";
 
 export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
-    const [devEnabled, setDevEnabled] = useState(false);
-    const [navbarOpen, setNavbarOpen] = useState(false);
+  const [devEnabled, setDevEnabled] = useState(false);
+  const [navbarOpen, setNavbarOpen] = useState(false);
   const versionNumber = "2.1.3";
 
   useEffect(() => {
@@ -22,13 +22,13 @@ export default function Nav() {
     setDevEnabled(isChecked);
     localStorage.setItem("devState", isChecked);
   };
-    const handleNavbarToggle = () => {
-        setNavbarOpen(!navbarOpen);
-    };
+  const handleNavbarToggle = () => {
+    setNavbarOpen(!navbarOpen);
+  };
 
-    const closeNavbar = () => {
-        setNavbarOpen(false);
-    };
+  const closeNavbar = () => {
+    setNavbarOpen(false);
+  };
 
   return (
     <>
@@ -45,18 +45,23 @@ export default function Nav() {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-                      aria-label="Toggle navigation"
-                      onClick={handleNavbarToggle}
+            aria-label="Toggle navigation"
+            onClick={handleNavbarToggle}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-                  <div className={`collapse navbar-collapse ${navbarOpen ? 'show' : ''}`}>
-                      <ul className="navbar-nav me-auto mb-2 mb-lg-0" onClick={closeNavbar}>
-                          <li className="nav-item">
-                              <Link className="nav-link active" aria-current="page" href="/">
-                                  Home
-                              </Link>
+          <div
+            className={`collapse navbar-collapse ${navbarOpen ? "show" : ""}`}
+          >
+            <ul
+              className="navbar-nav me-auto mb-2 mb-lg-0"
+              onClick={closeNavbar}
+            >
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" href="/">
+                  Home
+                </Link>
               </li>
               <div className="dropdown">
                 <button className="dropbtn">

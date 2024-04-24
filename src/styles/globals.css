@@ -876,3 +876,12 @@ img {
             margin-top: 0px; /* Add some spacing between button and other elements */
         }
 }
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #00B280;
+    text-align: center;
+    color: white;
+}

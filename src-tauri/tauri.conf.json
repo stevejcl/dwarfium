@@ -7,7 +7,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "stellarium-goto",
+    "productName": "Dwarfium",
     "version": "2.1.3"
   },
   "tauri": {
@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.DwarfStellariumGoto.build",
+      "identifier": "com.Dwarfium.build",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -64,7 +64,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "stellarium-goto",
+        "title": "Dwarfium",
         "width": 800
       }
     ]

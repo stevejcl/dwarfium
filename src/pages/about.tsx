@@ -15,7 +15,7 @@ export default function About() {
           </h1>
           <br />
           <p>
-            The project is made by Wai-Yin Kwan with the help of JC LESAINT.
+            The project was started by Wai-Yin Kwan with the help of JC LESAINT.
             This website is a side project to combine their interest in coding,
             astronomy, and the Dwarf II API. To report bugs or view the original
             code, visit his{" "}

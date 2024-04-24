@@ -10,7 +10,7 @@ export default function Home() {
           <br />
           <br />
           <h1>
-            <u>Dwarf II App</u>
+            <u>Dwarfium</u>
           </h1>
           <br />
           <p>

@@ -1,4 +1,4 @@
-# Dwarf II Stellarium Goto
+# Dwarfium
 
 ![downloads](https://img.shields.io/github/downloads/stevejcl/dwarfii-stellarium-goto/total.svg)
 [![](https://dcbadge.vercel.app/api/server/5vFWbsXDfv)](https://discord.gg/5vFWbsXDfv)
@@ -25,6 +25,13 @@ The Desktop Application is available for Windows, MAC Os and Linux
 
 ![screenshot of session data](images/updates.png) –
 
+# MAC OS
+
+The Mac OS support has been canceld as we have no MACs available to provide dedicated support.
+Running this Tools as a desktop application requires signing which is currently not possible for us.
+
+You can still use Dwarfium with the provided web package [here](https://github.com/stevejcl/dwarfii-stellarium-goto/releases)
+
 ## Setup for coders
 
 If you are interested in seeing how the code works or contributing to the project, then follow these steps.
@@ -50,6 +57,7 @@ npm run dev
 ```bash
 npm run buld
 ```
+
 5. Build desktop App based on your OS
 
 In order to build the desktop app you need to install [Rust](https://www.rust-lang.org/learn/get-started)

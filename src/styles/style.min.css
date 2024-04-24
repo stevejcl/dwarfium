@@ -785,6 +785,7 @@ footer .colm-footer h5 {
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: #00AE83;
+    height: fit-content;
 }
 .mb-2 {
     margin-bottom: .5rem !important;

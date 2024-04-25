@@ -17,18 +17,20 @@ const Clouds = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [initialRequestMade, setInitialRequestMade] = useState(false);
   const [apiRequestCount, setApiRequestCount] = useState(0);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     setIsClient(true);
-    if (city && apiKey) {
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`
-        )
-        .then((response) => {
+
+    const fetchData = async () => {
+      if (city && apiKey) {
+        try {
+          const response = await axios.get(
+            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`
+          );
+
           setSelectedDate((prevDate) => {
             const newDate = new Date(prevDate);
             newDate.setHours(23, 0, 0, 0);
@@ -50,30 +52,59 @@ const Clouds = () => {
           setWindArray(weatherTonight.map((hr) => hr.wind.speed));
 
           setInitialRequestMade(true);
-          setApiRequestCount(1);
-        })
-        .catch((error) => setError(error.message));
+          setApiRequestCount((prevCount) => prevCount + 1);
+          console.log("API Request Successful. Total API Requests Made:", apiRequestCount + 1);
+        } catch (error: any) { // Explicitly type error as any
+          if (error.response && error.response.status === 429) {
+            setErrorMessage("Too many requests. Please wait before trying again.");
+          } else if (error.response && error.response.status === 500) {
+            setErrorMessage("Internal server error. Please try again later.");
+          } else {
+            setError(error.message);
+            console.error("API Request Failed:", error.message);
+          }
+        }
+      }
+    };
+
+    // Check if the initial request has been made and if necessary data is available
+    if (!initialRequestMade && city && apiKey) {
+      fetchData();
     }
-  }, [city, apiKey, selectedDate]);
+  }, [city, apiKey, selectedDate, initialRequestMade, apiRequestCount]);
 
   const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value);
     setInitialRequestMade(false);
+    setErrorMessage(""); // Clear error message when city changes
   };
 
   const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
     setInitialRequestMade(false);
+    setErrorMessage(""); // Clear error message when API key changes
   };
 
   const handleApiKeySave = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     localStorage.setItem("apiKey", apiKey);
+    setInitialRequestMade(false);
+    setErrorMessage(""); // Clear error message when API key is saved
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const handleDateChange = (newDate: Date | ((prevState: Date) => Date)) => {
+    if (typeof newDate === 'function') {
+      setSelectedDate((prevState) => newDate(prevState));
+    } else {
+      setSelectedDate(newDate);
+    }
+    setInitialRequestMade(false);
+    setErrorMessage(""); // Clear error message when date changes
   };
 
   return (
     <>
-      {error && <div>{error}</div>}
       {isClient && (
         <section className="daily-horp d-inline-block w-100">
           <div className="container">
@@ -103,8 +134,7 @@ const Clouds = () => {
                           placeholder="Enter API-key"
                           className="form-control-weather"
                           onChange={handleApiKeyChange}
-                                              />
-
+                        />
                       </div>
                       <div className="col-api-clouds mb-3">
                         <button
@@ -120,12 +150,14 @@ const Clouds = () => {
                   <div className="col-1">
                     <Daypicker
                       selectedDate={selectedDate}
-                      setSelectedDate={setSelectedDate}
+                      setSelectedDate={handleDateChange}
                     />
                   </div>
                 </div>
               </div>
             </form>
+            {error && <div>{error}</div>}
+      {errorMessage && <div>{errorMessage}</div>}
           </div>
           <CustomChart
             forecastTimes={forecastTimes}
@@ -143,7 +175,6 @@ const Clouds = () => {
           <br />
         </section>
       )}
-      <div>API Requests Made: {apiRequestCount}</div>
     </>
   );
 };

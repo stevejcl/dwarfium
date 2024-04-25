@@ -896,8 +896,8 @@ img {
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     background-color: #00B280;
     text-align: center;
-    color: white;
+    color: gainsboro;
 }

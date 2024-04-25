@@ -87,7 +87,7 @@ export default function Moonphase() {
               </thead>
               <tbody>{renderMoonPhasesTable()}</tbody>
             </table>
-          </div>
+                  </div><br /><br /><br /><br />
         </div>
       </section>
     </div>

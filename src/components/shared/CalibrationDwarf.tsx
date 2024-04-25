@@ -265,12 +265,12 @@ export default function CalibrationDwarf() {
       <h2>Calibrate the Dwarf II</h2>
 
       <p>
-        In order to use Astro function, you must calibrate the dwarf II first.
+        In order to use Astro function, you must calibrate the dwarf II first.<br/>
         <span className="text-danger">
           <b> WARNING: </b>
         </span>
         don&#39;t put anything on the lens at this moment.
-      </p>
+      </p><br/>
 
       <div className="row mb-3">
         <div className="col-sm-1 nav nav-pills text-end">

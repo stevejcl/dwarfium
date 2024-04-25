@@ -12,10 +12,15 @@
     box-shadow: 1px 1px 5px black;
     height:500px;
 }
-
+.col-api-clouds {
+    width: 10%; /* Adjust column width for search and save API key buttons */
+}
 @media screen and (max-width: 768px) {
     .search-container {
         width: 100%;
+    }
+    .col-api-clouds {
+        width: 30%; /* Adjust column width for search and save API key buttons */
     }
 }
 

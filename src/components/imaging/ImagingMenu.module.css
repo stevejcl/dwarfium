@@ -16,3 +16,11 @@
 .box a:hover {
   color: #aaa;
 }
+
+@media (max-width: 768px) {
+    
+    .dropdown-wrapper.jsx-1b9225df978cd56a {
+        width: auto;
+    }
+    
+}

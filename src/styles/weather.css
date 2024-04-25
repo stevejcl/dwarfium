@@ -65,9 +65,10 @@
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 .WeatherTemperature {
-    margin-left: 15%;
-    margin-top: -11%;
+    margin-left: -2%;
+    margin-top: -12%;
 }
+
 .Temperature {
     margin-top: 10px;
     font-size: 48px;
@@ -121,6 +122,60 @@
 }
 .canvas-info {
     position: relative;
-    top: 48px;
-    margin-left: -17%;
+    top: 5px;
+    margin-left: 0%;
 }
+.col-md-3 {
+    flex: 0 0 auto;
+    width: 20%;
+}
+
+    @media screen and (max-width: 768px) {
+        .Weather {
+            /* Add styles for the Weather component at 768px width */
+        }
+
+        .WeatherTemperature {
+            margin-left: 13%;
+            margin-top: -23%;
+        }
+
+        .canvas-info {
+            position: relative;
+            top: 5px;
+            margin-left: 18%;
+        }
+
+        .col-3 {
+            width: 50%; /* Adjust column width for city input and API key input */
+        }
+
+        .col-md-3 {
+            flex: 0 0 auto;
+            width: 50%;
+        }
+
+        .col-search,
+        .col-api {
+            width: 50%; /* Adjust column width for search and save API key buttons */
+        }
+
+        .form-control-weather {
+            width: 100%; /* Make the input fields full width */
+            margin-bottom: 10px; /* Add spacing between input fields */
+        }
+
+        .btn-more02 {
+            /*width: 50%;  Make the buttons full width */
+            margin-bottom: 10px; /* Add spacing between buttons */
+            height: auto;
+        }
+
+        .Error {
+            /* Add styles for the error message */
+        }
+
+        .Loading {
+            /* Add styles for the loading indicator */
+        }
+    }

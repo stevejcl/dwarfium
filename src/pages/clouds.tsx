@@ -84,7 +84,7 @@ const Clouds = () => {
             <form className="searchform">
               <div className="Weather">
                 <div className="row">
-                  <div className="col-3">
+                  <div className="col-sm-6 col-md-3 mb-3">
                     <input
                       type="search"
                       value={city}
@@ -96,19 +96,20 @@ const Clouds = () => {
                   </div>
                   {apiKey && (
                     <>
-                      <div className="col-3">
+                      <div className="col-sm-6 col-md-3 mb-3">
                         <input
                           type="text"
                           value={apiKey}
                           placeholder="Enter API-key"
                           className="form-control-weather"
                           onChange={handleApiKeyChange}
-                        />
+                                              />
+
                       </div>
-                      <div className="col-api">
+                      <div className="col-api-clouds mb-3">
                         <button
                           type="submit"
-                          className="btn btn-more02 w-100"
+                          className="btn btn-more02 w-40"
                           onClick={handleApiKeySave}
                         >
                           Save API Key

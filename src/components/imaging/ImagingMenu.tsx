@@ -719,243 +719,244 @@ export default function ImagingMenu(props: PropType) {
   }
 
   return (
-    <ul className="nav nav-pills flex-column mb-auto border">
-      <li className={`nav-item ${styles.box}`}>
-        {checkPhotoMode()}
-        {!showModal &&
-          !connectionCtx.imagingSession.isRecording &&
-          !connectionCtx.imagingSession.endRecording && (
-            <Link
-              href="#"
-              className=""
-              onClick={() => {
-                setShowModal(true);
-              }}
-            >
-              Astro
-            </Link>
-          )}
-        {showModal &&
-          !connectionCtx.imagingSession.isRecording &&
-          !connectionCtx.imagingSession.endRecording && (
-            <Link
-              href="#"
-              className=""
-              onClick={() => {
-                setShowModal(false);
-                anim_close();
-              }}
-            >
-              Photo
-            </Link>
-          )}
-      </li>
-      <li className={`nav-item ${styles.box}`}>
-        <Link href="#" className="" title="Show Settings">
-          <OverlayTrigger
-            trigger="click"
-            placement={"left"}
-            show={showSettingsMenu}
-            onToggle={() => setShowSettingsMenu((p) => !p)}
-            overlay={
-              <Popover id="popover-positioned-left">
-                <Popover.Body>
-                  <ImagingAstroSettings
-                    setValidSettings={setValidSettings}
-                    validSettings={validSettings}
-                    setShowSettingsMenu={setShowSettingsMenu}
-                  />
-                </Popover.Body>
-              </Popover>
-            }
-          >
-            <i className="bi bi-sliders" style={{ fontSize: "1.75rem" }}></i>
-          </OverlayTrigger>
-        </Link>
-      </li>
-      <li className={`nav-item ${styles.box}`}>
-        <Link href="#" className="">
-          {renderRecordButton()}
-        </Link>
-      </li>
-      <li className={`nav-item ${styles.box}`}>
-        {!showWideAngle && (
-          <Link
-            href="#"
-            className=""
-            onClick={() => {
-              setShowWideangle((prev) => !prev);
-              setShowWideAngle((prev) => !prev);
-            }}
-            title="Show Wideangle"
-          >
-            <i
-              className="bi bi-pip"
-              style={{
-                fontSize: "1.75rem",
-                transform: "rotate(180deg)",
-                display: "inline-block",
-              }}
-            ></i>
-          </Link>
-        )}
-        {showWideAngle && (
-          <Link
-            href="#"
-            className=""
-            onClick={() => {
-              setShowWideangle((prev) => !prev);
-              setShowWideAngle((prev) => !prev);
-            }}
-            title="Hide Wideangle"
-          >
-            <i
-              className="bi bi-pip"
-              style={{
-                fontSize: "1.75rem",
-                transform: "rotate(180deg)",
-                display: "inline-block",
-              }}
-            ></i>
-          </Link>
-        )}
-      </li>
-      {!connectionCtx.imagingSession.isRecording &&
-        connectionCtx.imagingSession.isGoLive && (
+      <ul className="nav nav-pills flex-column mb-auto border">
           <li className={`nav-item ${styles.box}`}>
-            <Link
-              href="#"
-              className=""
-              onClick={() => {
-                goLiveHandler();
-                endPreview();
-              }}
-              title="End Current Session"
-            >
-              Live
-            </Link>
+              {checkPhotoMode()}
+              {!showModal &&
+                  !connectionCtx.imagingSession.isRecording &&
+                  !connectionCtx.imagingSession.endRecording && (
+                      <Link
+                          href="#"
+                          className=""
+                          onClick={() => {
+                              setShowModal(true);
+                          }}
+                      >
+                          Astro
+                      </Link>
+                  )}
+              {showModal &&
+                  !connectionCtx.imagingSession.isRecording &&
+                  !connectionCtx.imagingSession.endRecording && (
+                      <Link
+                          href="#"
+                          className=""
+                          onClick={() => {
+                              setShowModal(false);
+                              anim_close();
+                          }}
+                      >
+                          Photo
+                      </Link>
+                  )}
           </li>
-        )}
-      <hr />
-      {!connectionCtx.imagingSession.isRecording &&
-        !connectionCtx.imagingSession.endRecording &&
-        !astroFocus && (
-          <div onContextMenu={handleRightClick}>
-            <li className={`nav-item ${styles.box}`}>
-              <Link
-                href="#"
-                className=""
-                onClick={focusAutoAstro}
-                title="Astro Auto Focus"
-              >
-                <i
-                  className="icon-bullseye"
-                  style={{
-                    fontSize: "2rem",
-                  }}
-                ></i>
+          <li className={`nav-item ${styles.box}`}>
+              <Link href="#" className="" title="Show Settings">
+                  <OverlayTrigger
+                      trigger="click"
+                      placement={"left"}
+                      show={showSettingsMenu}
+                      onToggle={() => setShowSettingsMenu((p) => !p)}
+                      overlay={
+                          <Popover id="popover-positioned-left">
+                              <Popover.Body>
+                                  <ImagingAstroSettings
+                                      setValidSettings={setValidSettings}
+                                      validSettings={validSettings}
+                                      setShowSettingsMenu={setShowSettingsMenu}
+                                  />
+                              </Popover.Body>
+                          </Popover>
+                      }
+                  >
+                      <i className="bi bi-sliders" style={{ fontSize: "1.75rem" }}></i>
+                  </OverlayTrigger>
               </Link>
-            </li>
-          </div>
-        )}
-      {!connectionCtx.imagingSession.isRecording &&
-        !connectionCtx.imagingSession.endRecording &&
-        astroFocus && (
-          <li className={`nav-item ${styles.box}`}>
-            <Link
-              href="#"
-              className=""
-              onClick={focusAutoAstroStop}
-              title="Astro Focus Stop"
-            >
-              <i
-                className="icon-bullseye"
-                style={{
-                  fontSize: "2rem",
-                }}
-              ></i>
-            </Link>
           </li>
-        )}
-      <hr />
-      {!connectionCtx.imagingSession.isRecording &&
-        !connectionCtx.imagingSession.endRecording && (
           <li className={`nav-item ${styles.box}`}>
-            <Link
-              href="#"
-              className=""
-              onClick={focusPlus}
-              title="Focus + Click"
-            >
-              <i
-                className="icon-plus-squared-alt"
-                style={{
-                  fontSize: "2rem",
-                }}
-              ></i>
-            </Link>
+              <Link href="#" className="">
+                  {renderRecordButton()}
+              </Link>
           </li>
-        )}
-      <hr />
-      {!connectionCtx.imagingSession.isRecording &&
-        !connectionCtx.imagingSession.endRecording && (
           <li className={`nav-item ${styles.box}`}>
-            <Link
-              href="#"
-              className=""
-              onClick={focusMinus}
-              title="Focus - Click"
-            >
-              <i
-                className="icon-minus-squared-alt"
-                style={{
-                  fontSize: "2rem",
-                }}
-              ></i>
-            </Link>
+              {!showWideAngle && (
+                  <Link
+                      href="#"
+                      className=""
+                      onClick={() => {
+                          setShowWideangle((prev) => !prev);
+                          setShowWideAngle((prev) => !prev);
+                      }}
+                      title="Show Wideangle"
+                  >
+                      <i
+                          className="bi bi-pip"
+                          style={{
+                              fontSize: "1.75rem",
+                              transform: "rotate(180deg)",
+                              display: "inline-block",
+                          }}
+                      ></i>
+                  </Link>
+              )}
+              {showWideAngle && (
+                  <Link
+                      href="#"
+                      className=""
+                      onClick={() => {
+                          setShowWideangle((prev) => !prev);
+                          setShowWideAngle((prev) => !prev);
+                      }}
+                      title="Hide Wideangle"
+                  >
+                      <i
+                          className="bi bi-pip"
+                          style={{
+                              fontSize: "1.75rem",
+                              transform: "rotate(180deg)",
+                              display: "inline-block",
+                          }}
+                      ></i>
+                  </Link>
+              )}
           </li>
-        )}
-      <hr />
-      {!connectionCtx.imagingSession.isRecording &&
-        !connectionCtx.imagingSession.endRecording && (
-          <li className={`nav-item ${styles.box}`}>
-            <Link
-              href="#"
-              className=""
-              onMouseDown={focusPlusLong}
-              onMouseUp={focusLongStop}
-              title="Focus + Long Press"
-            >
-              <i
-                className="icon-plus-squared"
-                style={{
-                  fontSize: "2rem",
-                }}
-              ></i>
-            </Link>
-          </li>
-        )}
-      <hr />
-      {!connectionCtx.imagingSession.isRecording &&
-        !connectionCtx.imagingSession.endRecording && (
-          <li className={`nav-item ${styles.box}`}>
-            <Link
-              href="#"
-              className=""
-              onMouseDown={focusMinusLong}
-              onMouseUp={focusLongStop}
-              title="Focus - Long Press"
-            >
-              <i
-                className="icon-minus-squared"
-                style={{
-                  fontSize: "2rem",
-                }}
-              ></i>
-            </Link>
-          </li>
-        )}
-      <CameraAddOn showModal={showModal} setShowModal={setShowModal} />
-    </ul>
+          {!connectionCtx.imagingSession.isRecording &&
+              connectionCtx.imagingSession.isGoLive && (
+                  <li className={`nav-item ${styles.box}`}>
+                      <Link
+                          href="#"
+                          className=""
+                          onClick={() => {
+                              goLiveHandler();
+                              endPreview();
+                          }}
+                          title="End Current Session"
+                      >
+                          Live
+                      </Link>
+                  </li>
+              )}
+          <hr />
+          {!connectionCtx.imagingSession.isRecording &&
+              !connectionCtx.imagingSession.endRecording &&
+              !astroFocus && (
+                  <div onContextMenu={handleRightClick}>
+                      <li className={`nav-item ${styles.box}`}>
+                          <Link
+                              href="#"
+                              className=""
+                              onClick={focusAutoAstro}
+                              title="Astro Auto Focus"
+                          >
+                              <i
+                                  className="icon-bullseye"
+                                  style={{
+                                      fontSize: "2rem",
+                                  }}
+                              ></i>
+                          </Link>
+                      </li>
+                  </div>
+              )}
+          {!connectionCtx.imagingSession.isRecording &&
+              !connectionCtx.imagingSession.endRecording &&
+              astroFocus && (
+                  <li className={`nav-item ${styles.box}`}>
+                      <Link
+                          href="#"
+                          className=""
+                          onClick={focusAutoAstroStop}
+                          title="Astro Focus Stop"
+                      >
+                          <i
+                              className="icon-bullseye"
+                              style={{
+                                  fontSize: "2rem",
+                              }}
+                          ></i>
+                      </Link>
+                  </li>
+              )}
+          <hr />
+          {!connectionCtx.imagingSession.isRecording &&
+              !connectionCtx.imagingSession.endRecording && (
+                  <li className={`nav-item ${styles.box}`}>
+                      <Link
+                          href="#"
+                          className=""
+                          onClick={focusPlus}
+                          title="Focus + Click"
+                      >
+                          <i
+                              className="icon-plus-squared-alt"
+                              style={{
+                                  fontSize: "2rem",
+                              }}
+                          ></i>
+                      </Link>
+                  </li>
+              )}
+          <hr />
+          {!connectionCtx.imagingSession.isRecording &&
+              !connectionCtx.imagingSession.endRecording && (
+                  <li className={`nav-item ${styles.box}`}>
+                      <Link
+                          href="#"
+                          className=""
+                          onClick={focusMinus}
+                          title="Focus - Click"
+                      >
+                          <i
+                              className="icon-minus-squared-alt"
+                              style={{
+                                  fontSize: "2rem",
+                              }}
+                          ></i>
+                      </Link>
+                  </li>
+              )}
+          <hr />
+          {!connectionCtx.imagingSession.isRecording &&
+              !connectionCtx.imagingSession.endRecording && (
+                  <li className={`nav-item ${styles.box}`}>
+                      <Link
+                          href="#"
+                          className=""
+                          onMouseDown={focusPlusLong}
+                          onMouseUp={focusLongStop}
+                          title="Focus + Long Press"
+                      >
+                          <i
+                              className="icon-plus-squared"
+                              style={{
+                                  fontSize: "2rem",
+                              }}
+                          ></i>
+                      </Link>
+                  </li>
+              )}
+          <hr />
+          {!connectionCtx.imagingSession.isRecording &&
+              !connectionCtx.imagingSession.endRecording && (
+                  <li className={`nav-item ${styles.box}`}>
+                      <Link
+                          href="#"
+                          className=""
+                          onMouseDown={focusMinusLong}
+                          onMouseUp={focusLongStop}
+                          title="Focus - Long Press"
+                      >
+                          <i
+                              className="icon-minus-squared"
+                              style={{
+                                  fontSize: "2rem",
+                              }}
+                          ></i>
+                      </Link>
+                  </li>
+              )}
+          <CameraAddOn showModal={showModal} setShowModal={setShowModal} />
+      </ul>
+
   );
 }

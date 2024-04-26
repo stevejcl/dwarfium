@@ -173,7 +173,7 @@ export default function Nav() {
                     onClick={handleToggleModal}
                     style={{ cursor: "pointer", zIndex: 1051 }}
                   >
-                    Version
+                    Beta Witmotion
                   </span>
                 </li>
               </ul>
@@ -189,20 +189,21 @@ export default function Nav() {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            <div className="modal-title-version">Version</div>
+            <div className="modal-title-version">Beta</div>
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <div className="modal-body-version">
-            <p>Version Number: {versionNumber}</p>
-            <label>
+            
+            <label className="checkbox-container">
               <input
                 type="checkbox"
+                className="custom-checkbox"
                 checked={devEnabled}
                 onChange={handleDevOptionChange}
               />
-              Enable Witmotion Sensor
+               : Enable Witmotion Sensor
             </label>
           </div>
         </Modal.Body>

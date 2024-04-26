@@ -176,7 +176,7 @@ const Clouds = () => {
                   <div className="col-1">
                     <button
                       type="button"
-                      className="btn btn-primary"
+                      className="btn btn-more02 w-40"
                       onClick={handleSearchWithCityChange}
                     >
                       Search

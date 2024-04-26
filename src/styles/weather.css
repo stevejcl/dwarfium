@@ -179,3 +179,37 @@
             /* Add styles for the loading indicator */
         }
     }
+@media screen and (max-width: 1024px) {
+   
+
+    .WeatherTemperature {
+        margin-left: 5%;
+        margin-top: -19%;
+    }
+
+    .canvas-info {
+        position: relative;
+        top: 5px;
+        margin-left: 18%;
+    }
+
+
+
+    .col-search,
+    .col-api {
+        width: 50%; /* Adjust column width for search and save API key buttons */
+    }
+
+    .form-control-weather {
+        width: 100%; /* Make the input fields full width */
+        margin-bottom: 10px; /* Add spacing between input fields */
+    }
+
+    .btn-more02 {
+        /*width: 50%;  Make the buttons full width */
+        margin-bottom: 10px; /* Add spacing between buttons */
+        height: auto;
+    }
+
+   
+}

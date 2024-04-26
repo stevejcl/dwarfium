@@ -57,7 +57,7 @@ export default function Moonphase() {
   return (
     <div>
       <section className="daily-horp d-inline-block w-100">
-        <div className="container">
+        <div className="container"><br/>
           <div className="city-input">
             <label htmlFor="start" className="is-size-3">
               Select Month :

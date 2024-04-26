@@ -15,10 +15,11 @@
 .col-api-clouds {
     width: 10%; /* Adjust column width for search and save API key buttons */
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) and (min-width: 768px), (min-width: 1400px) {
     .search-container {
         width: 100%;
     }
+
     .col-api-clouds {
         width: 30%; /* Adjust column width for search and save API key buttons */
     }

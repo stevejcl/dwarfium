@@ -891,7 +891,15 @@ img {
         margin-right: 0.5rem;
     }
 }
+@media (max-width: 1024px) {
+    .sethostmode-dwarf {
+        margin-top: -48px;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 40%;
+    }
 
+}
 .footer {
     position: fixed;
     bottom: 0;
@@ -901,3 +909,44 @@ img {
     text-align: center;
     color: gainsboro;
 }
+.version-text{
+    margin-right:0px;
+}
+
+/* Style for the custom checkbox container */
+.checkbox-container {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Style for the custom checkbox */
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #999;
+    border-radius: 3px;
+}
+
+    /* Style for the checkmark icon */
+    .custom-checkbox::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: transparent;
+        border: 2px solid #fff;
+        opacity: 0; /* Initially invisible */
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Style for the checkmark icon when checkbox is checked */
+    .custom-checkbox input:checked ~ .custom-checkbox::after {
+        opacity: 1; /* Make the checkmark icon visible */
+    }

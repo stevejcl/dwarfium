@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Nav() {
 
-    const versionNumber = "2.2.0";
+    const versionNumber = "2.2.1";
 
     return (
     

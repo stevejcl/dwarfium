@@ -6,7 +6,6 @@ export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
   const [devEnabled, setDevEnabled] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const versionNumber = "2.2.0";
 
   useEffect(() => {
     const devState = localStorage.getItem("devState");

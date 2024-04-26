@@ -57,6 +57,7 @@ function Modal() {
 
 export default Modal;
 
+// eslint-disable-next-line no-unused-vars
 function handleThemeChange(arg0: string): void {
     throw new Error('Function not implemented.');
 }

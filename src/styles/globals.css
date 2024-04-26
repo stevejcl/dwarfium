@@ -950,3 +950,110 @@ img {
     .custom-checkbox input:checked ~ .custom-checkbox::after {
         opacity: 1; /* Make the checkmark icon visible */
     }
+
+.modal-wrapper-theme {
+    position: relative;
+}
+.cogwheel-button {
+    position: fixed;
+    top: 16%;
+    right: 10px;
+    color: white;
+    scale: 1.5;
+    background-color: black;
+    border: none;
+    /* border-radius: 50%; */
+    /* padding: 10px; */
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.modal-overlay-theme {
+    position: fixed;
+    top: 20%;
+    left: 75%;
+    width: 25%;
+    height: 100%;
+   /* background-color: rgba(0, 0, 0, 0.5);*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content-theme {
+    position: absolute;
+    height: 61%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 1px solid #00AE83;
+    border-radius: 8px;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #191d1e;
+    background-clip: padding-box;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #555;
+}
+
+    .close-button:hover {
+        color: #555;
+    }
+.theme-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.theme-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Default blue color */
+    color: #fff;
+    cursor: pointer;
+}
+
+    .theme-button:hover {
+        background-color: #0056b3; /* Darker blue color on hover */
+    }
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #555;
+}
+
+    .close-button:hover {
+        color: #333;
+    }
+.theme-select select {
+    /* Styles for select box */
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+}
+
+    .theme-select select:focus {
+        /* Focus styles for select box */
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }

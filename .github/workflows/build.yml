@@ -1,3 +1,5 @@
+# Your existing workflow file with modifications for environment files
+
 name: 'build'
 
 on:
@@ -57,12 +59,13 @@ jobs:
 
       - name: Get version number from package.json
         id: get_version
-        run: echo "::set-output name=version::$(node -e 'console.log(require("./package.json").version)')"
+        run: |
+          echo "VERSION=$(node -e 'console.log(require("./package.json").version)')" >> $GITHUB_ENV
 
       - name: Create artifact Dwarfium
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: Dwarfium-${{ steps.get_version.outputs.version }}
+          name: Dwarfium-${{ env.VERSION }}
           path: Dwarfium.zip
 
       - name: install frontend dependencies
@@ -78,8 +81,8 @@ jobs:
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
           CI: false
         with:
-          tagName: app-v${{ steps.get_version.outputs.version }} 
-          releaseName: 'v${{ steps.get_version.outputs.version }}-DesktopAPP'
+          tagName: app-v${{ env.VERSION }} 
+          releaseName: 'v${{ env.VERSION }}-DesktopAPP'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: false
           prerelease: false
@@ -95,7 +98,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
           skipIfReleaseExists: true
-          tag: v${{ steps.get_version.outputs.version }}
+          tag: v${{ env.VERSION }}
 
   update-gist:
     runs-on: ubuntu-latest

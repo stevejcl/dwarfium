@@ -1,5 +1,7 @@
 # Dwarfium
-
+![GitHub issues](https://img.shields.io/github/issues/stevejcl/dwarfii-stellarium-goto)
+![GitHub last commit](https://img.shields.io/github/last-commit/stevejcl/dwarfii-stellarium-goto)
+![GitHub](https://img.shields.io/github/license/stevejcl/dwarfii-stellarium-goto)
 ![downloads](https://img.shields.io/github/downloads/stevejcl/dwarfii-stellarium-goto/total.svg)
 [![](https://dcbadge.vercel.app/api/server/5vFWbsXDfv)](https://discord.gg/5vFWbsXDfv)
 

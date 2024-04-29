@@ -15,7 +15,7 @@ jobs:
         include:
           - platform: 'macos-latest'
             args: '--verbose --target universal-apple-darwin'
-          - platform: 'ubuntu-latest'
+          - platform: 'ubuntu-20.04'
             args: '--verbose'
           - platform: 'windows-latest'
             args: '--verbose'
@@ -43,8 +43,8 @@ jobs:
         env:
           CI: false
 
-      - name: Install Tauri CLI
-        run: npm install -g @tauri-apps/cli
+     # - name: Install Tauri CLI
+     #   run: npm install -g @tauri-apps/cli
 
       - name: Install dependencies
         run: npm install

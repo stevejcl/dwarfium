@@ -36,8 +36,7 @@
         "exceptionDomain": "",
         "frameworks": [],
         "providerShortName": null,
-        "signingIdentity": null,
-        "targets": ["x86_64", "aarch64"]
+        "signingIdentity": null
       },
       "resources": [],
       "shortDescription": "",

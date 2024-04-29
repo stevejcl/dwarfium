@@ -6,7 +6,7 @@ import Themesettings from "@/components/shared/Themesettings";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="App">
+      <div className="App">
       <header className="float-start w-100">
         <Nav />
           </header>

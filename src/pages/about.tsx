@@ -3,16 +3,16 @@ import Link from "next/link";
 export default function About() {
   return (
     <div>
-      <section className="daily-horp-userlist d-inline-block w-100">
+      <section className="daily-horp d-inline-block w-100">
         <div className="container">
           <br />
           <br />
           <br />
           <br />
           <br />
-          <h1>
+          <h2>
             <u>About</u>
-          </h1>
+          </h2>
           <br />
           <p>
             The project was started by Wai-Yin Kwan with the help of JC LESAINT.

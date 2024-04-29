@@ -100,10 +100,11 @@ export default function SetLocation() {
       connectionCtx.setTimezone(value);
     }
   }
-
+    
   return (
-    <>
-      <h2>Set Location</h2>
+      <>
+      <div >
+              <h2>Set Location</h2>
       <p>
         In order for goto to work, this site needs your latitude, longitude and
         time zone. The longitude is negative west of Greenwich.
@@ -172,7 +173,8 @@ export default function SetLocation() {
       <button className="btn btn-more02" onClick={browserCoordinatesHandler}>
         <i className="icon-location" /> Use Current Location
       </button>
-      {errors && <p className="text-danger">{errors}</p>}
+              {errors && <p className="text-danger">{errors}</p>}
+      </div>
     </>
   );
 }

@@ -34,7 +34,7 @@ jobs:
         id: get_version
         run: |
             if [ ${{ matrix.platform }} = 'ubuntu-20.04' ] || [ ${{ matrix.platform }} = 'macOSlatest' ] || [ ${{ matrix.platform }} = 'macos-13' ]; then
-              echo "VERSION=$(node -e 'console.log(require(\"./package.json\").version)')" >> $GITHUB_OUTPUT
+             echo "VERSION=$(node -e 'console.log(require("./package.json").version)')" >> $GITHUB_OUTPUT 
             elif [ ${{ matrix.platform }} = 'windows-latest' ]; then
               $version = Get-Content -Path './package.json' -Raw | ConvertFrom-Json | Select-Object -ExpandProperty version
               echo "VERSION=$version" >> $GITHUB_OUTPUT

@@ -10,6 +10,7 @@ export default function AstroCalendar() {
     useLoadIntialValues();
     
     const { t } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
     const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
 
     useEffect(() => {

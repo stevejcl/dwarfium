@@ -11,14 +11,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: 'macos-latest' # for Arm based macs (M1 and above).
-            args: '--target aarch64-apple-darwin'
-          - platform: 'macos-latest-large' # for Intel based macs.
-            args: '--target x86_64-apple-darwin'
-          - platform: 'ubuntu-20.04' # for Tauri v1 you could replace this with ubuntu-20.04.
-            args: ''
+          - platform: 'macos-latest'
+            args: '--verbose --target universal-apple-darwin'
+          - platform: 'ubuntu-latest'
+            args: '--verbose'
           - platform: 'windows-latest'
-            args: ''
+            args: '--verbose'
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -29,10 +27,11 @@ jobs:
         with:
           node-version: 20
 
+      # rust
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
 
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'

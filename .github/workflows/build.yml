@@ -13,6 +13,7 @@ jobs:
         include:
           - platform: 'macos-latest' # for Macos universal.
             args: '--target universal-apple-darwin'
+            architecture: 'x86_64
           - platform: 'ubuntu-20.04' # for Tauri v1 you could replace this with ubuntu-20.04.
             args: ''
           - platform: 'windows-latest'

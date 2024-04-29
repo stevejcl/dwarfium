@@ -37,7 +37,7 @@
         "frameworks": [],
         "providerShortName": null,
         "signingIdentity": null,
-        "targets": ["x86_64", "aarch64"] // Add this line for macOS universal
+        "targets": ["x86_64", "aarch64"]
       },
       "resources": [],
       "shortDescription": "",

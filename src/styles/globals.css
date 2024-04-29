@@ -1151,10 +1151,13 @@ img {
     .light-theme .footer {
         background-color: #00B280;
     }
-    .light-theme h1, h2, h3 {
+    .light-theme h1 {
         color: #cccccc;
     }
     .light-theme h2 {
+        color: #cccccc;
+    }
+    .light-theme h3 {
         color: #cccccc;
     }
     .light-theme .modal-content-theme h2 {

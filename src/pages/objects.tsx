@@ -19,7 +19,7 @@ export default function Goto() {
   let connectionCtx = useContext(ConnectionContext);
 
   return (
-    <section className="daily-horp-object d-inline-block w-100">
+    <section className="daily-horp d-inline-block w-100">
       <div className="container">
         <br />
         <br />

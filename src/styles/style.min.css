@@ -24,7 +24,10 @@ body {
     background: #0a051d;
     background-repeat: repeat-x;
     font-size: 1.7rem;
-    color: #a3a1a1
+    color: #a3a1a1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
 }
 
 a {
@@ -424,7 +427,7 @@ header {
     background-position: top left
 }
 
-.daily-horp {
+/*.daily-horp {
     padding: 0px 0 0 0;
     background: url(/images/bg-bannerpic.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -432,7 +435,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
 }
-
+*/
     .daily-horp .nav-pills .nav-link {
         padding: 14px 26px 10px 26px;
         color: #0a051d !important;

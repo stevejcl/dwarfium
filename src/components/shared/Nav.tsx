@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Modal from "react-bootstrap/Modal";
-import { supportedLanguages } from "@/lib/language";
 
 export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,12 +33,6 @@ export default function Nav() {
         document.body.className = `${theme}-theme`;
     }, [theme]);
 
-
-
-  const changeLanguage = (lang: string) => {
-    setSelectedLanguage(lang);
-    localStorage.setItem("language", lang);
-  };
 
   return (
     <>
@@ -171,32 +164,6 @@ export default function Nav() {
                 >
                   Sensor
                 </Link>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Language
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  {supportedLanguages.map((lang) => (
-                    <li key={lang}>
-                      <button
-                        className={`dropdown-item ${
-                          selectedLanguage === lang ? "active" : ""
-                        }`}
-                        onClick={() => changeLanguage(lang)}
-                      >
-                        {lang}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
               </li>
             </ul>
             <div className="d-none d-lg-block">

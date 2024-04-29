@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import i18n from '@/i18n'; // Import the i18n instance directly
+import i18n from '@/i18n';
 import { useSetupConnection } from '@/hooks/useSetupConnection';
 import { useLoadIntialValues } from '@/hooks/useLoadIntialValues';
 import RSSFeed from '@/components/RSSFeed';
@@ -17,7 +17,7 @@ export default function AstroCalendar() {
         const storedLanguage = localStorage.getItem('language');
         if (storedLanguage) {
             setSelectedLanguage(storedLanguage);
-            i18n.changeLanguage(storedLanguage); // Change language using i18n instance
+            i18n.changeLanguage(storedLanguage);
         }
     }, []);
 

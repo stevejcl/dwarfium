@@ -6,7 +6,7 @@ export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
   const [devEnabled, setDevEnabled] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(false);
-
+  const [theme] = useState<'light' | 'dark'>('light');
   useEffect(() => {
     const devState = localStorage.getItem("devState");
     setDevEnabled(devState === "true");
@@ -28,13 +28,24 @@ export default function Nav() {
   const closeNavbar = () => {
     setNavbarOpen(false);
   };
+    useEffect(() => {
+        document.body.className = `${theme}-theme`;
+    }, [theme]);
+
+
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container">
           <a className="navbar-brand">
-            <img alt="logo" src="/DWARFLAB_LOGO_Green.png" />
+                      <div className={`light-logo ${theme === 'light' ? '' : 'dark-theme'}`}>
+                          <img src="/DWARFLAB_LOGO_Green.png" alt="Light Logo" />
+                      </div>
+                      <div className={`dark-logo ${theme === 'dark' ? '' : 'dark-theme'}`}>
+                          <img src="/DWARFLAB_LOGO_Blue.png" alt="Dark Logo" />
+                      </div>
+            
           </a>
 
           <button

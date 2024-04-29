@@ -7,7 +7,7 @@
 
 
 body {
-    background: url('/wallpaper.jpg') no-repeat center center fixed;
+    background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -19,7 +19,9 @@ body {
     background: linear-gradient(rgb(0 0 0 / 20%), rgb(0 0 0 / 40%));
    
 }*/
-
+.container p {
+    margin-bottom: 20px; /* Add margin-bottom to create space between paragraphs */
+}
 .container-connection {
     align-items: center;
     display: flex;
@@ -156,7 +158,7 @@ body {
     float: right !important;
     height: fit-content;
     margin-right: 50%;
-    margin-top: -40px;
+    margin-top: -50px;
 }
 .top-align { top:0; margin-top: 0; margin-bottom: 2px; }
 .right-align { margin-left: auto; margin-right: 10px;}
@@ -221,7 +223,7 @@ body {
     background: #fff !important;
     color: #d3a417
 }
-.daily-horp-camera {
+/*.daily-horp-camera {
     padding: 0px 0 0 0;
     background: url(/images/bg-bannerpic.jpg) no-repeat;
     background-size: cover;
@@ -243,7 +245,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-}
+}*/
 .container-construction {
     position: absolute;
     
@@ -349,7 +351,7 @@ select {
     }
     .styled-table th,
     .styled-table td {
-        padding: 12px 15px;
+        padding: 5px 5px;
     }
     .styled-table tbody tr {
         border-bottom: 1px solid #dddddd;
@@ -417,6 +419,7 @@ img {
 
 .thumblarge:hover {
     transform: scale(2);
+    position: absolute;
     -moz-transition: opacity .55s ease-in-out;
     -webkit-transition: opacity .55s ease-in-out;
 }
@@ -806,7 +809,7 @@ img {
   }
 
 .thumblarge{
-    height: 125px;
+    height: 135px;
 }
 .centered-cell {
     text-align: center;
@@ -951,6 +954,8 @@ img {
         opacity: 1; /* Make the checkmark icon visible */
     }
 
+
+/*Themesettings*/
 .modal-wrapper-theme {
     position: relative;
 }
@@ -981,7 +986,6 @@ img {
     justify-content: center;
     z-index: 999;
 }
-
 .modal-content-theme {
     position: absolute;
     height: 61%;
@@ -999,61 +1003,219 @@ img {
     background-color: #191d1e;
     background-clip: padding-box;
 }
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 24px;
-    color: #555;
+.modal-content-theme h2 {
+        font-size: 2.5rem;
+        margin-bottom: 0px;
+}
+.background-select select {
+    flex: 1; /* Allow the select element to expand */
 }
 
-    .close-button:hover {
-        color: #555;
-    }
-.theme-buttons {
-    display: flex;
-    justify-content: space-between;
+.background-select button {
+    margin-left: 10px; /* Add space between select and button */
 }
-
-.theme-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    border: none;
+.background-select {
+    /* CSS for the select box container */
+    padding: 5px 10px;
     border-radius: 4px;
-    background-color: #007bff; /* Default blue color */
-    color: #fff;
-    cursor: pointer;
-}
-
-    .theme-button:hover {
-        background-color: #0056b3; /* Darker blue color on hover */
-    }
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
-    color: #555;
-}
-
-    .close-button:hover {
-        color: #333;
-    }
-.theme-select select {
-    /* Styles for select box */
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
     outline: none;
     font-size: 16px;
+    margin-top: 15px;
+    align-items: center; /* Align items vertically */
 }
-
-    .theme-select select:focus {
+    .background-select:focus {
         /* Focus styles for select box */
         border-color: #007bff;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     }
+.daily-horp {
+    padding: 0px 0 0 0;
+    /*background: url(/images/bg-bannerpic.jpg) no-repeat center center fixed;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: top left;
+}
+.apply-button {
+    background-color: #00B280;
+    color: #fff; /* White text color */
+    padding: 5px 5px; /* Padding around the button text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+    width: fit-content;
+    margin: 0 auto; /* Center horizontally */
+}
+    .apply-button:hover {
+        background-color: #0b604b; 
+    }
+.bg-standard {
+    background-image: url('/images/bg-bannerpic.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+.bg-stars {
+    background-image: url('/images/stars.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+.bg-stars2 {
+    background-image: url('/images/stars2.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+.theme-options label {
+    display: block;
+    margin-bottom: 10px;
+}
+.theme-settings-button {
+    padding: 10px 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.theme-settings-close {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.theme-options {
+    display: flex;
+    gap: 10px; /* Adjust the spacing as needed */
+    justify-content: center;
+}
+
+.theme-button {
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    .theme-button.active {
+        background-color: #007bff; /* Change to your active color */
+        color: #fff; /* Change to your active text color */
+    }
+.theme-con {
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    margin-top:10px;
+}
+.font-size-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.font-size-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+    color: #00B280;
+}
+
+.font-size-reset-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+    color: #00B280; /* Change to your preferred color */
+}
+
+    .font-size-button:hover,
+    .font-size-reset-button:hover {
+        color: #ffffff;
+    }
+
+/* Define CSS styles for light and dark themes */
+.light-theme {
+    background-color: #333333;
+    color: #fff;
+    font-size:18px;
+}
+    .light-theme .footer {
+        background-color: #00B280;
+    }
+    .light-theme h1, h2, h3 {
+        color: #cccccc;
+    }
+    .light-theme h2 {
+        color: #cccccc;
+    }
+    .light-theme .modal-content-theme h2 {
+        font-size: 2.5rem;
+        margin-bottom: 0px;
+        color: #ccc;
+    }
+    .light-theme thead {
+        background-color: #00AE83;
+    }
+
+.dark-theme {
+    background-color: #333333;
+    color: dimgrey;
+    /*font-size: 18px;*/
+}
+    .dark-theme .footer {
+        background-color: #333333; /* Change to your preferred dark theme color */
+        color: #fff;
+    }
+    .dark-theme h1, h2, h3 {
+        color: #1D20A1;
+    }
+    .dark-theme.modal-content-theme h2 {
+        font-size: 2.5rem;
+        margin-bottom: 0px;
+        color: #1D20A1;
+    }
+    .dark-theme thead {
+        background-color: #1D20A1;
+        color: #1D20A1;
+    }
+    .dark-theme td {
+        border: 1px solid #1D20A1;
+    }
+    .dark-theme th {
+        background-color: #1D20A1;
+    }
+    .dark-theme .prosP {
+        color: #1D20A1;
+        font-weight:600;
+    }
+    .dark-theme .calendar {
+        border: #1D20A1;
+        
+    }
+    
+
+
+.light-logo {
+    display: block;
+}
+
+.dark-logo {
+    display: none;
+}
+
+.dark-theme .light-logo {
+    display: none;
+}
+
+.dark-theme .dark-logo {
+    display: contents;
+}

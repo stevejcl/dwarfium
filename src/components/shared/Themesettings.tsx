@@ -1,63 +1,110 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-
-function Modal() {
+const Modal: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
+    const [backgroundImage, setBackgroundImage] = useState('standard');
+    const [theme, setTheme] = useState<'light' | 'dark'>('light');
+    const [fontSize, setFontSize] = useState<number>(16);
+
+    const handleBackgroundChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setBackgroundImage(event.target.value);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
+    const applyBackground = () => {
+        closeModal();
+    };
+
+    useEffect(() => {
+        document.body.className = `bg-${backgroundImage} ${theme}-theme`;
+    }, [backgroundImage, theme]);
+
+    const handleThemeChange = (newTheme: 'light' | 'dark') => {
+        setTheme(newTheme);
+        
+    };
+    const increaseFontSize = () => {
+        setFontSize(fontSize + 1);
+    };
+
+    const decreaseFontSize = () => {
+        if (fontSize > 1) {
+            setFontSize(fontSize - 1);
+        }
+    };
+    const resetFontSize = () => {
+        setFontSize(18); // Reset to default font size
+    };
+    useEffect(() => {
+        document.body.style.fontSize = `${fontSize}px`;
+    }, [fontSize]);
 
     return (
         <div className="modal-wrapper-theme">
             {/* Sidebar cogwheel button */}
             <button
                 className="cogwheel-button"
-                onClick={() => setShowModal(!showModal)} // Toggle the showModal state
+                onClick={() => setShowModal(!showModal)}
             >
                 <i className="fas fa-cog"></i>
             </button>
 
             {/* Modal container */}
             {showModal && (
-                <div className="modal-overlay-theme" style={{ display: showModal ? 'block' : 'none' }}>
+                <div className="modal-overlay-theme">
                     <div className="modal-content-theme">
-                        {/*<span className="close-button" onClick={() => setShowModal(false)}>
-                            &times;
-                        </span>
                         <h2>Theme Settings</h2>
-                        <p>Choose a theme:</p>*/}
-
-                        <div className="container-construction">
-                            <h1>This page is under construction</h1>
-                            <p>We&#39;ll be here soon with our new awesome site.</p>
-                        </div>
-                        {/*<div className="theme-buttons"><ul><li>
-                            <button className="theme-button red" onClick={() => handleThemeChange('theme1')}>
-                                Theme 1
-                            </button>
-                            <button className="theme-button" onClick={() => handleThemeChange('theme2')}>
-                                Theme 2
-                            </button>
-                            <button className="theme-button" onClick={() => handleThemeChange('theme3')}>
-                                Theme 3
-                            </button></li></ul>
+                        <div className="background-select">
+                            <label htmlFor="background-select">Select Background Image:</label>
+                            <select id="background-select" onChange={handleBackgroundChange}>
+                                <option value="standard">Standard</option>
+                                <option value="stars">Stars</option>
+                                <option value="stars2">Stars 2</option>
+                            </select>
                             
                         </div>
-                        
-                        <div className="theme-select">
-                            <select>
-                                <option value="theme1" onClick={() => handleThemeChange('theme1')}>Theme 1</option>
-                                <option value="theme2" onClick={() => handleThemeChange('theme2')}>Theme 2</option>
-                                <option value="theme3" onClick={() => handleThemeChange('theme3')}>Theme 3</option>
-                            </select>
-                        </div>*/}
+                        <div className="theme-con">
+                        <div className="theme-options">
+                            <button
+                                className={`btn btn-more02 ${theme === 'light' ? 'active' : ''}`}
+                                onClick={() => handleThemeChange('light')}
+                            >
+                                Light Theme
+                            </button>
+                            <button
+                                className={`btn btn-more02 ${theme === 'dark' ? 'active' : ''}`}
+                                onClick={() => handleThemeChange('dark')}
+                            >
+                                Dark Theme
+                            </button>
+                        </div>
+                        </div>
+                        <h2>Font Size</h2>
+                        <div className="font-size-options">
+                            <button className="font-size-button" onClick={increaseFontSize}>
+                                <i className="fas fa-plus"></i>
+                            </button>
+                            <button className="font-size-button" onClick={decreaseFontSize}>
+                                <i className="fas fa-minus"></i>
+                            </button>
+                            <button className="font-size-reset-button" onClick={resetFontSize}>
+                                <i className="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    <button className="apply-button" onClick={applyBackground}>
+                        Apply
+                    </button>
                     </div>
+                    
                 </div>
+                    
+                
             )}
         </div>
     );
-}
+};
 
 export default Modal;
-
-// eslint-disable-next-line no-unused-vars
-function handleThemeChange(arg0: string): void {
-    throw new Error('Function not implemented.');
-}

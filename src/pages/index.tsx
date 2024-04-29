@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      <section className="daily-horp-userlist d-inline-block w-100">
+      <section className="daily-horp d-inline-block w-100">
         <div className="container">
           {" "}
           <br />
@@ -10,7 +10,7 @@ export default function Home() {
           <br />
           <br />
           <h1>
-            <u>Dwarfium</u>
+            <b><u>Dwarfium</u></b>
           </h1>
           <br />
           <p>
@@ -54,19 +54,7 @@ export default function Home() {
             </li>
           </ul>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
       </section>
     </div>
   );

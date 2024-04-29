@@ -44,13 +44,13 @@ jobs:
       - name: Get version number from package.json
         id: get_version
         run: |
-          echo "VERSION=$(node -e 'console.log(require(\"./package.json\").version)')" >> $GITHUB_ENV
+          echo "VERSION=$(node -e 'console.log(require(\"./package.json\").version)')" >> $GITHUB_OUTPUT
 
       - name: Create artifact Dwarfium
         if: matrix.platform == 'ubuntu-20.04'
         uses: actions/upload-artifact@v4
         with:
-          name: Dwarfium-${{ env.VERSION }}
+          name: Dwarfium-${{ steps.get_version.outputs.VERSION }}
           path: Dwarfium.zip
 
       - name: install frontend dependencies
@@ -64,8 +64,8 @@ jobs:
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
           CI: false
         with:
-          tagName: app-v${{ env.VERSION }} 
-          releaseName: 'v${{ env.VERSION }}-DesktopAPP'
+          tagName: app-v${{ steps.get_version.outputs.VERSION }} 
+          releaseName: 'v${{ steps.get_version.outputs.VERSION }}-DesktopAPP'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: false
           prerelease: false
@@ -81,7 +81,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
           skipIfReleaseExists: true
-          tag: v${{ env.VERSION }}
+          tag: v${{ steps.get_version.outputs.VERSION }}
 
   update-gist:
     runs-on: ubuntu-latest

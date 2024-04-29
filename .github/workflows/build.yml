@@ -12,13 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - platform: 'macos-latest'
-            args: '--verbose --target universal-apple-darwin'
-          - platform: 'ubuntu-20.04'
-            args: '--verbose'
-          - platform: 'windows-latest'
-            args: '--verbose'
+        platform: [macos-latest, ubuntu-20.04, windows-latest]
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -40,11 +34,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
-        env:
-          CI: false
-
-     # - name: Install Tauri CLI
-     #   run: npm install -g @tauri-apps/cli
 
       - name: Install dependencies
         run: npm install
@@ -63,6 +52,7 @@ jobs:
           echo "VERSION=$(node -e 'console.log(require("./package.json").version)')" >> $GITHUB_ENV
 
       - name: Create artifact Dwarfium
+        if: matrix.platform == 'ubuntu-20.04'
         uses: actions/upload-artifact@v4
         with:
           name: Dwarfium-${{ env.VERSION }}
@@ -70,8 +60,6 @@ jobs:
 
       - name: install frontend dependencies
         run: npm install
-        env:
-          CI: false
 
       - uses: tauri-apps/tauri-action@v0
         id: tauri_release

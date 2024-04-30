@@ -100,80 +100,80 @@ export default function SetLocation() {
       connectionCtx.setTimezone(value);
     }
   }
-    
+
   return (
-      <>
-      <div >
-              <h2>Set Location</h2>
-      <p>
-        In order for goto to work, this site needs your latitude, longitude and
-        time zone. The longitude is negative west of Greenwich.
-      </p>
+    <>
+      <div>
+        <h2>Set Location</h2>
+        <p>
+          In order for goto to work, this site needs your latitude, longitude
+          and time zone. The longitude is negative west of Greenwich.
+        </p>
 
-      <form>
-        <div className="row mb-3">
-          <div className="col-lg-1 col-md-2">
-            <label htmlFor="latitude" className="form-label">
-              Latitude
-            </label>
+        <form>
+          <div className="row mb-3">
+            <div className="col-lg-1 col-md-2">
+              <label htmlFor="latitude" className="form-label">
+                Latitude
+              </label>
+            </div>
+            <div className="col-lg-2 col-md-10">
+              <input
+                pattern="^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))$"
+                className="form-control"
+                id="latitude"
+                name="latitude"
+                placeholder="-12.3456"
+                required
+                value={latitude || connectionCtx.latitude || ""}
+                onChange={(e) => latitudeHandler(e)}
+              />
+            </div>
           </div>
-          <div className="col-lg-2 col-md-10">
-            <input
-              pattern="^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))$"
-              className="form-control"
-              id="latitude"
-              name="latitude"
-              placeholder="-12.3456"
-              required
-              value={latitude || connectionCtx.latitude || ""}
-              onChange={(e) => latitudeHandler(e)}
-            />
+          <div className="row mb-3">
+            <div className="col-lg-1 col-md-2">
+              <label htmlFor="longitude" className="form-label">
+                Longitude
+              </label>
+            </div>
+            <div className="col-lg-2 col-md-10">
+              <input
+                pattern="^([-+]?(180(\.\d+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?))$"
+                className="form-control"
+                id="longitude"
+                name="longitude"
+                placeholder="56.7890"
+                required
+                value={longitude || connectionCtx.longitude || ""}
+                onChange={(e) => longitudeHandler(e)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="row mb-3">
-          <div className="col-lg-1 col-md-2">
-            <label htmlFor="longitude" className="form-label">
-              Longitude
-            </label>
+          <div className="row mb-3">
+            <div className="col-lg-1 col-md-2">
+              <label htmlFor="timezone" className="form-label">
+                Timezone
+              </label>
+            </div>
+            <div className="col-lg-2 col-md-10">
+              <input
+                pattern="^[a-z]*(\*/[a-z]+)$/i"
+                className="form-control"
+                id="timezone"
+                name="timezone"
+                placeholder="?"
+                required
+                value={connectionCtx.timezone || ""}
+                onChange={(e) => timezoneHandler(e)}
+              />
+            </div>
           </div>
-          <div className="col-lg-2 col-md-10">
-            <input
-              pattern="^([-+]?(180(\.\d+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?))$"
-              className="form-control"
-              id="longitude"
-              name="longitude"
-              placeholder="56.7890"
-              required
-              value={longitude || connectionCtx.longitude || ""}
-              onChange={(e) => longitudeHandler(e)}
-            />
-          </div>
-        </div>
-        <div className="row mb-3">
-          <div className="col-lg-1 col-md-2">
-            <label htmlFor="timezone" className="form-label">
-              Timezone
-            </label>
-          </div>
-          <div className="col-lg-2 col-md-10">
-            <input
-              pattern="^[a-z]*(\*/[a-z]+)$/i"
-              className="form-control"
-              id="timezone"
-              name="timezone"
-              placeholder="?"
-              required
-              value={connectionCtx.timezone || ""}
-              onChange={(e) => timezoneHandler(e)}
-            />
-          </div>
-        </div>
-      </form>
+        </form>
 
-      <button className="btn btn-more02" onClick={browserCoordinatesHandler}>
-        <i className="icon-location" /> Use Current Location
-      </button>
-              {errors && <p className="text-danger">{errors}</p>}
+        <button className="btn btn-more02" onClick={browserCoordinatesHandler}>
+          <i className="icon-location" /> Use Current Location
+        </button>
+        {errors && <p className="text-danger">{errors}</p>}
       </div>
     </>
   );

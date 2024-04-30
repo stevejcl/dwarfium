@@ -189,9 +189,7 @@ export default function CalibrationDwarf() {
       return (
         <button
           className={`btn ${
-            connectionCtx.connectionStatus
-              ? "btn-more02"
-              : "btn-more02"
+            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
           } me-4 mt-3`}
           onClick={RingLightsOffFn}
           disabled={!connectionCtx.connectionStatus}
@@ -205,9 +203,7 @@ export default function CalibrationDwarf() {
       return (
         <button
           className={`btn ${
-            connectionCtx.connectionStatus
-              ? "btn-more03"
-              : "btn-more03"
+            connectionCtx.connectionStatus ? "btn-more03" : "btn-more03"
           } me-4 mt-3`}
           onClick={RingLightsOnFn}
           disabled={!connectionCtx.connectionStatus}
@@ -224,9 +220,7 @@ export default function CalibrationDwarf() {
       return (
         <button
           className={`btn ${
-            connectionCtx.connectionStatus
-              ? "btn-more02"
-              : "btn-more02"
+            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
           } me-4 mt-3`}
           onClick={PowerLightsOffFn}
           disabled={
@@ -243,9 +237,7 @@ export default function CalibrationDwarf() {
       return (
         <button
           className={`btn ${
-            connectionCtx.connectionStatus
-              ? "btn-more03"
-              : "btn-more03"
+            connectionCtx.connectionStatus ? "btn-more03" : "btn-more03"
           } me-4 mt-3`}
           onClick={PowerLightsOnFn}
           disabled={
@@ -265,12 +257,14 @@ export default function CalibrationDwarf() {
       <h2>Calibrate the Dwarf II</h2>
 
       <p>
-        In order to use Astro function, you must calibrate the dwarf II first.<br/>
+        In order to use Astro function, you must calibrate the dwarf II first.
+        <br />
         <span className="text-danger">
           <b> WARNING: </b>
         </span>
         don&#39;t put anything on the lens at this moment.
-      </p><br/>
+      </p>
+      <br />
 
       <div className="row mb-3">
         <div className="col-sm-1 nav nav-pills text-end">

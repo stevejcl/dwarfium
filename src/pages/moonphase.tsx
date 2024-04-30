@@ -57,7 +57,8 @@ export default function Moonphase() {
   return (
     <div>
       <section className="daily-horp d-inline-block w-100">
-        <div className="container"><br/>
+        <div className="container">
+          <br />
           <div className="city-input">
             <label htmlFor="start" className="is-size-3">
               Select Month :
@@ -87,7 +88,11 @@ export default function Moonphase() {
               </thead>
               <tbody>{renderMoonPhasesTable()}</tbody>
             </table>
-                  </div><br /><br /><br /><br />
+          </div>
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
       </section>
     </div>

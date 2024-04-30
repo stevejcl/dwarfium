@@ -55,10 +55,15 @@ const Clouds = () => {
 
           setInitialRequestMade(true);
           setApiRequestCount((prevCount) => prevCount + 1);
-          console.log("API Request Successful. Total API Requests Made:", apiRequestCount + 1);
+          console.log(
+            "API Request Successful. Total API Requests Made:",
+            apiRequestCount + 1
+          );
         } catch (error: any) {
           if (error.response && error.response.status === 429) {
-            setErrorMessage("Too many requests. Please wait before trying again.");
+            setErrorMessage(
+              "Too many requests. Please wait before trying again."
+            );
           } else if (error.response && error.response.status === 500) {
             setErrorMessage("Internal server error. Please try again later.");
           } else {
@@ -92,7 +97,9 @@ const Clouds = () => {
     fetchData();
   };
 
-  const handleSearchWithCityChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSearchWithCityChange = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     const newCityValue = cityInputRef.current?.value || "";
     setCity(newCityValue);
     handleSearch(e);
@@ -100,7 +107,7 @@ const Clouds = () => {
 
   // eslint-disable-next-line no-unused-vars
   const handleDateChange = (newDate: Date | ((prevState: Date) => Date)) => {
-    if (typeof newDate === 'function') {
+    if (typeof newDate === "function") {
       setSelectedDate((prevState) => newDate(prevState));
     } else {
       setSelectedDate(newDate);
@@ -129,16 +136,17 @@ const Clouds = () => {
         return currentTime >= lowerBound && currentTime <= upperBound;
       });
 
-      setForecastTimes(
-        weatherTonight.map((hr) => hr.dt_txt.substring(11, 16))
-      );
+      setForecastTimes(weatherTonight.map((hr) => hr.dt_txt.substring(11, 16)));
       setCloudArray(weatherTonight.map((hr) => hr.clouds.all));
       setHumidityArray(weatherTonight.map((hr) => hr.main.humidity));
       setWindArray(weatherTonight.map((hr) => hr.wind.speed));
 
       setInitialRequestMade(true);
       setApiRequestCount((prevCount) => prevCount + 1);
-      console.log("API Request Successful. Total API Requests Made:", apiRequestCount + 1);
+      console.log(
+        "API Request Successful. Total API Requests Made:",
+        apiRequestCount + 1
+      );
     } catch (error: any) {
       if (error.response && error.response.status === 429) {
         setErrorMessage("Too many requests. Please wait before trying again.");

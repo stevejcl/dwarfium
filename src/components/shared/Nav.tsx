@@ -6,7 +6,7 @@ export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
   const [devEnabled, setDevEnabled] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [theme] = useState<'light' | 'dark'>('light');
+  const [theme] = useState<"light" | "dark">("light");
   useEffect(() => {
     const devState = localStorage.getItem("devState");
     setDevEnabled(devState === "true");
@@ -29,23 +29,25 @@ export default function Nav() {
   const closeNavbar = () => {
     setNavbarOpen(false);
   };
-    useEffect(() => {
-        document.body.className = `${theme}-theme`;
-    }, [theme]);
-
+  useEffect(() => {
+    document.body.className = `${theme}-theme`;
+  }, [theme]);
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container">
           <a className="navbar-brand">
-                      <div className={`light-logo ${theme === 'light' ? '' : 'dark-theme'}`}>
-                          <img src="/DWARFLAB_LOGO_Green.png" alt="Light Logo" />
-                      </div>
-                      <div className={`dark-logo ${theme === 'dark' ? '' : 'dark-theme'}`}>
-                          <img src="/DWARFLAB_LOGO_Blue.png" alt="Dark Logo" />
-                      </div>
-            
+            <div
+              className={`light-logo ${theme === "light" ? "" : "dark-theme"}`}
+            >
+              <img src="/DWARFLAB_LOGO_Green.png" alt="Light Logo" />
+            </div>
+            <div
+              className={`dark-logo ${theme === "dark" ? "" : "dark-theme"}`}
+            >
+              <img src="/DWARFLAB_LOGO_Blue.png" alt="Dark Logo" />
+            </div>
           </a>
 
           <button
@@ -62,9 +64,7 @@ export default function Nav() {
           </button>
 
           <div
-            className={`collapse navbar-collapse ${
-              navbarOpen ? "show" : ""
-            }`}
+            className={`collapse navbar-collapse ${navbarOpen ? "show" : ""}`}
           >
             <ul
               className="navbar-nav me-auto mb-2 mb-lg-0"
@@ -163,6 +163,15 @@ export default function Nav() {
                   style={{ display: devEnabled ? "block" : "none" }}
                 >
                   Sensor
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  href="/about"
+                >
+                  About
                 </Link>
               </li>
             </ul>

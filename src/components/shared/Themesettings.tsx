@@ -9,9 +9,9 @@ const Modal: React.FC = () => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('language') || 'en';
         }
-        return 'en'; // Default language for server-side rendering
+        return 'en';
     });
-    const [availableLanguages] = useState<string[]>(['en', 'es', 'fr']); // Example list of available languages
+    const [availableLanguages] = useState<string[]>(['en', 'es', 'fr']);
 
     const handleBackgroundChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setBackgroundImage(event.target.value);
@@ -44,7 +44,7 @@ const Modal: React.FC = () => {
     };
 
     const resetFontSize = () => {
-        setFontSize(18); // Reset to default font size
+        setFontSize(18);
     };
 
     useEffect(() => {
@@ -60,12 +60,10 @@ const Modal: React.FC = () => {
 
     return (
         <div className="modal-wrapper-theme">
-            {/* Sidebar cogwheel button */}
             <button className="cogwheel-button" onClick={() => setShowModal(!showModal)}>
                 <i className="fas fa-cog"></i>
             </button>
 
-            {/* Modal container */}
             {showModal && (
                 <div className="modal-overlay-theme">
                     <div className="modal-content-theme">

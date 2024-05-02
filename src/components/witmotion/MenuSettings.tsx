@@ -24,7 +24,10 @@ const MenuSettings = ({ dis }: BasicMenuInterface) => {
   };
 
   const buttonLogic: ButtonLogic[] = ["contained", "outlined"];
-
+    // Button render
+    if (dis) {
+        return null; // Don't render the button if 'dis' is true
+    }
   return (
     <div>
       <Button
@@ -36,6 +39,12 @@ const MenuSettings = ({ dis }: BasicMenuInterface) => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
+        className="btn-more02"
+        sx={{
+             "&:hover": {
+                backgroundColor: "#00B280", 
+             },
+        }}
       >
         Settings
       </Button>

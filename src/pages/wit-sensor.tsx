@@ -20,25 +20,7 @@ export default function WitSensorData() {
           </div>
         </ApplicationProvider>
         {""}
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
       </div>
     </section>
   );

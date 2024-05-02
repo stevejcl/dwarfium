@@ -56,6 +56,11 @@ const translations = {
   pAboutAdditionalWeatherData: "Weather data is pulled from ",
   pAboutAdditionalRSSData: "RSS feed for deep sky objects is provided by ",
   pAboutAdditionalWitmotion: "Witmotion Sensor integration based on ",
+  cWitmotionCamera: "Camera",
+  cWitmotionAltitude: "Altitude",
+  cWitmotionPolaris1: "Point the Dwarf II towards Polaris and adjust the angle to match your altitude.",
+  cWitmotionPolaris2: "You should see Polaris in the Center of the Camera."
+
 };
 
 export default translations;

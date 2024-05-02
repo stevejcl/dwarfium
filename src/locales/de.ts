@@ -56,6 +56,10 @@ const translations = {
   pAboutAdditionalRSSData: "Der RSS-Feed für Deep-Sky-Objekte wird von ",
   pAboutAdditionalWitmotion:
     "Die Integration des Witmotion-Sensors basiert auf ",
+    cWitmotionCamera: "Kamera",
+    cWitmotionAltitude: "Altitude",
+    cWitmotionPolaris1: "Richten Sie den Dwarf II auf Polaris und passen Sie den Winkel an.",
+    cWitmotionPolaris2: "Sie sollten Polaris in der Sensormitte sehen."
 };
 
 export default translations;

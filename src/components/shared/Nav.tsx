@@ -162,7 +162,7 @@ export default function Nav() {
                   href="/wit-sensor"
                   style={{ display: devEnabled ? "block" : "none" }}
                 >
-                  Sensor
+                  Polar Alignment
                 </Link>
               </li>
               <li className="nav-item">

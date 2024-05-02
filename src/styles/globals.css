@@ -220,6 +220,12 @@ body {
     height: fit-content;
 }
 
+.altitude-description {
+    display: flex;
+    align-items: center;
+}
+
+
 .popover-body {
     padding: 1rem 1rem;
     color: #212529;
@@ -1343,3 +1349,4 @@ img {
 .dark-theme .dark-logo {
     display: contents;
 }
+

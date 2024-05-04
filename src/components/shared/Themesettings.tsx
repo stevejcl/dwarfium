@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import i18n from "@/i18n"; // Import the i18n instance directly
+import i18n from "@/i18n";
 
 const Modal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -27,13 +27,16 @@ const Modal: React.FC = () => {
     }
     return "en";
   });
-  const [availableLanguages] = useState<string[]>([
-    "de",
-    "en",
-    "es",
-    "fr",
-    "nl",
-  ]);
+
+  const languages: { [key: string]: string } = {
+    de: "Deutsch",
+    en: "English",
+    es: "Español",
+    fr: "Français",
+    nl: "Nederlands",
+  };
+
+  const availableLanguages = Object.keys(languages);
 
   const handleImageClick = (imageSrc: string) => {
     setBackgroundImage(imageSrc);
@@ -79,7 +82,7 @@ const Modal: React.FC = () => {
     setSelectedLanguage(lang);
     if (typeof window !== "undefined") {
       localStorage.setItem("language", lang);
-      i18n.changeLanguage(lang); // Change language using i18n instance
+      i18n.changeLanguage(lang);
     }
   };
 
@@ -89,10 +92,7 @@ const Modal: React.FC = () => {
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundPosition = "center center";
     document.body.style.backgroundAttachment = "fixed";
-  }, [backgroundImage, theme]);
 
-  useEffect(() => {
-    // Save font size to localStorage
     localStorage.setItem("fontSize", fontSize.toString());
 
     const paragraphs = Array.from(
@@ -113,11 +113,10 @@ const Modal: React.FC = () => {
     elements.forEach((element: HTMLElement) => {
       element.style.fontSize = `${fontSize}px`;
     });
-  }, [fontSize]);
+  }, [theme, backgroundImage, fontSize]);
 
   return (
     <div className={`modal-wrapper-theme${showModal ? " show" : ""}`}>
-      {/* Sidebar cogwheel button */}
       <button
         className="cogwheel-button"
         onClick={() => setShowModal(!showModal)}
@@ -125,7 +124,6 @@ const Modal: React.FC = () => {
         <i className="fas fa-cog"></i>
       </button>
 
-      {/* Modal container */}
       {showModal && (
         <div className="modal-overlay-theme">
           <div className="modal-content-theme">
@@ -247,12 +245,11 @@ const Modal: React.FC = () => {
               >
                 {availableLanguages.map((lang) => (
                   <option key={lang} value={lang}>
-                    {lang}
+                    {languages[lang]}
                   </option>
                 ))}
               </select>
             </div>
-
             <button className="apply-button" onClick={applyBackground}>
               Apply
             </button>

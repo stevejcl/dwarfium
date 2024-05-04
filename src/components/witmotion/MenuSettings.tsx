@@ -24,27 +24,27 @@ const MenuSettings = ({ dis }: BasicMenuInterface) => {
   };
 
   const buttonLogic: ButtonLogic[] = ["contained", "outlined"];
-    // Button render
-    if (dis) {
-        return null; // Don't render the button if 'dis' is true
-    }
+  // Button render
+  if (dis) {
+    return null; // Don't render the button if 'dis' is true
+  }
   return (
     <div>
       <Button
         disabled={dis}
         variant={buttonLogic[Number(dis)]}
-              id="btn-more02"
+        id="btn-more02"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
         className="btn-more02"
-              sx={{
-                  backgroundColor: "#00B280", // Set background color
-             "&:hover": {
-                backgroundColor: "#00B280", 
-             },
+        sx={{
+          backgroundColor: "#00B280", // Set background color
+          "&:hover": {
+            backgroundColor: "#00B280",
+          },
         }}
       >
         Settings

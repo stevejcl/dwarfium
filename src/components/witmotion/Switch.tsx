@@ -49,7 +49,7 @@ export const SwitchSelector = () => {
 
   return (
     <Stack direction="row-reverse" spacing={1} alignItems="center">
-          <Typography style={{ fontSize: '18px' }}>Bluetooth</Typography>
+      <Typography style={{ fontSize: "18px" }}>Bluetooth</Typography>
       <Android12Switch
         checked={checked}
         onChange={(event) => {
@@ -58,7 +58,7 @@ export const SwitchSelector = () => {
         }}
         inputProps={{ "aria-label": "controlled" }}
       />
-          <Typography style={{ fontSize: '18px' }}>Usb</Typography>
+      <Typography style={{ fontSize: "18px" }}>Usb</Typography>
     </Stack>
   );
 };

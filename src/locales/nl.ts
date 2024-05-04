@@ -60,8 +60,9 @@ const translationsNL = {
   pAboutAdditionalWitmotion: "Witmotion Sensor integratie gebaseerd op ",
   cWitmotionCamera: "Camera",
   cWitmotionAltitude: "Hoogte",
-  cWitmotionPolaris1: "Richt de Dwarf II naar Polaris en pas de hoek aan om overeen te komen met je hoogte.",
-  cWitmotionPolaris2: "Je zou Polaris in het midden van de camera moeten zien."
+  cWitmotionPolaris1:
+    "Richt de Dwarf II naar Polaris en pas de hoek aan om overeen te komen met je hoogte.",
+  cWitmotionPolaris2: "Je zou Polaris in het midden van de camera moeten zien.",
 };
 
 export default translationsNL;

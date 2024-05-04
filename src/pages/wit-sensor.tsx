@@ -20,7 +20,6 @@ export default function WitSensorData() {
           </div>
         </ApplicationProvider>
         {""}
-
       </div>
     </section>
   );

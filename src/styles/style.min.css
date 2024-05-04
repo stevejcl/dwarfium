@@ -437,7 +437,7 @@ header {
 }
 */
     .daily-horp .nav-pills .nav-link {
-        padding: 14px 26px 10px 26px;
+        /*padding: 14px 26px 10px 26px;*/
         color: #0a051d !important;
         border: solid 2px rgba(255,255,255,.2588235294) !important;
         border-radius: 5px;
@@ -446,7 +446,7 @@ header {
         text-transform: capitalize;
         color: #fff !important;
         text-transform: uppercase;
-        margin: 0 10px;
+        margin: 0 2px;
         transition: .5s linear
     }
 
@@ -456,7 +456,7 @@ header {
         }
 
     .daily-horp .nav-pills .active {
-        background: #fff !important;
+        /*background: #fff !important;*/
         color: #0a051d !important;
         font-weight: 700
     }

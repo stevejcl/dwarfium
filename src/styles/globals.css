@@ -1046,12 +1046,24 @@ img {
 }
 /*Themesettings*/
 .modal-wrapper-theme {
-    position: relative;
+    position: fixed;
+    top: 0;
+    /*right: -100%;*/ 
+    bottom: 0;
+    left: 0;
+    transition: right 0.3s ease; 
+    z-index: 9999;
 }
 
+    .modal-wrapper-theme.show {
+        right: 0; 
+        width: fit-content;
+        height: fit-content;
+    
+    }
 .cogwheel-button {
     position: fixed;
-    top: 15%;
+    top: 10%;
     right: 7px;
     color: white;
     scale: 1.5;
@@ -1080,8 +1092,8 @@ img {
 
 .modal-content-theme {
     position: absolute;
-    height: 61%;
-    top: 0;
+    height: 75%;
+    top: -70px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -1094,36 +1106,83 @@ img {
     pointer-events: auto;
     background-color: #191d1e;
     background-clip: padding-box;
+    animation: slideInRight 0.5s forwards; /* Animation to slide in from the right */
 }
-
-    .modal-content-theme h2 {
-        font-size: 2.5rem;
-        margin-bottom: 0px;
+/* Keyframes for slide in from the right */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
     }
 
-.background-select select {
-    flex: 1; /* Allow the select element to expand */
-}
-
-.background-select button {
-    margin-left: 10px; /* Add space between select and button */
-}
-
-.background-select {
-    /* CSS for the select box container */
-    padding: 5px 10px;
-    border-radius: 4px;
-    outline: none;
-    font-size: 16px;
-    margin-top: 15px;
-    align-items: center; /* Align items vertically */
-}
-
-    .background-select:focus {
-        /* Focus styles for select box */
-        border-color: #007bff;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    to {
+        transform: translateX(0);
     }
+}
+
+/* Keyframes for slide out to the right */
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+
+
+.theme-header {
+    text-align: center;
+    text-decoration: underline;
+    /*color: #333;*/
+    font-size: 26px !important;
+    margin-top: 10px;
+}
+
+
+/*new design bg*/
+.container-bg {
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); */
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.row-bg {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+.box {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    cursor: pointer;
+    border: 1px solid transparent; /* Set border initially transparent */
+    transition: border-color 0.3s ease; /* Smooth transition for border color change */
+}
+
+    .box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 1px solid #009879;
+        opacity: 0.7;
+    }
+
+    .box:hover {
+        border-color: #ff0000; /* Change border color on hover */
+    }
+
+    .box.active {
+        border-color: #00AE83; /* Change border color of active box */
+    }
+
+    .box:active {
+        border-color: #ff0000; /* Change border color of clicked box */
+    }
+
+
 
 .daily-horp {
     padding: 0px 0 0 0;

@@ -24,8 +24,7 @@ export default function Goto() {
         <br />
         <br />
         <br />
-              <br />
-              <br />
+        <br />         
         <StatusBar />
         <hr></hr>
         <CalibrationDwarf />

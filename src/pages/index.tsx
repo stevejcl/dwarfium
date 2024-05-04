@@ -8,7 +8,6 @@ export default function Home() {
           <br />
           <br />
           <br />
-          <br />
           <h1>
             <b><u>Dwarfium</u></b>
           </h1>

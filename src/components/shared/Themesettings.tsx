@@ -2,12 +2,25 @@ import React, { useState, useEffect } from 'react';
 
 const Modal: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
-    const [backgroundImage, setBackgroundImage] = useState('standard');
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
-    const [fontSize, setFontSize] = useState<number>(16);
+    const [fontSize, setFontSize] = useState<number>(() => {
+        // Retrieve the font size from localStorage if available
+        if (typeof window !== 'undefined' && window.localStorage) {
+            const storedFontSize = localStorage.getItem('fontSize');
+            return storedFontSize ? parseInt(storedFontSize, 10) : 20;
+        }
+        return 20;
+    });
+    const [backgroundImage, setBackgroundImage] = useState<string>(() => {
+        // Retrieve the background image from local storage if available
+        if (typeof window !== 'undefined' && window.localStorage) {
+            return localStorage.getItem('backgroundImage') || '/backgrounds/bg-bannerpic.jpg';
+        }
+        return '/backgrounds/bg-bannerpic.jpg';
+    });
 
-    const handleBackgroundChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setBackgroundImage(event.target.value);
+    const handleImageClick = (imageSrc: string) => {
+        setBackgroundImage(imageSrc);
     };
 
     const closeModal = () => {
@@ -16,34 +29,65 @@ const Modal: React.FC = () => {
 
     const applyBackground = () => {
         closeModal();
+        document.body.style.backgroundImage = `url(${backgroundImage})`;
+        // Save the selected background image to local storage if available
+        if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.setItem('backgroundImage', backgroundImage);
+        }
     };
-
-    useEffect(() => {
-        document.body.className = `bg-${backgroundImage} ${theme}-theme`;
-    }, [backgroundImage, theme]);
 
     const handleThemeChange = (newTheme: 'light' | 'dark') => {
         setTheme(newTheme);
-        
+        setBackgroundImage('/backgrounds/bg-bannerpic.jpg');
+        // Remove the background image from local storage when theme changes
+        localStorage.removeItem('backgroundImage');
     };
+
     const increaseFontSize = () => {
-        setFontSize(fontSize + 1);
+        const newSize = fontSize + 1;
+        setFontSize(newSize);
     };
 
     const decreaseFontSize = () => {
         if (fontSize > 1) {
-            setFontSize(fontSize - 1);
+            const newSize = fontSize - 1;
+            setFontSize(newSize);
         }
     };
+
     const resetFontSize = () => {
-        setFontSize(18); // Reset to default font size
+        const defaultFontSize = 16;
+        setFontSize(defaultFontSize);
+        // Save default font size to localStorage
+        localStorage.setItem('fontSize', defaultFontSize.toString());
     };
+
     useEffect(() => {
-        document.body.style.fontSize = `${fontSize}px`;
+        document.body.className = `${theme}-theme`;
+        document.body.style.backgroundImage = `url(${backgroundImage})`;
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundPosition = 'center center';
+        document.body.style.backgroundAttachment = 'fixed';
+    }, [backgroundImage, theme]);
+
+    useEffect(() => {
+        // Save font size to localStorage
+        localStorage.setItem('fontSize', fontSize.toString());
+
+        const paragraphs = Array.from(document.querySelectorAll('p')) as HTMLElement[];
+        const listItems = Array.from(document.querySelectorAll('li')) as HTMLLIElement[];
+        const headings = Array.from(document.querySelectorAll('h1, h2, h3')) as HTMLElement[];
+        const boldTexts = Array.from(document.querySelectorAll('b')) as HTMLElement[];
+
+        const elements = [...paragraphs, ...listItems, ...headings, ...boldTexts];
+
+        elements.forEach((element: HTMLElement) => {
+            element.style.fontSize = `${fontSize}px`;
+        });
     }, [fontSize]);
 
     return (
-        <div className="modal-wrapper-theme">
+        <div className={`modal-wrapper-theme${showModal ? ' show' : ''}`}>
             {/* Sidebar cogwheel button */}
             <button
                 className="cogwheel-button"
@@ -56,33 +100,34 @@ const Modal: React.FC = () => {
             {showModal && (
                 <div className="modal-overlay-theme">
                     <div className="modal-content-theme">
-                        <h2>Theme Settings</h2>
-                        <div className="background-select">
-                            <label htmlFor="background-select">Select Background Image:</label>
-                            <select id="background-select" onChange={handleBackgroundChange}>
-                                <option value="standard">Standard</option>
-                                <option value="stars">Stars</option>
-                                <option value="stars2">Stars 2</option>
-                            </select>
-                            
+                        <h2 className="theme-header">Theme Settings</h2>
+                        <br />
+                        <div className="container-bg">
+                            <div className="row-bg">
+                                <div className="box" onClick={() => handleImageClick("/backgrounds/galaxybackground.jpg")}>
+                                    <img src="/backgrounds/galaxybackground.jpg" alt="Image 1" />
+                                </div>
+                                <div className="box" onClick={() => handleImageClick("/backgrounds/high-resolution-earth_180484.jpg")}>
+                                    <img src="/backgrounds/high-resolution-earth_180484.jpg" alt="Image 2" />
+                                </div>
+                                <div className="box" onClick={() => handleImageClick("/backgrounds/starbackground.jpg")}>
+                                    <img src="/backgrounds/starbackground.jpg" alt="Image 3" />
+                                </div>
+                            </div>
+                            <div className="row-bg">
+                                <div className="box" onClick={() => handleImageClick("/backgrounds/starrybackground.jpg")}>
+                                    <img src="/backgrounds/starrybackground.jpg" alt="Image 4" />
+                                </div>
+                                <div className="box" onClick={() => handleImageClick("/backgrounds/bg-bannerpic.jpg")}>
+                                    <img src="/backgrounds/bg-bannerpic.jpg" alt="Image 5" />
+                                </div>
+                                <div className="box" onClick={() => handleImageClick("/backgrounds/stars2.jpg")}>
+                                    <img src="/backgrounds/stars2.jpg" alt="Image 6" />
+                                </div>
+                            </div>
                         </div>
-                        <div className="theme-con">
-                        <div className="theme-options">
-                            <button
-                                className={`btn btn-more02 ${theme === 'light' ? 'active' : ''}`}
-                                onClick={() => handleThemeChange('light')}
-                            >
-                                Light Theme
-                            </button>
-                            <button
-                                className={`btn btn-more02 ${theme === 'dark' ? 'active' : ''}`}
-                                onClick={() => handleThemeChange('dark')}
-                            >
-                                Dark Theme
-                            </button>
-                        </div>
-                        </div>
-                        <h2>Font Size</h2>
+                        
+                        <h2 className="theme-header">Font Size</h2>
                         <div className="font-size-options">
                             <button className="font-size-button" onClick={increaseFontSize}>
                                 <i className="fas fa-plus"></i>
@@ -94,14 +139,38 @@ const Modal: React.FC = () => {
                                 <i className="fas fa-sync-alt"></i>
                             </button>
                         </div>
-                    <button className="apply-button" onClick={applyBackground}>
-                        Apply
-                    </button>
+                        <br />
+                        <h2 className="theme-header">Color Theme</h2>
+                        <div className="theme-con">
+                            
+                            <div className="theme-options">
+                                <button
+                                    className={`btn btn-more02 ${theme === 'light' ? 'active' : ''}`}
+                                    onClick={() => handleThemeChange('light')}
+                                >
+                                    Light Theme
+                                </button>
+                                <button
+                                    className={`btn btn-more02 ${theme === 'dark' ? 'active' : ''}`}
+                                    onClick={() => handleThemeChange('dark')}
+                                >
+                                    Dark Theme
+                                </button>
+                                <button
+                                    className={`btn btn-more02 ${theme === 'dark' ? 'active' : ''}`}
+                                    onClick={() => handleThemeChange('dark')}
+                                >
+                                    Astro Theme<br/>(under construction)
+                                </button>
+                            </div>
+                        </div>{""}
+                        <br />
+                        
+                        <button className="apply-button" onClick={applyBackground}>
+                            Apply
+                        </button>
                     </div>
-                    
                 </div>
-                    
-                
             )}
         </div>
     );

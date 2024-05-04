@@ -3,7 +3,7 @@ import React from "react";
 import { ArraySensorDataInterface } from "@/lib/witmotion/Interfaces";
 import { SingleGraph } from "./SingleGraph";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import DwarfCameras from "@/components/DwarfCameras";
+//import DwarfCameras from "@/components/DwarfCameras";
 interface GraphsInterface {
     inputData: ArraySensorDataInterface;
 }
@@ -59,11 +59,11 @@ export const Graphs: React.FC<GraphsInterface> = ({ inputData }) => {
                    
                     <h3>Camera</h3>
                     <main className="col">
-                        <DwarfCameras
+                        {/* <DwarfCameras
                             //showWideangle={showWideangle}
                             //useRawPreviewURL={useRawPreviewURL}
                             //showControls={true}
-                        /> 
+                        /> */}
                     </main>
                 </div>
             </Grid2>

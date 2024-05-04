@@ -27,23 +27,28 @@ export const Graphs: React.FC<GraphsInterface> = ({ inputData }) => {
         <>
         <ConnectDwarfII />
         <Grid2 container spacing={4}>
-            <Grid2 md={6} xs={12} className="camera-container">
-                <div className="camera-witmotion">
-                    <h3>{t("cWitmotionCamera")}</h3>
-                    <div>
-                        <p>{t("cWitmotionAltitude")}: {inputData.ang.y[0].toFixed(2)}°</p>
+            <Grid2 md={9} xs={12} className="camera-container">
+                    <div className="camera-witmotion">
+                        <h3>{t("cWitmotionCamera")}</h3>
+                        <div>
+                            <p>{t("cWitmotionAltitude")}: {inputData.ang.y[0].toFixed(2)}°</p>
+                        </div>
+                        <main className="col">
+                            <DwarfCameras showWideangle={false} useRawPreviewURL={false} showControls={false} />
+                        </main>
                     </div>
-                    <main className="col">
-                        <DwarfCameras showWideangle={false} useRawPreviewURL={false} showControls={false} />
-                    </main>
-                </div>
             </Grid2>
-            <Grid2 md={6} xs={12} className="altitude-description">
-                <div>
-                    <p>{t("cWitmotionPolaris1")}</p>
-                    <p>{t("cWitmotionPolaris2")}</p>
-                </div>
+                <Grid2 md={3} xs={12} sm={12} className="altitude-description">      
+                    <div className="camera-witmotion-content">
+                        <p>{t("cWitmotionPolaris1")}</p>
+                        <p>{t("cWitmotionPolaris2")}</p>
+                    </div>
             </Grid2>
-        </Grid2></>
+            </Grid2>
+            {""}
+            <br/>
+            <br />
+            <br />
+        </>
     );
 };

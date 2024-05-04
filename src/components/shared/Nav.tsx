@@ -1,12 +1,12 @@
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import Modal from "react-bootstrap/Modal";
 
 export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
   const [devEnabled, setDevEnabled] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [theme] = useState<'light' | 'dark'>('light');
+  const [theme] = useState<"light" | "dark">("light");
   useEffect(() => {
     const devState = localStorage.getItem("devState");
     setDevEnabled(devState === "true");
@@ -16,11 +16,12 @@ export default function Nav() {
     setModalOpen(!modalOpen);
   };
 
-  const handleDevOptionChange = (e) => {
+  const handleDevOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     setDevEnabled(isChecked);
-    localStorage.setItem("devState", isChecked);
+    localStorage.setItem("devState", isChecked.toString());
   };
+
   const handleNavbarToggle = () => {
     setNavbarOpen(!navbarOpen);
   };
@@ -28,24 +29,25 @@ export default function Nav() {
   const closeNavbar = () => {
     setNavbarOpen(false);
   };
-    useEffect(() => {
-        document.body.className = `${theme}-theme`;
-    }, [theme]);
-
-
+  useEffect(() => {
+    document.body.className = `${theme}-theme`;
+  }, [theme]);
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container">
           <a className="navbar-brand">
-                      <div className={`light-logo ${theme === 'light' ? '' : 'dark-theme'}`}>
-                          <img src="/DWARFLAB_LOGO_Green.png" alt="Light Logo" />
-                      </div>
-                      <div className={`dark-logo ${theme === 'dark' ? '' : 'dark-theme'}`}>
-                          <img src="/DWARFLAB_LOGO_Blue.png" alt="Dark Logo" />
-                      </div>
-            
+            <div
+              className={`light-logo ${theme === "light" ? "" : "dark-theme"}`}
+            >
+              <img src="/DWARFLAB_LOGO_Green.png" alt="Light Logo" />
+            </div>
+            <div
+              className={`dark-logo ${theme === "dark" ? "" : "dark-theme"}`}
+            >
+              <img src="/DWARFLAB_LOGO_Blue.png" alt="Dark Logo" />
+            </div>
           </a>
 
           <button
@@ -160,7 +162,7 @@ export default function Nav() {
                   href="/wit-sensor"
                   style={{ display: devEnabled ? "block" : "none" }}
                 >
-                  Sensor
+                  Polar Alignment
                 </Link>
               </li>
               <li className="nav-item">
@@ -173,20 +175,20 @@ export default function Nav() {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="d-none d-lg-block">
-            <div className="right-menu">
-              <ul>
-                <li>
-                  <span
-                    className="version-text"
-                    onClick={handleToggleModal}
-                    style={{ cursor: "pointer", zIndex: 1051 }}
-                  >
-                    Beta Witmotion
-                  </span>
-                </li>
-              </ul>
+            <div className="d-none d-lg-block">
+              <div className="right-menu">
+                <ul>
+                  <li>
+                    <span
+                      className="version-text"
+                      onClick={handleToggleModal}
+                      style={{ cursor: "pointer", zIndex: 1051 }}
+                    >
+                      Beta Witmotion
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -205,7 +207,6 @@ export default function Nav() {
 
         <Modal.Body>
           <div className="modal-body-version">
-            
             <label className="checkbox-container">
               <input
                 type="checkbox"
@@ -213,7 +214,7 @@ export default function Nav() {
                 checked={devEnabled}
                 onChange={handleDevOptionChange}
               />
-               : Enable Witmotion Sensor
+              : Enable Witmotion Sensor
             </label>
           </div>
         </Modal.Body>

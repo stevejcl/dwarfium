@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": ["./src/*"]
     },

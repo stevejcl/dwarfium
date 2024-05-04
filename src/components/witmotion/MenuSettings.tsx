@@ -33,14 +33,15 @@ const MenuSettings = ({ dis }: BasicMenuInterface) => {
       <Button
         disabled={dis}
         variant={buttonLogic[Number(dis)]}
-        id="basic-button"
+              id="btn-more02"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
         className="btn-more02"
-        sx={{
+              sx={{
+                  backgroundColor: "#00B280", // Set background color
              "&:hover": {
                 backgroundColor: "#00B280", 
              },

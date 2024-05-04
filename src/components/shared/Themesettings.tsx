@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import i18n from "@/i18n"; // Import the i18n instance directly
 
 const Modal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -78,6 +79,7 @@ const Modal: React.FC = () => {
     setSelectedLanguage(lang);
     if (typeof window !== "undefined") {
       localStorage.setItem("language", lang);
+      i18n.changeLanguage(lang); // Change language using i18n instance
     }
   };
 

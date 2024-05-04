@@ -44,8 +44,7 @@ const translations = {
   pAboutDataCreditDSOStars: "Los datos sobre las estrellas provienen de ",
   pAboutDataCreditVisual:
     "Los datos sobre la magnitud visual de los planetas y la Luna provienen de ",
-  pAboutDataCreditConstellationData:
-    "Los datos de constelación provienen de ",
+  pAboutDataCreditConstellationData: "Los datos de constelación provienen de ",
   pAboutDataCreditJuypterThe: "El ",
   pAboutDataCreditJuypterText:
     "en el repositorio de GitHub muestra los pasos que tomé para transformar los datos sin procesar en las listas de objetos.",
@@ -60,9 +59,9 @@ const translations = {
   pAboutAdditionalWitmotion: "Integración del sensor Witmotion basada en ",
   cWitmotionCamera: "Cámara",
   cWitmotionAltitude: "Altitud",
-  cWitmotionPolaris1: "Apunta el Dwarf II hacia Polaris y ajusta el ángulo para que coincida con tu altitud.",
-  cWitmotionPolaris2: "Deberías ver Polaris en el centro de la cámara."
+  cWitmotionPolaris1:
+    "Apunta el Dwarf II hacia Polaris y ajusta el ángulo para que coincida con tu altitud.",
+  cWitmotionPolaris2: "Deberías ver Polaris en el centro de la cámara.",
 };
 
 export default translations;
-

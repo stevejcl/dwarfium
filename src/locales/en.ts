@@ -58,9 +58,9 @@ const translations = {
   pAboutAdditionalWitmotion: "Witmotion Sensor integration based on ",
   cWitmotionCamera: "Camera",
   cWitmotionAltitude: "Altitude",
-  cWitmotionPolaris1: "Point the Dwarf II towards Polaris and adjust the angle to match your altitude.",
-  cWitmotionPolaris2: "You should see Polaris in the Center of the Camera."
-
+  cWitmotionPolaris1:
+    "Point the Dwarf II towards Polaris and adjust the angle to match your altitude.",
+  cWitmotionPolaris2: "You should see Polaris in the Center of the Camera.",
 };
 
 export default translations;

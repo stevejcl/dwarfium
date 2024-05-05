@@ -1,6 +1,7 @@
 /* eslint react/no-unescaped-entities: 0 */
-
-import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+import { useEffect, useContext, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 
@@ -64,29 +65,35 @@ export default function ConnectStellarium() {
 
     return <span className="text-success-connect">Connection successful.</span>;
   }
+    const { t } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage) {
+            setSelectedLanguage(storedLanguage);
+            i18n.changeLanguage(storedLanguage);
+        }
+    }, []);
   return (
     <div>
-      <h2>Connect to Stellarium</h2>
+          <h2>{t("pConnectStellarium")}</h2>
       <p>
-        In order to use Stellarium, we need to setup up the Remote Control
-        plugin.
+         {t("pConnectStellariumContent")}
       </p>
 
       <ol>
-        <li className="mb-2">Start Stellarium desktop app.</li>
+              <li className="mb-2">{t("pConnectStellariumContent1")}</li>
         <li className="mb-2">
-          The beginning of this{" "}
+                  {t("pConnectStellariumContent2")}{" "}
           <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
             Youtube video
           </Link>{" "}
-          demonstrates setting up Stellarium's Remote Control plugin (0 to
-          1:40); skip the part about NINA. Click "Enable CORS for the following
-          origin" and enter in "*".
+                  {t("pConnectStellariumContent2_1")}
         </li>
         <li className="mb-2">
-          Enter in IP and port for the Remote Control plugin, and click
-          "Connect". This site will try to connect to Stellarium.
+                  {t("pConnectStellariumContent3")}
         </li>
       </ol>
 
@@ -94,7 +101,7 @@ export default function ConnectStellarium() {
         <div className="row mb-3">
           <div className="col-md-1">
             <label htmlFor="ip" className="form-label">
-              IP
+             {t("pIPAdress")}
             </label>
           </div>
           <div className="col-lg-2 col-md-10">
@@ -111,7 +118,7 @@ export default function ConnectStellarium() {
         <div className="row mb-3">
           <div className="col-md-1">
             <label htmlFor="port" className="form-label">
-              Port
+              {t("pPort")}
             </label>
           </div>
           <div className="col-lg-2 col-md-10">
@@ -126,7 +133,7 @@ export default function ConnectStellarium() {
           </div>
         </div>
         <button type="submit" className="btn btn-more02 me-3">
-          <i className=" icon-connectdevelop" /> Connect
+                  <i className=" icon-connectdevelop" /> {t("pConnect")}
         </button>{" "}
         {renderConnectionStatus()}
       </form>

@@ -11,8 +11,7 @@ Description = identifier
 */
 
 const translationsNL = {
-  pIndexDescription:
-    "Deze website stelt u in staat om de Dwarf II te bedienen met behulp van de Dwarf API.",
+  pIndexDescription: "Deze website stelt u in staat om de Dwarf II te bedienen met behulp van de Dwarf API",
   pIndexFeature: "Kenmerken",
   pIndexFeature1: "1. Objectenlijst met meer dan 850 objecten.",
   pIndexFeature2: "2. Importeer objectenlijsten van Telescopius.",
@@ -64,6 +63,37 @@ const translationsNL = {
   cWitmotionPolaris1:
     "Richt de Dwarf II naar Polaris en pas de hoek aan om overeen te komen met je hoogte.",
   cWitmotionPolaris2: "Je zou Polaris in het midden van de camera moeten zien.",
+  pFirstSteps: "Eerste Stap",
+  pFirstStepsContent: "Gebruik de DwarfII mobiele app van Dwarf Labs om donkere frames te maken, de focus scherp te stellen en Goto te kalibreren.",
+  pSetLocation: "Locatie instellen",
+  pSetLocationContent: "Om Goto te laten werken, heeft deze site uw breedtegraad, lengtegraad en tijdzone nodig. De lengtegraad is negatief ten westen van Greenwich",
+  pLatitude: "Breedtegraad",
+  pLongitude: "Lengtegraad",
+  pTimezone: "Tijdzone",
+  pUseCurrentLocation: "Huidige Locatie",
+  pEnableSTA: "Schakel STA-modus in op Dwarf II",
+  pEnableSTAContent: "Om deze site verbinding te laten maken met de Dwarf II, moet de STA-modus op de Dwarf II zijn geconfigureerd en ingeschakeld.",
+  pEnableSTAContent1: "Wanneer u de Dwarf voor het eerst gebruikt, heeft u de mobiele DwarfLab-app nodig om de verbinding tot stand te brengen. Vervolgens kunt u, zonder de Dwarf opnieuw op te starten, verbinding maken via de knop Bluetooth verbinden. De configuratie wordt vervolgens opgeslagen.",
+  pEnableSTAContent2: "Vervolgens kunt u voor de volgende start van de Dwarf er rechtstreeks verbinding mee maken via Bluetooth, zonder de mobiele applicatie te gebruiken.",
+  pEnableSTAContent3: "Klik op Verbinden. Deze site probeert via Bluetooth verbinding te maken met Dwarf II.",
+  pBluetoothPWD: "Bluetooth PASWOORD",
+  pConnect: "Verbinden",
+  pConnectDwarfII: "Connecteer met de Dwarf II",
+  pConnectDwarfIIContent: "Om deze site verbinding te laten maken met de Dwarf II, moeten zowel de Dwarf II als de website hetzelfde wifi-netwerk gebruiken.",
+  pConnectDwarfIIContent1: "Na het opnieuw opstarten moet u eerst via Bluetooth verbinding maken met de DwarfII.",
+  pConnectDwarfIIContent2: "Maak er vervolgens verbinding mee met de wifi-verbindingsknop. Dan hoeft u de app niet te gebruiken om te kalibreren, Goto te maken en een beeldsessie vanaf deze website te maken.",
+  pConnectDwarfIIContent3: "Bezoek deze site op een apparaat dat is verbonden met hetzelfde wifi-netwerk als de Dwarf II.",
+  pConnectDwarfIIContent4: "Voer het IP-adres in voor de Dwarf II. Als je Dwarf wifi gebruikt, is het IP-adres 192.168.88.1. Als u de STA-modus gebruikt, gebruik dan het IP-adres van uw wifi-netwerk.",
+  pConnectDwarfIIContent5: "Klik op Verbinden. Deze site zal proberen verbinding te maken met Dwarf II.",
+  pConnectDwarfIIContent6: "Als u het bericht ziet: => Go Live, heeft u een beeldsessie voltooid, ga naar de Camerapagina en klik op de Live-knop.",
+  pConnectStellarium: "Maak verbinding met Stellarium",
+  pConnectStellariumContent: "Om Stellarium te kunnen gebruiken, moeten we de Remote Control-plug-in instellen.",
+  pConnectStellariumContent1: "Start Stellarium desktop app.",
+  pConnectStellariumContent2: "Het begin van deze",
+  pConnectStellariumContent2_1: " demonstreert het instellen van Stellarium's Remote Control-plug-in (0 tot 1:40); sla het gedeelte over NINA over. Klik op ' CORS inschakelen voor de volgende herkomst ' en typ ' * '.",
+  pConnectStellariumContent3: "Voer het IP-adres en de poort in voor de Remote Control-plug-in en klik op ' Verbinden '. Deze site zal proberen verbinding te maken met Stellarium.",
+  pIPAdress: "Ip-Adres",
+  pPort: "Poort",
 };
 
 export default translationsNL;

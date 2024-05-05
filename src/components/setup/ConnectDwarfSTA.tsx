@@ -304,7 +304,7 @@ export default function ConnectDwarfSTA() {
     if (connectionStatus === false) {
       return (
         <span className="text-danger-connect">
-          Connection failed {errorTxt}.
+              {t("pConnectingFailed")} {errorTxt}.
         </span>
       );
     }
@@ -327,7 +327,7 @@ export default function ConnectDwarfSTA() {
 
     return (
       <span className="text-success-connect">
-        Connection successful.
+            {t("pConnectionSuccessFull")}
         {errorTxt}
       </span>
     );

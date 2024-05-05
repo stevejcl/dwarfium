@@ -49,6 +49,8 @@ const translations = {
   pAboutDataCreditJuypterText:
     "en el repositorio de GitHub muestra los pasos que tomé para transformar los datos sin procesar en las listas de objetos.",
   pAboutDataCreditCode: "Este sitio utiliza código de ",
+  pAboutDataCreditCodeAnd: "y ",
+  pAboutDataCreditCodeAndText: "para realizar cálculos astronómicos.",
   pAboutUserData: "Datos de Usuario",
   pAboutUserDataDesc:
     "La información ingresada por los usuarios se almacena en la base de datos del navegador (localStorage). Dado que los datos se almacenan en su navegador, otros usuarios del sitio no podrán acceder a sus datos. Esto también significa que si un usuario utiliza varios navegadores o dispositivos, los datos no pueden sincronizarse entre diferentes navegadores o dispositivos.",

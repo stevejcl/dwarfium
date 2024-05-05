@@ -1188,7 +1188,27 @@ img {
         border-color: #ff0000; /* Change border color of clicked box */
     }
 
+.language-options {
+    margin-bottom: 20px;
+    margin: 0 auto; /* Center horizontally */
+}
 
+.language-select {
+    width: 200px;
+    height: 40px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #00B280;
+    margin-top: 10px;
+}
+
+    .language-select:hover,
+    .language-select:focus {
+        border-color: #666;
+        color: #fff;
+    }
 
 .daily-horp {
     padding: 0px 0 0 0;

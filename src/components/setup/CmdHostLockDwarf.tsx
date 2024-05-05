@@ -78,7 +78,7 @@ export default function CmdHostLockDwarf() {
           onClick={handleClickLockHost}
           className="btn btn-more02 me-3 right-align"
         >
-              {isHostLock ? t("pUnlockHost") : t("pLockHost")}
+              {isHostLock ? t("cUnlockHost") : t("cLockHost")}
         </button>
       );
     }

@@ -48,6 +48,8 @@ const translations = {
   pAboutDataCreditJuypterText:
     "im GitHub-Repository zeigt die Schritte, die ich unternommen habe, um die Rohdaten in die Objektlisten zu transformieren.",
   pAboutDataCreditCode: "Diese Website verwendet Code von ",
+  pAboutDataCreditCodeAnd: "Und",
+  pAboutDataCreditCodeAndText: "astronomische Berechnungen durchzuführen.",
   pAboutUserData: "Benutzerdaten",
   pAboutUserDataDesc:
     "Die von Benutzern eingegebenen Informationen werden in der Datenbank des Browsers (localStorage) gespeichert. Da die Daten in Ihrem Browser gespeichert sind, können andere Benutzer der Website nicht auf Ihre Daten zugreifen. Dies bedeutet auch, dass die Daten nicht zwischen verschiedenen Browsern oder Geräten synchronisiert werden können, wenn ein Benutzer mehrere Browser oder Geräte verwendet.",

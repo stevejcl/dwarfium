@@ -49,6 +49,8 @@ const translations = {
   pAboutDataCreditJuypterText:
     "dans le référentiel GitHub montre les étapes que j'ai prises pour transformer les données brutes en listes d'objets.",
   pAboutDataCreditCode: "Ce site utilise du code provenant de ",
+  pAboutDataCreditCodeAnd: "et ",
+    pAboutDataCreditCodeAndText: "pour effectuer des calculs astronomiques",
   pAboutUserData: "Données Utilisateur",
   pAboutUserDataDesc:
     "Les informations saisies par les utilisateurs sont stockées dans la base de données du navigateur (localStorage). Comme les données sont stockées dans votre navigateur, les autres utilisateurs du site ne pourront pas accéder à vos données. Cela signifie également que si un utilisateur utilise plusieurs navigateurs ou appareils, les données ne peuvent pas être synchronisées entre différents navigateurs ou appareils.",

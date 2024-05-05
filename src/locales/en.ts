@@ -49,6 +49,8 @@ const translations = {
   pAboutDataCreditJuypterText:
     "in the Github repo show the steps I took to transform the raw data into the objects lists.",
   pAboutDataCreditCode: "This site uses code from ",
+  pAboutDataCreditCodeAnd: "and ",
+  pAboutDataCreditCodeAndText: "to perform astronomical calculations.",
   pAboutUserData: "User Data",
   pAboutUserDataDesc:
     "The information entered by users is stored in the browser's database (localStorage). Since the data is stored in your browser, other users of the site will not be able to access your data. This also means if a user uses multiple browsers or devices, the data cannot be synced between different browsers or devices.",

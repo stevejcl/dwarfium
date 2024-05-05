@@ -37,7 +37,7 @@ export default function Home() {
             <li> {t("pIndexFeature1")} </li>
             <li> {t("pIndexFeature2")} </li>
             <li> {t("pIndexFeature3")} </li>
-            <li> {t("pIindexFeature4")} </li>
+            <li> {t("pIndexFeature4")} </li>
             <li> {t("pIndexFeature5")} </li>
             <li> {t("pIndexFeature6")} </li>
           </ul>

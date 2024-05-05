@@ -101,11 +101,11 @@ export default function About() {
               >
                 Astronomia
               </Link>{" "}
-              and{" "}
+              {t("pAboutDataCreditCodeAnd")}{" "}
               <Link href="https://www.celestialprogramming.com" target="_blank">
                 celestialprogramming.com
               </Link>{" "}
-              to perform astronomical calculations.
+              {t("pAboutDataCreditCodeAndText")}{" "}
             </li>
           </ul>
           <br />

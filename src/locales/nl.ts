@@ -12,13 +12,12 @@ Description = identifier
 
 const translationsNL = {
   pIndexDescription:
-    "Deze website stelt u in staat delen van de Dwarf II te bedienen met behulp van de Dwarf API.",
+    "Deze website stelt u in staat om de Dwarf II te bedienen met behulp van de Dwarf API.",
   pIndexFeature: "Kenmerken",
   pIndexFeature1: "1. Objectenlijst met meer dan 850 objecten.",
   pIndexFeature2: "2. Importeer objectenlijsten van Telescopius.",
   pIndexFeature3: "3. Importeer mozaïeklijsten van Telescopius.",
-  pIndexFeature4:
-    "4. Verbind met de Stellarium planetarium app om doelen te selecteren.",
+  pIndexFeature4: "4. Verbind met de Stellarium planetarium app om doelen te selecteren.",
   pIndexFeature5: "5. Maak astrofoto's.",
   pIndexFeature6: "6. 1x1 binning voor astrofoto's.",
   pIndexClaimer:
@@ -29,7 +28,7 @@ const translationsNL = {
   pIndexBug2:
     "Om het werkend te krijgen, heb je CORS: Access-Control-Allow-Origin Plugin in Chrome nodig.",
   pIndexBug3:
-    "Beperking: omdat deze website alleen de http-modus gebruikt om te communiceren met de dwerg, kan het uw locatie niet detecteren.",
+    "Beperking: omdat deze website alleen de http-modus gebruikt om te communiceren met de DwarfII, kan het uw locatie niet detecteren.",
   pCalendarTitle: "Astronomische kalender van hemelse gebeurtenissen",
   pCalendarYear: "Kalenderjaar",
   pAbout: "Over",
@@ -50,13 +49,15 @@ const translationsNL = {
   pAboutDataCreditJuypterText:
     "in het Github-repository toont de stappen die ik heb genomen om de ruwe gegevens om te zetten in de objectenlijsten.",
   pAboutDataCreditCode: "Deze site maakt gebruik van code van ",
+  pAboutDataCreditCodeAnd: "en",
+  pAboutDataCreditCodeAndText: "om astronomische berekeningen uit te voeren.",
   pAboutUserData: "Gebruikersgegevens",
   pAboutUserDataDesc:
     "De door gebruikers ingevoerde informatie wordt opgeslagen in de database van de browser (localStorage). Omdat de gegevens in uw browser zijn opgeslagen, kunnen andere gebruikers van de site uw gegevens niet openen. Dit betekent ook dat als een gebruiker meerdere browsers of apparaten gebruikt, de gegevens niet kunnen worden gesynchroniseerd tussen verschillende browsers of apparaten.",
   pAboutAdditional: "Extra Gegevensbronnen",
   pAboutAdditionalWeatherData: "Weergegevens worden opgehaald van ",
   pAboutAdditionalRSSData:
-    "De RSS-feed voor deep sky-objecten wordt verzorgd door ",
+    "De RSS-feed voor deep sky-objecten wordt aangeleverd door ",
   pAboutAdditionalWitmotion: "Witmotion Sensor integratie gebaseerd op ",
   cWitmotionCamera: "Camera",
   cWitmotionAltitude: "Hoogte",

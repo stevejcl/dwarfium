@@ -94,6 +94,11 @@ const translations = {
   pConnectStellariumContent3: "Enter in IP and port for the Remote Control plugin, and click ' Connect '. This site will try to connect to Stellarium.",
   pIPAdress: "Ip-Adress",
   pPort: "Port",
+  pUnlockHost: "Unlock Host Mode",
+  pLockHost: "Lock Host Mode",
+  pConnectionSuccessFull: "Connection successfull.",
+  pConnecting: "Connecting...",
+  pConnectingFailed: "Connection failed!",
 };
 
 export default translations;

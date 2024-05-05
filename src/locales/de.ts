@@ -94,8 +94,11 @@ const translations = {
   pConnectStellariumContent3: "Geben Sie IP und Port für das Remote Control-Plugin ein und klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Stellarium herzustellen.",
   pIPAdress: "IP Adresse",
   pPort: "Hafen",
-
-
+  pUnlockHost: "Schalten Sie den Host-Modus frei",
+  pLockHost: "Hostmodus sperren",
+    pConnectionSuccessFull: "Verbindung erfolgreich.",
+    pConnecting: "Verbinden...",
+    pConnectingFailed: "Verbindung fehlgeschlagen!",
 };
 
 export default translations;

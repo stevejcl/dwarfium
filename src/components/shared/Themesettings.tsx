@@ -29,11 +29,11 @@ const Modal: React.FC = () => {
   });
 
   const languages: { [key: string]: string } = {
-    de: "Deutsch",
-    en: "English",
-    es: "Español",
-    fr: "Français",
-    nl: "Nederlands",
+      en: "English",
+      fr: "Français",
+      de: "Deutsch",
+      es: "Español",
+      nl: "Nederlands",
   };
 
   const availableLanguages = Object.keys(languages);
@@ -238,18 +238,21 @@ const Modal: React.FC = () => {
             <br />
 
             <div className="language-options">
-              <h2>Language</h2>
+            <h2 className="theme-header">Language</h2>
+              
               <select
+                className="language-select"
                 value={selectedLanguage}
                 onChange={(e) => changeLanguage(e.target.value)}
               >
                 {availableLanguages.map((lang) => (
-                  <option key={lang} value={lang}>
+                    <option key={lang} value={lang} className="language-option">
                     {languages[lang]}
                   </option>
                 ))}
               </select>
             </div>
+            <br/>
             <button className="apply-button" onClick={applyBackground}>
               Apply
             </button>

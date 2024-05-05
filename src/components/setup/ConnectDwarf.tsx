@@ -1,4 +1,6 @@
-import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+import { useEffect, useContext, useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 
 import CmdHostLockDwarf from "@/components/setup/CmdHostLockDwarf";
@@ -86,35 +88,40 @@ export default function ConnectDwarf() {
     // Example:
     return <CmdHostLockDwarf />;
   };
+    const { t } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage) {
+            setSelectedLanguage(storedLanguage);
+            i18n.changeLanguage(storedLanguage);
+        }
+    }, []);
   return (
     <div>
-      <h2>Connect to Dwarf II</h2>
+          <h2>{t("pConnectDwarfII")}Connect to Dwarf II</h2>
 
       <p>
-        In order for this site to connect to the Dwarf II, both the Dwarf II and
-        the website must use the same wifi network.
+        {t("pConnectDwarfIIContent")}
       </p>
 
       <ol>
         <li className="mb-2">
-          After rebooting, you must first connect to the DwarfII via Bluetooth.
+          {t("pConnectDwarfIIContent1")}
         </li>
         <li className="mb-2">
-          Then connect to it with the wifi connect button. Then no need to use
-          the app to Calibrate, make Goto and Imaging Session from this website.
+          {t("pConnectDwarfIIContent2")}
         </li>
         <li className="mb-2">
-          Visit this site on a device that is connected to the same wifi network
-          as the Dwarf II.
+          {t("pConnectDwarfIIContent3")}
         </li>
         <li className="mb-2">
-          Enter in IP for the Dwarf II. If you are using Dwarf wifi, the IP is
-          192.168.88.1. If you are using STA mode, use the IP for your wifi
-          network.
+          {t("pConnectDwarfIIContent4")}
         </li>
         <li className="mb-2">
-          Click Connect. This site will try to connect to Dwarf II.
+          {t("pConnectDwarfIIContent5")}
         </li>
         <form onSubmit={checkConnection} className="mb-3">
           <div className="row mb-3">
@@ -136,14 +143,13 @@ export default function ConnectDwarf() {
             </div>
           </div>
           <button type="submit" className="btn btn-more02 me-3">
-            <i className="icon-wifi" /> Connect
+                      <i className="icon-wifi" /> {t("pConnect")}
           </button>{" "}
           {renderConnectionStatus()}
           {renderCmdHostLockDwarf()}
         </form>
         <li className="mb-4">
-          If you see the message: =&gt; Go Live, you have an Imaging Session
-          completed, go to the Camera Page and Click on Live button.
+          {t("pConnectDwarfIIContent6")}
         </li>
       </ol>
     </div>

@@ -1,4 +1,6 @@
-import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+import { useEffect, useContext, useState } from "react";
 import type { ChangeEvent } from "react";
 
 import { getCoordinates } from "@/lib/geolocation";
@@ -100,21 +102,30 @@ export default function SetLocation() {
       connectionCtx.setTimezone(value);
     }
   }
+    const { t } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage) {
+            setSelectedLanguage(storedLanguage);
+            i18n.changeLanguage(storedLanguage);
+        }
+    }, []);
   return (
     <>
       <div>
-        <h2>Set Location</h2>
-        <p>
-          In order for goto to work, this site needs your latitude, longitude
-          and time zone. The longitude is negative west of Greenwich.
+        <h2>{t("pSetLocation")}</h2>
+        <p>{t("pSetLocationContent")}
+          .
         </p>
 
         <form>
           <div className="row mb-3">
             <div className="col-lg-1 col-md-2">
               <label htmlFor="latitude" className="form-label">
-                Latitude
+                {t("pLatitude")}
               </label>
             </div>
             <div className="col-lg-2 col-md-10">
@@ -133,7 +144,7 @@ export default function SetLocation() {
           <div className="row mb-3">
             <div className="col-lg-1 col-md-2">
               <label htmlFor="longitude" className="form-label">
-                Longitude
+                {t("pLongitude")}
               </label>
             </div>
             <div className="col-lg-2 col-md-10">
@@ -152,7 +163,7 @@ export default function SetLocation() {
           <div className="row mb-3">
             <div className="col-lg-1 col-md-2">
               <label htmlFor="timezone" className="form-label">
-                Timezone
+               {t("pTimezone")}
               </label>
             </div>
             <div className="col-lg-2 col-md-10">
@@ -171,7 +182,7 @@ export default function SetLocation() {
         </form>
 
         <button className="btn btn-more02" onClick={browserCoordinatesHandler}>
-          <i className="icon-location" /> Use Current Location
+                  <i className="icon-location" /> {t("pUseCurrentLocation")} 
         </button>
         {errors && <p className="text-danger">{errors}</p>}
       </div>

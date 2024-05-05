@@ -1,5 +1,7 @@
 /// <reference types="web-bluetooth" />
-import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+import { useEffect, useContext, useState } from "react";
 import type { FormEvent } from "react";
 
 import {
@@ -330,38 +332,41 @@ export default function ConnectDwarfSTA() {
       </span>
     );
   }
+    const { t } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage) {
+            setSelectedLanguage(storedLanguage);
+            i18n.changeLanguage(storedLanguage);
+        }
+    }, []);
 
   return (
     <div>
-      <h2>Enable STA Mode on Dwarf II</h2>
+          <h2>{t("pEnableSTA")}</h2>
 
-      <p>
-        In order for this site to connect to the Dwarf II, the Dwarf II must
-        have the STA mode configured and on.
+      <p>{t("pEnableSTAContent")}
       </p>
 
       <ol>
         <li className="mb-2">
-          When using for the first time, you need the DwarfLab mobile app to
-          establish the connection, then without restarting the dwarf, connect
-          to it via the Connect Bluetooth button. The configuration will then be
-          saved.
+          {t("pEnableSTAContent1")}
           <br />
         </li>
-        <li className="mb-2">
-          Then, for the next starts of the Dwarf, you can connect directly to it
-          via Bluetooth, without using the mobile application.
+        <li>{t("pEnableSTAContent2")}
         </li>
         <li className="mb-2">
-          Click Connect. This site will try to connect via Bluetooth to Dwarf
-          II.
-        </li>
+          {t("pEnableSTAContent3")}
+        </li><br/>
         <form onSubmit={checkConnection} className="mb-3">
           <div className="row mb-3">
             <div className="row mb-3">
               <div className="col-md-2">
                 <label htmlFor="pwd" className="form-label">
-                  Bluetooth PASSWORD
+                  {t("pBluetoothPWD")}
                 </label>
               </div>
               <div className="col-lg-2 col-md-10">
@@ -377,7 +382,7 @@ export default function ConnectDwarfSTA() {
             </div>
           </div>
           <button type="submit" className="btn btn-more02 me-3">
-            <i className="icon-bluetooth" /> Connect
+                      <i className="icon-bluetooth" /> {t("pConnect")}
           </button>{" "}
           {renderConnectionStatus()}
         </form>

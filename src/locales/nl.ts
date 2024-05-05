@@ -10,7 +10,7 @@ Description = identifier
 
 */
 
-const translationsNL = {
+const translations = {
   pIndexDescription: "Deze website stelt u in staat om de Dwarf II te bedienen met behulp van de Dwarf API",
   pIndexFeature: "Kenmerken",
   pIndexFeature1: "1. Objectenlijst met meer dan 850 objecten.",
@@ -101,4 +101,4 @@ const translationsNL = {
   pConnectingFailed: "Verbinding mislukt!",
 };
 
-export default translationsNL;
+export default translations;

@@ -58,18 +58,18 @@ export default function ConnectDwarf() {
       goLiveMessage = "=> Go Live";
     }
     if (connecting) {
-      return <span className="text-warning-connect">Connecting...</span>;
+        return <span className="text-warning-connect">{t("pConnecting")}</span>;
     }
     if (connectionCtx.connectionStatus === undefined) {
       return <></>;
     }
     if (connectionCtx.connectionStatus === false) {
-      return <span className="text-danger">Connection failed{errorTxt}.</span>;
+        return <span className="text-danger">{t("pConnectingFailed")}{errorTxt}.</span>;
     }
     if (connectionCtx.connectionStatusSlave || slavemode) {
       return (
         <span className="text-warning">
-          Connection successful (Slave Mode) {goLiveMessage}
+              {t("pConnectionSuccessFull")} (Slave Mode) {goLiveMessage}
           {errorTxt}.
         </span>
       );
@@ -77,7 +77,7 @@ export default function ConnectDwarf() {
 
     return (
       <span className="text-success-connect">
-        Connection successfull. {goLiveMessage}
+            {t("pConnectionSuccessFull")} {goLiveMessage}
         {errorTxt}
       </span>
     );

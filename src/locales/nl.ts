@@ -94,6 +94,11 @@ const translationsNL = {
   pConnectStellariumContent3: "Voer het IP-adres en de poort in voor de Remote Control-plug-in en klik op ' Verbinden '. Deze site zal proberen verbinding te maken met Stellarium.",
   pIPAdress: "Ip-Adres",
   pPort: "Poort",
+  pUnlockHost: "Ontgrendel de hostmodus",
+  pLockHost: "Hostmodus vergrendelen",
+  pConnectionSuccessFull: "Verbinding succesvol.",
+  pConnecting: "Verbinden...",
+  pConnectingFailed: "Verbinding mislukt!",
 };
 
 export default translationsNL;

@@ -95,7 +95,11 @@ const translations = {
   pConnectStellariumContent3: "Ingrese la IP y el puerto para el complemento de control remoto y haga clic en 'Conectar'. Este sitio intentará conectarse a Stellarium.",
   pIPAdress: "dirección IP",
   pPort: "Puerto",
-
+  pUnlockHost: "Desbloquear modo anfitrión",
+  pLockHost: "Bloquear modo de host",
+  pConnectionSuccessFull: "Conexión exitosa.",
+  pConnecting: "Conectando...",
+  pConnectingFailed: "La conexión falló!",
 };
 
 export default translations;

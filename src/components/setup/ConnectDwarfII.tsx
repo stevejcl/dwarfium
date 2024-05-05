@@ -1,5 +1,6 @@
-
-import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+import { useEffect, useContext, useState } from "react";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { connectionHandler } from "@/lib/connect_utils";
 
@@ -31,14 +32,24 @@ export default function ConnectDwarfII() {
       setErrorTxt
     );
   }
+    const { t } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage) {
+            setSelectedLanguage(storedLanguage);
+            i18n.changeLanguage(storedLanguage);
+        }
+    }, []);
   function renderConnectionStatus() {
     let goLiveMessage = "";
     if (goLive) {
       goLiveMessage = "=> Go Live";
     }
     if (connecting) {
-      return <span className="text-warning-connect">Connecting...</span>;
+        return <span className="text-warning-connect">{t("pConnecting")}</span>;
     }
     if (connectionCtx.connectionStatus === undefined) {
       return null;
@@ -46,21 +57,21 @@ export default function ConnectDwarfII() {
     if (connectionCtx.connectionStatus === false) {
       return (
         <span className="text-danger-connect">
-          Connection failed {errorTxt}.
+              {t("pConnectingFailed")} {errorTxt}.
         </span>
       );
     }
     if (connectionCtx.connectionStatusSlave || slavemode) {
       return (
         <span className="text-warning-connect">
-          Connection successful (Slave Mode) {goLiveMessage} {errorTxt}.
+              {t("pConnectionSuccessFull")} (Slave Mode) {goLiveMessage} {errorTxt}.
         </span>
       );
     }
 
     return (
       <span className="text-success-connect">
-        Connection successful. {goLiveMessage} {errorTxt}
+            {t("pConnectionSuccessFull")}. {goLiveMessage} {errorTxt}
       </span>
     );
   }
@@ -69,7 +80,7 @@ export default function ConnectDwarfII() {
     <div className="connect-dwarf">
       {renderConnectionStatus()}{" "}
       <button className="btn btn-more02" onClick={checkConnection}>
-        Connect
+        {t("pConnect")}
       </button>
     </div>
   );

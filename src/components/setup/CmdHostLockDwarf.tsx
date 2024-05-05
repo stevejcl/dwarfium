@@ -1,4 +1,6 @@
-import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+import React, { useEffect, useContext, useState } from "react";
 import {
   Dwarfii_Api,
   messageSystemSetHostSlaveMode,
@@ -6,6 +8,7 @@ import {
 } from "dwarfii_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { logger } from "@/lib/logger";
+
 
 export default function CmdHostLockDwarf() {
   const connectionCtx = useContext(ConnectionContext);
@@ -54,7 +57,17 @@ export default function CmdHostLockDwarf() {
       console.error(" Can't launch Web Socket Run Action!");
     }
   };
+    const { t } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage) {
+            setSelectedLanguage(storedLanguage);
+            i18n.changeLanguage(storedLanguage);
+        }
+    }, []);
   function renderHostLock() {
     if (
       connectionCtx.connectionStatus === true &&
@@ -65,7 +78,7 @@ export default function CmdHostLockDwarf() {
           onClick={handleClickLockHost}
           className="btn btn-more02 me-3 right-align"
         >
-          {isHostLock ? "Unlock Host Mode" : "Lock Host Mode"}
+              {isHostLock ? t("pUnlockHost") : t("pLockHost")}
         </button>
       );
     }

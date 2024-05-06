@@ -130,7 +130,7 @@ export default function SetLocation() {
             </div>
             <div className="col-lg-2 col-md-10">
               <input
-                pattern="^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))$"
+                //pattern="^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))$"
                 className="form-control"
                 id="latitude"
                 name="latitude"
@@ -149,7 +149,7 @@ export default function SetLocation() {
             </div>
             <div className="col-lg-2 col-md-10">
               <input
-                pattern="^([-+]?(180(\.\d+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?))$"
+                //pattern="^([-+]?(180(\.\d+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?))$"
                 className="form-control"
                 id="longitude"
                 name="longitude"

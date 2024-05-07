@@ -199,6 +199,32 @@ const translations = {
   cThemeSettingsUnderconstruction: "onder constructie",
   cThemeSettingsLanguage: "Taal",
   cThemeSettingsApply: "Toepassen",
+  cWeatherInfoLastUpdate: "Laatst bijgewerkt:",
+  cWeatherInfoMinTemp: "Min. Temperatuur:",
+  cWeatherInfoMaxTemp: "Max. Temperatuur:",
+  cWeatherInfoFeelsLike: "Voelt als:",
+  cWeatherInfoHumidity: "Vochtigheid:",
+  cWeatherInfoWind: "Wind:",
+  cGoToListConnectStellarium:
+    "U moet verbinding maken met Stellarium om het midden te laten werken.",
+  cGoToListConnectDwarf:
+    "U moet verbinding maken met Dwarf II om Goto te laten werken.",
+  cGoToListdefault: "Selecteer objectlijsten",
+  cGotoListplanets: "Planeten, Maan en Zon",
+  cGotoListSelectObject: "Selecteer een objectlijst.",
+  cGotoListDSOList: "De DSO-lijst bevat objecten die:",
+  cGotoListDSOList1:
+    "Groot (> 15 boogminuten) en relatief helder (minder dan 10 magnitude) zijn. 119 objecten.",
+  cGotoListDSOList2:
+    "Groot (> 15 boogminuten) en onbekende helderheid hebben. 84 objecten.",
+  cGotoListDSOList3:
+    "Klein (< 15 boogminuten), relatief helder (minder dan 10 magnitude), met gebruikelijke namen. 234 objecten.",
+  cGotoListDSOList4:
+    "118 van de helderste sterren met gebruikelijke namen, minstens één per sterrenbeeld.",
+  cGotoListDSOList5:
+    "De lijst met planeten, maan en zon bevat de planeten in ons zonnestelsel met de maan en de zon. Let op, Dwarf II is niet geschikt voor het maken van afbeeldingen van de planeten.",
+  cGotoListinfo:
+    "'Center' toont het geselecteerde object in Stellarium. 'Goto' verplaatst Dwarf II naar het geselecteerde object.",
 };
 
 export default translations;

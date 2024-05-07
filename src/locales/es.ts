@@ -198,6 +198,31 @@ const translations = {
   cThemeSettingsUnderconstruction: "en construcción",
   cThemeSettingsLanguage: "Idioma",
   cThemeSettingsApply: "Aplicar",
+  cWeatherInfoLastUpdate: "Última actualización:",
+  cWeatherInfoMinTemp: "Temperatura Mínima:",
+  cWeatherInfoMaxTemp: "Temperatura Máxima:",
+  cWeatherInfoFeelsLike: "Sensación Térmica:",
+  cWeatherInfoHumidity: "Humedad:",
+  cWeatherInfoWind: "Viento:",
+  cGoToListConnectStellarium:
+    "Debe conectarse a Stellarium para que el Centro funcione.",
+  cGoToListConnectDwarf: "Debe conectarse a Dwarf II para que Goto funcione.",
+  cGoToListdefault: "Seleccione listas de objetos",
+  cGotoListplanets: "Planetas, Luna y Sol",
+  cGotoListSelectObject: "Por favor, seleccione una lista de objetos.",
+  cGotoListDSOList: "La lista de DSO tiene objetos que son:",
+  cGotoListDSOList1:
+    "Grandes (> 15 minutos de arco) y relativamente brillantes (menos de 10 magnitudes). 119 objetos.",
+  cGotoListDSOList2:
+    "Grandes (> 15 minutos de arco) y brillo desconocido. 84 objetos.",
+  cGotoListDSOList3:
+    "Pequeños (< 15 minutos de arco), relativamente brillantes (menos de 10 magnitudes), con nombres comunes. 234 objetos.",
+  cGotoListDSOList4:
+    "118 de las estrellas más brillantes con nombres comunes, con al menos una por constelación.",
+  cGotoListDSOList5:
+    "La lista de Planetas, Luna y Sol tiene los planetas de nuestro sistema solar con la Luna y el Sol. Tenga en cuenta que Dwarf II no es adecuado para tomar imágenes de los planetas.",
+  cGotoListinfo:
+    "'Centrar' mostrará el objeto seleccionado en Stellarium. 'Goto' moverá Dwarf II al objeto seleccionado.",
 };
 
 export default translations;

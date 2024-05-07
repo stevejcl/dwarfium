@@ -198,6 +198,31 @@ const translations = {
   cThemeSettingsUnderconstruction: "under construction",
   cThemeSettingsLanguage: "Language",
   cThemeSettingsApply: "Apply",
+  cWeatherInfoLastUpdate: "Last updated:",
+  cWeatherInfoMinTemp: "Min Temp:",
+  cWeatherInfoMaxTemp: "Max Temp:",
+  cWeatherInfoFeelsLike: "Feels like:",
+  cWeatherInfoHumidity: "Humidity:",
+  cWeatherInfoWind: "Wind:",
+  cGoToListConnectStellarium:
+    "You must connect to Stellarium for Center to work.",
+  cGoToListConnectDwarf: "You must connect to Dwarf II for Goto to work.",
+  cGoToListdefault: "Select object lists",
+  cGotoListplanets: "Planets, Moon and Sun",
+  cGotoListSelectObject: "Please select an objects list.",
+  cGotoListDSOList: "The DSO list has objects that are:",
+  cGotoListDSOList1:
+    "Large (> 15 arcminutes) and relatively bright (under 10 magnitude). 119 objects.",
+  cGotoListDSOList2:
+    "Large (> 15 arcminutes) and unknown brightness. 84 objects.",
+  cGotoListDSOList3:
+    "Small (< 15 arcminutes), relatively bright (under 10 magnitude), with common names. 234 objects.",
+  cGotoListDSOList4:
+    "118 of the brightest stars with common names, with at least one per constellation.",
+  cGotoListDSOList5:
+    "The Planets, Moon and Sun list has the planets in our solar system with the Moon and The Sun. Be aware, Dwarf II is not good for taking images of the planets.",
+  cGotoListinfo:
+    "'Center' will show the selected object in Stellarium. 'Goto' will move Dwarf II to the selected object",
 };
 
 export default translations;

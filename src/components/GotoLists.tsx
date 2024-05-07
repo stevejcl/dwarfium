@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 import DSOList from "@/components/astroObjects/DSOList";
 import PlanetsList from "@/components/astroObjects/PlanetsList";
@@ -13,6 +15,18 @@ let dsoObject = processObjectListOpenNGC(dsoCatalog);
 console.info("DSO processObjectListOpenNGC");
 
 export default function AutoGoto() {
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   let connectionCtx = useContext(ConnectionContext);
   let [objectFavoriteNames, setObjectFavoriteNames] = useState<string[]>([]);
 
@@ -37,14 +51,10 @@ export default function AutoGoto() {
     <div>
       <div className="container">
         {!connectionCtx.connectionStatusStellarium && (
-          <p className="text-danger">
-            You must connect to Stellarium for Center to work.
-          </p>
+          <p className="text-danger">{t("cGoToListConnectStellarium")}</p>
         )}
         {!connectionCtx.connectionStatus && (
-          <p className="text-danger">
-            You must connect to Dwarf II for Goto to work.
-          </p>
+          <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
         )}
 
         <select
@@ -52,46 +62,27 @@ export default function AutoGoto() {
           value={connectionCtx.currentObjectListName || "default"}
           onChange={selectListHandler}
         >
-          <option value="default">Select object lists</option>
+          <option value="default">{t("cGoToListdefault")}</option>
           <option value="dso">DSO</option>
-          <option value="planets">Planets, Moon and Sun</option>
+          <option value="planets">{t("cGotoListplanets")}</option>
         </select>
         {showInstructions && (
           <>
-            <p className="mt-4">Please select an objects list.</p>
+            <p className="mt-4">{t("cGotoListSelectObject")}</p>
 
             <ol>
               <li>
-                The DSO list has objects that are:
+                {t("cGotoListDSOList")}
                 <ul>
-                  <li>
-                    Large (&gt; 15 arcminutes) and relatively bright (under 10
-                    magnitude). 119 objects.
-                  </li>
-                  <li>
-                    Large (&gt; 15 arcminutes) and unknown brightness. 84
-                    objects.
-                  </li>
-                  <li>
-                    Small (&lt; 15 arcminutes), relatively bright (under 10
-                    magnitude), with common names. 234 objects.
-                  </li>
-                  <li>
-                    118 of the brightest stars with common names, with at least
-                    one per constellation.
-                  </li>
+                  <li>{t("cGotoListDSOList1")}</li>
+                  <li>{t("cGotoListDSOList2")}</li>
+                  <li>{t("cGotoListDSOList3")}</li>
+                  <li>{t("cGotoListDSOList4")}</li>
                 </ul>
               </li>
-              <li>
-                The Planets, Moon and Sun list has the planets in our solar
-                system with the Moon and The Sun. Be aware, Dwarf II is not good
-                for taking images of the planets.
-              </li>
+              <li>{t("cGotoListDSOList5")}</li>
             </ol>
-            <p>
-              &quot;Center&quot; will show the selected object in Stellarium.
-              &quot;Goto&quot; will move Dwarf II to the selected object.
-            </p>
+            <p>{t("cGotoListinfo")}</p>
             {""}
             <br />
             <br />

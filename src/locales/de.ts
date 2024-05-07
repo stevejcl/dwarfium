@@ -197,6 +197,32 @@ const translations = {
   cThemeSettingsUnderconstruction: "in Bearbeitung",
   cThemeSettingsLanguage: "Sprache",
   cThemeSettingsApply: "Anwenden",
+  cWeatherInfoLastUpdate: "Letztes Update:",
+  cWeatherInfoMinTemp: "Min. Temperatur:",
+  cWeatherInfoMaxTemp: "Max. Temperatur:",
+  cWeatherInfoFeelsLike: "Gefühlt wie:",
+  cWeatherInfoHumidity: "Luftfeuchtigkeit:",
+  cWeatherInfoWind: "Wind:",
+  cGoToListConnectStellarium:
+    "Sie müssen sich mit Stellarium verbinden, damit das Zentrum funktioniert.",
+  cGoToListConnectDwarf:
+    "Sie müssen sich mit Dwarf II verbinden, damit Goto funktioniert.",
+  cGoToListdefault: "Wählen Sie Objektlisten aus",
+  cGotoListplanets: "Planeten, Mond und Sonne",
+  cGotoListSelectObject: "Bitte wählen Sie eine Objektliste aus.",
+  cGotoListDSOList: "Die DSO-Liste enthält Objekte, die:",
+  cGotoListDSOList1:
+    "Groß (> 15 Bogenminuten) und relativ hell (unter 10 Magnituden) sind. 119 Objekte.",
+  cGotoListDSOList2:
+    "Groß (> 15 Bogenminuten) und unbekannte Helligkeit haben. 84 Objekte.",
+  cGotoListDSOList3:
+    "Klein (< 15 Bogenminuten), relativ hell (unter 10 Magnituden), mit gebräuchlichen Namen. 234 Objekte.",
+  cGotoListDSOList4:
+    "118 der hellsten Sterne mit gebräuchlichen Namen, mindestens einer pro Sternbild.",
+  cGotoListDSOList5:
+    "Die Liste der Planeten, Mond und Sonne enthält die Planeten unseres Sonnensystems mit dem Mond und der Sonne. Beachten Sie, dass Dwarf II nicht gut geeignet ist, um Bilder von den Planeten aufzunehmen.",
+  cGotoListinfo:
+    "'Zentrieren' zeigt das ausgewählte Objekt in Stellarium an. 'Goto' bewegt Dwarf II zum ausgewählten Objekt.",
 };
 
 export default translations;

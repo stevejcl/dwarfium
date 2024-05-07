@@ -198,6 +198,32 @@ const translations = {
   cThemeSettingsUnderconstruction: "en construction",
   cThemeSettingsLanguage: "Langue",
   cThemeSettingsApply: "Appliquer",
+  cWeatherInfoLastUpdate: "Dernière mise à jour :",
+  cWeatherInfoMinTemp: "Température Min. :",
+  cWeatherInfoMaxTemp: "Température Max. :",
+  cWeatherInfoFeelsLike: "Ressenti :",
+  cWeatherInfoHumidity: "Humidité :",
+  cWeatherInfoWind: "Vent :",
+  cGoToListConnectStellarium:
+    "Vous devez vous connecter à Stellarium pour que le Centre fonctionne.",
+  cGoToListConnectDwarf:
+    "Vous devez vous connecter à Dwarf II pour que Goto fonctionne.",
+  cGoToListdefault: "Sélectionner des listes d'objets",
+  cGotoListplanets: "Planètes, Lune et Soleil",
+  cGotoListSelectObject: "Veuillez sélectionner une liste d'objets.",
+  cGotoListDSOList: "La liste des DSO contient des objets qui sont :",
+  cGotoListDSOList1:
+    "Grands (> 15 minutes d'arc) et relativement lumineux (moins de 10 magnitudes). 119 objets.",
+  cGotoListDSOList2:
+    "Grands (> 15 minutes d'arc) et de luminosité inconnue. 84 objets.",
+  cGotoListDSOList3:
+    "Petits (< 15 minutes d'arc), relativement lumineux (moins de 10 magnitudes), avec des noms courants. 234 objets.",
+  cGotoListDSOList4:
+    "118 des étoiles les plus brillantes avec des noms courants, avec au moins une par constellation.",
+  cGotoListDSOList5:
+    "La liste des Planètes, Lune et Soleil contient les planètes de notre système solaire avec la Lune et le Soleil. Notez que Dwarf II n'est pas adapté pour prendre des images des planètes.",
+  cGotoListinfo:
+    "'Centrer' affichera l'objet sélectionné dans Stellarium. 'Goto' déplacera Dwarf II vers l'objet sélectionné.",
 };
 
 export default translations;

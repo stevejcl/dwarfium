@@ -281,7 +281,7 @@ export default function CalibrationDwarf() {
       <br />
 
       <div className="row mb-3">
-        <div className="col-sm-1 nav">
+        <div className="col-sm-1 nav nav-pills">
           <div
             title="Show Logs"
             className={`daily-horp nav nav-pills nav-item nav-link rounded-pill ${

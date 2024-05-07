@@ -12,17 +12,17 @@ import { useLoadIntialValues } from "@/hooks/useLoadIntialValues";
 export default function SetupScope() {
   useSetupConnection();
   useLoadIntialValues();
-    const { t } = useTranslation();
-    // eslint-disable-next-line no-unused-vars
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage) {
-            setSelectedLanguage(storedLanguage);
-            i18n.changeLanguage(storedLanguage);
-        }
-    }, []);
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   return (
     <section className="daily-horp d-inline-block w-100">
@@ -31,8 +31,7 @@ export default function SetupScope() {
         <StatusBar />
         <hr></hr>
         <h2>{t("pFirstSteps")}</h2>
-        <p>{t("pFirstStepsContent")}.
-        </p>
+        <p>{t("pFirstStepsContent")}.</p>
         <hr></hr>
         <SetLocation />
         <hr />

@@ -64,34 +64,50 @@ const translations = {
     "Point the Dwarf II towards Polaris and adjust the angle to match your altitude.",
   cWitmotionPolaris2: "You should see Polaris in the Center of the Camera.",
   pFirstSteps: "First Steps",
-  pFirstStepsContent: "Use the Dwarf II mobile app from Dwarf Labs to take dark frames, focus the scope, and calibrate goto",
+  pFirstStepsContent:
+    "Use the Dwarf II mobile app from Dwarf Labs to take dark frames, focus the scope, and calibrate goto",
   pSetLocation: "Set Location",
-  pSetLocationContent: "In order for goto to work, this site needs your latitude, longitude and time zone. The longitude is negative west of Greenwich",
+  pSetLocationContent:
+    "In order for goto to work, this site needs your latitude, longitude and time zone. The longitude is negative west of Greenwich",
   pLatitude: "Latitude",
   pLongitude: "Longitude",
   pTimezone: "Timezone",
   pUseCurrentLocation: "Use Current Location",
   pEnableSTA: "Enable STA Mode on Dwarf II",
-  pEnableSTAContent: "In order for this site to connect to the Dwarf II, the Dwarf II must have the STA mode configured and on.",
-  pEnableSTAContent1: "When using for the first time, you need the DwarfLab mobile app to establish the connection, then without restarting the dwarf, connect to it via the Connect Bluetooth button. The configuration will then be saved.",
-  pEnableSTAContent2: "Then, for the next starts of the Dwarf, you can connect directly to it via Bluetooth, without using the mobile application.",
-  pEnableSTAContent3: "Click Connect. This site will try to connect via Bluetooth to Dwarf II.",
+  pEnableSTAContent:
+    "In order for this site to connect to the Dwarf II, the Dwarf II must have the STA mode configured and on.",
+  pEnableSTAContent1:
+    "When using for the first time, you need the DwarfLab mobile app to establish the connection, then without restarting the dwarf, connect to it via the Connect Bluetooth button. The configuration will then be saved.",
+  pEnableSTAContent2:
+    "Then, for the next starts of the Dwarf, you can connect directly to it via Bluetooth, without using the mobile application.",
+  pEnableSTAContent3:
+    "Click Connect. This site will try to connect via Bluetooth to Dwarf II.",
   pBluetoothPWD: "Bluetooth PASSWORD",
   pConnect: "Connect",
   pConnectDwarfII: "Connect to Dwarf II",
-  pConnectDwarfIIContent:"In order for this site to connect to the Dwarf II, both the Dwarf II and the website must use the same wifi network.",
-  pConnectDwarfIIContent1: "After rebooting, you must first connect to the DwarfII via Bluetooth.",
-  pConnectDwarfIIContent2: "Then connect to it with the wifi connect button. Then no need to use the app to Calibrate, make Goto and Imaging Session from this website.",
-  pConnectDwarfIIContent3: "Visit this site on a device that is connected to the same wifi network as the Dwarf II.",
-  pConnectDwarfIIContent4: "Enter in IP for the Dwarf II. If you are using Dwarf wifi, the IP is 192.168.88.1. If you are using STA mode, use the IP for your wifi network.",
-  pConnectDwarfIIContent5: "Click Connect. This site will try to connect to Dwarf II.",
-  pConnectDwarfIIContent6: "If you see the message: => Go Live, you have an Imaging Session completed, go to the Camera Page and Click on Live button.",
+  pConnectDwarfIIContent:
+    "In order for this site to connect to the Dwarf II, both the Dwarf II and the website must use the same wifi network.",
+  pConnectDwarfIIContent1:
+    "After rebooting, you must first connect to the DwarfII via Bluetooth.",
+  pConnectDwarfIIContent2:
+    "Then connect to it with the wifi connect button. Then no need to use the app to Calibrate, make Goto and Imaging Session from this website.",
+  pConnectDwarfIIContent3:
+    "Visit this site on a device that is connected to the same wifi network as the Dwarf II.",
+  pConnectDwarfIIContent4:
+    "Enter in IP for the Dwarf II. If you are using Dwarf wifi, the IP is 192.168.88.1. If you are using STA mode, use the IP for your wifi network.",
+  pConnectDwarfIIContent5:
+    "Click Connect. This site will try to connect to Dwarf II.",
+  pConnectDwarfIIContent6:
+    "If you see the message: => Go Live, you have an Imaging Session completed, go to the Camera Page and Click on Live button.",
   pConnectStellarium: "Connect to Stellarium",
-  pConnectStellariumContent: "In order to use Stellarium, we need to setup up the Remote Control plugin.",
+  pConnectStellariumContent:
+    "In order to use Stellarium, we need to setup up the Remote Control plugin.",
   pConnectStellariumContent1: "Start Stellarium desktop app.",
   pConnectStellariumContent2: "The beginning of this",
-  pConnectStellariumContent2_1: " demonstrates setting up Stellarium's Remote Control plugin (0 to 1:40); skip the part about NINA. Click 'Enable CORS for the following origin' and enter in ' * '.",
-  pConnectStellariumContent3: "Enter in IP and port for the Remote Control plugin, and click ' Connect '. This site will try to connect to Stellarium.",
+  pConnectStellariumContent2_1:
+    " demonstrates setting up Stellarium's Remote Control plugin (0 to 1:40); skip the part about NINA. Click 'Enable CORS for the following origin' and enter in ' * '.",
+  pConnectStellariumContent3:
+    "Enter in IP and port for the Remote Control plugin, and click ' Connect '. This site will try to connect to Stellarium.",
   pIPAdress: "Ip-Adress",
   pPort: "Port",
   cUnlockHost: "Unlock Host Mode",
@@ -99,6 +115,33 @@ const translations = {
   pConnectionSuccessFull: "Connection successfull.",
   pConnecting: "Connecting...",
   pConnectingFailed: "Connection failed!",
+  cAstroSettingsInfoGain: "Gain",
+  cAstroSettingsInfoGainDesc:
+    "Gain is a digital camera setting that controls the amplification of the signal from the camera sensor. It should be noted that this amplifies the whole signal, including any associated background noise.",
+  cAstroSettingsInfoExposure: "Exposure",
+  cAstroSettingsInfoExposureDesc:
+    "Time during which the sensor will be exposed to light and capturing information (energy)",
+  cAstroSettingsInfoIRPass: "IR (infrared) - Pass",
+  cAstroSettingsInfoIRPassDesc:
+    "Allows the infrared wavelength to reach the sensor. Several astronomical objects emit in this wavelength.",
+  cAstroSettingsInfoIRCut: "IR (infrared) - Cut",
+  cAstroSettingsInfoIRCutDesc:
+    "Blocks infrared wavelength. Useful for lunar and planetary.",
+  cAstroSettingsInfoBin1x1: "Binning - 1x1",
+  cAstroSettingsInfoBin1x1Desc:
+    "Camera captures light on each individual physical pixel.",
+  cAstroSettingsInfoBin2x2: "Binning - 2x2",
+  cAstroSettingsInfoBin2x2Desc:
+    "Camera combines physical pixels in groups of 2x2 (4 pixels) and considers all light captured in the group as a single pixel. Can be considered a 'virtual' pixel. This makes pixel size larger and reduces resolution by a factor equal to the binning.",
+  cAstroSettingsInfoFormatFITS: "Format - FITS",
+  cAstroSettingsInfoFormatFITSDesc:
+    "Astronomy lossless numerical file format. Can include meta data of the image (coordinates, camera, pixel size binning, filter, etc) that can be used by processing software.",
+  cAstroSettingsInfoFormatTIFF: "Format - TIFF",
+  cAstroSettingsInfoFormatTIFFDesc:
+    "A lossless file format, but not especifically oriented towards astronomy.",
+  cAstroSettingsInfoCount: "Count",
+  cAstroSettingsInfoCountDesc: "Number of images to take",
+  cAstroSettingsInfoBack: "Back",
 };
 
 export default translations;

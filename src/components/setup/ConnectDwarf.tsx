@@ -58,18 +58,23 @@ export default function ConnectDwarf() {
       goLiveMessage = "=> Go Live";
     }
     if (connecting) {
-        return <span className="text-warning-connect">{t("pConnecting")}</span>;
+      return <span className="text-warning-connect">{t("pConnecting")}</span>;
     }
     if (connectionCtx.connectionStatus === undefined) {
       return <></>;
     }
     if (connectionCtx.connectionStatus === false) {
-        return <span className="text-danger">{t("pConnectingFailed")}{errorTxt}.</span>;
+      return (
+        <span className="text-danger">
+          {t("pConnectingFailed")}
+          {errorTxt}.
+        </span>
+      );
     }
     if (connectionCtx.connectionStatusSlave || slavemode) {
       return (
         <span className="text-warning">
-              {t("pConnectionSuccessFull")} (Slave Mode) {goLiveMessage}
+          {t("pConnectionSuccessFull")} (Slave Mode) {goLiveMessage}
           {errorTxt}.
         </span>
       );
@@ -77,7 +82,7 @@ export default function ConnectDwarf() {
 
     return (
       <span className="text-success-connect">
-            {t("pConnectionSuccessFull")} {goLiveMessage}
+        {t("pConnectionSuccessFull")} {goLiveMessage}
         {errorTxt}
       </span>
     );
@@ -88,41 +93,29 @@ export default function ConnectDwarf() {
     // Example:
     return <CmdHostLockDwarf />;
   };
-    const { t } = useTranslation();
-    // eslint-disable-next-line no-unused-vars
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage) {
-            setSelectedLanguage(storedLanguage);
-            i18n.changeLanguage(storedLanguage);
-        }
-    }, []);
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
   return (
     <div>
-          <h2>{t("pConnectDwarfII")}Connect to Dwarf II</h2>
+      <h2>{t("pConnectDwarfII")}Connect to Dwarf II</h2>
 
-      <p>
-        {t("pConnectDwarfIIContent")}
-      </p>
+      <p>{t("pConnectDwarfIIContent")}</p>
 
       <ol>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent1")}
-        </li>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent2")}
-        </li>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent3")}
-        </li>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent4")}
-        </li>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent5")}
-        </li>
+        <li className="mb-2">{t("pConnectDwarfIIContent1")}</li>
+        <li className="mb-2">{t("pConnectDwarfIIContent2")}</li>
+        <li className="mb-2">{t("pConnectDwarfIIContent3")}</li>
+        <li className="mb-2">{t("pConnectDwarfIIContent4")}</li>
+        <li className="mb-2">{t("pConnectDwarfIIContent5")}</li>
         <form onSubmit={checkConnection} className="mb-3">
           <div className="row mb-3">
             <div className="col-md-1">
@@ -143,14 +136,12 @@ export default function ConnectDwarf() {
             </div>
           </div>
           <button type="submit" className="btn btn-more02 me-3">
-                      <i className="icon-wifi" /> {t("pConnect")}
+            <i className="icon-wifi" /> {t("pConnect")}
           </button>{" "}
           {renderConnectionStatus()}
           {renderCmdHostLockDwarf()}
         </form>
-        <li className="mb-4">
-          {t("pConnectDwarfIIContent6")}
-        </li>
+        <li className="mb-4">{t("pConnectDwarfIIContent6")}</li>
       </ol>
     </div>
   );

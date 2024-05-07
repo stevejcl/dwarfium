@@ -102,24 +102,22 @@ export default function SetLocation() {
       connectionCtx.setTimezone(value);
     }
   }
-    const { t } = useTranslation();
-    // eslint-disable-next-line no-unused-vars
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage) {
-            setSelectedLanguage(storedLanguage);
-            i18n.changeLanguage(storedLanguage);
-        }
-    }, []);
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
   return (
     <>
       <div>
         <h2>{t("pSetLocation")}</h2>
-        <p>{t("pSetLocationContent")}
-          .
-        </p>
+        <p>{t("pSetLocationContent")}.</p>
 
         <form>
           <div className="row mb-3">
@@ -163,7 +161,7 @@ export default function SetLocation() {
           <div className="row mb-3">
             <div className="col-lg-1 col-md-2">
               <label htmlFor="timezone" className="form-label">
-               {t("pTimezone")}
+                {t("pTimezone")}
               </label>
             </div>
             <div className="col-lg-2 col-md-10">
@@ -182,7 +180,7 @@ export default function SetLocation() {
         </form>
 
         <button className="btn btn-more02" onClick={browserCoordinatesHandler}>
-                  <i className="icon-location" /> {t("pUseCurrentLocation")} 
+          <i className="icon-location" /> {t("pUseCurrentLocation")}
         </button>
         {errors && <p className="text-danger">{errors}</p>}
       </div>

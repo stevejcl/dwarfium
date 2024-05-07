@@ -304,7 +304,7 @@ export default function ConnectDwarfSTA() {
     if (connectionStatus === false) {
       return (
         <span className="text-danger-connect">
-              {t("pConnectingFailed")} {errorTxt}.
+          {t("pConnectingFailed")} {errorTxt}.
         </span>
       );
     }
@@ -327,40 +327,37 @@ export default function ConnectDwarfSTA() {
 
     return (
       <span className="text-success-connect">
-            {t("pConnectionSuccessFull")}
+        {t("pConnectionSuccessFull")}
         {errorTxt}
       </span>
     );
   }
-    const { t } = useTranslation();
-    // eslint-disable-next-line no-unused-vars
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage) {
-            setSelectedLanguage(storedLanguage);
-            i18n.changeLanguage(storedLanguage);
-        }
-    }, []);
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   return (
     <div>
-          <h2>{t("pEnableSTA")}</h2>
+      <h2>{t("pEnableSTA")}</h2>
 
-      <p>{t("pEnableSTAContent")}
-      </p>
+      <p>{t("pEnableSTAContent")}</p>
 
       <ol>
         <li className="mb-2">
           {t("pEnableSTAContent1")}
           <br />
         </li>
-        <li>{t("pEnableSTAContent2")}
-        </li>
-        <li className="mb-2">
-          {t("pEnableSTAContent3")}
-        </li><br/>
+        <li>{t("pEnableSTAContent2")}</li>
+        <li className="mb-2">{t("pEnableSTAContent3")}</li>
+        <br />
         <form onSubmit={checkConnection} className="mb-3">
           <div className="row mb-3">
             <div className="row mb-3">
@@ -382,7 +379,7 @@ export default function ConnectDwarfSTA() {
             </div>
           </div>
           <button type="submit" className="btn btn-more02 me-3">
-                      <i className="icon-bluetooth" /> {t("pConnect")}
+            <i className="icon-bluetooth" /> {t("pConnect")}
           </button>{" "}
           {renderConnectionStatus()}
         </form>

@@ -223,12 +223,10 @@ const translations = {
     "The Planets, Moon and Sun list has the planets in our solar system with the Moon and The Sun. Be aware, Dwarf II is not good for taking images of the planets.",
   cGotoListinfo:
     "'Center' will show the selected object in Stellarium. 'Goto' will move Dwarf II to the selected object",
-  cGoToStellariumConnectStellarium:
-    "You must connect to Stellarium for Import Data to work.",
+  cGoToStellariumConnectStellarium: "You must connect to Stellarium for Import Data to work.",
   cGoToStellariumPickObject: "You can use Stellarium to help pick objects.",
   cGoToStellariumListTitle: "Select an object in Stellarium.",
-  cGoToStellariumList1:
-    "Import right ascension and declination from Stellarium by clicking 'Import Data'.",
+  cGoToStellariumList1: "Import right ascension and declination from Stellarium by clicking 'Import Data'.",
   cGoToStellariumList2: "Start goto by clicking 'Goto'",
   cGoToStellariumImportData: "Import Data",
   cGoToStellariumImportManualData: "Import Manual Data",
@@ -238,11 +236,19 @@ const translations = {
   cGoToStellariumCenter: "Center",
   cGoToStellariumMoveCenter: " You can gently move the Center:",
   cGoToStellariumMoveCenterli1: "Click on buttons to move the center to",
-  cGoToStellariumMoveCenterli2:
-    "+/- 1 min for right ascension, +/- 0.1° for declination",
+  cGoToStellariumMoveCenterli2: "+/- 1 min for right ascension, +/- 0.1° for declination",
   cGoToStellariumMoveCenterli3: "The coordinates will be updated",
   cGoToStellariumMoveCenterli4: "Re-Center in Stellarium by clicking 'Center'",
   cGoToStellariumMoveCenterli5: "Then Start goto by clicking 'Goto'",
+
+
+
+
+
+
+
+
+
 };
 
 export default translations;

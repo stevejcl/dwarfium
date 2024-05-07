@@ -290,6 +290,8 @@ const translations = {
   pImageSessionAction: "Actie",
   pImageSessionLoading: "Laden...",
   pImageSessionDownload: "Downloaden",
+  pMoonphaseSelectMonth: "Selecteer maand:",
+  
 };
 
 export default translations;

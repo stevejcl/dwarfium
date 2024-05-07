@@ -8,6 +8,7 @@ import i18n from "@/i18n";
 
 function WeatherInfo(props) {
     const { t } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
     const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
     useEffect(() => {

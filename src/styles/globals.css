@@ -423,6 +423,7 @@ select {
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;
+    height: 100%;
 }
 
 ::-webkit-scrollbar-track {

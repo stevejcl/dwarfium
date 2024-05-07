@@ -73,11 +73,11 @@
     margin-top: 10px;
     font-size: 48px;
     color: #00AE83;
-    margin-left: -90px;
+    margin-left: 90px;
 }
 .units {
     margin-top: 10px;
-    margin-left: -95px;
+    margin-left: 10px;
 }
 .WeatherForecast {
     text-align: center;
@@ -114,15 +114,20 @@
     margin-top: 10px;
 }
 .update {
-    margin-top: -20px;
-    margin-left: 117px;
+   /* margin-top: -20px;
+    margin-left: 117px;*/
 }
 .svg-temp {
     fill: white;
 }
 .canvas-info {
     position: relative;
-    top: 5px;
+    top: 15px;
+    margin-left: 0%;
+}
+.canvas-info-content {
+    position: relative;
+    top: 15px;
     margin-left: 0%;
 }
 .col-md-3 {

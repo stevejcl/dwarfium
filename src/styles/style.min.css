@@ -2,9 +2,6 @@
     font-size: 68.75%
 }
 
-*, ::after, ::before {
-    box-sizing: border-box
-}
 
 a, abbr, acronym, address, applet, big, blockquote, body, cite, code, dd, del, dfn, div, dl, dt, em, fieldset, font, form, h1, h2, h3, h4, h5, h6, html, iframe, img, ins, kbd, label, legend, li, object, ol, p, pre, q, s, samp, small, span, strike, strong, sub, sup, tt, ul, var {
     border: 0;
@@ -138,7 +135,17 @@ header {
         color: #d3a417 !important
     }
 
-
+.me-1 {
+    margin-right: 0.14rem !important;
+}
+.col-sm-2-cal {
+    flex: 0 0 auto;
+    width:18.33333333%;
+}
+.col-sm-4-cal {
+    flex: 0 0 auto;
+    width: 30.33333333%;
+}
 .main {
     margin: 0px auto;
     width: 450px;
@@ -436,19 +443,19 @@ header {
     background-size: cover;
 }
 */
-    .daily-horp .nav-pills .nav-link {
-        /*padding: 14px 26px 10px 26px;*/
-        color: #0a051d !important;
-        border: solid 2px rgba(255,255,255,.2588235294) !important;
-        border-radius: 5px;
-        font-size: 1.5rem;
-        font-weight: 600;
-        text-transform: capitalize;
-        color: #fff !important;
-        text-transform: uppercase;
-        margin: 0 2px;
-        transition: .5s linear
-    }
+.daily-horp .nav-pills .nav-link {
+    padding: 5px 14px 5px 14px;
+    color: #0a051d !important;
+    border: solid 2px rgba(255,255,255,.2588235294) !important;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #fff !important;
+    text-transform: uppercase;
+    margin: 0 2px;
+    transition: .5s linear
+}
 
         .daily-horp .nav-pills .nav-link:hover {
             background: #fff !important;

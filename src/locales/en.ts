@@ -223,10 +223,12 @@ const translations = {
     "The Planets, Moon and Sun list has the planets in our solar system with the Moon and The Sun. Be aware, Dwarf II is not good for taking images of the planets.",
   cGotoListinfo:
     "'Center' will show the selected object in Stellarium. 'Goto' will move Dwarf II to the selected object",
-  cGoToStellariumConnectStellarium: "You must connect to Stellarium for Import Data to work.",
+  cGoToStellariumConnectStellarium:
+    "You must connect to Stellarium for Import Data to work.",
   cGoToStellariumPickObject: "You can use Stellarium to help pick objects.",
   cGoToStellariumListTitle: "Select an object in Stellarium.",
-  cGoToStellariumList1: "Import right ascension and declination from Stellarium by clicking 'Import Data'.",
+  cGoToStellariumList1:
+    "Import right ascension and declination from Stellarium by clicking 'Import Data'.",
   cGoToStellariumList2: "Start goto by clicking 'Goto'",
   cGoToStellariumImportData: "Import Data",
   cGoToStellariumImportManualData: "Import Manual Data",
@@ -236,19 +238,53 @@ const translations = {
   cGoToStellariumCenter: "Center",
   cGoToStellariumMoveCenter: " You can gently move the Center:",
   cGoToStellariumMoveCenterli1: "Click on buttons to move the center to",
-  cGoToStellariumMoveCenterli2: "+/- 1 min for right ascension, +/- 0.1° for declination",
+  cGoToStellariumMoveCenterli2:
+    "+/- 1 min for right ascension, +/- 0.1° for declination",
   cGoToStellariumMoveCenterli3: "The coordinates will be updated",
   cGoToStellariumMoveCenterli4: "Re-Center in Stellarium by clicking 'Center'",
   cGoToStellariumMoveCenterli5: "Then Start goto by clicking 'Goto'",
-
-
-
-
-
-
-
-
-
+  cGoToUserListNewList: "Add new list",
+  cGoToUserListDeleteList: "Delete list",
+  cGoToUserListCustomObjectsListInstruction1: `
+  To add custom objects lists, create an objects list at 
+  <a href="https://telescopius.com">Telescopius</a>, download 
+  the CSV, and click "Add new list".
+`,
+  cGoToUserListCustomObjectsListInstruction2:
+    "The lists are stored in the browser&apos;s database (localStorage). Since the data is stored in your browser, other users of the site will not be able to access your lists.",
+  cGoToUserListCustomObjectsListInstruction3:
+    "If you want to share your list with other people, you can send other people the csv from Telescopius.",
+  cImportManualModalTitle: "Enter Manual Data",
+  cImportManualModalObjecTName: "Object Name",
+  cImportObservationListModalTitle: "Add Object List",
+  cImportObservationListfromTelescopius:
+    "Import objects list from Telescopius.",
+  cImportObservationListListName: "List Name",
+  cImportObservationImportList: "Import List",
+  cMoonphaseCalculatorNewMoon: "New Moon",
+  cMoonphaseCalculatorWaxingCrescent: "Waxing Crescent",
+  cMoonphaseCalculatorFirstQuarter: "First Quarter",
+  cMoonphaseCalculatorWaxingGibbous: "Waxing Gibbous",
+  cMoonphaseCalculatorFullMoon: "Full Moon",
+  cMoonphaseCalculatorWaningGibbous: "Waning Gibbous",
+  cMoonphaseCalculatorLastQuarter: "Last Quarter",
+  cMoonphaseCalculatorWaningCrescent: "Waning Crescent",
+  cMoonphaseCalculatorUnknown: "Unknown",
+  pImageSessionShotsStacked: "Shots Stacked",
+  pImageSessionShotsTaken: "Shots Taken",
+  pImageSessionNoShootingInfo: "No shooting info available",
+  pImageSessionNoAdditionalInfo: "No additional info available",
+  pImageSessionData: "Session Data",
+  pImageSessionSortTable:
+    "You can sort the table by clicking on Target or Date",
+  pImageSessionPreview: "Preview",
+  pImageSessionTarget: "Target",
+  pImageSessionDate: "Date",
+  pImageSessionShootingInfo: "Shooting Info",
+  pImageSessionAdditionalInfo: "Additional Info",
+  pImageSessionAction: "Action",
+  pImageSessionLoading: "Loading...",
+  pImageSessionDownload: "Download",
 };
 
 export default translations;

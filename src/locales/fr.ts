@@ -247,6 +247,48 @@ const translations = {
   cGoToStellariumMoveCenterli4:
     "Re-centrez dans Stellarium en cliquant sur 'Centrer'",
   cGoToStellariumMoveCenterli5: "Puis démarrez goto en cliquant sur 'Goto'",
+  cGoToUserListNewList: "Ajouter une nouvelle liste",
+  cGoToUserListDeleteList: "Supprimer la liste",
+  cGoToUserListCustomObjectsListInstruction1: `
+    Pour ajouter des listes d'objets personnalisées, créez une liste d'objets sur 
+    <a href="https://telescopius.com">Telescopius</a>, téléchargez 
+    le fichier CSV et cliquez sur "Ajouter une nouvelle liste".
+  `,
+  cGoToUserListCustomObjectsListInstruction2:
+    "Les listes sont stockées dans la base de données du navigateur (localStorage). Étant donné que les données sont stockées dans votre navigateur, les autres utilisateurs du site ne pourront pas accéder à vos listes.",
+  cGoToUserListCustomObjectsListInstruction3:
+    "Si vous souhaitez partager votre liste avec d'autres personnes, vous pouvez leur envoyer le fichier CSV de Telescopius.",
+  cImportManualModalTitle: "Entrer des données manuellement",
+  cImportManualModalObjecTName: "Nom de l'objet",
+  cImportObservationListModalTitle: "Agregar lista de objetos",
+  cImportObservationListfromTelescopius:
+    "Importar lista de objetos desde Telescopius.",
+  cImportObservationListListName: "Nombre de la lista",
+  cImportObservationImportList: "Importar lista",
+  cMoonphaseCalculatorNewMoon: "Nouvelle Lune",
+  cMoonphaseCalculatorWaxingCrescent: "Croissant de Lune",
+  cMoonphaseCalculatorFirstQuarter: "Premier Quartier",
+  cMoonphaseCalculatorWaxingGibbous: "Lune Gibbeuse Croissante",
+  cMoonphaseCalculatorFullMoon: "Pleine Lune",
+  cMoonphaseCalculatorWaningGibbous: "Lune Gibbeuse Décroissante",
+  cMoonphaseCalculatorLastQuarter: "Dernier Quartier",
+  cMoonphaseCalculatorWaningCrescent: "Croissant de Lune",
+  cMoonphaseCalculatorUnknown: "Inconnu",
+  pImageSessionShotsStacked: "Prises empilées",
+  pImageSessionShotsTaken: "Prises de vue",
+  pImageSessionNoShootingInfo: "Aucune information de prise de vue disponible",
+  pImageSessionNoAdditionalInfo: "Aucune information supplémentaire disponible",
+  pImageSessionData: "Données de session",
+  pImageSessionSortTable:
+    "Vous pouvez trier le tableau en cliquant sur Cible ou Date",
+  pImageSessionPreview: "Aperçu",
+  pImageSessionTarget: "Cible",
+  pImageSessionDate: "Date",
+  pImageSessionShootingInfo: "Informations de prise de vue",
+  pImageSessionAdditionalInfo: "Informations supplémentaires",
+  pImageSessionAction: "Action",
+  pImageSessionLoading: "Chargement...",
+  pImageSessionDownload: "Télécharger",
 };
 
 export default translations;

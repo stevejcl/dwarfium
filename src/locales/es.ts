@@ -246,6 +246,48 @@ const translations = {
   cGoToStellariumMoveCenterli4:
     "Vuelva a centrar en Stellarium haciendo clic en 'Centrar'",
   cGoToStellariumMoveCenterli5: "Luego inicie goto haciendo clic en 'Goto'",
+  cGoToUserListNewList: "Agregar nueva lista",
+  cGoToUserListDeleteList: "Eliminar lista",
+  cGoToUserListCustomObjectsListInstruction1: `
+    Para agregar listas de objetos personalizadas, cree una lista de objetos en 
+    <a href="https://telescopius.com">Telescopius</a>, descargue 
+    el archivo CSV y haga clic en "Agregar nueva lista".
+  `,
+  cGoToUserListCustomObjectsListInstruction2:
+    "Las listas se almacenan en la base de datos del navegador (localStorage). Dado que los datos se almacenan en su navegador, otros usuarios del sitio no podrán acceder a sus listas.",
+  cGoToUserListCustomObjectsListInstruction3:
+    "Si desea compartir su lista con otras personas, puede enviarles el archivo CSV de Telescopius.",
+  cImportManualModalTitle: "Introducir datos manualmente",
+  cImportManualModalObjecTName: "Nombre del objeto",
+  cImportObservationListModalTitle: "Agregar lista de objetos",
+  cImportObservationListfromTelescopius:
+    "Importar lista de objetos desde Telescopius.",
+  cImportObservationListListName: "Nombre de la lista",
+  cImportObservationImportList: "Importar lista",
+  cMoonphaseCalculatorNewMoon: "Luna Nueva",
+  cMoonphaseCalculatorWaxingCrescent: "Luna Creciente",
+  cMoonphaseCalculatorFirstQuarter: "Primer Cuarto",
+  cMoonphaseCalculatorWaxingGibbous: "Luna Gibosa Creciente",
+  cMoonphaseCalculatorFullMoon: "Luna Llena",
+  cMoonphaseCalculatorWaningGibbous: "Luna Gibosa Menguante",
+  cMoonphaseCalculatorLastQuarter: "Último Cuarto",
+  cMoonphaseCalculatorWaningCrescent: "Luna Menguante",
+  cMoonphaseCalculatorUnknown: "Desconocido",
+  pImageSessionShotsStacked: "Fotos apiladas",
+  pImageSessionShotsTaken: "Fotos tomadas",
+  pImageSessionNoShootingInfo: "No hay información de disparo disponible",
+  pImageSessionNoAdditionalInfo: "No hay información adicional disponible",
+  pImageSessionData: "Datos de la sesión",
+  pImageSessionSortTable:
+    "Puede ordenar la tabla haciendo clic en Objetivo o Fecha",
+  pImageSessionPreview: "Vista previa",
+  pImageSessionTarget: "Objetivo",
+  pImageSessionDate: "Fecha",
+  pImageSessionShootingInfo: "Información de disparo",
+  pImageSessionAdditionalInfo: "Información adicional",
+  pImageSessionAction: "Acción",
+  pImageSessionLoading: "Cargando...",
+  pImageSessionDownload: "Descargar",
 };
 
 export default translations;

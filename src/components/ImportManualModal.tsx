@@ -1,12 +1,11 @@
 import type { FormEvent, Dispatch, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import i18n from "@/i18n";
 
-import { useState } from "react";
-//import { useState, useContext } from "react";
 import type { ChangeEvent } from "react";
 import Modal from "react-bootstrap/Modal";
 
-//import { AstroObject, ParsedStellariumData } from "@/types";
-//import { parseStellariumData } from "@/lib/stellarium_utils";
 import {
   parseRaToFloat,
   formatRa,
@@ -110,17 +109,29 @@ export default function ImportManualModal(props: PropTypes) {
     setManualDeclination(e.currentTarget.value);
   }
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <Modal show={showImportModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Enter Manual Data</Modal.Title>
+        <Modal.Title>{t("cImportManualModalTitle")}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <form onSubmit={validateData}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
-              Object Name
+              {t("cImportManualModalObjecTName")}
             </label>
             <input
               type="text"
@@ -134,7 +145,7 @@ export default function ImportManualModal(props: PropTypes) {
           </div>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
-              Right Ascension
+              {t("cGoToStellariumRightAscension")}
             </label>
             <input
               type="text"
@@ -149,7 +160,7 @@ export default function ImportManualModal(props: PropTypes) {
           </div>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
-              Declination
+              {t("cGoToStellariumDeclination")}
             </label>
             <input
               type="text"
@@ -163,7 +174,7 @@ export default function ImportManualModal(props: PropTypes) {
             />
           </div>
           <button type="submit" className="btn btn-more02 me-2 mb-2">
-            Import Data
+            {t("cGoToStellariumImportData")}
           </button>
           {error && <p className="text-danger">{error}</p>}
         </form>

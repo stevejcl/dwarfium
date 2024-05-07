@@ -248,6 +248,48 @@ const translations = {
     "Zentrieren Sie erneut in Stellarium, indem Sie auf 'Zentrieren' klicken",
   cGoToStellariumMoveCenterli5:
     "Starten Sie dann den Goto-Vorgang, indem Sie auf 'Goto' klicken",
+  cGoToUserListNewList: "Neue Liste hinzufügen",
+  cGoToUserListDeleteList: "Liste löschen",
+  cGoToUserListCustomObjectsListInstruction1: `
+    Um benutzerdefinierte Objektlisten hinzuzufügen, erstellen Sie eine Objektliste auf 
+    <a href="https://telescopius.com">Telescopius</a>, laden Sie 
+    die CSV-Datei herunter und klicken Sie auf "Neue Liste hinzufügen".
+  `,
+  cGoToUserListCustomObjectsListInstruction2:
+    "Die Listen werden im Browser-Datenbankspeicher (localStorage) gespeichert. Da die Daten im Browser gespeichert sind, können andere Benutzer der Website nicht auf Ihre Listen zugreifen.",
+  cGoToUserListCustomObjectsListInstruction3:
+    "Wenn Sie Ihre Liste mit anderen Personen teilen möchten, können Sie anderen Personen die CSV-Datei von Telescopius senden.",
+  cImportManualModalTitle: "Manuelle Daten eingeben",
+  cImportManualModalObjecTName: "Objektname",
+  cImportObservationListModalTitle: "Objektliste hinzufügen",
+  cImportObservationListfromTelescopius:
+    "Importieren Sie die Objektliste von Telescopius.",
+  cImportObservationListListName: "Listenname",
+  cImportObservationImportList: "Liste importieren",
+  cMoonphaseCalculatorNewMoon: "Neumond",
+  cMoonphaseCalculatorWaxingCrescent: "Zunehmende Mondsichel",
+  cMoonphaseCalculatorFirstQuarter: "Erstes Viertel",
+  cMoonphaseCalculatorWaxingGibbous: "Zunehmender Mond",
+  cMoonphaseCalculatorFullMoon: "Vollmond",
+  cMoonphaseCalculatorWaningGibbous: "Abnehmender Mond",
+  cMoonphaseCalculatorLastQuarter: "Letztes Viertel",
+  cMoonphaseCalculatorWaningCrescent: "Abnehmende Mondsichel",
+  cMoonphaseCalculatorUnknown: "Unbekannt",
+  pImageSessionShotsStacked: "Aufnahmen gestapelt",
+  pImageSessionShotsTaken: "Aufnahmen gemacht",
+  pImageSessionNoShootingInfo: "Keine Aufnahmendaten verfügbar",
+  pImageSessionNoAdditionalInfo: "Keine zusätzlichen Informationen verfügbar",
+  pImageSessionData: "Sitzungsdaten",
+  pImageSessionSortTable:
+    "Sie können die Tabelle durch Klicken auf Ziel oder Datum sortieren",
+  pImageSessionPreview: "Vorschau",
+  pImageSessionTarget: "Ziel",
+  pImageSessionDate: "Datum",
+  pImageSessionShootingInfo: "Aufnahmedaten",
+  pImageSessionAdditionalInfo: "Zusätzliche Informationen",
+  pImageSessionAction: "Aktion",
+  pImageSessionLoading: "Laden...",
+  pImageSessionDownload: "Herunterladen",
 };
 
 export default translations;

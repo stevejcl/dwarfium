@@ -149,6 +149,8 @@ const translations = {
   cCameraAddonTimeLapse: "Time-lapse",
   cCameraBurstSettingsCount: "Compter",
   cCameraBurstSettingsinterval: "Intervalle",
+  cCameraConnection: "Vous devez vous connecter au Dwarf II.",
+  cCameraLocation: "Vous devez définir votre emplacement.",
 };
 
 export default translations;

@@ -1,5 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Head from "next/head";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
@@ -10,6 +12,18 @@ import DwarfCameras from "@/components/DwarfCameras";
 import ImagingMenu from "@/components/imaging/ImagingMenu";
 
 export default function AstroPhoto() {
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   useSetupConnection();
   useLoadIntialValues();
   let connectionCtx = useContext(ConnectionContext);
@@ -37,18 +51,18 @@ export default function AstroPhoto() {
             <br />
             <br />
             <Head>
-              <title>Astro Photos</title>
+              <title>{t("cCameraTitle")}</title>
             </Head>
             <StatusBar />
             <hr></hr>
-            <h1>Astro Photos</h1>
+            <h1>{t("cCameraTitle")}</h1>
 
             {notConnected && (
-              <p className="text-danger">You must connect to Dwarf II.</p>
+              <p className="text-danger">{t("cCameraConnection")}</p>
             )}
 
             {noCoordinates && (
-              <p className="text-danger">You must set your location.</p>
+              <p className="text-danger">{t("cCameraLocation")}</p>
             )}
           </div>
           {""}
@@ -91,7 +105,7 @@ export default function AstroPhoto() {
           <br />
           <br />
           <Head>
-            <title>Astro Photos</title>
+            <title>{t("cCameraTitle")}</title>
           </Head>
           <StatusBar />
           <hr></hr>

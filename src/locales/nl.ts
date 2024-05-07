@@ -150,7 +150,6 @@ const translations = {
   cCameraAddonTimeLapse: "Timelapse",
   cCameraBurstSettingsCount: "Tellen",
   cCameraBurstSettingsinterval: "Interval",
-  
 };
 
 export default translations;

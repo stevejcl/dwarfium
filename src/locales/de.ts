@@ -148,7 +148,6 @@ const translations = {
   cCameraAddonTimeLapse: "Zeitraffer",
   cCameraBurstSettingsCount: "Anzahl",
   cCameraBurstSettingsinterval: "Intervall",
-  
 };
 
 export default translations;

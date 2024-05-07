@@ -48,7 +48,7 @@ export default function CameraPanoSettings(props: PropTypes) {
       </option>
     )
   );
-  
+
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
@@ -94,7 +94,9 @@ export default function CameraPanoSettings(props: PropTypes) {
             </div>
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-6">
-                <label htmlFor="interval">{t("cCameraBurstSettingsinterval")}</label>
+                <label htmlFor="interval">
+                  {t("cCameraBurstSettingsinterval")}
+                </label>
               </div>
               <div className="col-4 me-2">
                 <select

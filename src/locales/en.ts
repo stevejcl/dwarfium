@@ -148,7 +148,9 @@ const translations = {
   cCameraAddonTimeLapse: "Time Lapse",
   cCameraBurstSettingsCount: "Count",
   cCameraBurstSettingsinterval: "Interval",
-
+  cCameraTitle: "Astro Photos",
+  cCameraConnection: "You must connect to Dwarf II.",
+  cCameraLocation: "You must set your location.",
 };
 
 export default translations;

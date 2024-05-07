@@ -180,6 +180,15 @@ const translations = {
   cNavAstronomyCalendar: "Astronomy calendar",
   cNavPolarAlignment: "Polar Alignment",
   cNavAbout: "About",
+  cStatusBarExposure: "Exposure",
+  cStatusBarIRFilter: "IR-Filter",
+  cStatusBarBinning: "Binning",
+  cStatusBarCounter: "Counter",
+  cStatusBarQuality: "Quality",
+  cStatusBarTaken: "Taken:",
+  cStatusBarStacked: "Stacked:",
+  cStatusBarTime: "Time:",
+  cStatusBarCurTarget: "Current Target:",
 };
 
 export default translations;

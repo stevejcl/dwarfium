@@ -181,6 +181,15 @@ const translations = {
   cNavAstronomyCalendar: "Astronomische kalender",
   cNavPolarAlignment: "Pooluitlijning",
   cNavAbout: "Over",
+  cStatusBarExposure: "Belichting",
+  cStatusBarIRFilter: "IR-filter",
+  cStatusBarBinning: "Binning",
+  cStatusBarCounter: "Teller",
+  cStatusBarQuality: "Kwaliteit",
+  cStatusBarTaken: "Genomen:",
+  cStatusBarStacked: "Gestapeld:",
+  cStatusBarTime: "Tijd:",
+  cStatusBarCurTarget: "Huidige Doel:",
 };
 
 export default translations;

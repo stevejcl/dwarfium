@@ -5,8 +5,22 @@ import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
 import { getExposureNameByIndex, getGainNameByIndex } from "@/lib/data_utils";
 import BatteryMeter from "@/components/BatteryMeter";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import i18n from "@/i18n";
 
 export default function StatusBar() {
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
   useSetupConnection();
   let connectionCtx = useContext(ConnectionContext);
 
@@ -112,7 +126,7 @@ export default function StatusBar() {
                 <div className="hover-text">
                   <i className="icon-adjust" />
                   <span className="tooltip-text" id="top">
-                    Exposure
+                    {t("cStatusBarExposure")}
                   </span>
                   : {exposureValue}
                 </div>
@@ -123,7 +137,7 @@ export default function StatusBar() {
                 <div className="hover-text">
                   <i className="icon-filter" />
                   <span className="tooltip-text" id="top">
-                    IR-Filter
+                    {t("cStatusBarIRFilter")}
                   </span>
                   : {connectionCtx.astroSettings.IR === IRCut ? "Cut" : "Pass"}
                 </div>
@@ -134,7 +148,7 @@ export default function StatusBar() {
                 <div className="hover-text">
                   <i className="icon-picture" />
                   <span className="tooltip-text" id="top">
-                    Binning
+                    {t("cStatusBarBinning")}
                   </span>
                   : {connectionCtx.astroSettings.binning == 0 ? "1x1" : "2x2"}
                 </div>
@@ -145,7 +159,7 @@ export default function StatusBar() {
                 <div className="hover-text">
                   <i className="icon-counter-4" />
                   <span className="tooltip-text" id="top">
-                    Counter
+                    {t("cStatusBarCounter")}
                   </span>
                   : {connectionCtx.astroSettings.count}
                 </div>
@@ -156,7 +170,7 @@ export default function StatusBar() {
                 <div className="hover-text">
                   <i className="icon-star-empty" />
                   <span className="tooltip-text" id="top">
-                    Quality
+                    {t("cStatusBarQuality")}
                   </span>{" "}
                   : {connectionCtx.astroSettings.quality}
                 </div>
@@ -168,13 +182,16 @@ export default function StatusBar() {
                 connectionCtx.imagingSession.isGoLive) && (
                 <>
                   <span className="me-3">
-                    Taken: {connectionCtx.imagingSession.imagesTaken}
+                    {t("cStatusBarTaken")}{" "}
+                    {connectionCtx.imagingSession.imagesTaken}
                   </span>
                   <span className="me-3">
-                    Stacked: {connectionCtx.imagingSession.imagesStacked}
+                    {t("cStatusBarStacked")}{" "}
+                    {connectionCtx.imagingSession.imagesStacked}
                   </span>
                   <span className="me-3">
-                    Time: {connectionCtx.imagingSession.sessionElaspsedTime}
+                    {t("cStatusBarTime")}{" "}
+                    {connectionCtx.imagingSession.sessionElaspsedTime}
                   </span>
                 </>
               )}
@@ -185,7 +202,7 @@ export default function StatusBar() {
         <div className="col-sm align-self-center">
           {connectionCtx.astroSettings.target !== undefined && (
             <span className="me-3">
-              Current Target: {connectionCtx.astroSettings.target}{" "}
+              {t("cStatusBarCurTarget")} {connectionCtx.astroSettings.target}{" "}
               {goto_progress}
             </span>
           )}

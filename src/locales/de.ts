@@ -223,6 +223,31 @@ const translations = {
     "Die Liste der Planeten, Mond und Sonne enthält die Planeten unseres Sonnensystems mit dem Mond und der Sonne. Beachten Sie, dass Dwarf II nicht gut geeignet ist, um Bilder von den Planeten aufzunehmen.",
   cGotoListinfo:
     "'Zentrieren' zeigt das ausgewählte Objekt in Stellarium an. 'Goto' bewegt Dwarf II zum ausgewählten Objekt.",
+  cGoToStellariumConnectStellarium:
+    "Sie müssen sich mit Stellarium verbinden, damit Importdaten funktioniert.",
+  cGoToStellariumPickObject:
+    "Sie können Stellarium verwenden, um Objekte auszuwählen.",
+  cGoToStellariumListTitle: "Wählen Sie ein Objekt in Stellarium aus.",
+  cGoToStellariumList1:
+    "Importieren Sie Rektaszension und Deklination aus Stellarium, indem Sie auf 'Daten importieren' klicken.",
+  cGoToStellariumList2:
+    "Starten Sie den Goto-Vorgang, indem Sie auf 'Goto' klicken.",
+  cGoToStellariumImportData: "Daten importieren",
+  cGoToStellariumImportManualData: "Manuelle Daten importieren",
+  cGoToStellariumObject: "Objekt",
+  cGoToStellariumRightAscension: "Rektaszension",
+  cGoToStellariumDeclination: "Deklination",
+  cGoToStellariumCenter: "Zentrieren",
+  cGoToStellariumMoveCenter: " Sie können das Zentrum sanft bewegen:",
+  cGoToStellariumMoveCenterli1:
+    "Klicken Sie auf die Schaltflächen, um das Zentrum zu bewegen",
+  cGoToStellariumMoveCenterli2:
+    "+/- 1 min für Rektaszension, +/- 0.1° für Deklination",
+  cGoToStellariumMoveCenterli3: "Die Koordinaten werden aktualisiert",
+  cGoToStellariumMoveCenterli4:
+    "Zentrieren Sie erneut in Stellarium, indem Sie auf 'Zentrieren' klicken",
+  cGoToStellariumMoveCenterli5:
+    "Starten Sie dann den Goto-Vorgang, indem Sie auf 'Goto' klicken",
 };
 
 export default translations;

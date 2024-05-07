@@ -224,6 +224,29 @@ const translations = {
     "La liste des Planètes, Lune et Soleil contient les planètes de notre système solaire avec la Lune et le Soleil. Notez que Dwarf II n'est pas adapté pour prendre des images des planètes.",
   cGotoListinfo:
     "'Centrer' affichera l'objet sélectionné dans Stellarium. 'Goto' déplacera Dwarf II vers l'objet sélectionné.",
+  cGoToStellariumConnectStellarium:
+    "Vous devez vous connecter à Stellarium pour que l'importation de données fonctionne.",
+  cGoToStellariumPickObject:
+    "Vous pouvez utiliser Stellarium pour aider à sélectionner des objets.",
+  cGoToStellariumListTitle: "Sélectionnez un objet dans Stellarium.",
+  cGoToStellariumList1:
+    "Importez l'ascension droite et la déclinaison depuis Stellarium en cliquant sur 'Importer des données'.",
+  cGoToStellariumList2: "Démarrez le goto en cliquant sur 'Goto'.",
+  cGoToStellariumImportData: "Importer des données",
+  cGoToStellariumImportManualData: "Importer des données manuelles",
+  cGoToStellariumObject: "Objet",
+  cGoToStellariumRightAscension: "Ascension droite",
+  cGoToStellariumDeclination: "Déclinaison",
+  cGoToStellariumCenter: "Centrer",
+  cGoToStellariumMoveCenter: " Vous pouvez déplacer le centre en douceur :",
+  cGoToStellariumMoveCenterli1:
+    "Cliquez sur les boutons pour déplacer le centre vers",
+  cGoToStellariumMoveCenterli2:
+    "+/- 1 minute pour l'ascension droite, +/- 0.1° pour la déclinaison",
+  cGoToStellariumMoveCenterli3: "Les coordonnées seront mises à jour",
+  cGoToStellariumMoveCenterli4:
+    "Re-centrez dans Stellarium en cliquant sur 'Centrer'",
+  cGoToStellariumMoveCenterli5: "Puis démarrez goto en cliquant sur 'Goto'",
 };
 
 export default translations;

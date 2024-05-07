@@ -223,6 +223,29 @@ const translations = {
     "La lista de Planetas, Luna y Sol tiene los planetas de nuestro sistema solar con la Luna y el Sol. Tenga en cuenta que Dwarf II no es adecuado para tomar imágenes de los planetas.",
   cGotoListinfo:
     "'Centrar' mostrará el objeto seleccionado en Stellarium. 'Goto' moverá Dwarf II al objeto seleccionado.",
+  cGoToStellariumConnectStellarium:
+    "Debe conectarse a Stellarium para que Importar datos funcione.",
+  cGoToStellariumPickObject:
+    "Puede usar Stellarium para ayudar a seleccionar objetos.",
+  cGoToStellariumListTitle: "Seleccione un objeto en Stellarium.",
+  cGoToStellariumList1:
+    "Importe ascensión recta y declinación desde Stellarium haciendo clic en 'Importar datos'.",
+  cGoToStellariumList2: "Inicie goto haciendo clic en 'Goto'.",
+  cGoToStellariumImportData: "Importar datos",
+  cGoToStellariumImportManualData: "Importar datos manuales",
+  cGoToStellariumObject: "Objeto",
+  cGoToStellariumRightAscension: "Ascensión recta",
+  cGoToStellariumDeclination: "Declinación",
+  cGoToStellariumCenter: "Centrar",
+  cGoToStellariumMoveCenter: " Puede mover el centro suavemente:",
+  cGoToStellariumMoveCenterli1:
+    "Haga clic en los botones para mover el centro a",
+  cGoToStellariumMoveCenterli2:
+    "+/- 1 minuto para ascensión recta, +/- 0.1° para declinación",
+  cGoToStellariumMoveCenterli3: "Las coordenadas se actualizarán",
+  cGoToStellariumMoveCenterli4:
+    "Vuelva a centrar en Stellarium haciendo clic en 'Centrar'",
+  cGoToStellariumMoveCenterli5: "Luego inicie goto haciendo clic en 'Goto'",
 };
 
 export default translations;

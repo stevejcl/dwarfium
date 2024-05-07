@@ -225,6 +225,29 @@ const translations = {
     "De lijst met planeten, maan en zon bevat de planeten in ons zonnestelsel met de maan en de zon. Let op, Dwarf II is niet geschikt voor het maken van afbeeldingen van de planeten.",
   cGotoListinfo:
     "'Center' toont het geselecteerde object in Stellarium. 'Goto' verplaatst Dwarf II naar het geselecteerde object.",
+  cGoToStellariumConnectStellarium:
+    "U moet verbinding maken met Stellarium om gegevens te importeren.",
+  cGoToStellariumPickObject:
+    "U kunt Stellarium gebruiken om objecten te selecteren.",
+  cGoToStellariumListTitle: "Selecteer een object in Stellarium.",
+  cGoToStellariumList1:
+    "Importeer rechte klimming en declinatie vanuit Stellarium door op 'Gegevens importeren' te klikken.",
+  cGoToStellariumList2: "Start goto door op 'Goto' te klikken.",
+  cGoToStellariumImportData: "Gegevens importeren",
+  cGoToStellariumImportManualData: "Handmatige gegevens importeren",
+  cGoToStellariumObject: "Object",
+  cGoToStellariumRightAscension: "Rechte klimming",
+  cGoToStellariumDeclination: "Deklinatie",
+  cGoToStellariumCenter: "Centreren",
+  cGoToStellariumMoveCenter: " U kunt het midden voorzichtig verplaatsen:",
+  cGoToStellariumMoveCenterli1:
+    "Klik op knoppen om het midden te verplaatsen naar",
+  cGoToStellariumMoveCenterli2:
+    "+/- 1 min voor rechte klimming, +/- 0.1° voor declinatie",
+  cGoToStellariumMoveCenterli3: "De coördinaten worden bijgewerkt",
+  cGoToStellariumMoveCenterli4:
+    "Hercentreren in Stellarium door op 'Centreren' te klikken",
+  cGoToStellariumMoveCenterli5: "Start dan goto door op 'Goto' te klikken",
 };
 
 export default translations;

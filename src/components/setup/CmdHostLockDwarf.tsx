@@ -9,7 +9,6 @@ import {
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { logger } from "@/lib/logger";
 
-
 export default function CmdHostLockDwarf() {
   const connectionCtx = useContext(ConnectionContext);
 
@@ -57,17 +56,17 @@ export default function CmdHostLockDwarf() {
       console.error(" Can't launch Web Socket Run Action!");
     }
   };
-    const { t } = useTranslation();
-    // eslint-disable-next-line no-unused-vars
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage) {
-            setSelectedLanguage(storedLanguage);
-            i18n.changeLanguage(storedLanguage);
-        }
-    }, []);
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
   function renderHostLock() {
     if (
       connectionCtx.connectionStatus === true &&
@@ -78,7 +77,7 @@ export default function CmdHostLockDwarf() {
           onClick={handleClickLockHost}
           className="btn btn-more02 me-3 right-align"
         >
-              {isHostLock ? t("cUnlockHost") : t("cLockHost")}
+          {isHostLock ? t("cUnlockHost") : t("cLockHost")}
         </button>
       );
     }

@@ -64,41 +64,165 @@ const translations = {
     "Richten Sie den Dwarf II auf Polaris und passen Sie den Winkel an.",
   cWitmotionPolaris2: "Sie sollten Polaris in der Sensormitte sehen.",
   pFirstSteps: "Erste Schritte",
-  pFirstStepsContent: "Verwenden Sie die mobile Dwarf II-App von Dwarf Labs, um Dunkelbilder aufzunehmen, das Zielfernrohr zu fokussieren und Goto zu kalibrieren.",
+  pFirstStepsContent:
+    "Verwenden Sie die mobile Dwarf II-App von Dwarf Labs, um Dunkelbilder aufzunehmen, das Zielfernrohr zu fokussieren und Goto zu kalibrieren.",
   pSetLocation: "Ort festlegen",
-  pSetLocationContent: "Damit goto funktioniert, benötigt diese Seite Ihren Breitengrad, Längengrad und Ihre Zeitzone. Westlich von Greenwich ist der Längengrad negativ",
+  pSetLocationContent:
+    "Damit goto funktioniert, benötigt diese Seite Ihren Breitengrad, Längengrad und Ihre Zeitzone. Westlich von Greenwich ist der Längengrad negativ",
   pLatitude: "Breite",
   pLongitude: "Längengrad",
   pTimezone: "Zeitzone",
   pUseCurrentLocation: "Aktuellen Standort",
   pEnableSTA: "Aktivieren Sie den STA-Modus auf Dwarf II",
-  pEnableSTAContent: "Damit dieser Standort eine Verbindung zum Dwarf II herstellen kann, muss auf dem Dwarf II der STA-Modus konfiguriert und aktiviert sein.",
-  pEnableSTAContent1: "Bei der ersten Verwendung benötigen Sie die mobile DwarfLab-App, um die Verbindung herzustellen. Anschließend können Sie, ohne den Zwerg neu zu starten, über die Schaltfläche „Bluetooth verbinden“ eine Verbindung herstellen. Die Konfiguration wird dann gespeichert.",
-  pEnableSTAContent2: "Bei den nächsten Starts des Dwarf können Sie sich dann direkt über Bluetooth mit ihm verbinden, ohne die mobile Anwendung zu verwenden.",
-  pEnableSTAContent3: "Klicken Sie auf „Verbinden“. Diese Seite wird versuchen, über Bluetooth eine Verbindung zu Dwarf II herzustellen.",
+  pEnableSTAContent:
+    "Damit dieser Standort eine Verbindung zum Dwarf II herstellen kann, muss auf dem Dwarf II der STA-Modus konfiguriert und aktiviert sein.",
+  pEnableSTAContent1:
+    "Bei der ersten Verwendung benötigen Sie die mobile DwarfLab-App, um die Verbindung herzustellen. Anschließend können Sie, ohne den Zwerg neu zu starten, über die Schaltfläche „Bluetooth verbinden“ eine Verbindung herstellen. Die Konfiguration wird dann gespeichert.",
+  pEnableSTAContent2:
+    "Bei den nächsten Starts des Dwarf können Sie sich dann direkt über Bluetooth mit ihm verbinden, ohne die mobile Anwendung zu verwenden.",
+  pEnableSTAContent3:
+    "Klicken Sie auf „Verbinden“. Diese Seite wird versuchen, über Bluetooth eine Verbindung zu Dwarf II herzustellen.",
   pBluetoothPWD: "Bluetooth-PASSWORT",
   pConnect: "Verbinden",
   pConnectDwarfII: "Verbinde dich mit Dwarf II",
-  pConnectDwarfIIContent: "Damit diese Site eine Verbindung zum Dwarf II herstellen kann, müssen sowohl der Dwarf II als auch die Website dasselbe WLAN-Netzwerk verwenden.",
-  pConnectDwarfIIContent1: "Nach dem Neustart müssen Sie zunächst über Bluetooth eine Verbindung zum DwarfII herstellen.",
-  pConnectDwarfIIContent2: "Stellen Sie dann mit der WLAN-Verbindungstaste eine Verbindung her. Dann brauchen Sie die App nicht mehr zu verwenden, um von dieser Website aus zu kalibrieren, zu Goto zu wechseln und eine Bildbearbeitungssitzung durchzuführen.",
-  pConnectDwarfIIContent3: "Besuchen Sie diese Website auf einem Gerät, das mit demselben WLAN-Netzwerk wie der Dwarf II verbunden ist.",
-  pConnectDwarfIIContent4: "Geben Sie die IP für den Dwarf II ein. Wenn Sie Dwarf-WLAN verwenden, lautet die IP 192.168.88.1. Wenn Sie den STA-Modus verwenden, verwenden Sie die IP für Ihr WLAN-Netzwerk.",
-  pConnectDwarfIIContent5: "Klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Dwarf II herzustellen.",
-  pConnectDwarfIIContent6: "Wenn Sie die Meldung sehen: => Live gehen, haben Sie eine Bildgebungssitzung abgeschlossen, gehen Sie zur Kameraseite und klicken Sie auf die Schaltfläche „Live“.",
+  pConnectDwarfIIContent:
+    "Damit diese Site eine Verbindung zum Dwarf II herstellen kann, müssen sowohl der Dwarf II als auch die Website dasselbe WLAN-Netzwerk verwenden.",
+  pConnectDwarfIIContent1:
+    "Nach dem Neustart müssen Sie zunächst über Bluetooth eine Verbindung zum DwarfII herstellen.",
+  pConnectDwarfIIContent2:
+    "Stellen Sie dann mit der WLAN-Verbindungstaste eine Verbindung her. Dann brauchen Sie die App nicht mehr zu verwenden, um von dieser Website aus zu kalibrieren, zu Goto zu wechseln und eine Bildbearbeitungssitzung durchzuführen.",
+  pConnectDwarfIIContent3:
+    "Besuchen Sie diese Website auf einem Gerät, das mit demselben WLAN-Netzwerk wie der Dwarf II verbunden ist.",
+  pConnectDwarfIIContent4:
+    "Geben Sie die IP für den Dwarf II ein. Wenn Sie Dwarf-WLAN verwenden, lautet die IP 192.168.88.1. Wenn Sie den STA-Modus verwenden, verwenden Sie die IP für Ihr WLAN-Netzwerk.",
+  pConnectDwarfIIContent5:
+    "Klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Dwarf II herzustellen.",
+  pConnectDwarfIIContent6:
+    "Wenn Sie die Meldung sehen: => Live gehen, haben Sie eine Bildgebungssitzung abgeschlossen, gehen Sie zur Kameraseite und klicken Sie auf die Schaltfläche „Live“.",
   pConnectStellarium: "Stellen Sie eine Verbindung zu Stellarium her",
-  pConnectStellariumContent: "Um Stellarium nutzen zu können, müssen wir das Remote Control-Plugin einrichten.",
+  pConnectStellariumContent:
+    "Um Stellarium nutzen zu können, müssen wir das Remote Control-Plugin einrichten.",
   pConnectStellariumContent1: "Starten Sie die Stellarium-Desktop-App.",
   pConnectStellariumContent2: "Der Anfang davon",
-  pConnectStellariumContent2_1: " demonstriert die Einrichtung des Remote Control-Plugins von Stellarium (0 bis 1:40); Überspringen Sie den Teil über NINA. Klicken Sie auf „ CORS für folgenden Ursprung aktivieren “ und geben Sie „ * “ ein.",
-  pConnectStellariumContent3: "Geben Sie IP und Port für das Remote Control-Plugin ein und klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Stellarium herzustellen.",
+  pConnectStellariumContent2_1:
+    " demonstriert die Einrichtung des Remote Control-Plugins von Stellarium (0 bis 1:40); Überspringen Sie den Teil über NINA. Klicken Sie auf „ CORS für folgenden Ursprung aktivieren “ und geben Sie „ * “ ein.",
+  pConnectStellariumContent3:
+    "Geben Sie IP und Port für das Remote Control-Plugin ein und klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Stellarium herzustellen.",
   pIPAdress: "IP Adresse",
-  pPort: "Hafen",
+  pPort: "Port",
   cUnlockHost: "Schalten Sie den Host-Modus frei",
   cLockHost: "Hostmodus sperren",
   pConnectionSuccessFull: "Verbindung erfolgreich.",
   pConnecting: "Verbinden...",
   pConnectingFailed: "Verbindung fehlgeschlagen!",
+  cAstroSettingsInfoGain: "Gain",
+  cAstroSettingsInfoGainDesc:
+    "Gain ist eine Einstellung der Digitalkamera, die die Verstärkung des Signals vom Kameradetektor steuert. Es sollte beachtet werden, dass dies das gesamte Signal einschließlich aller damit verbundenen Hintergrundgeräusche verstärkt.",
+  cAstroSettingsInfoExposure: "Belichtung",
+  cAstroSettingsInfoExposureDesc:
+    "Zeit, während der der Sensor Licht ausgesetzt und Informationen (Energie) aufzeichnet",
+  cAstroSettingsInfoIRPass: "IR (Infrarot) - Pass",
+  cAstroSettingsInfoIRPassDesc:
+    "Ermöglicht es der Infrarotwellenlänge, den Sensor zu erreichen. Mehrere astronomische Objekte senden in dieser Wellenlänge aus.",
+  cAstroSettingsInfoIRCut: "IR (Infrarot) - Abschneiden",
+  cAstroSettingsInfoIRCutDesc:
+    "Blockiert die Infrarotwellenlänge. Nützlich für Mond- und Planetenaufnahmen.",
+  cAstroSettingsInfoBin1x1: "Binning - 1x1",
+  cAstroSettingsInfoBin1x1Desc:
+    "Die Kamera erfasst Licht auf jedem einzelnen physischen Pixel.",
+  cAstroSettingsInfoBin2x2: "Binning - 2x2",
+  cAstroSettingsInfoBin2x2Desc:
+    "Die Kamera kombiniert physische Pixel in Gruppen von 2x2 (4 Pixeln) und betrachtet das gesamte im Gruppen erfasste Licht als einen einzigen Pixel. Kann als 'virtueller' Pixel betrachtet werden. Dies macht die Pixelgröße größer und reduziert die Auflösung um einen Faktor, der dem Binning entspricht.",
+  cAstroSettingsInfoFormatFITS: "Format - FITS",
+  cAstroSettingsInfoFormatFITSDesc:
+    "Astronomisches verlustfreies numerisches Dateiformat. Kann Metadaten des Bildes enthalten (Koordinaten, Kamera, Pixelgröße Binning, Filter usw.), die von Verarbeitungssoftware verwendet werden können.",
+  cAstroSettingsInfoFormatTIFF: "Format - TIFF",
+  cAstroSettingsInfoFormatTIFFDesc:
+    "Ein verlustfreies Dateiformat, das jedoch nicht speziell auf die Astronomie ausgerichtet ist.",
+  cAstroSettingsInfoCount: "Anzahl",
+  cAstroSettingsInfoCountDesc: "Anzahl der aufzunehmenden Bilder",
+  cAstroSettingsInfoBack: "Zurück",
+  cCameraAddOnPhoto: "Foto",
+  cCameraAddOnVideo: "Video",
+  cCameraAddOnPanorama: "Panorama",
+  cCameraAddonTimeLapse: "Zeitraffer",
+  cCameraBurstSettingsCount: "Anzahl",
+  cCameraBurstSettingsinterval: "Intervall",
+  cCameraTitle: "Astro Photos",
+  cCameraConnection: "Sie müssen eine Verbindung zum Dwarf II herstellen.",
+  cCameraLocation: "Sie müssen Ihren Standort festlegen.",
+  cCalibrationDwarfLights: "Lichter",
+  cCalibrationDwarfRingOn: "Ring An",
+  cCalibrationDwarfRingOff: "Ring Aus",
+  cCalibrationDwarfPowerOn: "Strom An",
+  cCalibrationDwarfPowerOff: "Strom Aus",
+  cCalibrationDwarfTitle: "Kalibrieren des Dwarf II",
+  cCalibrationDwarfTitleDesc:
+    "Um die Astrofunktion zu nutzen, müssen Sie zuerst den Dwarf II kalibrieren.",
+  cCalibrationDwarfWarning: "WARNUNG:",
+  cCalibrationDwarfWarningDesc: "Setzen Sie jetzt nichts auf das Objektiv.",
+  CCalibrationDwarfCalibrate: "Kalibrieren",
+  cCalibrationDwarfStopGoto: "Goto anhalten",
+  cCalibrationDwarfSavePosition: "Position speichern",
+  cCalibrationDwarfResetPosition: "Position zurücksetzen",
+  cCalibrationDwarfGoToPosition: "Zur Position gehen",
+  cCalibrationDwarfShutdown: "Ausschalten!",
+  cCalibrationDwarfReboot: "Neustarten!",
+  cNavHome: "Startseite",
+  cNavSetup: "Einrichtung",
+  cNavObjects: "Objekte",
+  cNavCamera: "Kamera",
+  cNavSessionData: "Sitzungsdaten",
+  cNavWeather: "Wetter",
+  cNavClouds: "Wolken",
+  cNavMoonphases: "Mondphasen",
+  cNavAstronomyCalendar: "Astronomischer Kalender",
+  cNavPolarAlignment: "Polarausrichtung",
+  cNavAbout: "Über",
+  cStatusBarExposure: "Belichtung",
+  cStatusBarIRFilter: "IR-Filter",
+  cStatusBarBinning: "Binning",
+  cStatusBarCounter: "Zähler",
+  cStatusBarQuality: "Qualität",
+  cStatusBarTaken: "Aufgenommen:",
+  cStatusBarStacked: "Gestapelt:",
+  cStatusBarTime: "Zeit:",
+  cStatusBarCurTarget: "Aktuelles Ziel:",
+  cThemeSettingsTitle: "Theme-Einstellungen",
+  cThemeSettingsFontSize: "Schriftgröße",
+  cThemeSettingsColorTheme: "Farbthema",
+  cThemeSettingsLightTheme: "Helles Thema",
+  cThemeSettingsDarkTheme: "Dunkles Thema",
+  cThemeSettingsAstroTheme: "Astro Thema",
+  cThemeSettingsUnderconstruction: "in Bearbeitung",
+  cThemeSettingsLanguage: "Sprache",
+  cThemeSettingsApply: "Anwenden",
+  cWeatherInfoLastUpdate: "Letztes Update:",
+  cWeatherInfoMinTemp: "Min. Temperatur:",
+  cWeatherInfoMaxTemp: "Max. Temperatur:",
+  cWeatherInfoFeelsLike: "Gefühlt wie:",
+  cWeatherInfoHumidity: "Luftfeuchtigkeit:",
+  cWeatherInfoWind: "Wind:",
+  cGoToListConnectStellarium:
+    "Sie müssen sich mit Stellarium verbinden, damit das Zentrum funktioniert.",
+  cGoToListConnectDwarf:
+    "Sie müssen sich mit Dwarf II verbinden, damit Goto funktioniert.",
+  cGoToListdefault: "Wählen Sie Objektlisten aus",
+  cGotoListplanets: "Planeten, Mond und Sonne",
+  cGotoListSelectObject: "Bitte wählen Sie eine Objektliste aus.",
+  cGotoListDSOList: "Die DSO-Liste enthält Objekte, die:",
+  cGotoListDSOList1:
+    "Groß (> 15 Bogenminuten) und relativ hell (unter 10 Magnituden) sind. 119 Objekte.",
+  cGotoListDSOList2:
+    "Groß (> 15 Bogenminuten) und unbekannte Helligkeit haben. 84 Objekte.",
+  cGotoListDSOList3:
+    "Klein (< 15 Bogenminuten), relativ hell (unter 10 Magnituden), mit gebräuchlichen Namen. 234 Objekte.",
+  cGotoListDSOList4:
+    "118 der hellsten Sterne mit gebräuchlichen Namen, mindestens einer pro Sternbild.",
+  cGotoListDSOList5:
+    "Die Liste der Planeten, Mond und Sonne enthält die Planeten unseres Sonnensystems mit dem Mond und der Sonne. Beachten Sie, dass Dwarf II nicht gut geeignet ist, um Bilder von den Planeten aufzunehmen.",
+  cGotoListinfo:
+    "'Zentrieren' zeigt das ausgewählte Objekt in Stellarium an. 'Goto' bewegt Dwarf II zum ausgewählten Objekt.",
 };
 
 export default translations;

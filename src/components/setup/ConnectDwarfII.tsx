@@ -32,24 +32,24 @@ export default function ConnectDwarfII() {
       setErrorTxt
     );
   }
-    const { t } = useTranslation();
-    // eslint-disable-next-line no-unused-vars
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage) {
-            setSelectedLanguage(storedLanguage);
-            i18n.changeLanguage(storedLanguage);
-        }
-    }, []);
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
   function renderConnectionStatus() {
     let goLiveMessage = "";
     if (goLive) {
       goLiveMessage = "=> Go Live";
     }
     if (connecting) {
-        return <span className="text-warning-connect">{t("pConnecting")}</span>;
+      return <span className="text-warning-connect">{t("pConnecting")}</span>;
     }
     if (connectionCtx.connectionStatus === undefined) {
       return null;
@@ -57,21 +57,21 @@ export default function ConnectDwarfII() {
     if (connectionCtx.connectionStatus === false) {
       return (
         <span className="text-danger-connect">
-              {t("pConnectingFailed")} {errorTxt}.
+          {t("pConnectingFailed")} {errorTxt}.
         </span>
       );
     }
     if (connectionCtx.connectionStatusSlave || slavemode) {
       return (
         <span className="text-warning-connect">
-              {t("pConnectionSuccessFull")} (Slave Mode) {goLiveMessage} {errorTxt}.
+          {t("pConnectionSuccessFull")} (Slave Mode) {goLiveMessage} {errorTxt}.
         </span>
       );
     }
 
     return (
       <span className="text-success-connect">
-            {t("pConnectionSuccessFull")}. {goLiveMessage} {errorTxt}
+        {t("pConnectionSuccessFull")}. {goLiveMessage} {errorTxt}
       </span>
     );
   }

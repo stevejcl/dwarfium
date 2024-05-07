@@ -60,48 +60,50 @@ export default function ConnectStellarium() {
       return <></>;
     }
     if (connectionCtx.connectionStatusStellarium === false) {
-        return <span className="text-danger-connect">{t("pConnectingFailed")}</span>;
+      return (
+        <span className="text-danger-connect">{t("pConnectingFailed")}</span>
+      );
     }
 
-      return <span className="text-success-connect">{t("pConnectionSuccessFull")}</span>;
+    return (
+      <span className="text-success-connect">
+        {t("pConnectionSuccessFull")}
+      </span>
+    );
   }
-    const { t } = useTranslation();
-    // eslint-disable-next-line no-unused-vars
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage) {
-            setSelectedLanguage(storedLanguage);
-            i18n.changeLanguage(storedLanguage);
-        }
-    }, []);
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
   return (
     <div>
-          <h2>{t("pConnectStellarium")}</h2>
-      <p>
-         {t("pConnectStellariumContent")}
-      </p>
+      <h2>{t("pConnectStellarium")}</h2>
+      <p>{t("pConnectStellariumContent")}</p>
 
       <ol>
-              <li className="mb-2">{t("pConnectStellariumContent1")}</li>
+        <li className="mb-2">{t("pConnectStellariumContent1")}</li>
         <li className="mb-2">
-                  {t("pConnectStellariumContent2")}{" "}
+          {t("pConnectStellariumContent2")}{" "}
           <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
             Youtube video
           </Link>{" "}
-                  {t("pConnectStellariumContent2_1")}
+          {t("pConnectStellariumContent2_1")}
         </li>
-        <li className="mb-2">
-                  {t("pConnectStellariumContent3")}
-        </li>
+        <li className="mb-2">{t("pConnectStellariumContent3")}</li>
       </ol>
 
       <form onSubmit={checkConnection}>
         <div className="row mb-3">
           <div className="col-md-1">
             <label htmlFor="ip" className="form-label">
-             {t("pIPAdress")}
+              {t("pIPAdress")}
             </label>
           </div>
           <div className="col-lg-2 col-md-10">
@@ -133,7 +135,7 @@ export default function ConnectStellarium() {
           </div>
         </div>
         <button type="submit" className="btn btn-more02 me-3">
-                  <i className=" icon-connectdevelop" /> {t("pConnect")}
+          <i className=" icon-connectdevelop" /> {t("pConnect")}
         </button>{" "}
         {renderConnectionStatus()}
       </form>

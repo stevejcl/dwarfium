@@ -2,6 +2,9 @@ import React from "react";
 import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Formik } from "formik";
 import { allowedCountBurst, allowedIntervalBurst } from "@/lib/data_utils";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import i18n from "@/i18n";
 
 type PropTypes = {
   countValue: number;
@@ -46,6 +49,18 @@ export default function CameraPanoSettings(props: PropTypes) {
     )
   );
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <div>
       <Formik
@@ -60,7 +75,7 @@ export default function CameraPanoSettings(props: PropTypes) {
           <form onSubmit={handleSubmit}>
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-6">
-                <label htmlFor="count">Count</label>
+                <label htmlFor="count">{t("cCameraBurstSettingsCount")}</label>
               </div>
               <div className="col-4 me-2">
                 <select
@@ -79,7 +94,9 @@ export default function CameraPanoSettings(props: PropTypes) {
             </div>
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-6">
-                <label htmlFor="interval">Interval</label>
+                <label htmlFor="interval">
+                  {t("cCameraBurstSettingsinterval")}
+                </label>
               </div>
               <div className="col-4 me-2">
                 <select

@@ -11,12 +11,14 @@ Description = identifier
 */
 
 const translations = {
-  pIndexDescription: "Deze website stelt u in staat om de Dwarf II te bedienen met behulp van de Dwarf API",
+  pIndexDescription:
+    "Deze website stelt u in staat om de Dwarf II te bedienen met behulp van de Dwarf API",
   pIndexFeature: "Kenmerken",
   pIndexFeature1: "1. Objectenlijst met meer dan 850 objecten.",
   pIndexFeature2: "2. Importeer objectenlijsten van Telescopius.",
   pIndexFeature3: "3. Importeer mozaïeklijsten van Telescopius.",
-  pIndexFeature4: "4. Verbind met de Stellarium planetarium app om doelen te selecteren.",
+  pIndexFeature4:
+    "4. Verbind met de Stellarium planetarium app om doelen te selecteren.",
   pIndexFeature5: "5. Maak astrofoto's.",
   pIndexFeature6: "6. 1x1 binning voor astrofoto's.",
   pIndexClaimer:
@@ -64,34 +66,50 @@ const translations = {
     "Richt de Dwarf II naar Polaris en pas de hoek aan om overeen te komen met je hoogte.",
   cWitmotionPolaris2: "Je zou Polaris in het midden van de camera moeten zien.",
   pFirstSteps: "Eerste Stap",
-  pFirstStepsContent: "Gebruik de DwarfII mobiele app van Dwarf Labs om donkere frames te maken, de focus scherp te stellen en Goto te kalibreren.",
+  pFirstStepsContent:
+    "Gebruik de DwarfII mobiele app van Dwarf Labs om donkere frames te maken, de focus scherp te stellen en Goto te kalibreren.",
   pSetLocation: "Locatie instellen",
-  pSetLocationContent: "Om Goto te laten werken, heeft deze site uw breedtegraad, lengtegraad en tijdzone nodig. De lengtegraad is negatief ten westen van Greenwich",
+  pSetLocationContent:
+    "Om Goto te laten werken, heeft deze site uw breedtegraad, lengtegraad en tijdzone nodig. De lengtegraad is negatief ten westen van Greenwich",
   pLatitude: "Breedtegraad",
   pLongitude: "Lengtegraad",
   pTimezone: "Tijdzone",
   pUseCurrentLocation: "Huidige Locatie",
   pEnableSTA: "Schakel STA-modus in op Dwarf II",
-  pEnableSTAContent: "Om deze site verbinding te laten maken met de Dwarf II, moet de STA-modus op de Dwarf II zijn geconfigureerd en ingeschakeld.",
-  pEnableSTAContent1: "Wanneer u de Dwarf voor het eerst gebruikt, heeft u de mobiele DwarfLab-app nodig om de verbinding tot stand te brengen. Vervolgens kunt u, zonder de Dwarf opnieuw op te starten, verbinding maken via de knop Bluetooth verbinden. De configuratie wordt vervolgens opgeslagen.",
-  pEnableSTAContent2: "Vervolgens kunt u voor de volgende start van de Dwarf er rechtstreeks verbinding mee maken via Bluetooth, zonder de mobiele applicatie te gebruiken.",
-  pEnableSTAContent3: "Klik op Verbinden. Deze site probeert via Bluetooth verbinding te maken met Dwarf II.",
+  pEnableSTAContent:
+    "Om deze site verbinding te laten maken met de Dwarf II, moet de STA-modus op de Dwarf II zijn geconfigureerd en ingeschakeld.",
+  pEnableSTAContent1:
+    "Wanneer u de Dwarf voor het eerst gebruikt, heeft u de mobiele DwarfLab-app nodig om de verbinding tot stand te brengen. Vervolgens kunt u, zonder de Dwarf opnieuw op te starten, verbinding maken via de knop Bluetooth verbinden. De configuratie wordt vervolgens opgeslagen.",
+  pEnableSTAContent2:
+    "Vervolgens kunt u voor de volgende start van de Dwarf er rechtstreeks verbinding mee maken via Bluetooth, zonder de mobiele applicatie te gebruiken.",
+  pEnableSTAContent3:
+    "Klik op Verbinden. Deze site probeert via Bluetooth verbinding te maken met Dwarf II.",
   pBluetoothPWD: "Bluetooth PASWOORD",
   pConnect: "Verbinden",
   pConnectDwarfII: "Connecteer met de Dwarf II",
-  pConnectDwarfIIContent: "Om deze site verbinding te laten maken met de Dwarf II, moeten zowel de Dwarf II als de website hetzelfde wifi-netwerk gebruiken.",
-  pConnectDwarfIIContent1: "Na het opnieuw opstarten moet u eerst via Bluetooth verbinding maken met de DwarfII.",
-  pConnectDwarfIIContent2: "Maak er vervolgens verbinding mee met de wifi-verbindingsknop. Dan hoeft u de app niet te gebruiken om te kalibreren, Goto te maken en een beeldsessie vanaf deze website te maken.",
-  pConnectDwarfIIContent3: "Bezoek deze site op een apparaat dat is verbonden met hetzelfde wifi-netwerk als de Dwarf II.",
-  pConnectDwarfIIContent4: "Voer het IP-adres in voor de Dwarf II. Als je Dwarf wifi gebruikt, is het IP-adres 192.168.88.1. Als u de STA-modus gebruikt, gebruik dan het IP-adres van uw wifi-netwerk.",
-  pConnectDwarfIIContent5: "Klik op Verbinden. Deze site zal proberen verbinding te maken met Dwarf II.",
-  pConnectDwarfIIContent6: "Als u het bericht ziet: => Go Live, heeft u een beeldsessie voltooid, ga naar de Camerapagina en klik op de Live-knop.",
+  pConnectDwarfIIContent:
+    "Om deze site verbinding te laten maken met de Dwarf II, moeten zowel de Dwarf II als de website hetzelfde wifi-netwerk gebruiken.",
+  pConnectDwarfIIContent1:
+    "Na het opnieuw opstarten moet u eerst via Bluetooth verbinding maken met de DwarfII.",
+  pConnectDwarfIIContent2:
+    "Maak er vervolgens verbinding mee met de wifi-verbindingsknop. Dan hoeft u de app niet te gebruiken om te kalibreren, Goto te maken en een beeldsessie vanaf deze website te maken.",
+  pConnectDwarfIIContent3:
+    "Bezoek deze site op een apparaat dat is verbonden met hetzelfde wifi-netwerk als de Dwarf II.",
+  pConnectDwarfIIContent4:
+    "Voer het IP-adres in voor de Dwarf II. Als je Dwarf wifi gebruikt, is het IP-adres 192.168.88.1. Als u de STA-modus gebruikt, gebruik dan het IP-adres van uw wifi-netwerk.",
+  pConnectDwarfIIContent5:
+    "Klik op Verbinden. Deze site zal proberen verbinding te maken met Dwarf II.",
+  pConnectDwarfIIContent6:
+    "Als u het bericht ziet: => Go Live, heeft u een beeldsessie voltooid, ga naar de Camerapagina en klik op de Live-knop.",
   pConnectStellarium: "Maak verbinding met Stellarium",
-  pConnectStellariumContent: "Om Stellarium te kunnen gebruiken, moeten we de Remote Control-plug-in instellen.",
+  pConnectStellariumContent:
+    "Om Stellarium te kunnen gebruiken, moeten we de Remote Control-plug-in instellen.",
   pConnectStellariumContent1: "Start Stellarium desktop app.",
   pConnectStellariumContent2: "Het begin van deze",
-  pConnectStellariumContent2_1: " demonstreert het instellen van Stellarium's Remote Control-plug-in (0 tot 1:40); sla het gedeelte over NINA over. Klik op ' CORS inschakelen voor de volgende herkomst ' en typ ' * '.",
-  pConnectStellariumContent3: "Voer het IP-adres en de poort in voor de Remote Control-plug-in en klik op ' Verbinden '. Deze site zal proberen verbinding te maken met Stellarium.",
+  pConnectStellariumContent2_1:
+    " demonstreert het instellen van Stellarium's Remote Control-plug-in (0 tot 1:40); sla het gedeelte over NINA over. Klik op ' CORS inschakelen voor de volgende herkomst ' en typ ' * '.",
+  pConnectStellariumContent3:
+    "Voer het IP-adres en de poort in voor de Remote Control-plug-in en klik op ' Verbinden '. Deze site zal proberen verbinding te maken met Stellarium.",
   pIPAdress: "Ip-Adres",
   pPort: "Poort",
   cUnlockHost: "Ontgrendel de hostmodus",
@@ -99,6 +117,114 @@ const translations = {
   pConnectionSuccessFull: "Verbinding succesvol.",
   pConnecting: "Verbinden...",
   pConnectingFailed: "Verbinding mislukt!",
+  cAstroSettingsInfoGain: "Gain",
+  cAstroSettingsInfoGainDesc:
+    "Gain is een digitale camerasetting die de versterking van het signaal van de camerasensor regelt. Het moet worden opgemerkt dat dit het hele signaal versterkt, inclusief eventueel bijbehorend achtergrondgeluid.",
+  cAstroSettingsInfoExposure: "Belichting",
+  cAstroSettingsInfoExposureDesc:
+    "Tijd waarin de sensor aan licht wordt blootgesteld en informatie (energie) vastlegt",
+  cAstroSettingsInfoIRPass: "IR (infrarood) - Doorgang",
+  cAstroSettingsInfoIRPassDesc:
+    "Hiermee kan de infraroodgolflengte de sensor bereiken. Verschillende astronomische objecten zenden in deze golflengte uit.",
+  cAstroSettingsInfoIRCut: "IR (infrarood) - Uitschakelen",
+  cAstroSettingsInfoIRCutDesc:
+    "Blokkeert infraroodgolflengte. Nuttig voor maan- en planeetopnamen.",
+  cAstroSettingsInfoBin1x1: "Binning - 1x1",
+  cAstroSettingsInfoBin1x1Desc:
+    "Camera legt licht vast op elk individueel fysiek pixel.",
+  cAstroSettingsInfoBin2x2: "Binning - 2x2",
+  cAstroSettingsInfoBin2x2Desc:
+    "Camera combineert fysieke pixels in groepen van 2x2 (4 pixels) en beschouwt al het licht dat in de groep is vastgelegd als een enkel pixel. Kan worden beschouwd als een 'virtueel' pixel. Dit maakt de pixels groter en vermindert de resolutie met een factor gelijk aan de binning.",
+  cAstroSettingsInfoFormatFITS: "Formaat - FITS",
+  cAstroSettingsInfoFormatFITSDesc:
+    "Astronomisch verliesloos numeriek bestandsformaat. Kan metadata van de afbeelding bevatten (coördinaten, camera, pixelgrootte binning, filter, enz.) die door verwerkingssoftware kunnen worden gebruikt.",
+  cAstroSettingsInfoFormatTIFF: "Formaat - TIFF",
+  cAstroSettingsInfoFormatTIFFDesc:
+    "Een verliesloos bestandsformaat, maar niet specifiek gericht op astronomie.",
+  cAstroSettingsInfoCount: "Tellen",
+  cAstroSettingsInfoCountDesc: "Aantal afbeeldingen om te nemen",
+  cAstroSettingsInfoBack: "Terug",
+  cCameraAddOnPhoto: "Foto",
+  cCameraAddOnVideo: "Video",
+  cCameraAddOnPanorama: "Panorama",
+  cCameraAddonTimeLapse: "Timelapse",
+  cCameraBurstSettingsCount: "Tellen",
+  cCameraBurstSettingsinterval: "Interval",
+  cCameraTitle: "Astro Photos",
+  cCameraConnection: "Je moet verbinding maken met Dwarf II.",
+  cCameraLocation: "Je moet je locatie instellen.",
+  cCalibrationDwarfLights: "Lichten",
+  cCalibrationDwarfRingOn: "Ring Aan",
+  cCalibrationDwarfRingOff: "Ring Uit",
+  cCalibrationDwarfPowerOn: "Stroom Aan",
+  cCalibrationDwarfPowerOff: "Stroom Uit",
+  cCalibrationDwarfTitle: "Kalibreer de Dwarf II",
+  cCalibrationDwarfTitleDesc:
+    "Om de Astro-functie te gebruiken, moet u eerst de Dwarf II kalibreren.",
+  cCalibrationDwarfWarning: "WAARSCHUWING:",
+  cCalibrationDwarfWarningDesc: "Plaats op dit moment niets op de lens.",
+  CCalibrationDwarfCalibrate: "Kalibreren",
+  cCalibrationDwarfStopGoto: "Stop Goto",
+  cCalibrationDwarfSavePosition: "Positie opslaan",
+  cCalibrationDwarfResetPosition: "Positie resetten",
+  cCalibrationDwarfGoToPosition: "Ga naar positie",
+  cCalibrationDwarfShutdown: "Uitschakelen!",
+  cCalibrationDwarfReboot: "Herstarten!",
+  cNavHome: "Home",
+  cNavSetup: "Instellingen",
+  cNavObjects: "Objecten",
+  cNavCamera: "Camera",
+  cNavSessionData: "Sessiegegevens",
+  cNavWeather: "Weer",
+  cNavClouds: "Wolken",
+  cNavMoonphases: "Maanfasen",
+  cNavAstronomyCalendar: "Astronomische kalender",
+  cNavPolarAlignment: "Pooluitlijning",
+  cNavAbout: "Over",
+  cStatusBarExposure: "Belichting",
+  cStatusBarIRFilter: "IR-filter",
+  cStatusBarBinning: "Binning",
+  cStatusBarCounter: "Teller",
+  cStatusBarQuality: "Kwaliteit",
+  cStatusBarTaken: "Genomen:",
+  cStatusBarStacked: "Gestapeld:",
+  cStatusBarTime: "Tijd:",
+  cStatusBarCurTarget: "Huidige Doel:",
+  cThemeSettingsTitle: "Thema-instellingen",
+  cThemeSettingsFontSize: "Lettergrootte",
+  cThemeSettingsColorTheme: "Kleurthema",
+  cThemeSettingsLightTheme: "Licht Thema",
+  cThemeSettingsDarkTheme: "Donker Thema",
+  cThemeSettingsAstroTheme: "Astro Thema",
+  cThemeSettingsUnderconstruction: "onder constructie",
+  cThemeSettingsLanguage: "Taal",
+  cThemeSettingsApply: "Toepassen",
+  cWeatherInfoLastUpdate: "Laatst bijgewerkt:",
+  cWeatherInfoMinTemp: "Min. Temperatuur:",
+  cWeatherInfoMaxTemp: "Max. Temperatuur:",
+  cWeatherInfoFeelsLike: "Voelt als:",
+  cWeatherInfoHumidity: "Vochtigheid:",
+  cWeatherInfoWind: "Wind:",
+  cGoToListConnectStellarium:
+    "U moet verbinding maken met Stellarium om het midden te laten werken.",
+  cGoToListConnectDwarf:
+    "U moet verbinding maken met Dwarf II om Goto te laten werken.",
+  cGoToListdefault: "Selecteer objectlijsten",
+  cGotoListplanets: "Planeten, Maan en Zon",
+  cGotoListSelectObject: "Selecteer een objectlijst.",
+  cGotoListDSOList: "De DSO-lijst bevat objecten die:",
+  cGotoListDSOList1:
+    "Groot (> 15 boogminuten) en relatief helder (minder dan 10 magnitude) zijn. 119 objecten.",
+  cGotoListDSOList2:
+    "Groot (> 15 boogminuten) en onbekende helderheid hebben. 84 objecten.",
+  cGotoListDSOList3:
+    "Klein (< 15 boogminuten), relatief helder (minder dan 10 magnitude), met gebruikelijke namen. 234 objecten.",
+  cGotoListDSOList4:
+    "118 van de helderste sterren met gebruikelijke namen, minstens één per sterrenbeeld.",
+  cGotoListDSOList5:
+    "De lijst met planeten, maan en zon bevat de planeten in ons zonnestelsel met de maan en de zon. Let op, Dwarf II is niet geschikt voor het maken van afbeeldingen van de planeten.",
+  cGotoListinfo:
+    "'Center' toont het geselecteerde object in Stellarium. 'Goto' verplaatst Dwarf II naar het geselecteerde object.",
 };
 
 export default translations;

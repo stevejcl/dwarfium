@@ -190,6 +190,15 @@ const translations = {
   cStatusBarStacked: "Gestapeld:",
   cStatusBarTime: "Tijd:",
   cStatusBarCurTarget: "Huidige Doel:",
+  cThemeSettingsTitle: "Thema-instellingen",
+  cThemeSettingsFontSize: "Lettergrootte",
+  cThemeSettingsColorTheme: "Kleurthema",
+  cThemeSettingsLightTheme: "Licht Thema",
+  cThemeSettingsDarkTheme: "Donker Thema",
+  cThemeSettingsAstroTheme: "Astro Thema",
+  cThemeSettingsUnderconstruction: "onder constructie",
+  cThemeSettingsLanguage: "Taal",
+  cThemeSettingsApply: "Toepassen",
 };
 
 export default translations;

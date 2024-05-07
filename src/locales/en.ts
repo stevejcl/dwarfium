@@ -189,6 +189,15 @@ const translations = {
   cStatusBarStacked: "Stacked:",
   cStatusBarTime: "Time:",
   cStatusBarCurTarget: "Current Target:",
+  cThemeSettingsTitle: "Theme Settings",
+  cThemeSettingsFontSize: "Font Size",
+  cThemeSettingsColorTheme: "Color Theme",
+  cThemeSettingsLightTheme: "Light Theme",
+  cThemeSettingsDarkTheme: "Dark Theme",
+  cThemeSettingsAstroTheme: "Astro Theme",
+  cThemeSettingsUnderconstruction: "under construction",
+  cThemeSettingsLanguage: "Language",
+  cThemeSettingsApply: "Apply",
 };
 
 export default translations;

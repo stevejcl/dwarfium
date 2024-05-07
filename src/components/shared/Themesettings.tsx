@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import i18n from "@/i18n";
+import { useTranslation } from "react-i18next";
 
 const Modal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -27,6 +28,16 @@ const Modal: React.FC = () => {
     }
     return "en";
   });
+
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   const languages: { [key: string]: string } = {
     en: "English",
@@ -127,7 +138,7 @@ const Modal: React.FC = () => {
       {showModal && (
         <div className="modal-overlay-theme">
           <div className="modal-content-theme">
-            <h2 className="theme-header">Theme Settings</h2>
+            <h2 className="theme-header">{t("cThemeSettingsTitle")}</h2>
             <br />
             <div className="container-bg">
               <div className="row-bg">
@@ -187,7 +198,7 @@ const Modal: React.FC = () => {
               </div>
             </div>
 
-            <h2 className="theme-header">Font Size</h2>
+            <h2 className="theme-header">{t("cThemeSettingsFontSize")}</h2>
             <div className="font-size-options">
               <button className="font-size-button" onClick={increaseFontSize}>
                 <i className="fas fa-plus"></i>
@@ -203,7 +214,7 @@ const Modal: React.FC = () => {
               </button>
             </div>
             <br />
-            <h2 className="theme-header">Color Theme</h2>
+            <h2 className="theme-header">{t("cThemeSettingsColorTheme")}</h2>
             <div className="theme-con">
               <div className="theme-options">
                 <button
@@ -212,7 +223,7 @@ const Modal: React.FC = () => {
                   }`}
                   onClick={() => handleThemeChange("light")}
                 >
-                  Light Theme
+                  {t("cThemeSettingsLightTheme")}
                 </button>
                 <button
                   className={`btn btn-more02 ${
@@ -220,7 +231,7 @@ const Modal: React.FC = () => {
                   }`}
                   onClick={() => handleThemeChange("dark")}
                 >
-                  Dark Theme
+                  {t("cThemeSettingsDarkTheme")}
                 </button>
                 <button
                   className={`btn btn-more02 ${
@@ -228,9 +239,8 @@ const Modal: React.FC = () => {
                   }`}
                   onClick={() => handleThemeChange("dark")}
                 >
-                  Astro Theme
-                  <br />
-                  (under construction)
+                  {t("cThemeSettingsAstroTheme")}
+                  <br />({t("cThemeSettingsUnderconstruction")})
                 </button>
               </div>
             </div>
@@ -238,7 +248,7 @@ const Modal: React.FC = () => {
             <br />
 
             <div className="language-options">
-              <h2 className="theme-header">Language</h2>
+              <h2 className="theme-header">{t("cThemeSettingsLanguage")}</h2>
 
               <select
                 className="language-select"
@@ -254,7 +264,7 @@ const Modal: React.FC = () => {
             </div>
             <br />
             <button className="apply-button" onClick={applyBackground}>
-              Apply
+              {t("cThemeSettingsApply")}
             </button>
           </div>
         </div>

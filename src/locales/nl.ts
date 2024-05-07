@@ -148,6 +148,9 @@ const translations = {
   cCameraAddOnVideo: "Video",
   cCameraAddOnPanorama: "Panorama",
   cCameraAddonTimeLapse: "Timelapse",
+  cCameraBurstSettingsCount: "Tellen",
+  cCameraBurstSettingsinterval: "Interval",
+  
 };
 
 export default translations;

@@ -142,6 +142,11 @@ const translations = {
   cAstroSettingsInfoCount: "Count",
   cAstroSettingsInfoCountDesc: "Number of images to take",
   cAstroSettingsInfoBack: "Back",
+  cCameraAddOnPhoto: "Photo",
+  cCameraAddOnVideo: "Video",
+  cCameraAddOnPanorama: "Panorama",
+  cCameraAddonTimeLapse: "Time Lapse",
+  
 };
 
 export default translations;

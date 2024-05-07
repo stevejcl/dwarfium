@@ -50,7 +50,7 @@ const translations = {
     "dans le référentiel GitHub montre les étapes que j'ai prises pour transformer les données brutes en listes d'objets.",
   pAboutDataCreditCode: "Ce site utilise du code provenant de ",
   pAboutDataCreditCodeAnd: "et ",
-    pAboutDataCreditCodeAndText: "pour effectuer des calculs astronomiques",
+  pAboutDataCreditCodeAndText: "pour effectuer des calculs astronomiques",
   pAboutUserData: "Données Utilisateur",
   pAboutUserDataDesc:
     "Les informations saisies par les utilisateurs sont stockées dans la base de données du navigateur (localStorage). Comme les données sont stockées dans votre navigateur, les autres utilisateurs du site ne pourront pas accéder à vos données. Cela signifie également que si un utilisateur utilise plusieurs navigateurs ou appareils, les données ne peuvent pas être synchronisées entre différents navigateurs ou appareils.",
@@ -65,34 +65,50 @@ const translations = {
     "Pointez le Dwarf II vers Polaris et ajustez l'angle pour correspondre à votre altitude.",
   cWitmotionPolaris2: "Vous devriez voir Polaris au centre de la caméra.",
   pFirstSteps: "Premiers pas",
-  pFirstStepsContent: "Utilisez l'application mobile Dwarf II de Dwarf Labs pour prendre des images sombres, focaliser la lunette et calibrer Goto.",
+  pFirstStepsContent:
+    "Utilisez l'application mobile Dwarf II de Dwarf Labs pour prendre des images sombres, focaliser la lunette et calibrer Goto.",
   pSetLocation: "Définir l'emplacement",
-  pSetLocationContent: "Pour que goto fonctionne, ce site a besoin de votre latitude, longitude et fuseau horaire. La longitude est négative à l’ouest de Greenwich",
+  pSetLocationContent:
+    "Pour que goto fonctionne, ce site a besoin de votre latitude, longitude et fuseau horaire. La longitude est négative à l’ouest de Greenwich",
   pLatitude: "Latitude",
   pLongitude: "Longitude",
   pTimezone: "Fuseau horaire",
   pUseCurrentLocation: "l'emplacement Actuel",
   pEnableSTA: "Activer le mode STA sur Dwarf II",
-  pEnableSTAContent: "Pour que ce site se connecte au Dwarf II, le Dwarf II doit avoir le mode STA configuré et activé.",
-  pEnableSTAContent1: "Lors de la première utilisation, vous avez besoin de l'application mobile DwarfLab pour établir la connexion, puis sans redémarrer le nain, connectez-vous à celui-ci via le bouton Connecter Bluetooth. La configuration sera alors enregistrée.",
-  pEnableSTAContent2: "Ensuite, pour les prochains démarrages du Dwarf, vous pourrez vous y connecter directement via Bluetooth, sans utiliser l'application mobile.",
-  pEnableSTAContent3: "Cliquez sur Connecter. Ce site tentera de se connecter via Bluetooth au Dwarf II.",
+  pEnableSTAContent:
+    "Pour que ce site se connecte au Dwarf II, le Dwarf II doit avoir le mode STA configuré et activé.",
+  pEnableSTAContent1:
+    "Lors de la première utilisation, vous avez besoin de l'application mobile DwarfLab pour établir la connexion, puis sans redémarrer le nain, connectez-vous à celui-ci via le bouton Connecter Bluetooth. La configuration sera alors enregistrée.",
+  pEnableSTAContent2:
+    "Ensuite, pour les prochains démarrages du Dwarf, vous pourrez vous y connecter directement via Bluetooth, sans utiliser l'application mobile.",
+  pEnableSTAContent3:
+    "Cliquez sur Connecter. Ce site tentera de se connecter via Bluetooth au Dwarf II.",
   pBluetoothPWD: "MOT DE PASSE Bluetooth",
   pConnect: "Connecter",
   pConnectDwarfII: "Connectez-vous à Dwarf II",
-  pConnectDwarfIIContent: "Pour que ce site se connecte au Dwarf II, le Dwarf II et le site Web doivent utiliser le même réseau wifi.",
-  pConnectDwarfIIContent1: "Après le redémarrage, vous devez d'abord vous connecter au DwarfII via Bluetooth.",
-  pConnectDwarfIIContent2: "Connectez-vous ensuite à celui-ci grâce au bouton de connexion wifi. Alors pas besoin d'utiliser l'application pour calibrer, créer Goto et Imaging Session à partir de ce site Web.",
-  pConnectDwarfIIContent3: "Visitez ce site sur un appareil connecté au même réseau wifi que le Dwarf II.",
-  pConnectDwarfIIContent4: "Entrez en IP pour le Dwarf II. Si vous utilisez le wifi Dwarf, l'adresse IP est 192.168.88.1. Si vous utilisez le mode STA, utilisez l'IP de votre réseau wifi.",
-  pConnectDwarfIIContent5: "Cliquez sur Connecter. Ce site va essayer de se connecter à Dwarf II.",
-  pConnectDwarfIIContent6: "Si vous voyez le message : => Go Live, vous avez terminé une session d'imagerie, accédez à la page Caméra et cliquez sur le bouton Live.",
+  pConnectDwarfIIContent:
+    "Pour que ce site se connecte au Dwarf II, le Dwarf II et le site Web doivent utiliser le même réseau wifi.",
+  pConnectDwarfIIContent1:
+    "Après le redémarrage, vous devez d'abord vous connecter au DwarfII via Bluetooth.",
+  pConnectDwarfIIContent2:
+    "Connectez-vous ensuite à celui-ci grâce au bouton de connexion wifi. Alors pas besoin d'utiliser l'application pour calibrer, créer Goto et Imaging Session à partir de ce site Web.",
+  pConnectDwarfIIContent3:
+    "Visitez ce site sur un appareil connecté au même réseau wifi que le Dwarf II.",
+  pConnectDwarfIIContent4:
+    "Entrez en IP pour le Dwarf II. Si vous utilisez le wifi Dwarf, l'adresse IP est 192.168.88.1. Si vous utilisez le mode STA, utilisez l'IP de votre réseau wifi.",
+  pConnectDwarfIIContent5:
+    "Cliquez sur Connecter. Ce site va essayer de se connecter à Dwarf II.",
+  pConnectDwarfIIContent6:
+    "Si vous voyez le message : => Go Live, vous avez terminé une session d'imagerie, accédez à la page Caméra et cliquez sur le bouton Live.",
   pConnectStellarium: "Connectez-vous à Stellarium",
-  pConnectStellariumContent: "Pour utiliser Stellarium, nous devons configurer le plugin Remote Control.",
+  pConnectStellariumContent:
+    "Pour utiliser Stellarium, nous devons configurer le plugin Remote Control.",
   pConnectStellariumContent1: "Démarrez l'application de bureau Stellarium.",
   pConnectStellariumContent2: "Le début de ceci",
-  pConnectStellariumContent2_1: " montre la configuration du plugin Remote Control de Stellarium (0 à 1:40) ; sautez la partie sur NINA. Cliquez sur « Activer CORS pour l'origine suivante » et saisissez « * ».",
-  pConnectStellariumContent3: "Entrez l'IP et le port du plugin Remote Control, puis cliquez sur « Connecter ». Ce site tentera de se connecter à Stellarium.",
+  pConnectStellariumContent2_1:
+    " montre la configuration du plugin Remote Control de Stellarium (0 à 1:40) ; sautez la partie sur NINA. Cliquez sur « Activer CORS pour l'origine suivante » et saisissez « * ».",
+  pConnectStellariumContent3:
+    "Entrez l'IP et le port du plugin Remote Control, puis cliquez sur « Connecter ». Ce site tentera de se connecter à Stellarium.",
   pIPAdress: "adresse IP",
   pPort: "Port",
   cUnlockHost: "Déverrouiller le mode hôte",
@@ -101,24 +117,36 @@ const translations = {
   pConnecting: "De liaison...",
   pConnectingFailed: "La connexion a échoué!",
   cAstroSettingsInfoGain: "Gain",
-  cAstroSettingsInfoGainDesc: "Le gain est un paramètre de l'appareil photo numérique qui contrôle l'amplification du signal provenant du capteur de l'appareil photo. Il convient de noter que cela amplifie l'ensemble du signal, y compris tout bruit de fond associé.",
+  cAstroSettingsInfoGainDesc:
+    "Le gain est un paramètre de l'appareil photo numérique qui contrôle l'amplification du signal provenant du capteur de l'appareil photo. Il convient de noter que cela amplifie l'ensemble du signal, y compris tout bruit de fond associé.",
   cAstroSettingsInfoExposure: "Exposition",
-  cAstroSettingsInfoExposureDesc: "Temps pendant lequel le capteur sera exposé à la lumière et capturera des informations (énergie)",
+  cAstroSettingsInfoExposureDesc:
+    "Temps pendant lequel le capteur sera exposé à la lumière et capturera des informations (énergie)",
   cAstroSettingsInfoIRPass: "IR (infrarouge) - Passer",
-  cAstroSettingsInfoIRPassDesc: "Permet à la longueur d'onde infrarouge d'atteindre le capteur. Plusieurs objets astronomiques émettent dans cette longueur d'onde.",
+  cAstroSettingsInfoIRPassDesc:
+    "Permet à la longueur d'onde infrarouge d'atteindre le capteur. Plusieurs objets astronomiques émettent dans cette longueur d'onde.",
   cAstroSettingsInfoIRCut: "IR (infrarouge) - Couper",
-  cAstroSettingsInfoIRCutDesc: "Bloque la longueur d'onde infrarouge. Utile pour les prises de vue lunaires et planétaires.",
+  cAstroSettingsInfoIRCutDesc:
+    "Bloque la longueur d'onde infrarouge. Utile pour les prises de vue lunaires et planétaires.",
   cAstroSettingsInfoBin1x1: "Binning - 1x1",
-  cAstroSettingsInfoBin1x1Desc: "L'appareil photo capture la lumière sur chaque pixel physique individuel.",
+  cAstroSettingsInfoBin1x1Desc:
+    "L'appareil photo capture la lumière sur chaque pixel physique individuel.",
   cAstroSettingsInfoBin2x2: "Binning - 2x2",
-  cAstroSettingsInfoBin2x2Desc :"L'appareil photo combine des pixels physiques en groupes de 2x2 (4 pixels) et considère toute la lumière capturée dans le groupe comme un seul pixel. Peut être considéré comme un pixel 'virtuel'. Cela rend la taille des pixels plus grande et réduit la résolution d'un facteur égal au binning.",
+  cAstroSettingsInfoBin2x2Desc:
+    "L'appareil photo combine des pixels physiques en groupes de 2x2 (4 pixels) et considère toute la lumière capturée dans le groupe comme un seul pixel. Peut être considéré comme un pixel 'virtuel'. Cela rend la taille des pixels plus grande et réduit la résolution d'un facteur égal au binning.",
   cAstroSettingsInfoFormatFITS: "Format - FITS",
-  cAstroSettingsInfoFormatFITSDesc: "Format de fichier numérique astronomique sans perte. Peut inclure des métadonnées de l'image (coordonnées, appareil photo, taille de pixel binning, filtre, etc.) pouvant être utilisées par un logiciel de traitement.",
+  cAstroSettingsInfoFormatFITSDesc:
+    "Format de fichier numérique astronomique sans perte. Peut inclure des métadonnées de l'image (coordonnées, appareil photo, taille de pixel binning, filtre, etc.) pouvant être utilisées par un logiciel de traitement.",
   cAstroSettingsInfoFormatTIFF: "Format - TIFF",
-  cAstroSettingsInfoFormatTIFFDesc: "Un format de fichier sans perte, mais pas spécifiquement orienté vers l'astronomie.",
+  cAstroSettingsInfoFormatTIFFDesc:
+    "Un format de fichier sans perte, mais pas spécifiquement orienté vers l'astronomie.",
   cAstroSettingsInfoCount: "Compter",
   cAstroSettingsInfoCountDesc: "Nombre d'images à prendre",
   cAstroSettingsInfoBack: "Retour",
+  cCameraAddOnPhoto: "Photo",
+  cCameraAddOnVideo: "Vidéo",
+  cCameraAddOnPanorama: "Panorama",
+  cCameraAddonTimeLapse: "Time-lapse",
 };
 
 export default translations;

@@ -6,6 +6,8 @@ import CircularSlider from "@fseehawer/react-circular-slider";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 import CameraPanoSettings from "@/components/imaging/CameraPanoSettings";
 import CameraBurstSettings from "@/components/imaging/CameraBurstSettings";
 import CameraTimeLapseSettings from "@/components/imaging/CameraTimeLapseSettings";
@@ -664,6 +666,18 @@ export default function CameraAddOn(props: PropTypes) {
     }
   }
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <div>
       {errorTxt && showModal && closePane.current && (
@@ -746,7 +760,7 @@ export default function CameraAddOn(props: PropTypes) {
             <div className="pane">
               <div className="column">
                 <div className="header">
-                  <div className="title">Photo</div>
+                  <div className="title">{t("cCameraAddOnPhoto")}</div>
                 </div>
                 <div className="separator"></div>
                 <img
@@ -782,7 +796,7 @@ export default function CameraAddOn(props: PropTypes) {
               </div>
               <div className="column">
                 <div className="header">
-                  <div className="title">Video</div>
+                  <div className="title">{t("cCameraAddOnVideo")}</div>
                 </div>
                 <div className="separator"></div>
                 <img
@@ -812,7 +826,7 @@ export default function CameraAddOn(props: PropTypes) {
               </div>
               <div className="column">
                 <div className="header">
-                  <div className="title">Panorama</div>
+                  <div className="title">{t("cCameraAddOnPanorama")}</div>
                   <Link href="#" className="" title="Show Settings">
                     <OverlayTrigger
                       trigger="click"
@@ -942,7 +956,7 @@ export default function CameraAddOn(props: PropTypes) {
               </div>
               <div className="column">
                 <div className="header">
-                  <div className="title">Time Lapse</div>
+                  <div className="title">{t("cCameraAddOnTimeLapse")}</div>
                   <Link href="#" className="" title="Show Settings">
                     <OverlayTrigger
                       trigger="click"

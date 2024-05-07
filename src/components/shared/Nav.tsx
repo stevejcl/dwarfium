@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Modal from "react-bootstrap/Modal";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 export default function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -10,6 +12,18 @@ export default function Nav() {
   useEffect(() => {
     const devState = localStorage.getItem("devState");
     setDevEnabled(devState === "true");
+  }, []);
+
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
   }, []);
 
   const handleToggleModal = () => {
@@ -72,7 +86,7 @@ export default function Nav() {
             >
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" href="/">
-                  Home
+                  {t("cNavHome")}
                 </Link>
               </li>
               <div className="dropdown">
@@ -85,28 +99,28 @@ export default function Nav() {
                     aria-current="page"
                     href="/setup-scope"
                   >
-                    Setup
+                    {t("cNavSetup")}
                   </Link>
                   <Link
                     className="nav-link active drop"
                     aria-current="page"
                     href="/objects"
                   >
-                    Objects
+                    {t("cNavObjects")}
                   </Link>
                   <Link
                     className="nav-link active drop"
                     aria-current="page"
                     href="/cameras"
                   >
-                    Camera
+                    {t("cNavCamera")}
                   </Link>
                   <Link
                     className="nav-link active drop"
                     aria-current="page"
                     href="/image-session"
                   >
-                    Session-Data
+                    {t("cNavSessionData")}
                   </Link>
                   <Link
                     className="nav-link active drop"
@@ -120,7 +134,7 @@ export default function Nav() {
 
               <div className="dropdown">
                 <button className="dropbtn">
-                  Weather <i className="fa fa-caret-down"></i>
+                  {t("cNavWeather")} <i className="fa fa-caret-down"></i>
                 </button>
                 <div className="dropdown-content">
                   <Link
@@ -128,21 +142,21 @@ export default function Nav() {
                     aria-current="page"
                     href="/weather"
                   >
-                    Weather
+                    {t("cNavWeather")}
                   </Link>
                   <Link
                     className="nav-link active drop"
                     aria-current="page"
                     href="/clouds"
                   >
-                    Clouds
+                    {t("cNavClouds")}
                   </Link>
                   <Link
                     className="nav-link active drop"
                     aria-current="page"
                     href="/moonphase"
                   >
-                    Moonphases
+                    {t("cNavMoonphases")}
                   </Link>
                 </div>
               </div>
@@ -152,7 +166,7 @@ export default function Nav() {
                   aria-current="page"
                   href="/astro-calendar"
                 >
-                  Astronomy calendar
+                  {t("cNavAstronomyCalendar")}
                 </Link>
               </li>
               <li className="nav-item">
@@ -162,7 +176,7 @@ export default function Nav() {
                   href="/wit-sensor"
                   style={{ display: devEnabled ? "block" : "none" }}
                 >
-                  Polar Alignment
+                  {t("cNavPolarAlignment")}
                 </Link>
               </li>
               <li className="nav-item">
@@ -171,7 +185,7 @@ export default function Nav() {
                   aria-current="page"
                   href="/about"
                 >
-                  About
+                  {t("cNavAbout")}
                 </Link>
               </li>
             </ul>

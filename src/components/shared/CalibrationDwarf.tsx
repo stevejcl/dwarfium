@@ -3,6 +3,8 @@ import { useState, useContext, useEffect, useRef } from "react";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { getExposureIndexByName, getGainIndexByName } from "@/lib/data_utils";
 import { saveLoggerViewDb, savePiPViewDb } from "@/db/db_utils";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 import {
   calibrationHandler,
@@ -42,6 +44,18 @@ export default function CalibrationDwarf() {
     eventBus.on("clearSuccess", () => {
       setSuccess(undefined);
     });
+  }, []);
+
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
   }, []);
 
   // custom hook for getting previous value
@@ -194,9 +208,9 @@ export default function CalibrationDwarf() {
           onClick={RingLightsOffFn}
           disabled={!connectionCtx.connectionStatus}
         >
-          Lights
+          {t("cCalibrationDwarfLights")}
           <br />
-          Ring On
+          {t("cCalibrationDwarfRingOn")}
         </button>
       );
     else
@@ -208,9 +222,9 @@ export default function CalibrationDwarf() {
           onClick={RingLightsOnFn}
           disabled={!connectionCtx.connectionStatus}
         >
-          Lights
+          {t("cCalibrationDwarfLights")}
           <br />
-          Ring Off
+          {t("cCalibrationDwarfRingOff")}
         </button>
       );
   }
@@ -228,9 +242,9 @@ export default function CalibrationDwarf() {
             connectionCtx.statusRingLightsDwarf === undefined
           }
         >
-          Lights
+          {t("cCalibrationDwarfLights")}
           <br />
-          Power On
+          {t("cCalibrationDwarfPowerOn")}
         </button>
       );
     else
@@ -245,24 +259,24 @@ export default function CalibrationDwarf() {
             connectionCtx.statusPowerLightsDwarf === undefined
           }
         >
-          Lights
+          {t("cCalibrationDwarfLights")}
           <br />
-          Power Off
+          {t("cCalibrationDwarfPowerOff")}
         </button>
       );
   }
 
   return (
     <>
-      <h2>Calibrate the Dwarf II</h2>
+      <h2>{t("cCalibrationDwarfTitle")}</h2>
 
       <p>
-        In order to use Astro function, you must calibrate the dwarf II first.
+        {t("cCalibrationDwarfTitleDesc")}
         <br />
         <span className="text-danger">
-          <b> WARNING: </b>
+          <b> {t("cCalibrationDwarfWarning")} </b>
         </span>
-        don&#39;t put anything on the lens at this moment.
+        {t("cCalibrationDwarfWarningDesc")}
       </p>
       <br />
 
@@ -295,7 +309,7 @@ export default function CalibrationDwarf() {
             onClick={calibrateFn}
             disabled={!connectionCtx.connectionStatus}
           >
-            Calibrate
+            {t("CCalibrationDwarfCalibrate")}
           </button>
           <button
             className={`btn ${
@@ -304,7 +318,7 @@ export default function CalibrationDwarf() {
             onClick={stopGotoFn}
             disabled={!connectionCtx.connectionStatus}
           >
-            Stop Goto
+            {t("cCalibrationDwarfStopGoto")}
           </button>
         </div>
         <div className="col-sm-4">
@@ -320,7 +334,7 @@ export default function CalibrationDwarf() {
               !connectionCtx.savePositionStatus
             }
           >
-            Save Position
+            {t("cCalibrationDwarfSavePosition")}
           </button>
           <button
             className={`btn ${
@@ -333,7 +347,7 @@ export default function CalibrationDwarf() {
               !connectionCtx.connectionStatus && !connectionCtx.isSavedPosition
             }
           >
-            Reset Position
+            {t("cCalibrationDwarfResetPosition")}
           </button>
           <button
             className={`btn ${
@@ -346,7 +360,7 @@ export default function CalibrationDwarf() {
               !connectionCtx.connectionStatus && !connectionCtx.isSavedPosition
             }
           >
-            Goto Position
+            {t("cCalibrationDwarfGoToPosition")}
           </button>
         </div>
         <div className="col-sm-4 text-end">
@@ -359,7 +373,7 @@ export default function CalibrationDwarf() {
             onClick={shutDownFn}
             disabled={!connectionCtx.connectionStatus}
           >
-            Shutdown!
+            {t("cCalibrationDwarfShutdown")}
           </button>
           <button
             className={`btn ${
@@ -368,7 +382,7 @@ export default function CalibrationDwarf() {
             onClick={rebootFn}
             disabled={!connectionCtx.connectionStatus}
           >
-            Reboot!
+            {t("cCalibrationDwarfReboot")}
           </button>
         </div>
       </div>

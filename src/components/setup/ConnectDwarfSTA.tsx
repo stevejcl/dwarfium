@@ -296,7 +296,7 @@ export default function ConnectDwarfSTA() {
 
   function renderConnectionStatus() {
     if (connecting) {
-      return <span>Connecting...</span>;
+      return <span>{t("pConnecting")}</span>;
     }
     if (connectionStatus === undefined) {
       return <></>;

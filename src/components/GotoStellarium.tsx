@@ -1,6 +1,8 @@
 /* eslint react/no-unescaped-entities: 0 */
 
 import { useContext, useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { statusPath, parseStellariumData } from "@/lib/stellarium_utils";
@@ -167,27 +169,32 @@ export default function ManualGoto() {
     );
   }
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <div>
       {!connectionCtx.connectionStatusStellarium && (
-        <p className="text-danger">
-          You must connect to Stellarium for Import Data to work.
-        </p>
+        <p className="text-danger">{t("cGoToStellariumConnectStellarium")}</p>
       )}
       {!connectionCtx.connectionStatus && (
-        <p className="text-danger">
-          You must connect to Dwarf II for Goto to work.
-        </p>
+        <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
       )}
 
-      <p>You can use Stellarium to help pick objects.</p>
+      <p>{t("cGoToStellariumPickObject")}</p>
       <ol>
-        <li>Select an object in Stellarium.</li>
-        <li>
-          Import right ascension and declination from Stellarium by clicking
-          'Import Data'.
-        </li>
-        <li>Start goto by clicking 'Goto'</li>
+        <li>{t("cGoToStellariumListTitle")}</li>
+        <li>{t("cGoToStellariumList1")}</li>
+        <li>{t("cGoToStellariumList2")}</li>
       </ol>
       <button
         className={`btn ${
@@ -198,34 +205,34 @@ export default function ManualGoto() {
         onClick={fetchStellariumData}
         disabled={!connectionCtx.connectionStatusStellarium}
       >
-        Import Data
+        {t("cGoToStellariumImportData")}
       </button>
       <button
         className={`btn btn btn-more02
         } me-4 mb-3`}
         onClick={importManualData}
       >
-        Import Manual Data
+        {t("cGoToStellariumImportManualData")}
       </button>
       {errors && <p className="text-danger">{errors}</p>}
       <div className="row mb-3">
-        <div className="col-sm-4">Latitude</div>
+        <div className="col-sm-4">{t("pLatitude")}</div>
         <div className="col-sm-8">{connectionCtx.latitude}</div>
       </div>
       <div className="row mb-3">
-        <div className="col-sm-4">Longitude</div>
+        <div className="col-sm-4">{t("pLongitude")}</div>
         <div className="col-sm-8">{connectionCtx.longitude}</div>
       </div>
       <div className="row mb-3">
-        <div className="col-sm-4">Object</div>
+        <div className="col-sm-4">{t("cGoToStellariumObject")}</div>
         <div className="col-sm-8">{objectName}</div>
       </div>
       <div className="row mb-3">
-        <div className="col-sm-4">Right Ascension</div>
+        <div className="col-sm-4">{t("cGoToStellariumRightAscension")}</div>
         <div className="col-sm-8">{RA}</div>
       </div>
       <div className="row mb-3">
-        <div className="col-sm-4">Declination</div>
+        <div className="col-sm-4">{t("cGoToStellariumDeclination")}</div>
         <div className="col-sm-8">{declination}</div>
       </div>
       <div className="row mb-3">
@@ -257,7 +264,7 @@ export default function ManualGoto() {
               !connectionCtx.connectionStatusStellarium || RA === undefined
             }
           >
-            Center
+            {t("cGoToStellariumCenter")}
           </button>
           <button
             className={`btn ${
@@ -312,16 +319,16 @@ export default function ManualGoto() {
       <div className="row mb-3">
         <div className="col-sm-4 text-end">
           <p>
-            You can gently move the Center:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {t("cGoToStellariumMoveCenter")}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </p>
         </div>
         <div className="col-sm-8">
           <ol>
-            <li>Click on buttons to move the center to </li>
-            <li>+/- 1 min for right ascension, +/- 0.1° for declination</li>
-            <li>The coordinates will be updated</li>
-            <li>Re-Center in Stellarium by clicking 'Center'</li>
-            <li>Then Start goto by clicking 'Goto'</li>
+            <li>{t("cGoToStellariumMoveCenterli1")}</li>
+            <li>{t("cGoToStellariumMoveCenterli2")}</li>
+            <li>{t("cGoToStellariumMoveCenterli3")}</li>
+            <li>{t("cGoToStellariumMoveCenterli4")}</li>
+            <li>{t("cGoToStellariumMoveCenterli5")}</li>
           </ol>
         </div>
       </div>

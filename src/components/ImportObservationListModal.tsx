@@ -1,8 +1,11 @@
 import type { FormEvent, Dispatch, SetStateAction } from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Papa from "papaparse";
 import type { ChangeEvent } from "react";
 import Modal from "react-bootstrap/Modal";
+
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { processObjectListTelescopius } from "@/lib/observation_lists_utils";
@@ -109,19 +112,31 @@ export default function ImportObjectListModal(props: PropTypes) {
     }
   }
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Object List</Modal.Title>
+        <Modal.Title>{t("cImportObservationListModalTitle")}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <p>Import objects list from Telescopius.</p>
+        <p>{t("cImportObservationListfromTelescopius")}</p>
 
         <form onSubmit={fileUploadHandler}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
-              List Name
+              {t("cImportObservationListListName")}
             </label>
             <input
               type="text"
@@ -145,7 +160,7 @@ export default function ImportObjectListModal(props: PropTypes) {
             />
           </div>
           <button type="submit" className="btn btn-more02 me-2 mb-2">
-            Import List
+            {t("cImportObservationImportList")}
           </button>
         </form>
       </Modal.Body>

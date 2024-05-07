@@ -1,5 +1,7 @@
 ﻿import React, { useState, useEffect } from "react";
 import MoonPhaseCalculator from "../components/MoonPhaseCalculator";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 export default function Moonphase() {
   const currentDate = new Date();
@@ -12,6 +14,18 @@ export default function Moonphase() {
   const handleChange = (event) => {
     setSelectedMonth(event.target.value);
   };
+
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   useEffect(() => {}, [selectedMonth]);
 
@@ -61,7 +75,7 @@ export default function Moonphase() {
           <br />
           <div className="city-input">
             <label htmlFor="start" className="is-size-3">
-              Select Month :
+              {t("pMoonphaseSelectMonth")}
             </label>
             <input
               type="month"

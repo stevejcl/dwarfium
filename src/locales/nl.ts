@@ -225,6 +225,73 @@ const translations = {
     "De lijst met planeten, maan en zon bevat de planeten in ons zonnestelsel met de maan en de zon. Let op, Dwarf II is niet geschikt voor het maken van afbeeldingen van de planeten.",
   cGotoListinfo:
     "'Center' toont het geselecteerde object in Stellarium. 'Goto' verplaatst Dwarf II naar het geselecteerde object.",
+  cGoToStellariumConnectStellarium:
+    "U moet verbinding maken met Stellarium om gegevens te importeren.",
+  cGoToStellariumPickObject:
+    "U kunt Stellarium gebruiken om objecten te selecteren.",
+  cGoToStellariumListTitle: "Selecteer een object in Stellarium.",
+  cGoToStellariumList1:
+    "Importeer rechte klimming en declinatie vanuit Stellarium door op 'Gegevens importeren' te klikken.",
+  cGoToStellariumList2: "Start goto door op 'Goto' te klikken.",
+  cGoToStellariumImportData: "Gegevens importeren",
+  cGoToStellariumImportManualData: "Handmatige gegevens importeren",
+  cGoToStellariumObject: "Object",
+  cGoToStellariumRightAscension: "Rechte klimming",
+  cGoToStellariumDeclination: "Deklinatie",
+  cGoToStellariumCenter: "Centreren",
+  cGoToStellariumMoveCenter: " U kunt het midden voorzichtig verplaatsen:",
+  cGoToStellariumMoveCenterli1:
+    "Klik op knoppen om het midden te verplaatsen naar",
+  cGoToStellariumMoveCenterli2:
+    "+/- 1 min voor rechte klimming, +/- 0.1° voor declinatie",
+  cGoToStellariumMoveCenterli3: "De coördinaten worden bijgewerkt",
+  cGoToStellariumMoveCenterli4:
+    "Hercentreren in Stellarium door op 'Centreren' te klikken",
+  cGoToStellariumMoveCenterli5: "Start dan goto door op 'Goto' te klikken",
+  cGoToUserListNewList: "Nieuwe lijst toevoegen",
+  cGoToUserListDeleteList: "Lijst verwijderen",
+  cGoToUserListCustomObjectsListInstruction1: `
+    Om aangepaste objectenlijsten toe te voegen, maak een objectenlijst aan op 
+    <a href="https://telescopius.com">Telescopius</a>, download 
+    de CSV en klik op "Nieuwe lijst toevoegen".
+  `,
+  cGoToUserListCustomObjectsListInstruction2:
+    "De lijsten worden opgeslagen in de browser-database (localStorage). Omdat de gegevens in uw browser zijn opgeslagen, kunnen andere gebruikers van de site uw lijsten niet openen.",
+  cGoToUserListCustomObjectsListInstruction3:
+    "Als u uw lijst met andere mensen wilt delen, kunt u andere mensen de CSV van Telescopius sturen.",
+  cImportManualModalTitle: "Voer handmatige gegevens in",
+  cImportManualModalObjecTName: "Objectnaam",
+  cImportObservationListModalTitle: "Objectlijst toevoegen",
+  cImportObservationListfromTelescopius:
+    "Importeer objectenlijst van Telescopius.",
+  cImportObservationListListName: "Lijstnaam",
+  cImportObservationImportList: "Lijst importeren",
+  cMoonphaseCalculatorNewMoon: "Nieuwe Maan",
+  cMoonphaseCalculatorWaxingCrescent: "Wassende Sikkelsikkel",
+  cMoonphaseCalculatorFirstQuarter: "Eerste Kwartier",
+  cMoonphaseCalculatorWaxingGibbous: "Wassende Maan",
+  cMoonphaseCalculatorFullMoon: "Volle Maan",
+  cMoonphaseCalculatorWaningGibbous: "Afnemende Maan",
+  cMoonphaseCalculatorLastQuarter: "Laatste Kwartier",
+  cMoonphaseCalculatorWaningCrescent: "Afnemende Sikkelsikkel",
+  cMoonphaseCalculatorUnknown: "Onbekend",
+  pImageSessionShotsStacked: "Gestapelde opnames",
+  pImageSessionShotsTaken: "Opnames gemaakt",
+  pImageSessionNoShootingInfo: "Geen opnamegegevens beschikbaar",
+  pImageSessionNoAdditionalInfo: "Geen extra informatie beschikbaar",
+  pImageSessionData: "Sessiegegevens",
+  pImageSessionSortTable:
+    "U kunt de tabel sorteren door op Doel of Datum te klikken",
+  pImageSessionPreview: "Voorbeeld",
+  pImageSessionTarget: "Doel",
+  pImageSessionDate: "Datum",
+  pImageSessionShootingInfo: "Opnamegegevens",
+  pImageSessionAdditionalInfo: "Extra informatie",
+  pImageSessionAction: "Actie",
+  pImageSessionLoading: "Laden...",
+  pImageSessionDownload: "Downloaden",
+  pMoonphaseSelectMonth: "Selecteer maand:",
+  
 };
 
 export default translations;

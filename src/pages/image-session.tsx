@@ -244,7 +244,7 @@ export default function AstroPhoto() {
       if (prop === "date") {
         const dateA = new Date(a[prop]);
         const dateB = new Date(b[prop]);
-  
+
         if (dateA < dateB) return sortOrder === "asc" ? -1 : 1;
         if (dateA > dateB) return sortOrder === "asc" ? 1 : -1;
         return 0;
@@ -256,15 +256,11 @@ export default function AstroPhoto() {
         }
       }
     });
-  
+
     setSessions(sortedSessions);
     setSortBy(prop);
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
-  
-  
-  
-  
 
   return (
     <>

@@ -110,8 +110,7 @@ export default function AstroPhoto() {
   const fetchSessionInfo = async (sessionName: string) => {
     try {
       const response = await fetch(
-        `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/shotsInfo.json`,
-        { mode: "no-cors" }
+        `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/shotsInfo.json`
       );
       if (!response.ok) {
         throw new Error(`Failed to fetch session info: ${response.statusText}`);
@@ -243,46 +242,12 @@ export default function AstroPhoto() {
     let sortedSessions = [...sessions];
     sortedSessions.sort((a, b) => {
       if (prop === "date") {
-        const [dayA, monthA, yearA, timeA] = a[prop].split(/[-\s:]/);
-        const [dayB, monthB, yearB, timeB] = b[prop].split(/[-\s:]/);
-
-        const months = {
-          JAN: 1,
-          FEB: 2,
-          MAR: 3,
-          APR: 4,
-          MAY: 5,
-          JUN: 6,
-          JUL: 7,
-          AUG: 8,
-          SEP: 9,
-          OCT: 10,
-          NOV: 11,
-          DEC: 12,
-        };
-
-        if (parseInt(yearA) !== parseInt(yearB))
-          return sortOrder === "asc"
-            ? parseInt(yearA) - parseInt(yearB)
-            : parseInt(yearB) - parseInt(yearA);
-        if (months[monthA] !== months[monthB])
-          return sortOrder === "asc"
-            ? months[monthA] - months[monthB]
-            : months[monthB] - months[monthA];
-        if (parseInt(dayA) !== parseInt(dayB))
-          return sortOrder === "asc"
-            ? parseInt(dayA) - parseInt(dayB)
-            : parseInt(dayB) - parseInt(dayA);
-
-        const [hourA, minuteA] = timeA.split(":");
-        const [hourB, minuteB] = timeB.split(":");
-        if (parseInt(hourA) !== parseInt(hourB))
-          return sortOrder === "asc"
-            ? parseInt(hourA) - parseInt(hourB)
-            : parseInt(hourB) - parseInt(hourA);
-        return sortOrder === "asc"
-          ? parseInt(minuteA) - parseInt(minuteB)
-          : parseInt(minuteB) - parseInt(minuteA);
+        const dateA = new Date(a[prop]);
+        const dateB = new Date(b[prop]);
+  
+        if (dateA < dateB) return sortOrder === "asc" ? -1 : 1;
+        if (dateA > dateB) return sortOrder === "asc" ? 1 : -1;
+        return 0;
       } else {
         if (sortOrder === "asc") {
           return a[prop] > b[prop] ? 1 : -1;
@@ -291,11 +256,15 @@ export default function AstroPhoto() {
         }
       }
     });
-
+  
     setSessions(sortedSessions);
     setSortBy(prop);
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
+  
+  
+  
+  
 
   return (
     <>

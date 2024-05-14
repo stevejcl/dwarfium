@@ -81,6 +81,7 @@ export default function CameraAddOn(props: PropTypes) {
   let WidthSlidePane = useRef("1500px");
   let WidthCircularSlider = useRef(150);
   let trackSize = useRef(24);
+  let intervalTimer = useRef(0);
 
   let gLastTimeMotorCmd = Date.now();
   let gMotorState = false;
@@ -89,9 +90,9 @@ export default function CameraAddOn(props: PropTypes) {
   let PhotoMode =
     !connectionCtx.imagingSession.isRecording &&
     !connectionCtx.imagingSession.endRecording;
-  setShowModal((prev) => prev && PhotoMode);
 
   useEffect(() => {
+    setShowModal((prev) => prev && PhotoMode);
     const handleResize = () => {
       //setWindowWidth(window.innerWidth);
       update_control();
@@ -162,6 +163,19 @@ export default function CameraAddOn(props: PropTypes) {
     setActiveBtnSettings(buttonName);
   };
 
+  function changeColorButton (ImgID, Force = false)
+  {
+    const imgElementButton = document.getElementById(ImgID) as HTMLImageElement;
+    if (imgElementButton) {
+      if (Force)
+        imgElementButton.src = "/images/photo-camera-red.png";
+      else if (imgElementButton.src.includes("photo-camera-white"))
+        imgElementButton.src = "/images/photo-camera-red.png";
+      else
+        imgElementButton.src = "/images/photo-camera-white.png";
+    };
+  }
+
   // action Click   Photo
   const handleClickActionPhoto: GenericMouseEventHandler<
     HTMLImageElement
@@ -172,15 +186,15 @@ export default function CameraAddOn(props: PropTypes) {
     await startPhoto(CameraType[activeBtnPhoto], connectionCtx, setErrorTxt);
     // Change the image source using the ID
     const imgElement = document.getElementById("TakePhoto") as HTMLImageElement;
-    if (imgElement) {
+    if (imgElement) { 
       imgElement.src = "/images/photo-camera-red.png";
     }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
+    // Reset the image source back to its original source after a delay
     setTimeout(() => {
       if (imgElement) {
         imgElement.src = "/images/photo-camera-white.png";
       }
-    }, 3000);
+    }, 2000);
     // Reset the active action after the photo is taken
     setActiveAction(undefined);
   };
@@ -195,16 +209,8 @@ export default function CameraAddOn(props: PropTypes) {
     // Wait for startVideo() to finish before continuing
     await startVideo(CameraType[activeBtnVideo], connectionCtx, setErrorTxt);
     // Change the image source using the ID
-    const imgElement = document.getElementById("TakeVideo") as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = "/images/photo-camera-red.png";
-    }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
-    setTimeout(() => {
-      if (imgElement) {
-        imgElement.src = "/images/photo-camera-white.png";
-      }
-    }, 3000);
+    changeColorButton("TakeVideo", true);
+    intervalTimer.current =  setInterval(changeColorButton, 2000, "TakeVideo");
   };
 
   // action Click   Stop Video
@@ -214,16 +220,9 @@ export default function CameraAddOn(props: PropTypes) {
     // Wait for stopVideo() to finish before continuing
     await stopVideo(CameraType[activeBtnVideo], connectionCtx, setErrorTxt);
     // Change the image source using the ID
-    const imgElement = document.getElementById("TakeVideo") as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = "/images/photo-camera-red.png";
-    }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
-    setTimeout(() => {
-      if (imgElement) {
-        imgElement.src = "/images/photo-camera-white.png";
-      }
-    }, 3000);
+    clearInterval(intervalTimer.current);
+    changeColorButton("TakeVideo", true);
+    setTimeout(changeColorButton, 2000, "TakeVideo");
     // Reset the active action after the photo is taken
     setActiveAction(undefined);
   };
@@ -242,18 +241,12 @@ export default function CameraAddOn(props: PropTypes) {
       colValue,
       connectionCtx,
       setErrorTxt,
-      setActiveAction
+      setActiveAction,
+      stopPanoAuto
     );
-    const imgElement = document.getElementById("TakePano") as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = "/images/photo-camera-red.png";
-    }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
-    setTimeout(() => {
-      if (imgElement) {
-        imgElement.src = "/images/photo-camera-white.png";
-      }
-    }, 3000);
+    // Change the image source using the ID
+    changeColorButton("TakePano", true);
+    intervalTimer.current =  setInterval(changeColorButton, 2000, "TakePano");
   };
 
   // action Click   Stop Pano
@@ -262,16 +255,19 @@ export default function CameraAddOn(props: PropTypes) {
   > = async () => {
     // Wait for stopPano() to finish before continuing
     await stopPano(CameraType[activeBtnPano], connectionCtx, setErrorTxt);
-    const imgElement = document.getElementById("TakePano") as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = "/images/photo-camera-red.png";
-    }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
-    setTimeout(() => {
-      if (imgElement) {
-        imgElement.src = "/images/photo-camera-white.png";
-      }
-    }, 3000);
+    // Change the image source using the ID
+    clearInterval(intervalTimer.current);
+    changeColorButton("TakePano", true);
+    setTimeout(changeColorButton, 2000, "TakePano");
+    // Reset the active action after the photo is taken
+    setActiveAction(undefined);
+  };
+
+  const stopPanoAuto = () => {
+    // Change the image source using the ID
+    clearInterval(intervalTimer.current);
+    changeColorButton("TakePano", true);
+    setTimeout(changeColorButton, 2000, "TakePano");
     // Reset the active action after the photo is taken
     setActiveAction(undefined);
   };
@@ -290,21 +286,12 @@ export default function CameraAddOn(props: PropTypes) {
       intervalBurstValue,
       connectionCtx,
       setErrorTxt,
-      setActiveAction
+      setActiveAction,
+      stopBurstAuto
     );
     // Change the image source using the ID
-    const imgElement = document.getElementById(
-      "TakeBurstPhoto"
-    ) as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = "/images/photo-camera-red.png";
-    }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
-    setTimeout(() => {
-      if (imgElement) {
-        imgElement.src = "/images/photo-camera-white.png";
-      }
-    }, 3000);
+    changeColorButton("TakeBurstPhoto", true);
+    intervalTimer.current =  setInterval(changeColorButton, 2000, "TakeBurstPhoto");
   };
 
   // action Click   Stop Burst
@@ -314,20 +301,18 @@ export default function CameraAddOn(props: PropTypes) {
     // Wait for stopBurst() to finish before continuing
     await stopBurst(CameraType[activeBtnBurst], connectionCtx, setErrorTxt);
     // Change the image source using the ID
-    const imgElement = document.getElementById(
-      "TakeBurstPhoto"
-    ) as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = "/images/photo-camera-red.png";
-    }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
-    setTimeout(() => {
-      if (imgElement) {
-        imgElement.src = "/images/photo-camera-white.png";
-      }
-    }, 3000);
+    clearInterval(intervalTimer.current);
+    changeColorButton("TakeBurstPhoto", true);
+    setTimeout(changeColorButton, 2000, "TakeBurstPhoto");
     // Reset the active action after the photo is taken
     setActiveAction(undefined);
+  };
+
+  const stopBurstAuto = () => {
+    // Change the image source using the ID
+    clearInterval(intervalTimer.current);
+    changeColorButton("TakeBurstPhoto", true);
+    setTimeout(changeColorButton, 2000, "TakeBurstPhoto");
     // Reset the active action after the photo is taken
     setActiveAction(undefined);
   };
@@ -339,28 +324,19 @@ export default function CameraAddOn(props: PropTypes) {
     // Update state to set the active button
     setActiveAction(PhotosModeActions[4].toString());
 
-    // Wait for startBurst() to finish before continuing
+    // Wait for startTimeLapse() to finish before continuing
     await startTimeLapse(
-      CameraType[activeBtnBurst],
+      CameraType[activeBtnTimeLapse],
       intervalIndexValue,
       totalTimeIndexValue,
       connectionCtx,
       setErrorTxt,
-      setActiveAction
+      setActiveAction,
+      stopTimeLapseAuto
     );
     // Change the image source using the ID
-    const imgElement = document.getElementById(
-      "TakeTimeLapse"
-    ) as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = "/images/photo-camera-red.png";
-    }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
-    setTimeout(() => {
-      if (imgElement) {
-        imgElement.src = "/images/photo-camera-white.png";
-      }
-    }, 3000);
+    changeColorButton("TakeTimeLapse", true);
+    intervalTimer.current =  setInterval(changeColorButton, 2000, "TakeTimeLapse");
   };
 
   // action Click   Stop Time Lapse
@@ -369,19 +345,14 @@ export default function CameraAddOn(props: PropTypes) {
   > = async () => {
     // Wait for stopTimeLapse() to finish before continuing
     await stopTimeLapse(CameraType[activeBtnBurst], connectionCtx, setErrorTxt);
+    // stopTimeLapseAuto is called
+  };
+
+  const stopTimeLapseAuto = () => {
     // Change the image source using the ID
-    const imgElement = document.getElementById(
-      "TakeTimeLapse"
-    ) as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = "/images/photo-camera-red.png";
-    }
-    // Reset the image source back to its original source after a delay (3000 milliseconds)
-    setTimeout(() => {
-      if (imgElement) {
-        imgElement.src = "/images/photo-camera-white.png";
-      }
-    }, 3000);
+    clearInterval(intervalTimer.current);
+    changeColorButton("TakeTimeLapse", true);
+    setTimeout(changeColorButton, 2000, "TakeTimeLapse");
     // Reset the active action after the photo is taken
     setActiveAction(undefined);
   };

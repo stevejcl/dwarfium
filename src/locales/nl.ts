@@ -147,7 +147,7 @@ const translations = {
   cCameraAddOnPhoto: "Foto",
   cCameraAddOnVideo: "Video",
   cCameraAddOnPanorama: "Panorama",
-  cCameraAddonTimeLapse: "Timelapse",
+  cCameraAddOnTimeLapse: "Timelapse",
   cCameraBurstSettingsCount: "Tellen",
   cCameraBurstSettingsinterval: "Interval",
   cCameraTitle: "Astro Photos",

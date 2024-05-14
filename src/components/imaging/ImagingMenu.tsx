@@ -122,19 +122,23 @@ export default function ImagingMenu(props: PropType) {
     );
   }
 
+  function timerFunction() {
+    if (!connectionCtx.imagingSession.isGoLive) {
+      let time = calculateSessionTime(connectionCtx);
+      if (time) {
+        connectionCtx.setImagingSession((prev) => {
+          prev["sessionElaspsedTime"] = time as string;
+          return { ...prev };
+        });
+        saveImagingSessionDb("sessionElaspsedTime", time.toString());
+      }
+    } else { stopTimer();}
+  }
+
   function startTimer() {
     let timer: string | any = "";
     if (!connectionCtx.timerGlobal) {
-      timer = setInterval(() => {
-        let time = calculateSessionTime(connectionCtx);
-        if (time) {
-          connectionCtx.setImagingSession((prev) => {
-            prev["sessionElaspsedTime"] = time as string;
-            return { ...prev };
-          });
-          saveImagingSessionDb("sessionElaspsedTime", time.toString());
-        }
-      }, 2000);
+      timer = setInterval(timerFunction , 500);
     } else timer = connectionCtx.timerGlobal;
 
     return timer;

@@ -81,7 +81,7 @@ export default function CameraAddOn(props: PropTypes) {
   let WidthSlidePane = useRef("1500px");
   let WidthCircularSlider = useRef(150);
   let trackSize = useRef(24);
-  let intervalTimer = useRef(0);
+  let intervalTimer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   let gLastTimeMotorCmd = Date.now();
   let gMotorState = false;
@@ -102,9 +102,13 @@ export default function CameraAddOn(props: PropTypes) {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      if (intervalTimer.current) {
+        clearInterval(intervalTimer.current);
+      }
     };
-  }, []);
+  }, []); // Empty dependency array means this effect runs only once on mount
 
+  
   const PhotosModeActions = [
     "Photo",
     "Video",
@@ -210,7 +214,7 @@ export default function CameraAddOn(props: PropTypes) {
     await startVideo(CameraType[activeBtnVideo], connectionCtx, setErrorTxt);
     // Change the image source using the ID
     changeColorButton("TakeVideo", true);
-    intervalTimer.current =  setInterval(changeColorButton, 2000, "TakeVideo");
+    intervalTimer.current = setInterval(changeColorButton, 2000, "TakeVideo");
   };
 
   // action Click   Stop Video
@@ -927,7 +931,7 @@ export default function CameraAddOn(props: PropTypes) {
               </div>
               <div className="column">
                 <div className="header">
-                  <div className="title">{t("cCameraAddonTimeLapse")}</div>
+                  <div className="title">{t("cCameraAddOnTimeLapse")}</div>
                   <Link href="#" className="" title="Show Settings">
                     <OverlayTrigger
                       trigger="click"

@@ -64,11 +64,14 @@ export type ConnectionContextType = {
 
   astroSettings: AstroSettings;
   setAstroSettings: Dispatch<SetStateAction<AstroSettings>>;
-  imagingSession: ImagingSession;
-  setImagingSession: Dispatch<SetStateAction<ImagingSession>>;
-
   astroSavePosition: AstroSavePosition;
   setAstroSavePosition: Dispatch<SetStateAction<AstroSavePosition>>;
+
+  imagingSession: ImagingSession;
+  setImagingSession: Dispatch<SetStateAction<ImagingSession>>;
+  
+  timerGlobal: ReturnType<typeof setInterval> | undefined;
+  setTimerGlobal: Dispatch<SetStateAction<ReturnType<typeof setInterval> | undefined>>;
 
   logger: { [k: string]: any }[] | undefined;
   setLogger: Dispatch<SetStateAction<{ [k: string]: any }[] | undefined>>;

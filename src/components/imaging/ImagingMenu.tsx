@@ -47,11 +47,12 @@ export default function ImagingMenu(props: PropType) {
   const [showModal, setShowModal] = useState(false);
 
   let timerSession: ReturnType<typeof setInterval>;
-  let timerSessionInit: boolean = (connectionCtx.timerGlobal !== undefined);
+  let timerSessionInit: boolean = connectionCtx.timerGlobal !== undefined;
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (connectionCtx.timerGlobal) testTimer = connectionCtx.timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
     console.debug(" TG --- Global Timer:", testTimer, connectionCtx);
     if (connectionCtx.imagingSession.isRecording)
       console.debug("TG isRecording True:", testTimer, connectionCtx);
@@ -63,7 +64,8 @@ export default function ImagingMenu(props: PropType) {
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (connectionCtx.timerGlobal) testTimer = connectionCtx.timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
     if (connectionCtx.imagingSession.isRecording) {
       console.debug("setIsRecording True:", testTimer, connectionCtx);
       if (!timerSessionInit) {
@@ -80,7 +82,8 @@ export default function ImagingMenu(props: PropType) {
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (connectionCtx.timerGlobal) testTimer = connectionCtx.timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
     if (connectionCtx.imagingSession.endRecording)
       console.debug("endRecording True:", testTimer, connectionCtx);
     else console.debug("endRecording false:", testTimer, connectionCtx);
@@ -88,7 +91,8 @@ export default function ImagingMenu(props: PropType) {
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (connectionCtx.timerGlobal) testTimer = connectionCtx.timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
     if (connectionCtx.imagingSession.isStackedCountStart)
       console.debug("isStackedCountStart True:", testTimer, connectionCtx);
     else console.debug("isStackedCountStart false:", testTimer, connectionCtx);
@@ -96,7 +100,8 @@ export default function ImagingMenu(props: PropType) {
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (connectionCtx.timerGlobal) testTimer = connectionCtx.timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
     else if (timerSession) testTimer = timerSession.toString();
     if (connectionCtx.imagingSession.isGoLive) {
       console.debug("isGoLive True:", testTimer, connectionCtx);
@@ -295,7 +300,7 @@ export default function ImagingMenu(props: PropType) {
     }
 
     const customMessageHandler = (txt_info, result_data) => {
-      // 
+      //
       // -> Stop Capture
       if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_ASTRO_GO_LIVE) {
         if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
@@ -735,7 +740,7 @@ export default function ImagingMenu(props: PropType) {
         </Link>
       );
     }
-    return ("");
+    return "";
   }
 
   return (

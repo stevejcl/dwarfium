@@ -81,7 +81,9 @@ export default function CameraAddOn(props: PropTypes) {
   let WidthSlidePane = useRef("1500px");
   let WidthCircularSlider = useRef(150);
   let trackSize = useRef(24);
-  let intervalTimer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  let intervalTimer = useRef<ReturnType<typeof setInterval> | undefined>(
+    undefined
+  );
 
   let gLastTimeMotorCmd = Date.now();
   let gMotorState = false;
@@ -108,7 +110,6 @@ export default function CameraAddOn(props: PropTypes) {
     };
   }, []); // Empty dependency array means this effect runs only once on mount
 
-  
   const PhotosModeActions = [
     "Photo",
     "Video",
@@ -167,17 +168,14 @@ export default function CameraAddOn(props: PropTypes) {
     setActiveBtnSettings(buttonName);
   };
 
-  function changeColorButton (ImgID, Force = false)
-  {
+  function changeColorButton(ImgID, Force = false) {
     const imgElementButton = document.getElementById(ImgID) as HTMLImageElement;
     if (imgElementButton) {
-      if (Force)
-        imgElementButton.src = "/images/photo-camera-red.png";
+      if (Force) imgElementButton.src = "/images/photo-camera-red.png";
       else if (imgElementButton.src.includes("photo-camera-white"))
         imgElementButton.src = "/images/photo-camera-red.png";
-      else
-        imgElementButton.src = "/images/photo-camera-white.png";
-    };
+      else imgElementButton.src = "/images/photo-camera-white.png";
+    }
   }
 
   // action Click   Photo
@@ -190,7 +188,7 @@ export default function CameraAddOn(props: PropTypes) {
     await startPhoto(CameraType[activeBtnPhoto], connectionCtx, setErrorTxt);
     // Change the image source using the ID
     const imgElement = document.getElementById("TakePhoto") as HTMLImageElement;
-    if (imgElement) { 
+    if (imgElement) {
       imgElement.src = "/images/photo-camera-red.png";
     }
     // Reset the image source back to its original source after a delay
@@ -250,7 +248,7 @@ export default function CameraAddOn(props: PropTypes) {
     );
     // Change the image source using the ID
     changeColorButton("TakePano", true);
-    intervalTimer.current =  setInterval(changeColorButton, 2000, "TakePano");
+    intervalTimer.current = setInterval(changeColorButton, 2000, "TakePano");
   };
 
   // action Click   Stop Pano
@@ -295,7 +293,11 @@ export default function CameraAddOn(props: PropTypes) {
     );
     // Change the image source using the ID
     changeColorButton("TakeBurstPhoto", true);
-    intervalTimer.current =  setInterval(changeColorButton, 2000, "TakeBurstPhoto");
+    intervalTimer.current = setInterval(
+      changeColorButton,
+      2000,
+      "TakeBurstPhoto"
+    );
   };
 
   // action Click   Stop Burst
@@ -340,7 +342,11 @@ export default function CameraAddOn(props: PropTypes) {
     );
     // Change the image source using the ID
     changeColorButton("TakeTimeLapse", true);
-    intervalTimer.current =  setInterval(changeColorButton, 2000, "TakeTimeLapse");
+    intervalTimer.current = setInterval(
+      changeColorButton,
+      2000,
+      "TakeTimeLapse"
+    );
   };
 
   // action Click   Stop Time Lapse

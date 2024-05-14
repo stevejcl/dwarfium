@@ -69,9 +69,11 @@ export type ConnectionContextType = {
 
   imagingSession: ImagingSession;
   setImagingSession: Dispatch<SetStateAction<ImagingSession>>;
-  
+
   timerGlobal: ReturnType<typeof setInterval> | undefined;
-  setTimerGlobal: Dispatch<SetStateAction<ReturnType<typeof setInterval> | undefined>>;
+  setTimerGlobal: Dispatch<
+    SetStateAction<ReturnType<typeof setInterval> | undefined>
+  >;
 
   logger: { [k: string]: any }[] | undefined;
   setLogger: Dispatch<SetStateAction<{ [k: string]: any }[] | undefined>>;

@@ -352,7 +352,7 @@ export async function startPano(
         }
       } else get_error(result_data, setErrorTxt);
     } else if (
-     result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_PANORAMA_START_EULER_RANGE
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_PANORAMA_START_EULER_RANGE
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
         setErrorTxt("Panorama Success");
@@ -383,10 +383,9 @@ export async function startPano(
       ) {
         setErrorTxt("Stopping Panorama");
         // End of Action
-        if (stopAction)
-          stopAction();
+        if (stopAction) stopAction();
         else setActiveAction(undefined);
-        
+
         if (callback) {
           callback("Stopping Panorama");
         }
@@ -612,8 +611,7 @@ export async function startBurst(
       ) {
         setErrorTxt("Stopping Burst ");
         // End of Action
-        if (stopAction)
-          stopAction();
+        if (stopAction) stopAction();
         else setActiveAction(undefined);
         if (callback) {
           callback("Stopping Burst");
@@ -881,8 +879,7 @@ export async function startTimeLapse(
       ) {
         setErrorTxt("Stopping TimeLapse ");
         // End of Action
-        if (stopAction)
-          stopAction();
+        if (stopAction) stopAction();
         else setActiveAction(undefined);
         if (callback) {
           callback("Stopping TimeLapse");

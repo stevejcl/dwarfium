@@ -271,9 +271,9 @@ export function fetchImagingSessionDb() {
       if (obj[field] !== undefined) {
         // Check if the value is a string representation of 'true' or 'false'
         let value = obj[field];
-        if (value === 'true') {
+        if (value === "true") {
           obj[field] = true;
-        } else if (value === 'false') {
+        } else if (value === "false") {
           obj[field] = false;
         } else {
           obj[field] = Number(obj[field]);

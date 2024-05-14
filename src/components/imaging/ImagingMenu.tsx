@@ -45,15 +45,14 @@ export default function ImagingMenu(props: PropType) {
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [validSettings, setValidSettings] = useState(isValid());
   const [showModal, setShowModal] = useState(false);
-  const [timerGlobal, setTimerGlobal] =
-    useState<ReturnType<typeof setInterval>>();
 
   let timerSession: ReturnType<typeof setInterval>;
-  let timerSessionInit: boolean = false;
+  let timerSessionInit: boolean = connectionCtx.timerGlobal !== undefined;
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (timerGlobal) testTimer = timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
     console.debug(" TG --- Global Timer:", testTimer, connectionCtx);
     if (connectionCtx.imagingSession.isRecording)
       console.debug("TG isRecording True:", testTimer, connectionCtx);
@@ -61,19 +60,30 @@ export default function ImagingMenu(props: PropType) {
     if (connectionCtx.imagingSession.endRecording)
       console.debug("TG endRecording True:", testTimer, connectionCtx);
     else console.debug("TG endRecording False:", testTimer, connectionCtx);
-  }, [timerGlobal]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [connectionCtx.timerGlobal]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (timerGlobal) testTimer = timerGlobal.toString();
-    if (connectionCtx.imagingSession.isRecording)
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
+    if (connectionCtx.imagingSession.isRecording) {
       console.debug("setIsRecording True:", testTimer, connectionCtx);
-    else console.debug("setIsRecording False:", testTimer, connectionCtx);
+      if (!timerSessionInit) {
+        timerSession = startTimer();
+        if (timerSession) {
+          timerSessionInit = true;
+          testTimer = timerSession.toString();
+          console.debug("startTimer timer:", testTimer, connectionCtx);
+          connectionCtx.setTimerGlobal(timerSession);
+        } else timerSessionInit = false;
+      }
+    } else console.debug("setIsRecording False:", testTimer, connectionCtx);
   }, [connectionCtx.imagingSession.isRecording]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (timerGlobal) testTimer = timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
     if (connectionCtx.imagingSession.endRecording)
       console.debug("endRecording True:", testTimer, connectionCtx);
     else console.debug("endRecording false:", testTimer, connectionCtx);
@@ -81,7 +91,8 @@ export default function ImagingMenu(props: PropType) {
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (timerGlobal) testTimer = timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
     if (connectionCtx.imagingSession.isStackedCountStart)
       console.debug("isStackedCountStart True:", testTimer, connectionCtx);
     else console.debug("isStackedCountStart false:", testTimer, connectionCtx);
@@ -89,11 +100,18 @@ export default function ImagingMenu(props: PropType) {
 
   useEffect(() => {
     let testTimer: string | any = "";
-    if (timerGlobal) testTimer = timerGlobal.toString();
+    if (connectionCtx.timerGlobal)
+      testTimer = connectionCtx.timerGlobal.toString();
+    else if (timerSession) testTimer = timerSession.toString();
     if (connectionCtx.imagingSession.isGoLive) {
       console.debug("isGoLive True:", testTimer, connectionCtx);
-      endImagingSession();
+      stopTimer();
     } else console.debug("isGoLive false:", testTimer, connectionCtx);
+    return () => {
+      if (connectionCtx.imagingSession.isGoLive) {
+        stopTimer();
+      }
+    };
   }, [connectionCtx.imagingSession.isGoLive]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function isValid() {
@@ -104,19 +122,24 @@ export default function ImagingMenu(props: PropType) {
     );
   }
 
+  function timerFunction() {
+    if (!connectionCtx.imagingSession.isGoLive) {
+      let time = calculateSessionTime(connectionCtx);
+      if (time) {
+        connectionCtx.setImagingSession((prev) => {
+          prev["sessionElaspsedTime"] = time as string;
+          return { ...prev };
+        });
+        saveImagingSessionDb("sessionElaspsedTime", time.toString());
+      }
+    } else { stopTimer();}
+  }
+
   function startTimer() {
     let timer: string | any = "";
-    if (!timerSessionInit) {
-      timer = setInterval(() => {
-        let time = calculateSessionTime(connectionCtx);
-        if (time) {
-          connectionCtx.setImagingSession((prev) => {
-            prev["sessionElaspsedTime"] = time as string;
-            return { ...prev };
-          });
-        }
-      }, 2000);
-    } else timer = timerSession;
+    if (!connectionCtx.timerGlobal) {
+      timer = setInterval(timerFunction , 500);
+    } else timer = connectionCtx.timerGlobal;
 
     return timer;
   }
@@ -136,7 +159,7 @@ export default function ImagingMenu(props: PropType) {
         timerSessionInit = true;
         testTimer = timerSession.toString();
         console.debug("startTimer timer:", testTimer, connectionCtx);
-        setTimerGlobal(timerSession);
+        connectionCtx.setTimerGlobal(timerSession);
       } else timerSessionInit = false;
     }
 
@@ -281,15 +304,15 @@ export default function ImagingMenu(props: PropType) {
     }
 
     const customMessageHandler = (txt_info, result_data) => {
-      // CMD_ASTRO_GO_LIVE -> Stop Capture
+      //
+      // -> Stop Capture
       if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_ASTRO_GO_LIVE) {
         if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
           console.debug("Go Live error", {}, connectionCtx);
         } else {
           console.debug("Go Live ok", {}, connectionCtx);
         }
-        saveImagingSessionDb("goLive", false.toString());
-        saveImagingSessionDb("endRecording", false.toString());
+        endPreview();
       } else {
         console.debug("", result_data, connectionCtx);
       }
@@ -317,7 +340,7 @@ export default function ImagingMenu(props: PropType) {
     }
   }
 
-  function endImagingSession() {
+  function stopTimer() {
     let testTimer: string | any = "";
     if (timerSession) {
       testTimer = timerSession.toString();
@@ -327,32 +350,40 @@ export default function ImagingMenu(props: PropType) {
         connectionCtx
       );
     }
-    if (timerGlobal) {
-      testTimer = timerGlobal.toString();
+
+    // use connectionContext
+    if (connectionCtx.timerGlobal) {
+      testTimer = connectionCtx.timerGlobal.toString();
       console.debug(
         "ImagingSession tG clearInterval:",
         testTimer,
         connectionCtx
       );
     }
-    // timerSession if Photos Session is completed !
+    if (connectionCtx.timerGlobal) clearInterval(connectionCtx.timerGlobal);
+    connectionCtx.setTimerGlobal(undefined);
+
     if (timerSession) clearInterval(timerSession);
-    if (timerGlobal) clearInterval(timerGlobal);
+
     timerSessionInit = false;
+  }
+
+  function endImagingSession() {
+    stopTimer();
     if (connectionCtx.imagingSession.isRecording) {
       connectionCtx.setImagingSession((prev) => {
         prev["isRecording"] = false;
         return { ...prev };
       });
+      saveImagingSessionDb("isRecording", false.toString());
     }
-    if (connectionCtx.imagingSession.endRecording) {
+    if (!connectionCtx.imagingSession.endRecording) {
       connectionCtx.setImagingSession((prev) => {
         prev["endRecording"] = true;
         return { ...prev };
       });
+      saveImagingSessionDb("endRecording", true.toString());
     }
-    saveImagingSessionDb("isRecording", false.toString());
-    saveImagingSessionDb("endRecording", true.toString());
   }
 
   function endPreview() {
@@ -568,7 +599,6 @@ export default function ImagingMenu(props: PropType) {
           <RecordButton
             onClick={() => {
               goLiveHandler();
-              endPreview();
             }}
             title="End Current Session"
           />
@@ -579,7 +609,6 @@ export default function ImagingMenu(props: PropType) {
           <RecordingButton
             onClick={() => {
               goLiveHandler();
-              endPreview();
             }}
             color_stroke={"currentColor"}
             title="Wait till the End of Stacking"
@@ -828,7 +857,6 @@ export default function ImagingMenu(props: PropType) {
               className=""
               onClick={() => {
                 goLiveHandler();
-                endPreview();
               }}
               title="End Current Session"
             >

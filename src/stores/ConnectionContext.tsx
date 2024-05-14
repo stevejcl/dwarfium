@@ -78,6 +78,8 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [imagingSession, setImagingSession] = useState<ImagingSession>(
     {} as ImagingSession
   );
+  const [timerGlobal, setTimerGlobal] =
+    useState<ReturnType<typeof setInterval>>();
 
   const [logger, setLogger] = useState<{ [k: string]: any }[] | undefined>();
   const [loggerStatus, setLoggerStatus] = useState<boolean | undefined>();
@@ -153,10 +155,12 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
 
     astroSettings,
     setAstroSettings,
-    imagingSession,
-    setImagingSession,
     astroSavePosition,
     setAstroSavePosition,
+    imagingSession,
+    setImagingSession,
+    timerGlobal,
+    setTimerGlobal,
 
     deleteConnection,
 

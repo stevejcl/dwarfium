@@ -269,7 +269,15 @@ export function fetchImagingSessionDb() {
       "isGoLive",
     ].forEach((field) => {
       if (obj[field] !== undefined) {
-        obj[field] = Number(obj[field]);
+        // Check if the value is a string representation of 'true' or 'false'
+        let value = obj[field];
+        if (value === "true") {
+          obj[field] = true;
+        } else if (value === "false") {
+          obj[field] = false;
+        } else {
+          obj[field] = Number(obj[field]);
+        }
       }
     });
 

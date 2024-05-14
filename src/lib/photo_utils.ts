@@ -335,7 +335,8 @@ export async function startPano(
   cols: number,
   connectionCtx: ConnectionContextType,
   setErrorTxt: Function,
-  setActiveAction: Function
+  setActiveAction: Function,
+  stopAction: Function
 ) {
   if (connectionCtx.IPDwarf === undefined) {
     return;
@@ -344,6 +345,15 @@ export async function startPano(
 
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_PANORAMA_START_GRID) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setErrorTxt("Panorama Success");
+        if (callback) {
+          callback("Panorama Success");
+        }
+      } else get_error(result_data, setErrorTxt);
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_PANORAMA_START_EULER_RANGE
+    ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
         setErrorTxt("Panorama Success");
         if (callback) {
@@ -373,7 +383,9 @@ export async function startPano(
       ) {
         setErrorTxt("Stopping Panorama");
         // End of Action
-        setActiveAction(undefined);
+        if (stopAction) stopAction();
+        else setActiveAction(undefined);
+
         if (callback) {
           callback("Stopping Panorama");
         }
@@ -545,7 +557,8 @@ export async function startBurst(
   interval: number,
   connectionCtx: ConnectionContextType,
   setErrorTxt: Function,
-  setActiveAction: Function
+  setActiveAction: Function,
+  stopAction: Function
 ) {
   if (connectionCtx.IPDwarf === undefined) {
     return;
@@ -598,7 +611,8 @@ export async function startBurst(
       ) {
         setErrorTxt("Stopping Burst ");
         // End of Action
-        setActiveAction(undefined);
+        if (stopAction) stopAction();
+        else setActiveAction(undefined);
         if (callback) {
           callback("Stopping Burst");
         }
@@ -804,7 +818,8 @@ export async function startTimeLapse(
   totalTime_index: number,
   connectionCtx: ConnectionContextType,
   setErrorTxt: Function,
-  setActiveAction: Function
+  setActiveAction: Function,
+  stopAction: Function
 ) {
   if (connectionCtx.IPDwarf === undefined) {
     return;
@@ -864,7 +879,8 @@ export async function startTimeLapse(
       ) {
         setErrorTxt("Stopping TimeLapse ");
         // End of Action
-        setActiveAction(undefined);
+        if (stopAction) stopAction();
+        else setActiveAction(undefined);
         if (callback) {
           callback("Stopping TimeLapse");
         }

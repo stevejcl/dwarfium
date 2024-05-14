@@ -204,7 +204,7 @@ export default function CalibrationDwarf() {
         <button
           className={`btn ${
             connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-          } me-1 mt-3`}
+          } me-2 mt-3`}
           onClick={RingLightsOffFn}
           disabled={!connectionCtx.connectionStatus}
         >
@@ -218,7 +218,7 @@ export default function CalibrationDwarf() {
         <button
           className={`btn ${
             connectionCtx.connectionStatus ? "btn-more03" : "btn-more03"
-          } me-1 mt-3`}
+          } me-2 mt-3`}
           onClick={RingLightsOnFn}
           disabled={!connectionCtx.connectionStatus}
         >
@@ -235,7 +235,7 @@ export default function CalibrationDwarf() {
         <button
           className={`btn ${
             connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-          } me-1 mt-3`}
+          } me-2 mt-3`}
           onClick={PowerLightsOffFn}
           disabled={
             !connectionCtx.connectionStatus ||
@@ -252,7 +252,7 @@ export default function CalibrationDwarf() {
         <button
           className={`btn ${
             connectionCtx.connectionStatus ? "btn-more03" : "btn-more03"
-          } me-1 mt-3`}
+          } me-2 mt-3`}
           onClick={PowerLightsOnFn}
           disabled={
             !connectionCtx.connectionStatus ||
@@ -295,7 +295,7 @@ export default function CalibrationDwarf() {
             title="Show Camera Preview"
             className={`daily-horp nav nav-pills nav-item nav-link rounded-pill ${
               connectionCtx.PiPView ? "active" : ""
-            }  me-1 mb-0`}
+            }  me-2 mb-0`}
             onClick={togglePiP}
           >
             <i className="bi bi-pip" aria-hidden="true"></i>
@@ -305,7 +305,7 @@ export default function CalibrationDwarf() {
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-            } me-1 mt-3`}
+            } me-2 mt-3`}
             onClick={calibrateFn}
             disabled={!connectionCtx.connectionStatus}
           >
@@ -314,7 +314,7 @@ export default function CalibrationDwarf() {
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-            } me-1 mt-3`}
+            } me-2 mt-3`}
             onClick={stopGotoFn}
             disabled={!connectionCtx.connectionStatus}
           >
@@ -327,7 +327,7 @@ export default function CalibrationDwarf() {
               connectionCtx.connectionStatus && connectionCtx.savePositionStatus
                 ? "btn-more02"
                 : "btn-more02"
-            } me-1 mt-3`}
+            } me-2 mt-3`}
             onClick={savePositionFn}
             disabled={
               !connectionCtx.connectionStatus &&
@@ -341,7 +341,7 @@ export default function CalibrationDwarf() {
               connectionCtx.connectionStatus && connectionCtx.isSavedPosition
                 ? "btn-more02"
                 : "btn-more02"
-            }  me-1 mt-3`}
+            }  me-2 mt-3`}
             onClick={resetPositionFn}
             disabled={
               !connectionCtx.connectionStatus && !connectionCtx.isSavedPosition
@@ -369,7 +369,7 @@ export default function CalibrationDwarf() {
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more03" : "btn-more03"
-            } me-1 mt-3`}
+            } me-2 mt-3`}
             onClick={shutDownFn}
             disabled={!connectionCtx.connectionStatus}
           >
@@ -378,7 +378,7 @@ export default function CalibrationDwarf() {
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more03" : "btn-more03"
-            } me-1 mt-3`}
+            } me-2 mt-3`}
             onClick={rebootFn}
             disabled={!connectionCtx.connectionStatus}
           >

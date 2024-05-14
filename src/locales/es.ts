@@ -223,6 +223,72 @@ const translations = {
     "La lista de Planetas, Luna y Sol tiene los planetas de nuestro sistema solar con la Luna y el Sol. Tenga en cuenta que Dwarf II no es adecuado para tomar imágenes de los planetas.",
   cGotoListinfo:
     "'Centrar' mostrará el objeto seleccionado en Stellarium. 'Goto' moverá Dwarf II al objeto seleccionado.",
+  cGoToStellariumConnectStellarium:
+    "Debe conectarse a Stellarium para que Importar datos funcione.",
+  cGoToStellariumPickObject:
+    "Puede usar Stellarium para ayudar a seleccionar objetos.",
+  cGoToStellariumListTitle: "Seleccione un objeto en Stellarium.",
+  cGoToStellariumList1:
+    "Importe ascensión recta y declinación desde Stellarium haciendo clic en 'Importar datos'.",
+  cGoToStellariumList2: "Inicie goto haciendo clic en 'Goto'.",
+  cGoToStellariumImportData: "Importar datos",
+  cGoToStellariumImportManualData: "Importar datos manuales",
+  cGoToStellariumObject: "Objeto",
+  cGoToStellariumRightAscension: "Ascensión recta",
+  cGoToStellariumDeclination: "Declinación",
+  cGoToStellariumCenter: "Centrar",
+  cGoToStellariumMoveCenter: " Puede mover el centro suavemente:",
+  cGoToStellariumMoveCenterli1:
+    "Haga clic en los botones para mover el centro a",
+  cGoToStellariumMoveCenterli2:
+    "+/- 1 minuto para ascensión recta, +/- 0.1° para declinación",
+  cGoToStellariumMoveCenterli3: "Las coordenadas se actualizarán",
+  cGoToStellariumMoveCenterli4:
+    "Vuelva a centrar en Stellarium haciendo clic en 'Centrar'",
+  cGoToStellariumMoveCenterli5: "Luego inicie goto haciendo clic en 'Goto'",
+  cGoToUserListNewList: "Agregar nueva lista",
+  cGoToUserListDeleteList: "Eliminar lista",
+  cGoToUserListCustomObjectsListInstruction1: `
+    Para agregar listas de objetos personalizadas, cree una lista de objetos en 
+    <a href="https://telescopius.com">Telescopius</a>, descargue 
+    el archivo CSV y haga clic en "Agregar nueva lista".
+  `,
+  cGoToUserListCustomObjectsListInstruction2:
+    "Las listas se almacenan en la base de datos del navegador (localStorage). Dado que los datos se almacenan en su navegador, otros usuarios del sitio no podrán acceder a sus listas.",
+  cGoToUserListCustomObjectsListInstruction3:
+    "Si desea compartir su lista con otras personas, puede enviarles el archivo CSV de Telescopius.",
+  cImportManualModalTitle: "Introducir datos manualmente",
+  cImportManualModalObjecTName: "Nombre del objeto",
+  cImportObservationListModalTitle: "Agregar lista de objetos",
+  cImportObservationListfromTelescopius:
+    "Importar lista de objetos desde Telescopius.",
+  cImportObservationListListName: "Nombre de la lista",
+  cImportObservationImportList: "Importar lista",
+  cMoonphaseCalculatorNewMoon: "Luna Nueva",
+  cMoonphaseCalculatorWaxingCrescent: "Luna Creciente",
+  cMoonphaseCalculatorFirstQuarter: "Primer Cuarto",
+  cMoonphaseCalculatorWaxingGibbous: "Luna Gibosa Creciente",
+  cMoonphaseCalculatorFullMoon: "Luna Llena",
+  cMoonphaseCalculatorWaningGibbous: "Luna Gibosa Menguante",
+  cMoonphaseCalculatorLastQuarter: "Último Cuarto",
+  cMoonphaseCalculatorWaningCrescent: "Luna Menguante",
+  cMoonphaseCalculatorUnknown: "Desconocido",
+  pImageSessionShotsStacked: "Fotos apiladas",
+  pImageSessionShotsTaken: "Fotos tomadas",
+  pImageSessionNoShootingInfo: "No hay información de disparo disponible",
+  pImageSessionNoAdditionalInfo: "No hay información adicional disponible",
+  pImageSessionData: "Datos de la sesión",
+  pImageSessionSortTable:
+    "Puede ordenar la tabla haciendo clic en Objetivo o Fecha",
+  pImageSessionPreview: "Vista previa",
+  pImageSessionTarget: "Objetivo",
+  pImageSessionDate: "Fecha",
+  pImageSessionShootingInfo: "Información de disparo",
+  pImageSessionAdditionalInfo: "Información adicional",
+  pImageSessionAction: "Acción",
+  pImageSessionLoading: "Cargando...",
+  pImageSessionDownload: "Descargar",
+  pMoonphaseSelectMonth: "Selecciona el mes:",
 };
 
 export default translations;

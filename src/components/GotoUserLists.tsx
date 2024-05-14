@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import type { ChangeEvent } from "react";
-import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import DSOList from "@/components/astroObjects/DSOList";
@@ -60,18 +61,26 @@ export default function GotoUserLists() {
     setShowDeleteModal(true);
   }
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <div>
       <div className="container">
         {!connectionCtx.connectionStatusStellarium && (
-          <p className="text-danger">
-            You must connect to Stellarium for Center to work.
-          </p>
+          <p className="text-danger">{t("cGoToListConnectStellarium")}.</p>
         )}
         {!connectionCtx.connectionStatus && (
-          <p className="text-danger">
-            You must connect to Dwarf II for Goto to work.
-          </p>
+          <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
         )}
 
         <div className="row">
@@ -81,7 +90,7 @@ export default function GotoUserLists() {
               value={connectionCtx.currentUserObjectListName || "default"}
               onChange={selectListHandler}
             >
-              <option value="default">Select object lists</option>
+              <option value="default">{t("cGoToListdefault")}</option>
               {objectListsNames.map((list, index) => (
                 <option key={index} value={list}>
                   {list}
@@ -95,13 +104,13 @@ export default function GotoUserLists() {
               className="btn btn-more02 me-2 mb-2"
               onClick={importListModalHandle}
             >
-              Add new list
+              {t("cGoToUserListNewList")}
             </button>
             <button
               className="btn btn-more03 me-2 mb-2"
               onClick={deleteListModalHandle}
             >
-              Delete list
+              {t("cGoToUserListDeleteList")}
             </button>
           </div>
         </div>
@@ -117,20 +126,15 @@ export default function GotoUserLists() {
 
         {showInstructions && (
           <>
-            <p className="mt-4">
-              To add custom objects lists, create an objects list at{" "}
-              <Link href="https://telescopius.com">Telescopius</Link>, download
-              the CSV, and click &quot;Add new list&quot;.
-            </p>
-            <p>
-              The lists are stored in the browser&apos;s database
-              (localStorage). Since the data is stored in your browser, other
-              users of the site will not be able to access your lists.
-            </p>
-            <p>
-              If you want to share your list with other people, you can send
-              other people the csv from Telescopius.
-            </p>
+            <p
+              className="mt-4"
+              dangerouslySetInnerHTML={{
+                __html: t("cGoToUserListCustomObjectsListInstruction1"),
+              }}
+            />
+
+            <p>{t("cGoToUserListCustomObjectsListInstruction2")}</p>
+            <p>{t("cGoToUserListCustomObjectsListInstruction3")}</p>
             {""}
             <br />
             <br />

@@ -927,7 +927,7 @@ export default function CameraAddOn(props: PropTypes) {
               </div>
               <div className="column">
                 <div className="header">
-                  <div className="title">{t("cCameraAddOnTimeLapse")}</div>
+                  <div className="title">{t("cCameraAddonTimeLapse")}</div>
                   <Link href="#" className="" title="Show Settings">
                     <OverlayTrigger
                       trigger="click"

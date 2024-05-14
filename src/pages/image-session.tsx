@@ -4,6 +4,8 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import { useLoadIntialValues } from "@/hooks/useLoadIntialValues";
 import StatusBar from "@/components/shared/StatusBar";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 export default function AstroPhoto() {
   useSetupConnection();
@@ -86,7 +88,7 @@ export default function AstroPhoto() {
             );
             sessionList.push({ name: folderName, date: folderDate });
           } catch (error) {
-            console.error(
+            console.log(
               `shotsInfo.json not found in session folder ${folderName}`
             );
           }
@@ -119,7 +121,7 @@ export default function AstroPhoto() {
         [sessionName]: data,
       }));
     } catch (error: any) {
-      console.error(
+      console.log(
         "An error occurred while fetching session info:",
         error.message
       );
@@ -129,6 +131,18 @@ export default function AstroPhoto() {
   useEffect(() => {
     fetchSessions();
   }, [connectionCtx.IPDwarf]);
+
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   const getSessionData = async (sessionName: string) => {
     setDownloadClicked(true);
@@ -201,11 +215,12 @@ export default function AstroPhoto() {
   const getShootingInfo = (sessionName: string) => {
     return sessionInfo[sessionName] ? (
       <span>
-        Shots Stacked: {sessionInfo[sessionName].shotsStacked}, Shots Taken:{" "}
+        {t("pImageSessionShotsStacked")}:{" "}
+        {sessionInfo[sessionName].shotsStacked}, {t("pImageSessionShotsTaken")}:{" "}
         {sessionInfo[sessionName].shotsTaken}
       </span>
     ) : (
-      <span>No shooting info available</span>
+      <span>{t("pImageSessionNoShootingInfo")}</span>
     );
   };
 
@@ -219,20 +234,29 @@ export default function AstroPhoto() {
         , IR: {sessionInfo[sessionName].ir}
       </span>
     ) : (
-      <span>No additional info available</span>
+      <span>{t("pImageSessionNoAdditionalInfo")}</span>
     );
   };
 
-  // Sorting function
   const sortByProperty = (prop: string) => {
     let sortedSessions = [...sessions];
     sortedSessions.sort((a, b) => {
-      if (sortOrder === "asc") {
-        return a[prop] > b[prop] ? 1 : -1;
+      if (prop === "date") {
+        const dateA = new Date(a[prop]);
+        const dateB = new Date(b[prop]);
+
+        if (dateA < dateB) return sortOrder === "asc" ? -1 : 1;
+        if (dateA > dateB) return sortOrder === "asc" ? 1 : -1;
+        return 0;
       } else {
-        return a[prop] < b[prop] ? 1 : -1;
+        if (sortOrder === "asc") {
+          return a[prop] > b[prop] ? 1 : -1;
+        } else {
+          return a[prop] < b[prop] ? 1 : -1;
+        }
       }
     });
+
     setSessions(sortedSessions);
     setSortBy(prop);
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -247,20 +271,20 @@ export default function AstroPhoto() {
           <br />
           <br />
           <Head>
-            <title>Session Data</title>
+            <title>{t("pImageSessionData")}</title>
           </Head>
           <StatusBar />
           <hr></hr>
           <div className="container-image-session">
             {notification && <div className="notification">{notification}</div>}
-            <p>You can sort the table by clicking on Target or Date </p>
+            <p>{t("pImageSessionSortTable")} </p>
             <div className="table-responsive">
               <table className="styled-table">
                 <thead>
                   <tr>
-                    <th>Preview</th>
+                    <th>{t("pImageSessionPreview")}</th>
                     <th onClick={() => sortByProperty("name")}>
-                      Target{" "}
+                      {t("pImageSessionTarget")}{" "}
                       {sortBy === "name" && (
                         <span className="sorting">
                           {sortOrder === "asc" ? "▲" : "▼"}
@@ -268,16 +292,16 @@ export default function AstroPhoto() {
                       )}
                     </th>
                     <th onClick={() => sortByProperty("date")}>
-                      Date{" "}
+                      {t("pImageSessionDate")}{" "}
                       {sortBy === "date" && (
                         <span className="sorting">
                           {sortOrder === "asc" ? "▲" : "▼"}
                         </span>
                       )}
                     </th>
-                    <th>Shooting Info</th>
-                    <th>Additional Info</th>
-                    <th>Action</th>
+                    <th>{t("pImageSessionShootingInfo")}</th>
+                    <th>{t("pImageSessionAdditionalInfo")}</th>
+                    <th>{t("pImageSessionAction")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -298,7 +322,7 @@ export default function AstroPhoto() {
                             alt="Thumbnail Not Available"
                           />
                         ) : (
-                          <div>Loading...</div>
+                          <div>{t("pImageSessionLoading")}</div>
                         )}
                       </td>
                       <td className="session-name">
@@ -313,7 +337,7 @@ export default function AstroPhoto() {
                           onClick={() => getSessionData(session.name)}
                           disabled={downloadClicked}
                         >
-                          Download
+                          {t("pImageSessionDownload")}
                         </button>
                       </td>
                     </tr>

@@ -16,8 +16,13 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <section className="daily-horp d-inline-block w-100">
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
+      <section
+        className="daily-horp d-inline-block w-100"
+        style={{ flex: "1" }}
+      >
         <div className="container">
           {" "}
           <br />
@@ -52,6 +57,10 @@ export default function Home() {
           </ul>
         </div>
       </section>
+      {""}
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

@@ -1068,38 +1068,27 @@ img {
 /* Tooltip text */
 .tooltip-text-SK {
     visibility: hidden;
-    width: 290px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
     position: absolute;
     z-index: 1;
-    bottom: 125%; /* Position the tooltip above the text */
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 200px; /* Adjust as needed */
+    top: calc(100% + 10px); /* Position below the input */
     left: 50%;
-    margin-left: -143px;
+    transform: translateX(-50%);
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
 }
 
-    /* Tooltip arrow */
-    .tooltip-text-SK::after {
-        content: "";
-        position: absolute;
-        top: 100%; /* At the bottom of the tooltip */
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: black transparent transparent transparent;
+    /* Show the tooltip text when .show class is added */
+    .tooltip-text-SK.show {
+        visibility: visible;
+        opacity: 1;
+        transition-delay: 0s;
     }
-
-/* Show the tooltip text when you hover over the tooltip container */
-.tooltip-container:hover .tooltip-text-SK {
-    visibility: visible;
-    opacity: 1;
-}
 
 /*Themesettings*/
 .modal-wrapper-theme {

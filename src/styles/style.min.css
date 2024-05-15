@@ -348,8 +348,22 @@ header {
 
 .btn-more02 {
     position: relative;
+    height: 40px !important;
     /*overflow: hidden;*/
-   /* padding: 11px 10px 10px 10px;*/
+    /* padding: 11px 10px 10px 10px;*/
+    color: #0a051d !important;
+    border: solid 2px rgba(255, 255, 255, .2588235294) !important;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: #00AE83;
+}
+.btn-lights {
+    position: relative;
+    height: 50px !important;
+    /*overflow: hidden;*/
+    /* padding: 11px 10px 10px 10px;*/
     color: #0a051d !important;
     border: solid 2px rgba(255, 255, 255, .2588235294) !important;
     border-radius: 5px;
@@ -381,6 +395,14 @@ header {
 }
 
     .btn-more02:hover::before {
+        width: 100%
+    }
+.btn-lights:hover {
+    border-color: #d3a417 !important;
+    color: #fff !important
+}
+
+    .btn-lights:hover::before {
         width: 100%
     }
 

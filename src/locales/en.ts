@@ -169,6 +169,7 @@ const translations = {
   cCalibrationDwarfGoToPosition: "Goto Position",
   cCalibrationDwarfShutdown: "Shutdown!",
   cCalibrationDwarfReboot: "Reboot!",
+  cCameraAddonTimeLapse: "Time Lapse",
   cNavHome: "Home",
   cNavSetup: "Setup",
   cNavObjects: "Objects",
@@ -286,6 +287,7 @@ const translations = {
   pImageSessionLoading: "Loading...",
   pImageSessionDownload: "Download",
   pMoonphaseSelectMonth: "Select Month:",
+  
 };
 
 export default translations;

@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function DSOSearch({ updateSearchText }) {
-  const [searchTxtValue, setSearchTxtValue] = useState("");
+  let connectionCtx = useContext(ConnectionContext);
+  const [searchTxtValue, setSearchTxtValue] = useState(connectionCtx.searchTxt);
 
   function searchHandler() {
     updateSearchText(searchTxtValue);
@@ -15,7 +17,7 @@ export default function DSOSearch({ updateSearchText }) {
             Search
           </button>
         </div>
-        <div className="col-lg-4 col-md-10">
+        <div className="col-lg-3	 col-md-10">
           <input
             pattern="^[\w\s]{0,255}$/i"
             className="form-control"

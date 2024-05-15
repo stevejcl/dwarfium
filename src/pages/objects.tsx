@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 import GotoStellarium from "@/components/GotoStellarium";
 import GotoLists from "@/components/GotoLists";
@@ -13,10 +13,9 @@ import ResizablePIP from "@/components/ResizablePIP";
 import DwarfCameras from "@/components/DwarfCameras";
 
 export default function Goto() {
-  const [gotoType, setGotoType] = useState("lists");
+  let connectionCtx = useContext(ConnectionContext);
   useSetupConnection();
   useLoadIntialValues();
-  let connectionCtx = useContext(ConnectionContext);
 
   return (
     <section className="daily-horp d-inline-block w-100">
@@ -33,25 +32,25 @@ export default function Goto() {
         <ul className=" nav nav-tabs mb-2">
           <li
             className={`nav-item nav-link ${
-              gotoType === "lists" ? "active" : ""
+              connectionCtx.gotoType === "lists" ? "active" : ""
             }`}
-            onClick={() => setGotoType("lists")}
+            onClick={() => connectionCtx.setGotoType("lists")}
           >
             Lists
           </li>
           <li
             className={`nav-item nav-link ${
-              gotoType === "userLists" ? "active" : ""
+              connectionCtx.gotoType === "userLists" ? "active" : ""
             }`}
-            onClick={() => setGotoType("userLists")}
+            onClick={() => connectionCtx.setGotoType("userLists")}
           >
             Custom Lists
           </li>
           <li
             className={`nav-item nav-link ${
-              gotoType === "stellarium" ? "active" : ""
+              connectionCtx.gotoType === "stellarium" ? "active" : ""
             }`}
-            onClick={() => setGotoType("stellarium")}
+            onClick={() => connectionCtx.setGotoType("stellarium")}
           >
             Stellarium
           </li>
@@ -73,9 +72,9 @@ export default function Goto() {
             </ResizablePIP>
           </div>
         )}
-        {gotoType === "lists" && <GotoLists />}
-        {gotoType === "stellarium" && <GotoStellarium />}
-        {gotoType === "userLists" && <GotoUserLists />}
+        {connectionCtx.gotoType === "lists" && <GotoLists />}
+        {connectionCtx.gotoType === "stellarium" && <GotoStellarium />}
+        {connectionCtx.gotoType === "userLists" && <GotoUserLists />}
         <br />
         <br />
         <br />

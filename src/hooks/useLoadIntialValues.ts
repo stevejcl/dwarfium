@@ -94,6 +94,10 @@ export function useLoadIntialValues() {
       connectionCtx.setSearchTxt("Search");
     }
 
+    if (connectionCtx.visibleSkyLimit === undefined) {
+      connectionCtx.setVisibleSkyLimit("W");
+    }
+
     if (connectionCtx.savePositionStatus === undefined) {
       connectionCtx.setSavePositionStatus(false);
     }
@@ -105,6 +109,10 @@ export function useLoadIntialValues() {
       if (data !== undefined) {
         connectionCtx.setCurrentObjectListName(data);
       }
+    }
+
+    if (connectionCtx.gotoType === undefined) {
+      connectionCtx.setGotoType("lists");
     }
 
     if (connectionCtx.currentUserObjectListName === undefined) {

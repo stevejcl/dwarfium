@@ -6,6 +6,7 @@ import {
   AstroSettings,
   AstroSavePosition,
   ImagingSession,
+  SkyLimitObject,
 } from "@/types";
 
 type ProviderProps = {
@@ -56,12 +57,19 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [timezone, setTimezone] = useState<string | undefined>();
 
   const [searchTxt, setSearchTxt] = useState<string | undefined>("");
+  const [visibleSkyLimit, setVisibleSkyLimit] = useState<string | undefined>(
+    ""
+  );
+  const [visibleSkyLimitTarget, setVisibleSkyLimitTarget] =
+    useState<SkyLimitObject[]>();
 
   const [savePositionStatus, setSavePositionStatus] = useState<
     boolean | undefined
   >();
 
   const [isSavedPosition, setIsSavedPosition] = useState<boolean | undefined>();
+
+  const [gotoType, setGotoType] = useState<string | undefined>("lists");
 
   const [currentObjectListName, setCurrentObjectListName] = useState<
     string | undefined
@@ -141,12 +149,19 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
 
     searchTxt,
     setSearchTxt,
+    visibleSkyLimit,
+    setVisibleSkyLimit,
+    visibleSkyLimitTarget,
+    setVisibleSkyLimitTarget,
 
     savePositionStatus,
     setSavePositionStatus,
 
     isSavedPosition,
     setIsSavedPosition,
+
+    gotoType,
+    setGotoType,
 
     currentObjectListName,
     setCurrentObjectListName,

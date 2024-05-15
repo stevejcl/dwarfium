@@ -132,13 +132,15 @@ export default function ImagingMenu(props: PropType) {
         });
         saveImagingSessionDb("sessionElaspsedTime", time.toString());
       }
-    } else { stopTimer();}
+    } else {
+      stopTimer();
+    }
   }
 
   function startTimer() {
     let timer: string | any = "";
     if (!connectionCtx.timerGlobal) {
-      timer = setInterval(timerFunction , 500);
+      timer = setInterval(timerFunction, 500);
     } else timer = connectionCtx.timerGlobal;
 
     return timer;

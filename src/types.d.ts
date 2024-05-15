@@ -51,11 +51,20 @@ export type ConnectionContextType = {
 
   searchTxt: string | undefined;
   setSearchTxt: Dispatch<SetStateAction<string | undefined>>;
+  visibleSkyLimit: string | undefined;
+  setVisibleSkyLimit: Dispatch<SetStateAction<string | undefined>>;
+  visibleSkyLimitTarget: SkyLimitObject[] | undefined;
+  setVisibleSkyLimitTarget: Dispatch<
+    SetStateAction<SkyLimitObject[] | undefined>
+  >;
 
   savePositionStatus: boolean | undefined;
   setSavePositionStatus: Dispatch<SetStateAction<boolean | undefined>>;
   isSavedPosition: boolean | undefined;
   setIsSavedPosition: Dispatch<SetStateAction<boolean | undefined>>;
+
+  gotoType: string | undefined;
+  setGotoType: Dispatch<SetStateAction<string | undefined>>;
 
   currentObjectListName: string | undefined;
   setCurrentObjectListName: Dispatch<SetStateAction<string | undefined>>;
@@ -274,4 +283,9 @@ export type ReactAnimatedWeatherProps = {
   size: number;
   animate?: boolean;
   code: string;
+};
+
+export type SkyLimitObject = {
+  number: number;
+  directions: string;
 };

@@ -169,6 +169,7 @@ const translations = {
   cCalibrationDwarfGoToPosition: "Ir a la Posición",
   cCalibrationDwarfShutdown: "¡Apagar!",
   cCalibrationDwarfReboot: "¡Reiniciar!",
+  cCameraAddonTimeLapse: "Lapso de tiempo",
   cNavHome: "Inicio",
   cNavSetup: "Configuración",
   cNavObjects: "Objetos",

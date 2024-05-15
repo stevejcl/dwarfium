@@ -170,6 +170,7 @@ const translations = {
   cCalibrationDwarfGoToPosition: "Ga naar positie",
   cCalibrationDwarfShutdown: "Uitschakelen!",
   cCalibrationDwarfReboot: "Herstarten!",
+  cCameraAddonTimeLapse: "Tijdsverloop",
   cNavHome: "Home",
   cNavSetup: "Instellingen",
   cNavObjects: "Objecten",
@@ -291,6 +292,6 @@ const translations = {
   pImageSessionLoading: "Laden...",
   pImageSessionDownload: "Downloaden",
   pMoonphaseSelectMonth: "Selecteer maand:",
-};
+  };
 
 export default translations;

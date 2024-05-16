@@ -146,7 +146,6 @@ const translations = {
   cCameraAddOnPhoto: "Photo",
   cCameraAddOnVideo: "Vidéo",
   cCameraAddOnPanorama: "Panorama",
-  cCameraAddonTimeLapse: "Time-lapse",
   cCameraBurstSettingsCount: "Compter",
   cCameraBurstSettingsinterval: "Intervalle",
   cCameraTitle: "Astro Photos",
@@ -290,7 +289,7 @@ const translations = {
   pImageSessionLoading: "Chargement...",
   pImageSessionDownload: "Télécharger",
   pMoonphaseSelectMonth: "Sélectionnez le mois :",
-  cCameraAddonTimeLapse: "Laps de temps"
+  cCameraAddonTimeLapse: "Laps de temps",
 };
 
 export default translations;

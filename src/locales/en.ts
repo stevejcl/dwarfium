@@ -287,7 +287,6 @@ const translations = {
   pImageSessionLoading: "Loading...",
   pImageSessionDownload: "Download",
   pMoonphaseSelectMonth: "Select Month:",
-  
 };
 
 export default translations;

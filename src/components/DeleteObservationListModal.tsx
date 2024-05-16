@@ -1,6 +1,9 @@
 import type { FormEvent, Dispatch, SetStateAction } from "react";
 import Modal from "react-bootstrap/Modal";
-import { useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 import { AstroObject } from "@/types";
 import {
@@ -55,18 +58,30 @@ export default function DeleteObjectListModal(props: PropTypes) {
     setShowModal(false);
   }
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Delete Object List</Modal.Title>
+        <Modal.Title>{t("cDeleteObservationListModalTitle")}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <form onSubmit={deleteListHandler}>
-          <p className="mb-3">Are you sure you want to delete {}?</p>
+          <p className="mb-3">{t("cDeleteObservationListConfirm")}?</p>
 
           <button type="submit" className="btn btn-more03 me-2 mb-2">
-            Delete List
+            {t("cDeleteObservationListButton")}
           </button>
         </form>
       </Modal.Body>

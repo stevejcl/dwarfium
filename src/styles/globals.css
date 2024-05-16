@@ -1075,7 +1075,7 @@ img {
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
-    width: 200px; /* Adjust as needed */
+    width: 300px; /* Adjust as needed */
     top: calc(100% + 10px); /* Position below the input */
     left: 50%;
     transform: translateX(-50%);

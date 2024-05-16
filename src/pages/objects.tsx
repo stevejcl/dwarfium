@@ -1,3 +1,7 @@
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import i18n from "@/i18n";
+
 import { useContext } from "react";
 
 import GotoStellarium from "@/components/GotoStellarium";
@@ -16,6 +20,18 @@ export default function Goto() {
   let connectionCtx = useContext(ConnectionContext);
   useSetupConnection();
   useLoadIntialValues();
+
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   return (
     <section className="daily-horp d-inline-block w-100">
@@ -36,7 +52,7 @@ export default function Goto() {
             }`}
             onClick={() => connectionCtx.setGotoType("lists")}
           >
-            Lists
+            {t("pObjectsList")}
           </li>
           <li
             className={`nav-item nav-link ${
@@ -44,7 +60,7 @@ export default function Goto() {
             }`}
             onClick={() => connectionCtx.setGotoType("userLists")}
           >
-            Custom Lists
+            {t("pObjectsCustomsList")}
           </li>
           <li
             className={`nav-item nav-link ${

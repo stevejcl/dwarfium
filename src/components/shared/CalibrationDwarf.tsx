@@ -203,7 +203,7 @@ export default function CalibrationDwarf() {
       return (
         <button
           className={`btn ${
-            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+            connectionCtx.connectionStatus ? "btn-lights" : "btn-lights"
           } me-2 mt-3`}
           onClick={RingLightsOffFn}
           disabled={!connectionCtx.connectionStatus}
@@ -234,7 +234,7 @@ export default function CalibrationDwarf() {
       return (
         <button
           className={`btn ${
-            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+            connectionCtx.connectionStatus ? "btn-lights" : "btn-lights"
           } me-2 mt-3`}
           onClick={PowerLightsOffFn}
           disabled={

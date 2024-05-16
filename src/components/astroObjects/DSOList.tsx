@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
-import { AstroObject } from "@/types";
+import { AstroObject, SkyLimitObject } from "@/types";
 import DSOObject from "@/components/astroObjects/DSOObject";
 import DSOSearch from "@/components/astroObjects/DSOSearch";
+import DSOVisibleSky from "@/components/astroObjects/DSOVisibleSky";
 import { pluralize } from "@/lib/text_utils";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 
@@ -34,7 +35,10 @@ export default function DSOList(props: PropType) {
 
   const [objects, setObjects] = useState(dsoObjects);
   const [selectedCategories, setSelectedCategories] = useState(["all"]);
-  const [searchTxtValue, setSearchTxtValue] = useState("");
+  const [searchTxtValue, setSearchTxtValue] = useState(connectionCtx.searchTxt);
+  const [visibleSkyLimitValue, setVisibleSkyLimitValue] = useState(
+    connectionCtx.visibleSkyLimit
+  );
 
   useEffect(() => {
     filterObjects();
@@ -49,7 +53,7 @@ export default function DSOList(props: PropType) {
       }
     });
     console.debug("DSO favorites found:", nb);
-  }, [selectedCategories, dsoObjects, searchTxtValue]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedCategories, dsoObjects, searchTxtValue, visibleSkyLimitValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Function to update the search text in the context
   const updateSearchTextInContext = (searchValue) => {
@@ -66,6 +70,40 @@ export default function DSOList(props: PropType) {
     } else {
       setSearchTxtValue("");
       connectionCtx.setSearchTxt("");
+    }
+  };
+
+  // Function to update the search text in the context
+  const updateVisibleSkyLimitInContext = (skyLimitValue) => {
+    if (skyLimitValue === "") {
+      setVisibleSkyLimitValue("");
+      connectionCtx.setVisibleSkyLimit("");
+    }
+
+    if (skyLimitValue) {
+      // Regular expression to match number followed by directional indicators
+      const pattern = /(\d+)\s*([NSEW]{1,2}(?:-[NSEW]{1,2})*)/gi;
+
+      if (pattern.test(skyLimitValue)) {
+        setVisibleSkyLimitValue(skyLimitValue);
+        connectionCtx.setVisibleSkyLimit(skyLimitValue);
+
+        // Array to hold extracted values
+        const extractedValues: SkyLimitObject[] = [];
+
+        // Match all occurrences of the pattern in the input string
+        let match;
+        while ((match = pattern.exec(skyLimitValue)) !== null) {
+          const number = parseInt(match[1], 10); // Extract and convert number to integer
+          const directions = match[2].split("-"); // Extract directional indicators as an array
+          extractedValues.push({ number, directions });
+        }
+        console.log("extractedValues: ", extractedValues);
+        connectionCtx.setVisibleSkyLimitTarget(extractedValues);
+      }
+    } else {
+      setVisibleSkyLimitValue("");
+      connectionCtx.setVisibleSkyLimit("");
     }
   };
 
@@ -373,7 +411,16 @@ export default function DSOList(props: PropType) {
           ))}
         </ul>
         <hr />
-        <DSOSearch updateSearchText={updateSearchTextInContext} />
+        <div className="row mb-3">
+          <div className="">
+            <DSOSearch updateSearchText={updateSearchTextInContext} />
+          </div>
+          <div className="">
+            <DSOVisibleSky
+              updateVisibleSkyLimit={updateVisibleSkyLimitInContext}
+            />
+          </div>
+        </div>
         <hr />
         <h4 className="mt-3">
           {objects.length} {pluralize(objects.length, "Object", "Objects")}

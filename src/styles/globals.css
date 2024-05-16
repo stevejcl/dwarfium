@@ -1051,6 +1051,45 @@ img {
 .camera-witmotion {
     width: 650px;
 }
+.sky_object {
+    margin-left: 37%;
+    margin-top: -55px;
+}
+.search_object {
+    margin-left: 0%; 
+}
+
+/* Tooltip container */
+.tooltip-container {
+    position: relative;
+    display: inherit;
+}
+
+/* Tooltip text */
+.tooltip-text-SK {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 200px; /* Adjust as needed */
+    top: calc(100% + 10px); /* Position below the input */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
+}
+
+    /* Show the tooltip text when .show class is added */
+    .tooltip-text-SK.show {
+        visibility: visible;
+        opacity: 1;
+        transition-delay: 0s;
+    }
+
 /*Themesettings*/
 .modal-wrapper-theme {
     position: fixed;

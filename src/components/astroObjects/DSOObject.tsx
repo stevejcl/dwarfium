@@ -78,7 +78,10 @@ export default function DSOObject(props: AstronomyObjectPropType) {
 
   // Memorize the calculated data using useMemo
   const riseSetTime = useMemo(() => renderRiseSetTime(), [forceUpdate]);
-  const altAz = useMemo(() => renderAltAz(), [forceUpdate]);
+  const altAz = useMemo(
+    () => renderAltAz(),
+    [forceUpdate, connectionCtx.visibleSkyLimit]
+  );
   const raDec = useMemo(() => renderRADec(), [forceUpdate]);
 
   function renderRiseSetTime() {
@@ -129,6 +132,33 @@ export default function DSOObject(props: AstronomyObjectPropType) {
         toIsoStringInLocalTime(today),
         connectionCtx.timezone
       );
+
+      let visibility = false;
+
+      // Verify SkyLimit test Cardinal
+      if (results && connectionCtx.visibleSkyLimitTarget) {
+        const targets = Array.isArray(connectionCtx.visibleSkyLimitTarget)
+          ? connectionCtx.visibleSkyLimitTarget
+          : [connectionCtx.visibleSkyLimitTarget]; // Wrap single object in an array if it's not already an array
+
+        for (const target of targets) {
+          if (
+            target &&
+            typeof target === "object" &&
+            "number" in target &&
+            "directions" in target
+          ) {
+            if (
+              results.alt >= target.number &&
+              target.directions.includes(convertAzToCardinal(results.az))
+            ) {
+              visibility = true;
+              break; // Exit loop early if visibility is set to true
+            }
+          }
+        }
+        object.visible = visibility;
+      }
 
       if (results) {
         return (

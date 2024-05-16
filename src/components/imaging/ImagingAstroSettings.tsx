@@ -449,6 +449,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
                   type="number"
                   className="form-control"
                   name="quality"
+                  max="100"
                   placeholder="0"
                   min="0"
                   onChange={(e) => {

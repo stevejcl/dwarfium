@@ -290,6 +290,7 @@ const translations = {
   pImageSessionLoading: "Chargement...",
   pImageSessionDownload: "Télécharger",
   pMoonphaseSelectMonth: "Sélectionnez le mois :",
+  cCameraAddonTimeLapse: "Laps de temps"
 };
 
 export default translations;

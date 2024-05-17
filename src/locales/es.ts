@@ -22,7 +22,7 @@ const translations = {
   pIndexFeature5: "5. Tomar fotos astronómicas.",
   pIndexFeature6: "6. Binning 1x1 para fotos astronómicas.",
   pIndexClaimer:
-    "Este sitio web y la API Dwarf están en fase beta. No todas las funciones de la aplicación móvil están presentes todavía. Utilice esta aplicación sólo si se siente cómodo como probador de software beta.",
+    "Dwarfium y la API Dwarf están en fase beta. No todas las funciones de la aplicación móvil están presentes todavía. Utilice esta aplicación sólo si se siente cómodo como probador de software beta.",
   pIndexBugsHeader: "Bugs:",
   pIndexBug1: "Puedes enviar tus hallazgos aquí: ",
   pIndexBug2: "",

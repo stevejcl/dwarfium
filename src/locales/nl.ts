@@ -12,7 +12,7 @@ Description = identifier
 
 const translations = {
   pIndexDescription:
-    "Deze website stelt u in staat om de Dwarf II te bedienen met behulp van de Dwarf API",
+    "Dwarfium stelt u in staat om de Dwarf II te bedienen met behulp van de Dwarf API",
   pIndexFeature: "Kenmerken",
   pIndexFeature1: "1. Objectenlijst met meer dan 850 objecten.",
   pIndexFeature2: "2. Importeer objectenlijsten van Telescopius.",
@@ -22,7 +22,7 @@ const translations = {
   pIndexFeature5: "5. Maak astrofoto's.",
   pIndexFeature6: "6. 1x1 binning voor astrofoto's.",
   pIndexClaimer:
-    "Deze website en de Dwarf API bevinden zich in de bètafase. Nog niet alle functionaliteiten van de mobiele app zijn aanwezig. Gebruik deze app alleen als u vertrouwd bent met het testen van bètasoftware.",
+    "Dwarfium en de Dwarf API bevinden zich in de bètafase. Nog niet alle functionaliteiten van de mobiele app zijn aanwezig. Gebruik deze app alleen als u vertrouwd bent met het testen van bètasoftware.",
   pIndexBugsHeader: "Bugs:",
   pIndexBug1: "Hier kunt u uw bevindingen versturen: ",
   pIndexBug2: "",

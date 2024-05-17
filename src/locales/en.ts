@@ -12,7 +12,7 @@ Description = identifier
 
 const translations = {
   pIndexDescription:
-    "This website allows you to control the Dwarf II using the Dwarf API.",
+    "Dwarfium allows you to control the Dwarf II using the Dwarf API.",
   pIndexFeature: "Features",
   pIndexFeature1: "1. Object list with over 850 objects.",
   pIndexFeature2: "2. Import objects lists from Telescopius.",
@@ -22,7 +22,7 @@ const translations = {
   pIndexFeature5: "5. Take Astro photos.",
   pIndexFeature6: "6. 1x1 binning for astro photos.",
   pIndexClaimer:
-    "This website and the Dwarf API are in beta phase. Not all features of the mobile app are present yet. Use this app only if you are comfortable as a beta software tester.",
+    "Dwarfium and the Dwarf API are in beta phase. Not all features of the mobile app are present yet. Use this app only if you are comfortable as a beta software tester.",
   pIndexBugsHeader: "Bugs:",
   pIndexBug1: "You can send your findings here: ",
   pIndexBug2: "",
@@ -32,7 +32,7 @@ const translations = {
   pCalendarYear: "Calendar Year",
   pAbout: "About",
   pAboutInfo:
-    "The project was started by Wai-Yin Kwan with the help of JC LESAINT. This website is a side project to combine their interest in coding, astronomy, and the Dwarf II API. To report bugs or view the original code, visit his ",
+    "The project was started by Wai-Yin Kwan with the help of JC LESAINT. Dwarfium is a side project to combine their interest in coding, astronomy, and the Dwarf II API. To report bugs or view the original code, visit his ",
   pAboutDataCredit: "Data Credits",
   pAboutDataCreditInfo:
     "The data for the objects lists comes from several sources.",

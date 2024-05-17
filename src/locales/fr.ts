@@ -11,7 +11,7 @@ Description = identifier
 */
 const translations = {
   pIndexDescription:
-    "Ce site web vous permet de contrôler le Dwarf II en utilisant l'API Dwarf.",
+    "Dwarfium vous permet de contrôler le Dwarf II en utilisant l'API Dwarf.",
   pIndexFeature: "Caractéristiques",
   pIndexFeature1: "1. Liste d'objets avec plus de 850 objets.",
   pIndexFeature2: "2. Importer des listes d'objets depuis Telescopius.",
@@ -21,7 +21,7 @@ const translations = {
   pIndexFeature5: "5. Prendre des photos astronomiques.",
   pIndexFeature6: "6. Binning 1x1 pour les photos astronomiques.",
   pIndexClaimer:
-    "Ce site web et l'API Dwarf sont en phase bêta. Toutes les fonctionnalités de l'application mobile ne sont pas enore présentes. Utilisez cette application uniquement si vous êtes à l'aise en tant que testeur de logiciels bêta.",
+    "Dwarfium et l'API Dwarf sont en phase bêta. Toutes les fonctionnalités de l'application mobile ne sont pas enore présentes. Utilisez cette application uniquement si vous êtes à l'aise en tant que testeur de logiciels bêta.",
   pIndexBugsHeader: "Bugs :",
   pIndexBug1: "Vous pouvez envoyer vos trouvailles ici  :",
   pIndexBug2: "",

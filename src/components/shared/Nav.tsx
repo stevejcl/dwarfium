@@ -122,13 +122,6 @@ export default function Nav() {
                   >
                     {t("cNavSessionData")}
                   </Link>
-                  <Link
-                    className="nav-link active drop"
-                    aria-current="page"
-                    href="/skymap"
-                  >
-                    SkyMap
-                  </Link>
                 </div>
               </div>
 

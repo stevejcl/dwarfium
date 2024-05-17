@@ -30,9 +30,9 @@ function Weather() {
 
   useEffect(() => {
     if (apiKey && cityInput) {
-      search();
+      search(cityInput);
     }
-  }, [apiKey, cityInput]);
+  }, []); // Empty dependency array means this runs once on mount
 
   function handleResponse(response) {
     setWeatherData({
@@ -52,8 +52,8 @@ function Weather() {
     localStorage.setItem("city", response.data.city.name);
   }
 
-  function search() {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${apiKey}&units=metric`;
+  function search(city: string) {
+    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
     axios
       .get(apiUrl)
       .then(handleResponse)
@@ -69,20 +69,22 @@ function Weather() {
       });
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    search();
+    if (cityInput) {
+      search(cityInput);
+    }
   }
 
-  function handleCityInput(event) {
+  function handleCityInput(event: React.ChangeEvent<HTMLInputElement>) {
     setCityInput(event.target.value);
   }
 
-  function handleApiKeyChange(event) {
+  function handleApiKeyChange(event: React.ChangeEvent<HTMLInputElement>) {
     setApiKey(event.target.value);
   }
 
-  function handleSaveApiKey(event) {
+  function handleSaveApiKey(event: React.FormEvent<HTMLButtonElement>) {
     event.preventDefault();
     localStorage.setItem("apiKey", apiKey);
   }
@@ -119,7 +121,7 @@ function Weather() {
           </div>
           <div className="col-sm-6 col-md-3 mb-3">
             <button
-              type="submit"
+              type="button" // Changed to button to avoid form submission
               onClick={handleSaveApiKey}
               className="btn btn-more02 w-40"
             >

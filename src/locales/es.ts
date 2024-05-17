@@ -27,7 +27,7 @@ const translations = {
   pIndexBug1: "Puedes enviar tus hallazgos aquí: ",
   pIndexBug2: "",
   pIndexBug3: "",
-  pIndexLinkBug: `<a href="https://discord.com/channels/1218255498042937374/1221050885761925150"> En nuestro servidor de Discord </a>`,
+  pIndexLinkBug: `<a href="https://discord.gg/5vFWbsXDfv"> En nuestro servidor de Discord </a>`,
   pCalendarTitle: "Calendario Astronómico de Eventos Celestiales",
   pCalendarYear: "Año del Calendario",
   pAbout: "Acerca de",

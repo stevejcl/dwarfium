@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import CustomChart from "@/components/clouds/Chart";
 import Daypicker from "@/components/clouds/Daypicker";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 const Clouds = () => {
   const [forecastTimes, setForecastTimes] = useState<string[]>([]);
@@ -158,6 +160,17 @@ const Clouds = () => {
       }
     }
   };
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   return (
     <>
@@ -176,7 +189,7 @@ const Clouds = () => {
                       type="search"
                       defaultValue={city}
                       ref={cityInputRef}
-                      placeholder="Enter a city..."
+                      placeholder={t("cCloudsCityInput")}
                       className="form-control-weather"
                       autoFocus={true}
                     />
@@ -187,7 +200,7 @@ const Clouds = () => {
                       className="btn btn-more02 w-40"
                       onClick={handleSearchWithCityChange}
                     >
-                      Search
+                      {t("cCloudsSearch")}
                     </button>
                   </div>
                   {apiKey && (
@@ -196,7 +209,7 @@ const Clouds = () => {
                         <input
                           type="text"
                           value={apiKey}
-                          placeholder="Enter API-key"
+                          placeholder={t("cCloudsApiKeyInput")}
                           className="form-control-weather"
                           onChange={handleApiKeyChange}
                         />
@@ -207,7 +220,7 @@ const Clouds = () => {
                           className="btn btn-more02 w-40"
                           onClick={handleApiKeySave}
                         >
-                          Save API Key
+                          {t("cCloudsSaveAPIKey")}
                         </button>
                       </div>
                     </>

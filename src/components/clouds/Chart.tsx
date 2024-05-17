@@ -18,16 +18,16 @@ const Chart = ({
   windArray,
 }: ChartDataProps) => {
   const { t } = useTranslation();
-// eslint-disable-next-line no-unused-vars
-const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-useEffect(() => {
-  const storedLanguage = localStorage.getItem("language");
-  if (storedLanguage) {
-    setSelectedLanguage(storedLanguage);
-    i18n.changeLanguage(storedLanguage);
-  }
-}, []);
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
   return (
     <div className="chart-container">
       <Line

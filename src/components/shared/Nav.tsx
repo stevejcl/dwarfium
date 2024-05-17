@@ -1,40 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
-import i18n from "@/i18n";
 
 export default function Nav() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [devEnabled, setDevEnabled] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [theme] = useState<"light" | "dark">("light");
-  useEffect(() => {
-    const devState = localStorage.getItem("devState");
-    setDevEnabled(devState === "true");
-  }, []);
+  const [devState, setDevState] = useState(false);
 
   const { t } = useTranslation();
-  // eslint-disable-next-line no-unused-vars
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   useEffect(() => {
-    const storedLanguage = localStorage.getItem("language");
-    if (storedLanguage) {
-      setSelectedLanguage(storedLanguage);
-      i18n.changeLanguage(storedLanguage);
+    const devState = localStorage.getItem("devState");
+    if (devState !== null) {
+      setDevState(devState === "true");
     }
   }, []);
-
-  const handleToggleModal = () => {
-    setModalOpen(!modalOpen);
-  };
-
-  const handleDevOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    setDevEnabled(isChecked);
-    localStorage.setItem("devState", isChecked.toString());
-  };
 
   const handleNavbarToggle = () => {
     setNavbarOpen(!navbarOpen);
@@ -43,9 +23,6 @@ export default function Nav() {
   const closeNavbar = () => {
     setNavbarOpen(false);
   };
-  useEffect(() => {
-    document.body.className = `${theme}-theme`;
-  }, [theme]);
 
   return (
     <>
@@ -162,16 +139,18 @@ export default function Nav() {
                   {t("cNavAstronomyCalendar")}
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  href="/wit-sensor"
-                  style={{ display: devEnabled ? "block" : "none" }}
-                >
-                  {t("cNavPolarAlignment")}
-                </Link>
-              </li>
+              {devState && (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/wit-sensor"
+                    style={{ display: devState ? "block" : "none" }}
+                  >
+                    {t("cNavPolarAlignment")}
+                  </Link>
+                </li>
+              )}
               <li className="nav-item">
                 <Link
                   className="nav-link active"
@@ -182,50 +161,9 @@ export default function Nav() {
                 </Link>
               </li>
             </ul>
-            <div className="d-none d-lg-block">
-              <div className="right-menu">
-                <ul>
-                  <li>
-                    <span
-                      className="version-text"
-                      onClick={handleToggleModal}
-                      style={{ cursor: "pointer", zIndex: 1051 }}
-                    >
-                      Beta Witmotion
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </nav>
-
-      <Modal
-        dialogClassName="modal-dialog-version"
-        show={modalOpen}
-        onHide={handleToggleModal}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>
-            <div className="modal-title-version">Beta</div>
-          </Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <div className="modal-body-version">
-            <label className="checkbox-container">
-              <input
-                type="checkbox"
-                className="custom-checkbox"
-                checked={devEnabled}
-                onChange={handleDevOptionChange}
-              />
-              : Enable Witmotion Sensor
-            </label>
-          </div>
-        </Modal.Body>
-      </Modal>
     </>
   );
 }

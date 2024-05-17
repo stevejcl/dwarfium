@@ -216,87 +216,86 @@ const Modal: React.FC = () => {
               <button className="font-size-button" onClick={increaseFontSize}>
                 <i className="fas fa-plus"></i>
               </button>
-              <button className="font-size-button"
-              onClick={decreaseFontSize}>
-              <i className="fas fa-minus"></i>
-            </button>
-            <button               className="font-size-reset-button"
-              onClick={resetFontSize}
-            >
-              <i className="fas fa-sync-alt"></i>
-            </button>
-          </div>
-          <br />
-          <h2 className="theme-header">{t("cThemeSettingsColorTheme")}</h2>
-          <div className="theme-con">
-            <div className="theme-options">
-              <button
-                className={`btn btn-more02 ${
-                  theme === "light" ? "active" : ""
-                }`}
-                onClick={() => handleThemeChange("light")}
-              >
-                {t("cThemeSettingsLightTheme")}
+              <button className="font-size-button" onClick={decreaseFontSize}>
+                <i className="fas fa-minus"></i>
               </button>
               <button
-                className={`btn btn-more02 ${
-                  theme === "dark" ? "active" : ""
-                }`}
-                onClick={() => handleThemeChange("dark")}
+                className="font-size-reset-button"
+                onClick={resetFontSize}
               >
-                {t("cThemeSettingsDarkTheme")}
-              </button>
-              <button
-                className={`btn btn-more02 ${
-                  theme === "dark" ? "active" : ""
-                }`}
-                onClick={() => handleThemeChange("dark")}
-              >
-                {t("cThemeSettingsAstroTheme")}
-                <br />({t("cThemeSettingsUnderconstruction")})
+                <i className="fas fa-sync-alt"></i>
               </button>
             </div>
-          </div>
-          <br />
-
-          <div className="language-options">
-            <h2 className="theme-header">{t("cThemeSettingsLanguage")}</h2>
-
-            <select
-              className="language-select"
-              value={selectedLanguage}
-              onChange={(e) => changeLanguage(e.target.value)}
-            >
-              {availableLanguages.map((lang) => (
-                <option key={lang} value={lang} className="language-option">
-                  {languages[lang]}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="witmotion-sensor">
-            <div className="modal-body-version">
-              <label className="checkbox-container">
-                <input
-                  type="checkbox"
-                  className="custom-checkbox"
-                  checked={devState}
-                  onChange={handleDevOptionChange}
-                />
-                : Enable Witmotion Sensor
-              </label>
+            <br />
+            <h2 className="theme-header">{t("cThemeSettingsColorTheme")}</h2>
+            <div className="theme-con">
+              <div className="theme-options">
+                <button
+                  className={`btn btn-more02 ${
+                    theme === "light" ? "active" : ""
+                  }`}
+                  onClick={() => handleThemeChange("light")}
+                >
+                  {t("cThemeSettingsLightTheme")}
+                </button>
+                <button
+                  className={`btn btn-more02 ${
+                    theme === "dark" ? "active" : ""
+                  }`}
+                  onClick={() => handleThemeChange("dark")}
+                >
+                  {t("cThemeSettingsDarkTheme")}
+                </button>
+                <button
+                  className={`btn btn-more02 ${
+                    theme === "dark" ? "active" : ""
+                  }`}
+                  onClick={() => handleThemeChange("dark")}
+                >
+                  {t("cThemeSettingsAstroTheme")}
+                  <br />({t("cThemeSettingsUnderconstruction")})
+                </button>
+              </div>
             </div>
+            <br />
+
+            <div className="language-options">
+              <h2 className="theme-header">{t("cThemeSettingsLanguage")}</h2>
+
+              <select
+                className="language-select"
+                value={selectedLanguage}
+                onChange={(e) => changeLanguage(e.target.value)}
+              >
+                {availableLanguages.map((lang) => (
+                  <option key={lang} value={lang} className="language-option">
+                    {languages[lang]}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="witmotion-sensor">
+              <div className="modal-body-version">
+                <label className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    className="custom-checkbox"
+                    checked={devState}
+                    onChange={handleDevOptionChange}
+                  />
+                  : Enable Witmotion Sensor
+                </label>
+              </div>
+            </div>
+            <br />
+            <button className="apply-button" onClick={applyBackground}>
+              {t("cThemeSettingsApply")}
+            </button>
           </div>
-          <br />
-          <button className="apply-button" onClick={applyBackground}>
-            {t("cThemeSettingsApply")}
-          </button>
         </div>
-      </div>
-    )}
-  </div>
-);
+      )}
+    </div>
+  );
 };
 
 export default Modal;
-

@@ -352,7 +352,7 @@ const translations = {
   cCloudsApiKeyInput: "Voer API-sleutel in",
   cCloudsSearch: "Zoeken",
   cCloudsSaveAPIKey: "API-sleutel opslaan",
-  pWeatherLoading: "Bezig met laden..."
+  pWeatherLoading: "Bezig met laden...",
 };
 
 export default translations;

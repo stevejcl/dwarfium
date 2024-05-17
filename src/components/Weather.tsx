@@ -94,7 +94,7 @@ function Weather() {
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
-  
+
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {

@@ -347,7 +347,7 @@ const translations = {
   cCloudsApiKeyInput: "Enter API-key",
   cCloudsSearch: "Search",
   cCloudsSaveAPIKey: "Save API Key",
-  pWeatherLoading: "Loading..."
+  pWeatherLoading: "Loading...",
 };
 
 export default translations;

@@ -57,7 +57,10 @@ export default function Nav() {
           <div
             className={`collapse navbar-collapse ${navbarOpen ? "show" : ""}`}
           >
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0" onClick={closeNavbar}>
+            <ul
+              className="navbar-nav me-auto mb-2 mb-lg-0"
+              onClick={closeNavbar}
+            >
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" href="/">
                   {t("cNavHome")}

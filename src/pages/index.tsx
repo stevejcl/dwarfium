@@ -51,7 +51,10 @@ export default function Home() {
           <br />
           <b> {t("pIndexBugsHeader")} </b>
           <ul>
-            <li> {t("pIndexBug1")} </li>
+            <li>
+              {" "}
+              {t("pIndexBug1")} {t("pIndexLinkBug")}
+            </li>
             <li> {t("pIndexBug2")} </li>
             <li> {t("pIndexBug3")} </li>
           </ul>

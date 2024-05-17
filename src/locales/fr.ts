@@ -11,7 +11,7 @@ Description = identifier
 */
 const translations = {
   pIndexDescription:
-    "Ce site web vous permet de contrôler des parties du Dwarf II en utilisant l'API Dwarf.",
+    "Ce site web vous permet de contrôler le Dwarf II en utilisant l'API Dwarf.",
   pIndexFeature: "Caractéristiques",
   pIndexFeature1: "1. Liste d'objets avec plus de 850 objets.",
   pIndexFeature2: "2. Importer des listes d'objets depuis Telescopius.",
@@ -21,14 +21,12 @@ const translations = {
   pIndexFeature5: "5. Prendre des photos astronomiques.",
   pIndexFeature6: "6. Binning 1x1 pour les photos astronomiques.",
   pIndexClaimer:
-    "Ce site web et l'API Dwarf sont en phase bêta. L'API n'a pas encore été officiellement publiée et n'a pas toutes les fonctionnalités de l'application mobile. Par conséquent, cette application a une liste de fonctionnalités très limitée. Utilisez cette application uniquement si vous êtes à l'aise en tant que testeur de logiciels bêta.",
+    "Ce site web et l'API Dwarf sont en phase bêta. Toutes les fonctionnalités de l'application mobile ne sont pas enore présentes. Utilisez cette application uniquement si vous êtes à l'aise en tant que testeur de logiciels bêta.",
   pIndexBugsHeader: "Bugs :",
-  pIndexBug1:
-    "L'URL de date interne de Dwarf II ne fonctionne pas dans le navigateur en raison de CORS (http://DWARF_IP:8092/date?date=).",
-  pIndexBug2:
-    "Pour que cela fonctionne, vous avez besoin du plugin CORS : Access-Control-Allow-Origin sur Chrome.",
-  pIndexBug3:
-    "Restriction : comme ce site web utilise uniquement le mode http pour communiquer avec le nain, il ne peut pas détecter votre emplacement.",
+  pIndexBug1: "Vous pouvez envoyer vos trouvailles ici  :",
+  pIndexBug2: "",
+  pIndexBug3: "",
+  pIndexLinkBug: `<a href="https://discord.com/channels/1218255498042937374/1221050885761925150"> Sur notre Server Discord </a>`,
   pCalendarTitle: "Calendrier Astronomique des Événements Célestes",
   pCalendarYear: "Année Calendaire",
   pAbout: "À propos",
@@ -37,7 +35,7 @@ const translations = {
   pAboutDataCredit: "Crédits de Données",
   pAboutDataCreditInfo:
     "Les données des listes d'objets proviennent de plusieurs sources.",
-  pAboutDataCreditDSO: "Les données sur le DSO proviennent de ",
+  pAboutDataCreditDSO: "Les données sur les DSO proviennent de ",
   pAboutDataCreditDSOAuth:
     "Le Dr Michael Camilleri, Auckland Astronomical Society, Nouvelle-Zélande, a fourni les noms et tailles d'objets pour le DSO qui sont de 15 minutes d'arc ou plus grands.",
   pAboutDataCreditDSOStars: "Les données sur les étoiles proviennent de ",
@@ -66,7 +64,7 @@ const translations = {
   cWitmotionPolaris2: "Vous devriez voir Polaris au centre de la caméra.",
   pFirstSteps: "Premiers pas",
   pFirstStepsContent:
-    "Utilisez l'application mobile Dwarf II de Dwarf Labs pour prendre des images sombres, focaliser la lunette et calibrer Goto.",
+    "Utilisez l'application mobile Dwarf II de Dwarf Labs pour prendre des images sombres, focaliser l'image et calibrer Goto.",
   pSetLocation: "Définir l'emplacement",
   pSetLocationContent:
     "Pour que goto fonctionne, ce site a besoin de votre latitude, longitude et fuseau horaire. La longitude est négative à l’ouest de Greenwich",
@@ -78,7 +76,7 @@ const translations = {
   pEnableSTAContent:
     "Pour que ce site se connecte au Dwarf II, le Dwarf II doit avoir le mode STA configuré et activé.",
   pEnableSTAContent1:
-    "Lors de la première utilisation, vous avez besoin de l'application mobile DwarfLab pour établir la connexion, puis sans redémarrer le nain, connectez-vous à celui-ci via le bouton Connecter Bluetooth. La configuration sera alors enregistrée.",
+    "Lors de la première utilisation, vous avez besoin de l'application mobile DwarfLab pour établir la connexion, puis sans redémarrer le dwarf, connectez-vous à celui-ci via le bouton Connecter Bluetooth. La configuration sera alors enregistrée.",
   pEnableSTAContent2:
     "Ensuite, pour les prochains démarrages du Dwarf, vous pourrez vous y connecter directement via Bluetooth, sans utiliser l'application mobile.",
   pEnableSTAContent3:
@@ -114,7 +112,7 @@ const translations = {
   cUnlockHost: "Déverrouiller le mode hôte",
   cLockHost: "Verrouiller le mode hôte",
   pConnectionSuccessFull: "Connexion réussie.",
-  pConnecting: "De liaison...",
+  pConnecting: "En cours de connexion...",
   pConnectingFailed: "La connexion a échoué!",
   cAstroSettingsInfoGain: "Gain",
   cAstroSettingsInfoGainDesc:
@@ -146,7 +144,8 @@ const translations = {
   cCameraAddOnPhoto: "Photo",
   cCameraAddOnVideo: "Vidéo",
   cCameraAddOnPanorama: "Panorama",
-  cCameraBurstSettingsCount: "Compter",
+  cCameraAddonTimeLapse: "Time-lapse",
+  cCameraBurstSettingsCount: "Compteur",
   cCameraBurstSettingsinterval: "Intervalle",
   cCameraTitle: "Astro Photos",
   cCameraConnection: "Vous devez vous connecter au Dwarf II.",
@@ -259,11 +258,14 @@ const translations = {
     "Si vous souhaitez partager votre liste avec d'autres personnes, vous pouvez leur envoyer le fichier CSV de Telescopius.",
   cImportManualModalTitle: "Entrer des données manuellement",
   cImportManualModalObjecTName: "Nom de l'objet",
-  cImportObservationListModalTitle: "Agregar lista de objetos",
+  cImportObservationListModalTitle: "Ajouter une liste d'objets",
   cImportObservationListfromTelescopius:
-    "Importar lista de objetos desde Telescopius.",
-  cImportObservationListListName: "Nombre de la lista",
-  cImportObservationImportList: "Importar lista",
+    "Importer une liste d'objets depuis Telescopius.",
+  cImportObservationListListName: "Nom de la liste",
+  cImportObservationImportList: "Importer la liste",
+  cDeleteObservationListModalTitle: "Supprimer une liste d'objets",
+  cDeleteObservationListConfirm: "Etes vous sûr de la supprimer ",
+  cDeleteObservationListButton: "Supprimer la liste",
   cMoonphaseCalculatorNewMoon: "Nouvelle Lune",
   cMoonphaseCalculatorWaxingCrescent: "Croissant de Lune",
   cMoonphaseCalculatorFirstQuarter: "Premier Quartier",
@@ -289,7 +291,58 @@ const translations = {
   pImageSessionLoading: "Chargement...",
   pImageSessionDownload: "Télécharger",
   pMoonphaseSelectMonth: "Sélectionnez le mois :",
-  cCameraAddonTimeLapse: "Laps de temps",
+  pObjectsList: "Listes",
+  pObjectsCustomsList: "Listes personnalisées",
+  cObjectsIn: " dans ",
+  "always above horizon": "toujours au dessus de l'horizon",
+  "always below horizon": "toujours sous l'horizon",
+  cObjectsSize: "Taille",
+  cObjectsMagnitude: "Magnitude",
+  cObjectsRises: "Lever",
+  cObjectsSets: "Coucher",
+  cObjectsCenter: "Centrer",
+  cObjectsGoto: "Goto",
+  cObjectsSearch: "Chercher",
+  cVisibleSkyLimit: "Visibilité Ciel",
+  cSkyLimitHelp1: "Entrer leur valeurs pour votre vue du Ciel",
+  cSkyLimitHelp2:
+    "Le format est une liste de champs séparée par des virgules. Chaque champ est une valeur d'angle d'altitude (peut être 0), suivie d'une ou plusieurs directions séparées par un tiret.",
+  cSkyLimitHelp3:
+    "Les objets seront inclus si leur altitude est supérieure ou égale à ce nombre pour la liste donnée de directions.",
+  cSkyLimitHelp4:
+    "La liste des valeurs possibles pour les directions est : N-NE-E-SE-S-SW-W-NW.",
+  cSkyLimitHelp5:
+    "Si une direction est manquante, alors nous considérons qu'il n'y a aucune limite pour celle-ci.",
+  cSkyLimitHelp6: "Voici un exemple de valeurs possibles : 20 N-NE, 35 S-SW",
+  cSkyLimitHelp7:
+    "Utilisez l'étiquette 'Visible' pour voir uniquement les objets correspondant à votre vue du ciel.",
+  All: "Tous",
+  Favorites: "Favoris",
+  Visible: "Visible",
+  Clusters: "Amas Ouvert",
+  Galaxies: "Galaxies",
+  Nebulae: "Nebuleuses",
+  Stars: "Etoiles",
+  "Large Dso": "Grande Dso",
+  "Small Dso": "Petite Dso",
+  "Tiny Dso": "Mini Dso",
+  Mosaic: "Mosaique",
+  Object: "Objet",
+  Objects: "Objets",
+  Star: "Etoile",
+  Galaxy: "Galaxie",
+  Cluster: "Cluster",
+  Nebula: "Nébuleuse",
+  "Dark Nebula": "Nébuleuse Sombre",
+  "Reflection Nebula": "Nébuleuse par réflexion",
+  "Planetary Nebula": "Nébuleuse Planétaire",
+  "Supernova remnant": "Reste de Supernova",
+  "Association of stars": "Groupement d'étoiles",
+  "Open Cluster": "Amas Ouvert",
+  "Globular Cluster": "Amas Globulaire",
+  "Star cluster + Nebula": "Amas Ouvert + Nébuleuse",
+  "HII Ionized region": "Région ioniséee HII",
+  "Other classification (see object notes)": "Autre classification",
 };
 
 export default translations;

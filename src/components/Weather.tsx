@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import WeatherInfo from "./weather/WeatherInfo";
 import WeatherForecast from "./weather/WeatherForecast";
 import axios, { AxiosError } from "axios";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 interface WeatherData {
   ready: boolean;
@@ -89,6 +91,18 @@ function Weather() {
     localStorage.setItem("apiKey", apiKey);
   }
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <div className="Weather">
       <form onSubmit={handleSubmit}>
@@ -97,7 +111,7 @@ function Weather() {
             <input
               type="search"
               value={cityInput}
-              placeholder="Enter a city..."
+              placeholder={t("cCloudsCityInput")}
               className="form-control-weather"
               autoFocus={true}
               onChange={handleCityInput}
@@ -106,7 +120,7 @@ function Weather() {
           <div className="col-sm-6 col-md-3 mb-3">
             <input
               type="submit"
-              value="Search"
+              value={t("cCloudsSearch")}
               className="btn btn-more02 w-40"
             />
           </div>
@@ -115,7 +129,7 @@ function Weather() {
               type="text"
               value={apiKey}
               onChange={handleApiKeyChange}
-              placeholder="Enter API-key"
+              placeholder={t("cCloudsApiKeyInput")}
               className="form-control-weather"
             />
           </div>
@@ -125,7 +139,7 @@ function Weather() {
               onClick={handleSaveApiKey}
               className="btn btn-more02 w-40"
             >
-              Save API Key
+              {t("cCloudsSaveAPIKey")}
             </button>
           </div>
         </div>
@@ -142,7 +156,7 @@ function Weather() {
           />
         </>
       ) : (
-        <div>Loading...</div>
+        <div>{t("pWeatherLoading")}</div>
       )}
     </div>
   );

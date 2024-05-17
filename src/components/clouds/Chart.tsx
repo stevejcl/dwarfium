@@ -1,5 +1,8 @@
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import i18n from "@/i18n";
 
 export interface ChartDataProps {
   forecastTimes: string[];
@@ -14,6 +17,17 @@ const Chart = ({
   humidityArray,
   windArray,
 }: ChartDataProps) => {
+  const { t } = useTranslation();
+// eslint-disable-next-line no-unused-vars
+const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+useEffect(() => {
+  const storedLanguage = localStorage.getItem("language");
+  if (storedLanguage) {
+    setSelectedLanguage(storedLanguage);
+    i18n.changeLanguage(storedLanguage);
+  }
+}, []);
   return (
     <div className="chart-container">
       <Line
@@ -21,21 +35,21 @@ const Chart = ({
           labels: forecastTimes,
           datasets: [
             {
-              label: "Cloud cover (%)",
+              label: t("cCloudsChartCloudCover"),
               data: cloudArray,
               fill: false,
               borderColor: "rgba(255, 99, 132, 0.8)",
               tension: 0.4,
             },
             {
-              label: "Humidity (%)",
+              label: t("cCloudsChartHumidity"),
               data: humidityArray,
               fill: false,
               borderColor: "rgba(54, 162, 235, 0.8)",
               tension: 0.4,
             },
             {
-              label: "Wind speed (km/hr)",
+              label: t("cCloudsChartWindSpeed"),
               data: windArray,
               fill: false,
               borderColor: "rgba(255, 206, 86, 0.8)",
@@ -49,7 +63,7 @@ const Chart = ({
           plugins: {
             title: {
               display: true,
-              text: "Clouds Forecast",
+              text: t("cCloudsChartForecast"),
               font: {
                 size: 24,
                 weight: "bold",

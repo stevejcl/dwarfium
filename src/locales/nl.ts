@@ -344,6 +344,15 @@ const translations = {
   "Star cluster + Nebula": "Star cluster + Nebula",
   "HII Ionized region": "HII Ionized region",
   "Other classification (see object notes)": "Other classification",
+  cCloudsChartCloudCover: "Wolkenbedekking (%)",
+  cCloudsChartHumidity: "Vochtigheid (%)",
+  cCloudsChartWindSpeed: "Windsnelheid (km/u)",
+  cCloudsChartForecast: "Wolkenvoorspelling",
+  cCloudsCityInput: "Voer een stad in...",
+  cCloudsApiKeyInput: "Voer API-sleutel in",
+  cCloudsSearch: "Zoeken",
+  cCloudsSaveAPIKey: "API-sleutel opslaan",
+  pWeatherLoading: "Bezig met laden..."
 };
 
 export default translations;

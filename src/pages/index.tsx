@@ -24,7 +24,6 @@ export default function Home() {
         style={{ flex: "1" }}
       >
         <div className="container">
-          {" "}
           <br />
           <br />
           <br />
@@ -39,28 +38,27 @@ export default function Home() {
           <br />
           <b>{t("pIndexFeature")}:</b>
           <ul>
-            <li> {t("pIndexFeature1")} </li>
-            <li> {t("pIndexFeature2")} </li>
-            <li> {t("pIndexFeature3")} </li>
-            <li> {t("pIndexFeature4")} </li>
-            <li> {t("pIndexFeature5")} </li>
-            <li> {t("pIndexFeature6")} </li>
+            <li>{t("pIndexFeature1")}</li>
+            <li>{t("pIndexFeature2")}</li>
+            <li>{t("pIndexFeature3")}</li>
+            <li>{t("pIndexFeature4")}</li>
+            <li>{t("pIndexFeature5")}</li>
+            <li>{t("pIndexFeature6")}</li>
           </ul>
           <br />
-          <p> {t("pIndexClaimer")} </p>
+          <p>{t("pIndexClaimer")}</p>
           <br />
-          <b> {t("pIndexBugsHeader")} </b>
+          <b>{t("pIndexBugsHeader")}</b>
           <ul>
             <li>
-              {" "}
-              {t("pIndexBug1")} {t("pIndexLinkBug")}
+              {t("pIndexBug1")}
+              <div dangerouslySetInnerHTML={{ __html: t("pIndexLinkBug") }} />
             </li>
-            <li> {t("pIndexBug2")} </li>
-            <li> {t("pIndexBug3")} </li>
+            <li>{t("pIndexBug2")}</li>
+            <li>{t("pIndexBug3")}</li>
           </ul>
         </div>
       </section>
-      {""}
       <br />
       <br />
       <br />

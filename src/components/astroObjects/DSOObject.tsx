@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 import { useState, useContext, useEffect, useMemo } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -36,6 +38,18 @@ export default function DSOObject(props: AstronomyObjectPropType) {
   const [showModal, setShowModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
   const [forceFavoriteUpdate, setForceFavoriteUpdate] = useState(false);
+
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     eventBus.on("clearErrors", () => {
@@ -93,13 +107,13 @@ export default function DSOObject(props: AstronomyObjectPropType) {
       );
 
       if (times?.error) {
-        return <span>{times.error}</span>;
+        return <span>{t(times.error)}</span>;
       }
 
       if (times) {
         return (
           <span>
-            Rises: {times.rise}, Sets: {times.set}
+            {t("cObjectsRises")}: {times.rise}, {t("cObjectsSets")}: {times.set}
           </span>
         );
       }
@@ -141,6 +155,7 @@ export default function DSOObject(props: AstronomyObjectPropType) {
           ? connectionCtx.visibleSkyLimitTarget
           : [connectionCtx.visibleSkyLimitTarget]; // Wrap single object in an array if it's not already an array
 
+        let notPresentInDirection = true;
         for (const target of targets) {
           if (
             target &&
@@ -148,16 +163,19 @@ export default function DSOObject(props: AstronomyObjectPropType) {
             "number" in target &&
             "directions" in target
           ) {
-            if (
-              results.alt >= target.number &&
-              target.directions.includes(convertAzToCardinal(results.az))
-            ) {
+            const isInTargetDirections = target.directions.includes(
+              convertAzToCardinal(results.az)
+            );
+            if (isInTargetDirections) notPresentInDirection = false;
+            if (results.alt >= target.number && isInTargetDirections) {
               visibility = true;
               break; // Exit loop early if visibility is set to true
             }
           }
         }
+        // case where Current direction is not Limited (not Present)
         object.visible = visibility;
+        if (notPresentInDirection && results.alt >= 0) object.visible = true;
       }
 
       if (results) {
@@ -220,11 +238,12 @@ export default function DSOObject(props: AstronomyObjectPropType) {
       <div className="mb-2">{object.alternateNames}</div>
       <div className="row">
         <div className="col-md-4">
-          {object.type} {object.constellation && " in " + object.constellation}
+          {t(object.type)}{" "}
+          {object.constellation && t("cObjectsIn") + t(object.constellation)}
           <br />
-          Size: {object.size}
+          {t("cObjectsSize")}: {object.size}
           <br />
-          Magnitude: {object.magnitude}
+          {t("cObjectsMagnitude")}: {object.magnitude}
         </div>
         <div className="col-md-5">
           {riseSetTime}
@@ -246,7 +265,7 @@ export default function DSOObject(props: AstronomyObjectPropType) {
             onClick={() => centerHandler(object, connectionCtx, setErrors)}
             disabled={!connectionCtx.connectionStatusStellarium}
           >
-            Center
+            {t("cObjectsCenter")}
           </button>
           <button
             className={`btn ${
@@ -255,7 +274,7 @@ export default function DSOObject(props: AstronomyObjectPropType) {
             onClick={gotoFn}
             disabled={!connectionCtx.connectionStatus}
           >
-            Goto
+            {t("cObjectsGoto")}
           </button>
           <br />
           <GotoModal

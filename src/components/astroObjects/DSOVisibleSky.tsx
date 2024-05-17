@@ -1,4 +1,6 @@
-import React, { useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+import React, { useState, useContext, useEffect } from "react";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function DSOVisibleSky({ updateVisibleSkyLimit }) {
@@ -12,12 +14,24 @@ export default function DSOVisibleSky({ updateVisibleSkyLimit }) {
     updateVisibleSkyLimit(visibleSkyLimitValue);
   }
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <div className="sky_object">
       <div className="row mb-3">
         <div className="col-lg-2 col-md-3 col-sm-4 col-12 mb-2 mb-md-0">
           <button className="btn btn-more02 w-100" onClick={setSkyLimitHandler}>
-            Sky Limit
+            {t("cVisibleSkyLimit")}
           </button>
         </div>
         <div className="col-lg-5 col-md-9 col-sm-8 col-12">
@@ -32,9 +46,19 @@ export default function DSOVisibleSky({ updateVisibleSkyLimit }) {
               onChange={(e) => setVisibleSkyLimitValue(e.target.value)}
             />
             <span className={`tooltip-text-SK ${showTooltip ? "show" : ""}`}>
-              Enter the sky limit value. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Integer ac nisl magna. Quisque iaculis massa ac
-              diam facilisis tempor. Sed.
+              {t("cSkyLimitHelp1")}
+              <br />
+              {t("cSkyLimitHelp2")}
+              <br />
+              {t("cSkyLimitHelp3")}
+              <br />
+              {t("cSkyLimitHelp4")}
+              <br />
+              {t("cSkyLimitHelp5")}
+              <br />
+              {t("cSkyLimitHelp6")}
+              <br />
+              {t("cSkyLimitHelp7")}
             </span>
           </div>
         </div>

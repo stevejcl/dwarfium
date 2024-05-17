@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 import { useState, useEffect, useContext } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -39,6 +41,18 @@ export default function DSOList(props: PropType) {
   const [visibleSkyLimitValue, setVisibleSkyLimitValue] = useState(
     connectionCtx.visibleSkyLimit
   );
+
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     filterObjects();
@@ -406,7 +420,7 @@ export default function DSOList(props: PropType) {
               }`}
               onClick={() => selectCategoryHandler(type.value)}
             >
-              {type.label}
+              {t(type.label)}
             </li>
           ))}
         </ul>
@@ -423,7 +437,8 @@ export default function DSOList(props: PropType) {
         </div>
         <hr />
         <h4 className="mt-3">
-          {objects.length} {pluralize(objects.length, "Object", "Objects")}
+          {objects.length}{" "}
+          {pluralize(objects.length, t("Object"), t("Objects"))}
         </h4>
         {objects.map((object) => (
           <DSOObject

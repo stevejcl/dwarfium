@@ -40,7 +40,7 @@ for Mac ARM users:
 if you see the issue that it can't be installed and should be moved to trash the suggested solution is:
 
 ```
-xattr -d com.apple.quarantine /Applications/Dwarfium.app was solving the issue.
+xattr -d com.apple.quarantine /Applications/Dwarfium.app
 ```
 
 ## Setup for coders

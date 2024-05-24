@@ -31,10 +31,17 @@ The Desktop Application is available for Windows, MAC Os and Linux
 
 # MAC OS
 
-The Mac OS support has been canceld as we have no MACs available to provide dedicated support.
+The Mac OS support is limited as we have no MACs available to provide dedicated support.
 Running this Tools as a desktop application requires signing which is currently not possible for us.
 
 You can still use Dwarfium with the provided web package [here](https://github.com/stevejcl/dwarfii-stellarium-goto/releases)
+
+for Mac ARM users:
+if you see the issue that it can't be installed and should be moved to trash the suggested solution is:
+
+```
+xattr -d com.apple.quarantine /Applications/Dwarfium.app
+```
 
 ## Setup for coders
 

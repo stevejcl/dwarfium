@@ -11,6 +11,8 @@ import i18n from "@/i18n";
 import CameraPanoSettings from "@/components/imaging/CameraPanoSettings";
 import CameraBurstSettings from "@/components/imaging/CameraBurstSettings";
 import CameraTimeLapseSettings from "@/components/imaging/CameraTimeLapseSettings";
+import CameraWideSettings from "@/components/imaging/CameraWideSettings";
+import { getWideAllParamsFn } from "@/lib/dwarf_utils";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
@@ -40,6 +42,8 @@ type GenericMouseEventHandler<T extends HTMLElement> =
   React.MouseEventHandler<T>;
 
 export default function CameraAddOn(props: PropTypes) {
+  let connectionCtx = useContext(ConnectionContext);
+
   const { showModal, setShowModal } = props;
   const [imgSrc] = useState<string>("/images/photo-camera-white.png");
   const [errorTxt, setErrorTxt] = useState("");
@@ -60,12 +64,46 @@ export default function CameraAddOn(props: PropTypes) {
   const [showSettingsBurstMenu, setShowSettingsBurstMenu] = useState(false);
   const [showSettingsTimeLapseMenu, setShowSettingsTimeLapseMenu] =
     useState(false);
+  const [showSettingsWideMenu, setShowSettingsWideMenu] = useState(false);
   const [rowValue, setRowValue] = useState<number>(3);
   const [colValue, setColValue] = useState<number>(3);
   const [countValue, setCountValue] = useState<number>(0);
   const [intervalBurstValue, setIntervalBurstValue] = useState<number>(0);
   const [intervalIndexValue, setIntervalIndexValue] = useState<number>(0);
   const [totalTimeIndexValue, setTotalTimeIndexValue] = useState<number>(3);
+
+  const [wideExposureAuto, setWideExposureAuto] = useState<number | undefined>(
+    connectionCtx.astroWideSettings.exp_mode
+  );
+  const [wideExposureIndexValue, setWideExposureIndexValue] = useState<
+    number | undefined
+  >(connectionCtx.astroWideSettings.exp_index);
+  const [wideGainIndexValue, setWideGainIndexValue] = useState<
+    number | undefined
+  >(connectionCtx.astroWideSettings.gain_index);
+  const [wideWBAuto, setWideWBAuto] = useState<number | undefined>(
+    connectionCtx.astroWideSettings.wb_mode
+  );
+  //  const [wideWBMode, setWideWBMode] = useState<numbe|undefinedr>(1);
+  const [wideWBColorTempIndexValue, setWideWBColorTempIndexValue] = useState<
+    number | undefined
+  >(connectionCtx.astroWideSettings.wb_index);
+  //  const [wideWBSceneValue, setWideWBSceneValue] = useState<number|undefined>(3);
+  const [wideBrightnessValue, setWideBrightnessValue] = useState<
+    number | undefined
+  >(connectionCtx.astroWideSettings.brightness);
+  const [wideContrastValue, setWideContrastValue] = useState<
+    number | undefined
+  >(connectionCtx.astroWideSettings.contrast);
+  const [wideHueValue, setWideHueValue] = useState<number | undefined>(
+    connectionCtx.astroWideSettings.hue
+  );
+  const [wideSaturationValue, setWideSaturationValue] = useState<
+    number | undefined
+  >(connectionCtx.astroWideSettings.saturation);
+  const [wideSharpnessValue, setWideSharpnessValue] = useState<
+    number | undefined
+  >(connectionCtx.astroWideSettings.sharpness);
 
   // Size > 1500
   let closePane = useRef(true);
@@ -88,7 +126,6 @@ export default function CameraAddOn(props: PropTypes) {
   let gLastTimeMotorCmd = Date.now();
   let gMotorState = false;
 
-  let connectionCtx = useContext(ConnectionContext);
   let PhotoMode =
     !connectionCtx.imagingSession.isRecording &&
     !connectionCtx.imagingSession.endRecording;
@@ -109,6 +146,24 @@ export default function CameraAddOn(props: PropTypes) {
       }
     };
   }, []); // Empty dependency array means this effect runs only once on mount
+
+  useEffect(() => {
+    getWideAllParamsFn(connectionCtx);
+    updateWideData();
+  }, [showSettingsWideMenu]);
+
+  function updateWideData() {
+    setWideExposureAuto(connectionCtx.astroWideSettings.exp_mode);
+    setWideExposureIndexValue(connectionCtx.astroWideSettings.exp_index);
+    setWideGainIndexValue(connectionCtx.astroWideSettings.gain_index);
+    setWideWBAuto(connectionCtx.astroWideSettings.wb_mode);
+    setWideWBColorTempIndexValue(connectionCtx.astroWideSettings.wb_index);
+    setWideBrightnessValue(connectionCtx.astroWideSettings.brightness);
+    setWideContrastValue(connectionCtx.astroWideSettings.contrast);
+    setWideHueValue(connectionCtx.astroWideSettings.hue);
+    setWideSaturationValue(connectionCtx.astroWideSettings.saturation);
+    setWideSharpnessValue(connectionCtx.astroWideSettings.sharpness);
+  }
 
   const PhotosModeActions = [
     "Photo",
@@ -1007,6 +1062,63 @@ export default function CameraAddOn(props: PropTypes) {
               <div className="column">
                 <div className="header">
                   <div className="title">Settings</div>
+                  <Link href="#" className="" title="Show Settings">
+                    <OverlayTrigger
+                      trigger="click"
+                      placement={"left"}
+                      show={showSettingsWideMenu}
+                      onToggle={() => setShowSettingsWideMenu((p) => !p)}
+                      overlay={
+                        <Popover id="popover-positioned-left">
+                          <Popover.Body>
+                            <CameraWideSettings
+                              wideExposureAuto={wideExposureAuto}
+                              setWideExposureAuto={setWideExposureAuto}
+                              wideExposureIndexValue={wideExposureIndexValue}
+                              setWideExposureIndexValue={
+                                setWideExposureIndexValue
+                              }
+                              wideGainIndexValue={wideGainIndexValue}
+                              setWideGainIndexValue={setWideGainIndexValue}
+                              wideWBAuto={wideWBAuto}
+                              setWideWBAuto={setWideWBAuto}
+                              //wideWBMode={wideWBMode}
+                              //setWideWBMode={setWideWBMode}
+                              wideWBColorTempIndexValue={
+                                wideWBColorTempIndexValue
+                              }
+                              setWideWBColorTempIndexValue={
+                                setWideWBColorTempIndexValue
+                              }
+                              //wideWBSceneValue={wideWBSceneValue}
+                              //setWideWBSceneValue={setWideWBSceneValue}
+                              wideBrightnessValue={wideBrightnessValue}
+                              setWideBrightnessValue={setWideBrightnessValue}
+                              wideContrastValue={wideContrastValue}
+                              setWideContrastValue={setWideContrastValue}
+                              wideHueValue={wideHueValue}
+                              setWideHueValue={setWideHueValue}
+                              wideSaturationValue={wideSaturationValue}
+                              setWideSaturationValue={setWideSaturationValue}
+                              wideSharpnessValue={wideSharpnessValue}
+                              setWideSharpnessValue={setWideSharpnessValue}
+                              setShowSettingsWideMenu={setShowSettingsWideMenu}
+                            />
+                          </Popover.Body>
+                        </Popover>
+                      }
+                    >
+                      <i
+                        className="bi bi-sliders"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "1.75rem",
+                        }}
+                      ></i>
+                    </OverlayTrigger>
+                  </Link>
                 </div>
                 <div className="separator"></div>
                 <img
@@ -1020,7 +1132,10 @@ export default function CameraAddOn(props: PropTypes) {
                     className={`button-cent ${
                       activeBtnSettings === "wide" ? "active" : ""
                     }`}
-                    onClick={() => handleBtnSettingsClick("wide")}
+                    onClick={() => {
+                      updateWideData();
+                      handleBtnSettingsClick("wide");
+                    }}
                   >
                     Wide
                   </button>

@@ -110,7 +110,7 @@ const translations = {
   pPort: "Port",
   cUnlockHost: "Unlock Host Mode",
   cLockHost: "Lock Host Mode",
-  pConnectionSuccessFull: "Connection successfull.",
+  pConnectionSuccessFull: "Connection successful.",
   pConnecting: "Connecting...",
   pConnectingFailed: "Connection failed!",
   cAstroSettingsInfoGain: "Gain",

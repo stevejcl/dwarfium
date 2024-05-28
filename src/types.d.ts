@@ -79,6 +79,9 @@ export type ConnectionContextType = {
   imagingSession: ImagingSession;
   setImagingSession: Dispatch<SetStateAction<ImagingSession>>;
 
+  astroWideSettings: AstroWideSettings;
+  setAstroWideSettings: Dispatch<SetStateAction<AstroWideSettings>>;
+
   timerGlobal: ReturnType<typeof setInterval> | undefined;
   setTimerGlobal: Dispatch<
     SetStateAction<ReturnType<typeof setInterval> | undefined>
@@ -275,6 +278,19 @@ export type AstroSavePosition = {
   azimuth: number;
   lst: number;
   strLocalTime: string;
+};
+
+export type AstroWideSettings = {
+  exp_mode?: number;
+  exp_index?: number;
+  gain_index?: number;
+  wb_mode?: number;
+  wb_index?: number;
+  brightness?: number;
+  contrast?: number;
+  hue?: number;
+  saturation?: number;
+  sharpness?: number;
 };
 
 export type ReactAnimatedWeatherProps = {

@@ -6,6 +6,7 @@ import {
   AstroSettings,
   AstroSavePosition,
   ImagingSession,
+  AstroWideSettings,
   SkyLimitObject,
 } from "@/types";
 
@@ -88,6 +89,9 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   );
   const [timerGlobal, setTimerGlobal] =
     useState<ReturnType<typeof setInterval>>();
+  const [astroWideSettings, setAstroWideSettings] = useState<AstroWideSettings>(
+    {} as AstroWideSettings
+  );
 
   const [logger, setLogger] = useState<{ [k: string]: any }[] | undefined>();
   const [loggerStatus, setLoggerStatus] = useState<boolean | undefined>();
@@ -170,6 +174,8 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
 
     astroSettings,
     setAstroSettings,
+    astroWideSettings,
+    setAstroWideSettings,
     astroSavePosition,
     setAstroSavePosition,
     imagingSession,

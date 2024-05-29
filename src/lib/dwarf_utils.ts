@@ -35,6 +35,14 @@ import {
   messageCameraWideSetSaturation,
   messageCameraWideSetHue,
   messageCameraWideSetSharpness,
+  messageCameraTeleSetWBMode,
+  messageCameraTeleSetWBScene,
+  messageCameraTeleSetWBColorTemp,
+  messageCameraTeleSetBrightness,
+  messageCameraTeleSetContrast,
+  messageCameraTeleSetSaturation,
+  messageCameraTeleSetHue,
+  messageCameraTeleSetSharpness,
   WebSocketHandler,
 } from "dwarfii_api";
 import { getExposureIndexDefault } from "@/lib/data_utils";
@@ -543,16 +551,96 @@ function update_data_camera_wide_settings(connectionCtx, result_data) {
     sharpness = Math.round(((sharpness - 1) * 100) / 6.0);
 
     // Save Settings
-    connectionCtx.astroWideSettings.exp_index = exp_index;
-    connectionCtx.astroWideSettings.exp_mode = exp_mode;
-    connectionCtx.astroWideSettings.gain_index = gain_index;
-    connectionCtx.astroWideSettings.wb_mode = wb_mode;
-    connectionCtx.astroWideSettings.wb_index = wb_index;
-    connectionCtx.astroWideSettings.brightness = brightness;
-    connectionCtx.astroWideSettings.contrast = contrast;
-    connectionCtx.astroWideSettings.hue = hue;
-    connectionCtx.astroWideSettings.saturation = saturation;
-    connectionCtx.astroWideSettings.sharpness = sharpness;
+    connectionCtx.cameraWideSettings.exp_index = exp_index;
+    connectionCtx.cameraWideSettings.exp_mode = exp_mode;
+    connectionCtx.cameraWideSettings.gain_index = gain_index;
+    connectionCtx.cameraWideSettings.wb_mode = wb_mode;
+    connectionCtx.cameraWideSettings.wb_index = wb_index;
+    connectionCtx.cameraWideSettings.brightness = brightness;
+    connectionCtx.cameraWideSettings.contrast = contrast;
+    connectionCtx.cameraWideSettings.hue = hue;
+    connectionCtx.cameraWideSettings.saturation = saturation;
+    connectionCtx.cameraWideSettings.sharpness = sharpness;
+  }
+}
+
+function update_data_camera_tele_settings(connectionCtx, result_data) {
+  let wb_mode,
+    wb_index_mode,
+    wb_index,
+    brightness,
+    contrast,
+    hue,
+    saturation,
+    sharpness;
+
+  if (result_data.data.allParams) {
+    console.log("allParams:", result_data.data.allParams);
+
+    // For id=2 : WB
+    const resultObject2 = result_data.data.allParams.find(
+      (item) => item.id === 2
+    );
+    console.log("allParams-resultObject2:", resultObject2);
+    // autoMode == 0 => Auto not present
+    if (!resultObject2.autoMode) {
+      wb_mode = modeAuto;
+      wb_index_mode = modeAuto;
+    } else wb_mode = modeManual;
+    if (resultObject2.index) {
+      wb_index_mode = modeAuto;
+      wb_index = resultObject2.index;
+    }
+
+    // For id=3 : Brightness
+    const resultObject3 = result_data.data.allParams.find(
+      (item) => item.id === 3
+    );
+    console.log("allParams-resultObject3:", resultObject3);
+    if (resultObject3.continueValue) brightness = resultObject3.continueValue;
+    else brightness = 0;
+
+    // For id=4 : Contrast
+    const resultObject4 = result_data.data.allParams.find(
+      (item) => item.id === 4
+    );
+    console.log("allParams-resultObject4:", resultObject4);
+    if (resultObject4.continueValue) contrast = resultObject4.continueValue;
+    else contrast = 0;
+
+    // For id=5 : Hue
+    const resultObject5 = result_data.data.allParams.find(
+      (item) => item.id === 5
+    );
+    console.log("allParams-resultObject5:", resultObject5);
+    if (resultObject5.continueValue) hue = resultObject5.continueValue;
+    else hue = 0;
+
+    // For id=6 : Saturation
+    const resultObject6 = result_data.data.allParams.find(
+      (item) => item.id === 6
+    );
+    console.log("allParams-resultObject6:", resultObject6);
+    if (resultObject6.continueValue) saturation = resultObject6.continueValue;
+    else saturation = 0;
+
+    // For id=7 : Sharpness
+    const resultObject7 = result_data.data.allParams.find(
+      (item) => item.id === 7
+    );
+    console.log("allParams-resultObject7:", resultObject7);
+    if (resultObject7.continueValue) sharpness = resultObject7.continueValue;
+    else sharpness = 0;
+
+    // Save Settings
+    connectionCtx.cameraTeleSettings.wb_mode = wb_mode;
+    connectionCtx.cameraTeleSettings.wb_index_mode = wb_index_mode;
+    connectionCtx.cameraTeleSettings.wb_index = wb_index;
+    connectionCtx.cameraTeleSettings.brightness = brightness;
+    connectionCtx.cameraTeleSettings.contrast = contrast;
+    connectionCtx.cameraTeleSettings.hue = hue;
+    connectionCtx.cameraTeleSettings.saturation = saturation;
+    connectionCtx.cameraTeleSettings.sharpness = sharpness;
   }
 }
 
@@ -636,11 +724,11 @@ export async function setWideAllParamsFn(
 
   // Send Commands
   let WS_Packet1 = messageCameraWideSetExpMode(exp_mode);
-  let WS_Packet2 = new Uint8Array([]);;
+  let WS_Packet2 = new Uint8Array([]);
   if (exp_mode == modeManual) WS_Packet2 = messageCameraWideSetExp(exp_index);
   let WS_Packet3 = messageCameraWideSetGain(gain_index);
   let WS_Packet4 = messageCameraWideSetWBMode(wb_mode);
-  let WS_Packet5 = new Uint8Array([]);;
+  let WS_Packet5 = new Uint8Array([]);
   if (wb_mode == modeManual)
     WS_Packet5 = messageCameraWideSetWBColorTemp(wb_index);
   let WS_Packet6 = messageCameraWideSetBrightness(brightness);
@@ -667,6 +755,119 @@ export async function setWideAllParamsFn(
     txtInfoCommand,
     [Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS],
     customMessageHandler
+  );
+
+  if (!webSocketHandler.run()) {
+    console.error(" Can't launch Web Socket Run Action!");
+  }
+
+  await sleep(100);
+}
+
+export async function getTeleAllParamsFn(connectionCtx: ConnectionContextType) {
+  const customMessageHandler = (txt_info, result_data) => {
+    if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_PARAMS
+    ) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        update_data_camera_tele_settings(connectionCtx, result_data);
+        logger(txt_info, result_data, connectionCtx);
+        return;
+      } else {
+        logger(txt_info, result_data, connectionCtx);
+        return;
+      }
+    }
+    logger(txt_info, result_data, connectionCtx);
+  };
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  // Send Commands
+  let WS_Packet = messageCameraTeleGetAllParams();
+  let txtInfoCommand = "getTeleWideAllParamsFn";
+
+  webSocketHandler.prepare(
+    WS_Packet,
+    txtInfoCommand,
+    [Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_PARAMS],
+    customMessageHandler
+  );
+
+  if (!webSocketHandler.run()) {
+    console.error(" Can't launch Web Socket Run Action!");
+  }
+
+  await sleep(100);
+}
+
+export async function setTeleAllParamsFn(
+  connectionCtx: ConnectionContextType,
+  wb_mode,
+  wb_index_mode,
+  wb_index,
+  brightness,
+  contrast,
+  hue,
+  saturation,
+  sharpness
+) {
+  if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+
+  const customMessageHandlerTele = (txt_info, result_data) => {
+    if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_PARAMS
+    ) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        update_data_camera_tele_settings(connectionCtx, result_data);
+        logger(txt_info, result_data, connectionCtx);
+        return;
+      } else {
+        logger(txt_info, result_data, connectionCtx);
+        return;
+      }
+    }
+    logger(txt_info, result_data, connectionCtx);
+  };
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  // Send Commands
+  let WS_Packet1 = messageCameraTeleSetWBMode(wb_mode);
+  let WS_Packet2 = new Uint8Array([]);
+  if (wb_mode == modeManual && wb_index_mode == modeAuto)
+    WS_Packet2 = messageCameraTeleSetWBColorTemp(wb_index);
+  if (wb_mode == modeManual && wb_index_mode == modeManual)
+    WS_Packet2 = messageCameraTeleSetWBScene(wb_index);
+  let WS_Packet3 = messageCameraTeleSetBrightness(brightness);
+  let WS_Packet4 = messageCameraTeleSetContrast(contrast);
+  let WS_Packet5 = messageCameraTeleSetSaturation(saturation);
+  let WS_Packet6 = messageCameraTeleSetHue(hue);
+  let WS_Packet7 = messageCameraTeleSetSharpness(sharpness);
+
+  let txtInfoCommand = "setTeleAllParamsFn";
+
+  webSocketHandler.prepare(
+    [
+      WS_Packet1,
+      WS_Packet2,
+      WS_Packet3,
+      WS_Packet4,
+      WS_Packet5,
+      WS_Packet6,
+      WS_Packet7,
+    ],
+    txtInfoCommand,
+    [Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_PARAMS],
+    customMessageHandlerTele
   );
 
   if (!webSocketHandler.run()) {

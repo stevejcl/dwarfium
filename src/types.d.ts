@@ -79,8 +79,11 @@ export type ConnectionContextType = {
   imagingSession: ImagingSession;
   setImagingSession: Dispatch<SetStateAction<ImagingSession>>;
 
-  astroWideSettings: AstroWideSettings;
-  setAstroWideSettings: Dispatch<SetStateAction<AstroWideSettings>>;
+  cameraWideSettings: CameraWideSettings;
+  setCameraWideSettings: Dispatch<SetStateAction<CameraWideSettings>>;
+
+  cameraTeleSettings: CameraTeleSettings;
+  setCameraTeleSettings: Dispatch<SetStateAction<CameraTeleSettings>>;
 
   timerGlobal: ReturnType<typeof setInterval> | undefined;
   setTimerGlobal: Dispatch<
@@ -280,11 +283,22 @@ export type AstroSavePosition = {
   strLocalTime: string;
 };
 
-export type AstroWideSettings = {
+export type CameraWideSettings = {
   exp_mode?: number;
   exp_index?: number;
   gain_index?: number;
   wb_mode?: number;
+  wb_index?: number;
+  brightness?: number;
+  contrast?: number;
+  hue?: number;
+  saturation?: number;
+  sharpness?: number;
+};
+
+export type CameraTeleSettings = {
+  wb_mode?: number;
+  wb_index_mode?: number;
   wb_index?: number;
   brightness?: number;
   contrast?: number;

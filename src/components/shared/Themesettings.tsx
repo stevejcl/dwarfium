@@ -51,6 +51,7 @@ const Modal: React.FC = () => {
     fr: "Français",
     de: "Deutsch",
     es: "Español",
+    it: "Italiano",
     nl: "Nederlands",
   };
 

@@ -6,6 +6,8 @@ import {
   AstroSettings,
   AstroSavePosition,
   ImagingSession,
+  CameraWideSettings,
+  CameraTeleSettings,
   SkyLimitObject,
 } from "@/types";
 
@@ -88,6 +90,10 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   );
   const [timerGlobal, setTimerGlobal] =
     useState<ReturnType<typeof setInterval>>();
+  const [cameraWideSettings, setCameraWideSettings] =
+    useState<CameraWideSettings>({} as CameraWideSettings);
+  const [cameraTeleSettings, setCameraTeleSettings] =
+    useState<CameraTeleSettings>({} as CameraTeleSettings);
 
   const [logger, setLogger] = useState<{ [k: string]: any }[] | undefined>();
   const [loggerStatus, setLoggerStatus] = useState<boolean | undefined>();
@@ -170,6 +176,10 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
 
     astroSettings,
     setAstroSettings,
+    cameraWideSettings,
+    setCameraWideSettings,
+    cameraTeleSettings,
+    setCameraTeleSettings,
     astroSavePosition,
     setAstroSavePosition,
     imagingSession,

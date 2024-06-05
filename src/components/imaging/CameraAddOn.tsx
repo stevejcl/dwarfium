@@ -11,6 +11,10 @@ import i18n from "@/i18n";
 import CameraPanoSettings from "@/components/imaging/CameraPanoSettings";
 import CameraBurstSettings from "@/components/imaging/CameraBurstSettings";
 import CameraTimeLapseSettings from "@/components/imaging/CameraTimeLapseSettings";
+import CameraWideSettings from "@/components/imaging/CameraWideSettings";
+import CameraTeleSettings from "@/components/imaging/CameraTeleSettings";
+import { getWideAllParamsFn, getTeleAllParamsFn } from "@/lib/dwarf_utils";
+import { modeManual, modeAuto } from "dwarfii_api";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
@@ -40,6 +44,8 @@ type GenericMouseEventHandler<T extends HTMLElement> =
   React.MouseEventHandler<T>;
 
 export default function CameraAddOn(props: PropTypes) {
+  let connectionCtx = useContext(ConnectionContext);
+
   const { showModal, setShowModal } = props;
   const [imgSrc] = useState<string>("/images/photo-camera-white.png");
   const [errorTxt, setErrorTxt] = useState("");
@@ -55,17 +61,80 @@ export default function CameraAddOn(props: PropTypes) {
   const [activeBtnPano, setActiveBtnPano] = useState("tele"); // State to track active button
   const [activeBtnBurst, setActiveBtnBurst] = useState("tele"); // State to track active button
   const [activeBtnTimeLapse, setActiveBtnTimeLapse] = useState("tele"); // State to track active button
-  const [activeBtnSettings, setActiveBtnSettings] = useState("wide"); // State to track active button
+  const [activeBtnSettings, setActiveBtnSettings] = useState("tele"); // State to track active button
   const [showSettingsPanoMenu, setShowSettingsPanoMenu] = useState(false);
   const [showSettingsBurstMenu, setShowSettingsBurstMenu] = useState(false);
   const [showSettingsTimeLapseMenu, setShowSettingsTimeLapseMenu] =
     useState(false);
+  const [showSettingsWideMenu, setShowSettingsWideMenu] = useState(false);
+  const [showSettingsTeleMenu, setShowSettingsTeleMenu] = useState(false);
   const [rowValue, setRowValue] = useState<number>(3);
   const [colValue, setColValue] = useState<number>(3);
   const [countValue, setCountValue] = useState<number>(0);
   const [intervalBurstValue, setIntervalBurstValue] = useState<number>(0);
   const [intervalIndexValue, setIntervalIndexValue] = useState<number>(0);
   const [totalTimeIndexValue, setTotalTimeIndexValue] = useState<number>(3);
+
+  const [wideExposureAuto, setWideExposureAuto] = useState<number | undefined>(
+    connectionCtx.cameraWideSettings.exp_mode
+  );
+  const [wideExposureIndexValue, setWideExposureIndexValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraWideSettings.exp_index);
+  const [wideGainIndexValue, setWideGainIndexValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraWideSettings.gain_index);
+  const [wideWBAuto, setWideWBAuto] = useState<number | undefined>(
+    connectionCtx.cameraWideSettings.wb_mode
+  );
+  //  const [wideWBMode, setWideWBMode] = useState<numbe|undefinedr>(1);
+  const [wideWBColorTempIndexValue, setWideWBColorTempIndexValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraWideSettings.wb_index);
+  //  const [wideWBSceneValue, setWideWBSceneValue] = useState<number|undefined>(3);
+  const [wideBrightnessValue, setWideBrightnessValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraWideSettings.brightness);
+  const [wideContrastValue, setWideContrastValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraWideSettings.contrast);
+  const [wideHueValue, setWideHueValue] = useState<number | undefined>(
+    connectionCtx.cameraWideSettings.hue
+  );
+  const [wideSaturationValue, setWideSaturationValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraWideSettings.saturation);
+  const [wideSharpnessValue, setWideSharpnessValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraWideSettings.sharpness);
+
+  const [teleWBAuto, setTeleWBAuto] = useState<number | undefined>(
+    connectionCtx.cameraTeleSettings.wb_mode
+  );
+  const [teleWBMode, setTeleWBMode] = useState<number | undefined>(
+    connectionCtx.cameraTeleSettings.wb_index_mode
+  );
+  const [teleWBColorTempIndexValue, setTeleWBColorTempIndexValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraTeleSettings.wb_index);
+  const [teleWBSceneValue, setTeleWBSceneValue] = useState<number | undefined>(
+    3
+  );
+  const [teleBrightnessValue, setTeleBrightnessValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraTeleSettings.brightness);
+  const [teleContrastValue, setTeleContrastValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraTeleSettings.contrast);
+  const [teleHueValue, setTeleHueValue] = useState<number | undefined>(
+    connectionCtx.cameraTeleSettings.hue
+  );
+  const [teleSaturationValue, setTeleSaturationValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraTeleSettings.saturation);
+  const [teleSharpnessValue, setTeleSharpnessValue] = useState<
+    number | undefined
+  >(connectionCtx.cameraTeleSettings.sharpness);
 
   // Size > 1500
   let closePane = useRef(true);
@@ -88,7 +157,6 @@ export default function CameraAddOn(props: PropTypes) {
   let gLastTimeMotorCmd = Date.now();
   let gMotorState = false;
 
-  let connectionCtx = useContext(ConnectionContext);
   let PhotoMode =
     !connectionCtx.imagingSession.isRecording &&
     !connectionCtx.imagingSession.endRecording;
@@ -109,6 +177,48 @@ export default function CameraAddOn(props: PropTypes) {
       }
     };
   }, []); // Empty dependency array means this effect runs only once on mount
+
+  useEffect(() => {
+    getWideAllParamsFn(connectionCtx);
+    updateWideData();
+  }, [showSettingsWideMenu]);
+
+  useEffect(() => {
+    getTeleAllParamsFn(connectionCtx);
+    updateTeleData();
+  }, [showSettingsTeleMenu]);
+
+  function updateWideData() {
+    setWideExposureAuto(connectionCtx.cameraWideSettings.exp_mode);
+    setWideExposureIndexValue(connectionCtx.cameraWideSettings.exp_index);
+    setWideGainIndexValue(connectionCtx.cameraWideSettings.gain_index);
+    setWideWBAuto(connectionCtx.cameraWideSettings.wb_mode);
+    setWideWBColorTempIndexValue(connectionCtx.cameraWideSettings.wb_index);
+    setWideBrightnessValue(connectionCtx.cameraWideSettings.brightness);
+    setWideContrastValue(connectionCtx.cameraWideSettings.contrast);
+    setWideHueValue(connectionCtx.cameraWideSettings.hue);
+    setWideSaturationValue(connectionCtx.cameraWideSettings.saturation);
+    setWideSharpnessValue(connectionCtx.cameraWideSettings.sharpness);
+  }
+  function updateTeleData() {
+    setTeleWBAuto(connectionCtx.cameraTeleSettings.wb_mode);
+    setTeleWBMode(connectionCtx.cameraTeleSettings.wb_index_mode);
+    if (
+      connectionCtx.cameraTeleSettings.wb_mode == modeManual &&
+      connectionCtx.cameraTeleSettings.wb_index_mode == modeAuto
+    )
+      setTeleWBColorTempIndexValue(connectionCtx.cameraTeleSettings.wb_index);
+    if (
+      connectionCtx.cameraTeleSettings.wb_mode == modeManual &&
+      connectionCtx.cameraTeleSettings.wb_index_mode == modeManual
+    )
+      setTeleWBSceneValue(connectionCtx.cameraTeleSettings.wb_index);
+    setTeleBrightnessValue(connectionCtx.cameraTeleSettings.brightness);
+    setTeleContrastValue(connectionCtx.cameraTeleSettings.contrast);
+    setTeleHueValue(connectionCtx.cameraTeleSettings.hue);
+    setTeleSaturationValue(connectionCtx.cameraTeleSettings.saturation);
+    setTeleSharpnessValue(connectionCtx.cameraTeleSettings.sharpness);
+  }
 
   const PhotosModeActions = [
     "Photo",
@@ -165,7 +275,13 @@ export default function CameraAddOn(props: PropTypes) {
   };
   const handleBtnSettingsClick = (buttonName) => {
     // Update state to set the active button
-    setActiveBtnSettings(buttonName);
+    setActiveBtnSettings(
+      buttonName === activeBtnSettings
+        ? buttonName === "tele"
+          ? "wide"
+          : "tele"
+        : buttonName
+    );
   };
 
   function changeColorButton(ImgID, Force = false) {
@@ -1005,9 +1121,126 @@ export default function CameraAddOn(props: PropTypes) {
                 </div>
               </div>
               <div className="column">
-                <div className="header">
-                  <div className="title">Settings</div>
-                </div>
+                {activeBtnSettings === "wide" && (
+                  <div className="header">
+                    <div className="title">Settings</div>
+                    <Link href="#" className="" title="Show Settings">
+                      <OverlayTrigger
+                        trigger="click"
+                        placement={"left"}
+                        show={showSettingsWideMenu}
+                        onToggle={() => setShowSettingsWideMenu((p) => !p)}
+                        overlay={
+                          <Popover id="popover-positioned-left">
+                            <Popover.Body>
+                              <CameraWideSettings
+                                wideExposureAuto={wideExposureAuto}
+                                setWideExposureAuto={setWideExposureAuto}
+                                wideExposureIndexValue={wideExposureIndexValue}
+                                setWideExposureIndexValue={
+                                  setWideExposureIndexValue
+                                }
+                                wideGainIndexValue={wideGainIndexValue}
+                                setWideGainIndexValue={setWideGainIndexValue}
+                                wideWBAuto={wideWBAuto}
+                                setWideWBAuto={setWideWBAuto}
+                                //wideWBMode={wideWBMode}
+                                //setWideWBMode={setWideWBMode}
+                                wideWBColorTempIndexValue={
+                                  wideWBColorTempIndexValue
+                                }
+                                setWideWBColorTempIndexValue={
+                                  setWideWBColorTempIndexValue
+                                }
+                                //wideWBSceneValue={wideWBSceneValue}
+                                //setWideWBSceneValue={setWideWBSceneValue}
+                                wideBrightnessValue={wideBrightnessValue}
+                                setWideBrightnessValue={setWideBrightnessValue}
+                                wideContrastValue={wideContrastValue}
+                                setWideContrastValue={setWideContrastValue}
+                                wideHueValue={wideHueValue}
+                                setWideHueValue={setWideHueValue}
+                                wideSaturationValue={wideSaturationValue}
+                                setWideSaturationValue={setWideSaturationValue}
+                                wideSharpnessValue={wideSharpnessValue}
+                                setWideSharpnessValue={setWideSharpnessValue}
+                                setShowSettingsWideMenu={
+                                  setShowSettingsWideMenu
+                                }
+                              />
+                            </Popover.Body>
+                          </Popover>
+                        }
+                      >
+                        <i
+                          className="bi bi-sliders"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "1.75rem",
+                          }}
+                        ></i>
+                      </OverlayTrigger>
+                    </Link>
+                  </div>
+                )}
+                {activeBtnSettings === "tele" && (
+                  <div className="header">
+                    <div className="title">Settings</div>
+                    <Link href="#" className="" title="Show Settings">
+                      <OverlayTrigger
+                        trigger="click"
+                        placement={"left"}
+                        show={showSettingsTeleMenu}
+                        onToggle={() => setShowSettingsTeleMenu((p) => !p)}
+                        overlay={
+                          <Popover id="popover-positioned-left">
+                            <Popover.Body>
+                              <CameraTeleSettings
+                                teleWBAuto={teleWBAuto}
+                                setTeleWBAuto={setTeleWBAuto}
+                                teleWBMode={teleWBMode}
+                                setTeleWBMode={setTeleWBMode}
+                                teleWBColorTempIndexValue={
+                                  teleWBColorTempIndexValue
+                                }
+                                setTeleWBColorTempIndexValue={
+                                  setTeleWBColorTempIndexValue
+                                }
+                                teleWBSceneValue={teleWBSceneValue}
+                                setTeleWBSceneValue={setTeleWBSceneValue}
+                                teleBrightnessValue={teleBrightnessValue}
+                                setTeleBrightnessValue={setTeleBrightnessValue}
+                                teleContrastValue={teleContrastValue}
+                                setTeleContrastValue={setTeleContrastValue}
+                                teleHueValue={teleHueValue}
+                                setTeleHueValue={setTeleHueValue}
+                                teleSaturationValue={teleSaturationValue}
+                                setTeleSaturationValue={setTeleSaturationValue}
+                                teleSharpnessValue={teleSharpnessValue}
+                                setTeleSharpnessValue={setTeleSharpnessValue}
+                                setShowSettingsTeleMenu={
+                                  setShowSettingsTeleMenu
+                                }
+                              />
+                            </Popover.Body>
+                          </Popover>
+                        }
+                      >
+                        <i
+                          className="bi bi-sliders"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "1.75rem",
+                          }}
+                        ></i>
+                      </OverlayTrigger>
+                    </Link>
+                  </div>
+                )}
                 <div className="separator"></div>
                 <img
                   src="/images/settings-white.png"
@@ -1017,10 +1250,24 @@ export default function CameraAddOn(props: PropTypes) {
                 />
                 <div className="button-container">
                   <button
-                    className={`button-cent ${
+                    className={`button ${
+                      activeBtnSettings === "tele" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      updateTeleData();
+                      handleBtnSettingsClick("tele");
+                    }}
+                  >
+                    Tele
+                  </button>
+                  <button
+                    className={`button ${
                       activeBtnSettings === "wide" ? "active" : ""
                     }`}
-                    onClick={() => handleBtnSettingsClick("wide")}
+                    onClick={() => {
+                      updateWideData();
+                      handleBtnSettingsClick("wide");
+                    }}
                   >
                     Wide
                   </button>

@@ -233,6 +233,7 @@ const translations = {
   cGoToStellariumList2: "Start goto door op 'Goto' te klikken.",
   cGoToStellariumImportData: "Gegevens importeren",
   cGoToStellariumImportManualData: "Handmatige gegevens importeren",
+  cGoToStellariumImportModifyData: "Gegevens wijzigen",
   cGoToStellariumObject: "Object",
   cGoToStellariumRightAscension: "Rechte klimming",
   cGoToStellariumDeclination: "Deklinatie",

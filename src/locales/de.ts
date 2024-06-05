@@ -232,6 +232,7 @@ const translations = {
     "Starten Sie den Goto-Vorgang, indem Sie auf 'Goto' klicken.",
   cGoToStellariumImportData: "Daten importieren",
   cGoToStellariumImportManualData: "Manuelle Daten importieren",
+  cGoToStellariumImportModifyData: "Daten ändern",
   cGoToStellariumObject: "Objekt",
   cGoToStellariumRightAscension: "Rektaszension",
   cGoToStellariumDeclination: "Deklination",

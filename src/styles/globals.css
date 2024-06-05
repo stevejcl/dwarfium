@@ -1138,7 +1138,7 @@ img {
 
 .modal-content-theme {
     position: absolute;
-    height: 75%;
+    height: 80%;
     top: -70px;
     right: 0;
     bottom: 0;
@@ -1231,6 +1231,10 @@ img {
 .language-options {
     margin-bottom: 20px;
     margin: 0 auto; /* Center horizontally */
+}
+
+.witmotion-sensor {
+    margin: 30px 10px 10px 25%; 
 }
 
 .language-select {

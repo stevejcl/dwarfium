@@ -275,23 +275,21 @@ const Modal: React.FC = () => {
                 ))}
               </select>
             </div>
-            <div className="witmotion-sensor">
-              <div className="modal-body-version">
-                <label className="checkbox-container">
-                  <input
-                    type="checkbox"
-                    className="custom-checkbox"
-                    checked={devState}
-                    onChange={handleDevOptionChange}
-                  />
-                  : Enable Witmotion Sensor
-                </label>
-              </div>
-            </div>
             <br />
             <button className="apply-button" onClick={applyBackground}>
               {t("cThemeSettingsApply")}
             </button>
+            <div className="witmotion-sensor">
+              <label className="checkbox-container">
+                <input
+                  type="checkbox"
+                  className="custom-checkbox"
+                  checked={devState}
+                  onChange={handleDevOptionChange}
+                />
+                : Enable Witmotion Sensor
+              </label>
+            </div>
           </div>
         </div>
       )}

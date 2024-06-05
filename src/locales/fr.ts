@@ -232,6 +232,7 @@ const translations = {
   cGoToStellariumList2: "Démarrez le goto en cliquant sur 'Goto'.",
   cGoToStellariumImportData: "Importer des données",
   cGoToStellariumImportManualData: "Importer des données manuelles",
+  cGoToStellariumImportModifyData: "Modifier les données",
   cGoToStellariumObject: "Objet",
   cGoToStellariumRightAscension: "Ascension droite",
   cGoToStellariumDeclination: "Déclinaison",

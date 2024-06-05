@@ -212,7 +212,7 @@ export default function ManualGoto() {
         } me-4 mb-3`}
         onClick={importManualData}
       >
-        {t("cGoToStellariumImportManualData")}
+        {objectName && t("cGoToStellariumImportModifyData")} {!objectName && t("cGoToStellariumImportManualData")}
       </button>
       {errors && <p className="text-danger">{errors}</p>}
       <div className="row mb-3">
@@ -338,6 +338,9 @@ export default function ManualGoto() {
         setRA={setRA}
         setDeclination={setDeclination}
         setObjectName={setObjectName}
+        displayName= {objectName}
+        ra= {RA && convertHMSToDecimalHours(RA)}
+        dec= {declination && convertDMSToDecimalDegrees(declination)}
       />
       <GotoModal
         object={

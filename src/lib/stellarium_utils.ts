@@ -23,7 +23,8 @@ export function parseStellariumData(text: string): ParsedStellariumData {
   if (nameData) {
     data.objectName = nameData.objectName;
   }
-
+  else
+    data.objectName = "Manual";
   return data;
 }
 

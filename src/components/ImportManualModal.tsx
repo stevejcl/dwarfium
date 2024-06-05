@@ -19,6 +19,9 @@ type PropTypes = {
   setRA: Dispatch<SetStateAction<string | undefined>>;
   setDeclination: Dispatch<SetStateAction<string | undefined>>;
   setObjectName: Dispatch<SetStateAction<string | undefined>>;
+  displayName: string | undefined;
+  ra : string | undefined;
+  dec: string | undefined;
 };
 export default function ImportManualModal(props: PropTypes) {
   const {
@@ -27,12 +30,15 @@ export default function ImportManualModal(props: PropTypes) {
     setRA,
     setDeclination,
     setObjectName,
+    displayName,
+    ra,
+    dec,
   } = props;
 
   let [error, setError] = useState<string | undefined>();
-  const [manualRA, setManualRA] = useState<string>("");
-  const [manualDeclination, setManualDeclination] = useState<string>("");
-  const [manualObjectName, setManualObjectName] = useState<string>("");
+  const [manualRA, setManualRA] = useState<string>(ra || "");
+  const [manualDeclination, setManualDeclination] = useState<string>(dec || "");
+  const [manualObjectName, setManualObjectName] = useState<string>(displayName || "");
 
   function handleCloseModal() {
     setShowImportModal(false);
@@ -138,7 +144,7 @@ export default function ImportManualModal(props: PropTypes) {
               className="form-control"
               id="object_name"
               name="object_name"
-              value={manualObjectName}
+              value={manualObjectName || displayName}
               onChange={nameInputHandler}
               required
             />
@@ -153,7 +159,7 @@ export default function ImportManualModal(props: PropTypes) {
               className="form-control"
               id="right_ascension"
               name="right_ascension"
-              value={manualRA}
+              value={manualRA || ra}
               onChange={RAInputHandler}
               required
             />
@@ -168,7 +174,7 @@ export default function ImportManualModal(props: PropTypes) {
               className="form-control"
               id="declination"
               name="declination"
-              value={manualDeclination}
+              value={manualDeclination || dec}
               onChange={declinationInputHandler}
               required
             />

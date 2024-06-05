@@ -5,6 +5,7 @@ import esTranslation from "@/locales/es";
 import frTranslation from "@/locales/fr";
 import deTranslation from "@/locales/de";
 import nlTranslation from "@/locales/nl";
+import itTranslation from "@/locales/it";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -13,6 +14,7 @@ i18n.use(initReactI18next).init({
     es: { translation: esTranslation },
     fr: { translation: frTranslation },
     nl: { translation: nlTranslation },
+    it: { translation: itTranslation },
   },
   fallbackLng: "en",
   lng: "en", // Default language

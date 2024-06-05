@@ -158,7 +158,9 @@ export default function AstroPhoto() {
         );
         const folderData = await folderResponse.text();
         if (folderData !== null) {
-          const fitsFilesMatch = folderData.match(/href="([^"]*\.fits)"/g);
+          const fitsFilesMatch = folderData.match(
+            /href="([^"]*\.(fits|json|jpg))"/g
+          );
           if (fitsFilesMatch !== null) {
             const fitsFiles = fitsFilesMatch.map((match) =>
               match.substring(6, match.length - 1)

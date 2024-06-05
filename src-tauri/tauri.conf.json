@@ -32,7 +32,7 @@
       "identifier": "com.Dwarfium.build",
       "longDescription": "",
       "macOS": {
-        "entitlements": "entitlements.plist",
+        "entitlements": "src-tauri/entitlements.mac.inherit.plist",
         "exceptionDomain": "",
         "frameworks": [],
         "providerShortName": null,

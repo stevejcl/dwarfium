@@ -20,7 +20,7 @@ type PropTypes = {
   setDeclination: Dispatch<SetStateAction<string | undefined>>;
   setObjectName: Dispatch<SetStateAction<string | undefined>>;
   displayName: string | undefined;
-  ra : string | undefined;
+  ra: string | undefined;
   dec: string | undefined;
 };
 export default function ImportManualModal(props: PropTypes) {
@@ -38,7 +38,9 @@ export default function ImportManualModal(props: PropTypes) {
   let [error, setError] = useState<string | undefined>();
   const [manualRA, setManualRA] = useState<string>(ra || "");
   const [manualDeclination, setManualDeclination] = useState<string>(dec || "");
-  const [manualObjectName, setManualObjectName] = useState<string>(displayName || "");
+  const [manualObjectName, setManualObjectName] = useState<string>(
+    displayName || ""
+  );
 
   function handleCloseModal() {
     setShowImportModal(false);

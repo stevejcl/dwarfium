@@ -106,7 +106,7 @@ export default function ConnectDwarf() {
   }, []);
   return (
     <div>
-      <h2>{t("pConnectDwarfII")}Connect to Dwarf II</h2>
+      <h2>{t("pConnectDwarfII")}</h2>
 
       <p>{t("pConnectDwarfIIContent")}</p>
 

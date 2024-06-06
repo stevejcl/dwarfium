@@ -55,7 +55,8 @@ export default function SetLocation() {
     }
 
     // old : if (/^(-?\d{1,2}(.\d+)?|[-+]?(?:90(.0+)?|[1-8]?\d(.\d+)?))$/.test(value)) {
-    if (/^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))$/.test(value)) {
+    //if (/^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))$/.test(value)) {
+    if (/^(|[-+]?(90?(\.0*)?|[1-8]?\d(\.\d*)?))$/.test(value)) {
       if (!value.endsWith(".")) {
         setLatitude(value);
         saveLatitudeDB(Number(value));
@@ -76,7 +77,10 @@ export default function SetLocation() {
     }
 
     // old : if (/^(-?\d{1,3}(.\d+)?|[-+]?(?:180(.0+)?|1[0-7]\d(.\d+)?|\d{1,2}(.\d+)?))$/.test(value)) {
-    if (/^([-+]?(180(\.\d+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?))$/.test(value)) {
+    // if (/^([-+]?(180(\.\d+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?))$/.test(value)) {
+    if (
+      /^(|[-+]?(180?(\.0*)?|1[0-7]?\d(\.\d*)?|\d{1,2}(\.\d*)?))$/.test(value)
+    ) {
       if (!value.endsWith(".")) {
         setLongitude(value);
         saveLongitudeDB(Number(value));

@@ -61,7 +61,7 @@
     },
     "windows": [
       {
-        "fullscreen": false,
+        "fullscreen": true,
         "height": 720,
         "resizable": true,
         "title": "Dwarfium",

@@ -150,7 +150,7 @@ export default function AstroPhoto() {
       if ("showDirectoryPicker" in window) {
         const selectedFolder = await (window as any).showDirectoryPicker();
         const sessionFolderHandle = await selectedFolder.getDirectoryHandle(
-          sessionName,
+          decodeURIComponent(sessionName),
           { create: true }
         );
         const folderResponse = await fetch(
@@ -159,17 +159,21 @@ export default function AstroPhoto() {
         const folderData = await folderResponse.text();
         if (folderData !== null) {
           const fitsFilesMatch = folderData.match(
-            /href="([^"]*\.(fits|json|jpg))"/g
+            /href="([^"]*\.(fits|json|jpg|png))"/g
           );
           if (fitsFilesMatch !== null) {
             const fitsFiles = fitsFilesMatch.map((match) =>
-              match.substring(6, match.length - 1)
+              decodeURIComponent(match.substring(6, match.length - 1))
             );
             const totalFiles = fitsFiles.length;
             let downloadedFiles = 0;
             for (const fitsFile of fitsFiles) {
               const fileResponse = await fetch(
-                `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/${fitsFile}`
+                `http://${
+                  connectionCtx.IPDwarf
+                }/sdcard/DWARF_II/Astronomy/${sessionName}/${encodeURIComponent(
+                  fitsFile
+                )}`
               );
               const fileBlob = await fileResponse.blob();
               const fileHandle = await sessionFolderHandle.getFileHandle(

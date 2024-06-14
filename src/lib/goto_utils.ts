@@ -513,7 +513,8 @@ export function gotoPositionHandler(
   setPosition: Dispatch<SetStateAction<string | undefined>>,
   setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
   setGotoSuccess: Dispatch<SetStateAction<string | undefined>>,
-  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+  callback?: (options: any) => void, // eslint-disable-line no-unused-vars
+  info_txt = "Initial Position"
 ) {
   //get Save Position
   let today = new Date();
@@ -559,7 +560,7 @@ export function gotoPositionHandler(
         undefined,
         ConvertStrHours(results.ra / 15),
         ConvertStrDeg(results.dec),
-        "",
+        info_txt,
         callback,
         true
       );

@@ -101,7 +101,8 @@ export default function CalibrationDwarf() {
       setSuccess,
       (options) => {
         setGotoMessages((prev) => prev.concat(options));
-      }
+      },
+      t("cCalibrationDwarfInitialPosition")
     );
   }
 

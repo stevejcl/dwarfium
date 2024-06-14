@@ -167,6 +167,7 @@ const translations = {
   cCalibrationDwarfGoToPosition: "Goto Position",
   cCalibrationDwarfShutdown: "Shutdown!",
   cCalibrationDwarfReboot: "Reboot!",
+  cCalibrationDwarfInitialPosition: "Initial Position",
   cNavHome: "Home",
   cNavSetup: "Setup",
   cNavObjects: "Objects",

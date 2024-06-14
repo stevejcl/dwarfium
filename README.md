@@ -9,6 +9,9 @@
 
 This website connects to the Dwarf II telescope to Stellarium via the [Dwarf II API](https://hj433clxpv.feishu.cn/docx/MiRidJmKOobM2SxZRVGcPCVknQg) and Stellarium remote control plugin. Once Dwarf II and Stellarium are connected, you can select an object in Stellarium, and then tell Dwarf II to go to that object.
 
+you can find the the documentation here
+https://tinyurl.com/Dwarfium
+
 ![screenshot of Stellarium and app](images/ScreenShot.png) –
 
 # Dwarf II Session Data

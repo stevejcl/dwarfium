@@ -3,107 +3,105 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/stevejcl/dwarfii-stellarium-goto)
 ![GitHub](https://img.shields.io/github/license/stevejcl/dwarfii-stellarium-goto)
 ![downloads](https://img.shields.io/github/downloads/stevejcl/dwarfii-stellarium-goto/total.svg)
-[![](https://dcbadge.vercel.app/api/server/5vFWbsXDfv)](https://discord.gg/5vFWbsXDfv)
-![Alt](https://repobeats.axiom.co/api/embed/14963aa4fc5307591a6e387817c1dedf75d7e8f9.svg "Repobeats analytics image")
+[![Discord](https://dcbadge.vercel.app/api/server/5vFWbsXDfv)](https://discord.gg/5vFWbsXDfv)
+![Repobeats](https://repobeats.axiom.co/api/embed/14963aa4fc5307591a6e387817c1dedf75d7e8f9.svg "Repobeats analytics image")
 
+This application connects to the DWARF II telescope and integrates with Stellarium via the [DWARF II API](https://hj433clxpv.feishu.cn/docx/MiRidJmKOobM2SxZRVGcPCVknQg) and the Stellarium remote control plugin. Once DWARF II and Stellarium are connected, you can select an object in Stellarium and command DWARF II to point to that object.
 
-This application connects to the Dwarf II telescope and supports Stellarium via the [Dwarf II API](https://hj433clxpv.feishu.cn/docx/MiRidJmKOobM2SxZRVGcPCVknQg) and Stellarium remote control plugin. Once Dwarf II and Stellarium are connected, you can select an object in Stellarium, and then tell Dwarf II to go to that object.
+You can find the documentation [here](https://tinyurl.com/Dwarfium).
 
-you can find the the documentation here
-https://tinyurl.com/Dwarfium
+![Screenshot of Stellarium and app](images/ScreenShot.png)
 
-![screenshot of Stellarium and app](images/ScreenShot.png) –
+## Features
 
-# Dwarf II Session Data
+### DWARF II Session Data
 
-You have access to your session data for inspection and Download
+You can access and download your session data for inspection.
 
-![screenshot of session data](images/session-data.png) –
+![Screenshot of session data](images/session-data.png)
 
-# Dwarf II Camera
+### DWARF II Camera
 
-You can control the telescope the same way as in the app.
+You can control the telescope just as you would with the official app.
 
-![screenshot of session data](images/camera.png) –
+![Screenshot of camera control](images/camera.png)
 
-# Automated updates for Application Version
+### Automated Updates for Application Versions
 
-The Desktop Application is available for Windows, MAC Os and Linux
+The desktop application is available for Windows, macOS, and Linux.
 
-![screenshot of session data](images/updates.png) –
+![Screenshot of updates](images/updates.png)
 
-# MAC OS
+### macOS Support
 
-The Mac OS support is limited as we have no MACs available to provide dedicated support.
-Running this Tools as a desktop application requires signing which is currently not possible for us.
+Support for macOS is limited as we do not have a Mac available for dedicated support. Running this tool as a desktop application requires signing, which is currently not feasible for us.
 
-You can still use Dwarfium with the provided web package [here](https://github.com/stevejcl/dwarfii-stellarium-goto/releases)
+You can still use Dwarfium with the provided web package available [here](https://github.com/stevejcl/dwarfii-stellarium-goto/releases).
 
-for Mac ARM users:
-if you see the issue that it can't be installed and should be moved to trash the suggested solution is:
+For Mac ARM users:
+If you encounter an issue where the application can't be installed and should be moved to the trash, use the following command:
 
-```
+```bash
 xattr -d com.apple.quarantine /Applications/Dwarfium.app
 ```
 
-## Setup for coders
+## Setup for Coders
 
-If you are interested in seeing how the code works or contributing to the project, then follow these steps.
+If you're interested in exploring the code or contributing to the project, follow these steps:
 
-This app is built with Next.js, Typescript, and Bootstrap css. This app uses eslint and Prettier to lint and format the code.
+This app is built with Next.js, TypeScript, and Bootstrap CSS. It uses ESLint and Prettier for linting and formatting the code.
 
-1. Clone this repo.
+1. Clone the repository.
 
-2. Install libraries.
+2. Install the necessary libraries.
 
 ```bash
 npm install
 ```
 
-3. Start server.
+3. Start the server.
 
 ```bash
 npm run dev
 ```
 
-4. Production ready build.
+4. Create a production-ready build.
 
 ```bash
-npm run buld
+npm run build
 ```
 
-5. Build desktop App based on your OS
+5. Build the desktop app for your operating system.
 
-In order to build the desktop app you need to install [Rust](https://www.rust-lang.org/learn/get-started)
+To build the desktop app, you need to install [Rust](https://www.rust-lang.org/learn/get-started).
 
 ```bash
 npm run tauri build
 ```
 
-## Setup for non-coders
+## Setup for Non-Coders
 
-If you just want to get the site up and running on your machine, then follow these steps.
+If you just want to get the site up and running on your machine, follow these steps:
 
-1. Download desired [Release](https://github.com/stevejcl/dwarfii-stellarium-goto/releases).
+1. Download the desired [release](https://github.com/stevejcl/dwarfii-stellarium-goto/releases).
 
-2. For Webbrowser version:
+2. For the web browser version:
 
-2.1 Unzip the file. A DwarfStellariumGoto directory will be created. The website is a static html site (html, javascript, and css), so it should work on any OS that can run a browser and a web server.
+   2.1. Unzip the file. A `DwarfStellariumGoto` directory will be created. The website is a static HTML site (HTML, JavaScript, and CSS), so it should work on any OS that can run a browser and a web server.
 
-2.2. Start a server inside the DwarfStellariumGoto directory. I recommend using Python's webserver, but you can use any webserver you want.
+   2.2. Start a server inside the `DwarfStellariumGoto` directory. I recommend using Python's web server, but any web server will work.
 
-```bash
-cd DwarfStellariumGoto
-python -m http.server
-```
+   ```bash
+   cd DwarfStellariumGoto
+   python -m http.server
+   ```
 
-2.3. Visit the site in a browser. If you use the Python's server, visit [localhost:8000](http://localhost:8000/)
+   2.3. Visit the site in a browser. If you're using Python's server, visit [localhost:8000](http://localhost:8000/).
 
-## Details
+## Technical Details
 
-Stellarium remote control plugin starts a webserver that allows people to access Stellarium desktop app through a web browser. When people select an object in Stellarium, they can access information about that object through `http://<localhost or IP>:<port>/api/main/status`.
+The Stellarium remote control plugin starts a web server that allows access to the Stellarium desktop app through a web browser. When you select an object in Stellarium, you can retrieve information about that object through `http://<localhost or IP>:<port>/api/main/status`.
 
-This app connects to `/api/main/status`, and parses the returned data to get the object name, right acension and declination. The app then sends a goto command to the DWARF II with RA, declination, latitude, and longitude data via Dwarf II API.
+This app connects to `/api/main/status` and parses the returned data to get the object's name, right ascension, and declination. It then sends a go-to command to the DWARF II with the right ascension, declination, latitude, and longitude data via the DWARF II API.
 
-The Desktop App wraps the webservice in a windowed environment.
-Rust is providing the webservice and serves the pages.
+The desktop app wraps the web service in a windowed environment. Rust provides the web service and serves the pages.

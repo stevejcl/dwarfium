@@ -30,6 +30,11 @@ function parseRADec(text: string) {
   let matches = text.match(
     /(?:[A-Za-z]+ *: *)?(?:RA\/Dec)? \(J2000.0\): *([-0-9hms.+°]+)\/([-0-9.+°'"]+)/
   );
+  if (!matches) {
+    matches = text.match(
+      /(?:<td>\s*RA\/Dec \(J2000.0\):\s*<\/td>\s*<td[^>]*>\s*([-0-9hms.+°]*)\s*\/\s*<\/td>\s*<td[^>]*>\s*([-0-9.+°'"]*)\s*<\/td>)/i
+    );
+  }
   if (matches) {
     return { RA: matches[1], declination: matches[2] };
   }

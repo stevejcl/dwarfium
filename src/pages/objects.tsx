@@ -12,6 +12,7 @@ import CalibrationDwarf from "@/components/shared/CalibrationDwarf";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import { useLoadIntialValues } from "@/hooks/useLoadIntialValues";
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { fetchObjectFavoriteNamesDb } from "@/db/db_utils";
 
 import ResizablePIP from "@/components/ResizablePIP";
 import DwarfCameras from "@/components/DwarfCameras";
@@ -24,12 +25,21 @@ export default function Goto() {
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const [objectFavoriteNames, setObjectFavoriteNames] = useState<string[]>([]);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
       i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
+  useEffect(() => {
+    // get objects lists from local storage on page load
+    let favoriteNames = fetchObjectFavoriteNamesDb();
+    if (favoriteNames) {
+      setObjectFavoriteNames(favoriteNames);
     }
   }, []);
 
@@ -88,9 +98,24 @@ export default function Goto() {
             </ResizablePIP>
           </div>
         )}
-        {connectionCtx.gotoType === "lists" && <GotoLists />}
-        {connectionCtx.gotoType === "stellarium" && <GotoStellarium />}
-        {connectionCtx.gotoType === "userLists" && <GotoUserLists />}
+        {connectionCtx.gotoType === "lists" && (
+          <GotoLists
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+          ></GotoLists>
+        )}
+        {connectionCtx.gotoType === "stellarium" && (
+          <GotoStellarium
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+          ></GotoStellarium>
+        )}
+        {connectionCtx.gotoType === "userLists" && (
+          <GotoUserLists
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+          ></GotoUserLists>
+        )}
         <br />
         <br />
         <br />

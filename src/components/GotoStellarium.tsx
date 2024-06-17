@@ -1,12 +1,16 @@
 /* eslint react/no-unescaped-entities: 0 */
 
 import { useContext, useState, useEffect, useRef } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { statusPath, parseStellariumData } from "@/lib/stellarium_utils";
 import { AstroObject, ParsedStellariumData } from "@/types";
+import DSOObject from "@/components/astroObjects/DSOObject";
+import { getObjectByNamesListOpenNGC } from "@/lib/observation_lists_utils";
+import dsoCatalog from "../../data/catalogs/dso_catalog.json";
 import {
   startGotoHandler,
   stellariumErrorHandler,
@@ -27,7 +31,14 @@ import ImportManualModal from "./ImportManualModal";
 type Message = {
   [k: string]: string;
 };
-export default function ManualGoto() {
+
+type PropType = {
+  objectFavoriteNames: string[];
+  setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+};
+
+export default function ManualGoto(props: PropType) {
+  const { objectFavoriteNames, setObjectFavoriteNames } = props;
   let connectionCtx = useContext(ConnectionContext);
   const [errors, setErrors] = useState<string | undefined>();
   const [gotoErrors, setGotoErrors] = useState<string | undefined>();
@@ -35,6 +46,9 @@ export default function ManualGoto() {
   const [RA, setRA] = useState<string | undefined>();
   const [declination, setDeclination] = useState<string | undefined>();
   const [objectName, setObjectName] = useState<string | undefined>();
+  const [objectNGC, setObjectNGC] = useState<AstroObject | undefined>(
+    undefined
+  );
   const [showModal, setShowModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
@@ -72,7 +86,18 @@ export default function ManualGoto() {
       setErrors("Invalid declination: " + objectData.declination);
     }
 
-    setObjectName(objectData.objectName);
+    setObjectName(objectData.objectNGC + " - " + objectData.objectName);
+
+    // find Object in DataBase
+    console.log(objectData.objectNGC);
+
+    let object = getObjectByNamesListOpenNGC(
+      dsoCatalog,
+      objectData.objectNGC.split(" - "),
+      objectFavoriteNames
+    );
+
+    setObjectNGC(object);
   }
 
   function resetData() {
@@ -81,6 +106,7 @@ export default function ManualGoto() {
     setGotoSuccess(undefined);
     setDeclination(undefined);
     setRA(undefined);
+    setObjectNGC(undefined);
   }
 
   function fetchStellariumData() {
@@ -108,8 +134,9 @@ export default function ManualGoto() {
           if (data.selectioninfo === "") {
             noObjectSelectedHandler();
           } else {
+            console.log(data.selectioninfo);
             const objectData = parseStellariumData(data.selectioninfo);
-            console.log(objectData);
+            console.error(objectData);
             if (objectData) {
               validDataHandler(objectData);
             }
@@ -236,6 +263,20 @@ export default function ManualGoto() {
         <div className="col-sm-4">{t("cGoToStellariumDeclination")}</div>
         <div className="col-sm-8">{declination}</div>
       </div>
+      {objectNGC && (
+        <div className="row mb-3">
+          <div className="col-sm-4">{t("cGoToStellariumFoundInCatalog")}</div>
+        </div>
+      )}
+      {objectNGC && (
+        <DSOObject
+          key={objectNGC.designation}
+          object={objectNGC}
+          objectFavoriteNames={objectFavoriteNames}
+          setObjectFavoriteNames={setObjectFavoriteNames}
+        />
+      )}
+      {objectNGC && <br />}
       <div className="row mb-3">
         <div className="col-sm-4">
           <button

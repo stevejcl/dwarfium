@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import type { ChangeEvent } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 
@@ -7,7 +8,6 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 import DSOList from "@/components/astroObjects/DSOList";
 import ImportObjectListModal from "@/components/ImportObservationListModal";
 import DeleteObjectListModal from "./DeleteObservationListModal";
-import { fetchObjectFavoriteNamesDb } from "@/db/db_utils";
 import { AstroObject } from "@/types";
 import {
   fetchObjectListsDb,
@@ -15,10 +15,15 @@ import {
   saveUserCurrentObjectListNameDb,
 } from "@/db/db_utils";
 
-export default function GotoUserLists() {
+type PropType = {
+  objectFavoriteNames: string[];
+  setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+};
+
+export default function GotoUserLists(props: PropType) {
+  const { objectFavoriteNames, setObjectFavoriteNames } = props;
   let connectionCtx = useContext(ConnectionContext);
 
-  let [objectFavoriteNames, setObjectFavoriteNames] = useState<string[]>([]);
   let [objectListsNames, setObjectListsNames] = useState<string[]>([]);
   let [objectLists, setObjectLists] = useState<{
     [k: string]: AstroObject[];
@@ -35,11 +40,6 @@ export default function GotoUserLists() {
     let lists = fetchObjectListsDb();
     if (lists) {
       setObjectLists(lists);
-    }
-    // get objects lists from local storage on page load
-    let favoriteNames = fetchObjectFavoriteNamesDb();
-    if (favoriteNames) {
-      setObjectFavoriteNames(favoriteNames);
     }
   }, []);
 

@@ -23,6 +23,10 @@ export function parseStellariumData(text: string): ParsedStellariumData {
   if (nameData) {
     data.objectName = nameData.objectName;
   } else data.objectName = "Manual";
+  const nameNGC = parseObjectNGC(text);
+  if (nameNGC) {
+    data.objectNGC = nameNGC.objectNGC;
+  } else data.objectNGC = "";
   return data;
 }
 
@@ -43,7 +47,78 @@ function parseRADec(text: string) {
 function parseObjectName(text: string) {
   let matches = text.match(/<h2>(.*?)<\/h2>/);
   if (matches) {
-    return { objectName: matches[1].split("<br")[0] };
+    // Get the content inside the <h2> tag
+    let content = matches[1];
+
+    // Find the position of (
+    let startIndex = content.indexOf("(");
+    if (startIndex !== -1)
+      return {
+        objectName: matches[1].split(")")[0].replace("<br />", "") + ")",
+      };
+    else return { objectName: matches[1].split("<br")[0] };
+  }
+}
+
+function parseObjectNGC(text: string) {
+  let matches = text.match(/<h2>(.*?)<\/h2>/);
+  if (matches) {
+    // Get the content inside the <h2> tag
+    let content = matches[1];
+
+    // Find the position of <br>
+    let startIndex = content.indexOf("<br>");
+    if (startIndex !== -1) {
+      // Extract the substring after <br>
+      let substring = content.substring(startIndex + 4);
+
+      // Find the position of the first ' - ' or '<'
+      let endIndexDash = substring.indexOf(" - ");
+      let endIndexTag = substring.indexOf("<");
+
+      // Determine the end index for the first name
+      let endIndex = endIndexDash !== -1 ? endIndexDash : endIndexTag;
+
+      // If neither ' - ' nor '<' is found, use the length of the substring
+      if (endIndex === -1) {
+        endIndex = substring.length;
+      }
+
+      // Extract the first name
+      let firstName = substring.substring(0, endIndex).trim();
+
+      // Check for the presence of "NGC xxx" or "HIP xxx" after the first name
+      let additionalName: string | undefined = undefined;
+      if (endIndexDash !== -1) {
+        // Split the substring by " - " to get individual names
+        let names = substring.split(" - ").map((name) => name.trim());
+
+        // Find an additional name that starts with "NGC" or "HIP"
+        additionalName = names.find(
+          (name) => name.startsWith("NGC") || name.startsWith("HIP")
+        );
+      }
+
+      // Combine the first name and additional name if present and conditions are met
+      if (
+        additionalName &&
+        !firstName.startsWith("NGC") &&
+        !firstName.startsWith("HIP")
+      ) {
+        return { objectNGC: `${firstName} - ${additionalName}` };
+      } else {
+        return { objectNGC: firstName };
+      }
+    } else {
+      // Star  ?
+      // Split the content by " - " to get individual names
+      let names = content.split(" - ").map((name) => name.trim());
+
+      // Find the first occurrence of "HIP xxxx"
+      let hipName = names.find((name) => name.startsWith("HIP"));
+
+      if (hipName) return { objectNGC: hipName };
+    }
   }
 }
 

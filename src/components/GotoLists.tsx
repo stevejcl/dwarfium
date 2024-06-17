@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 
@@ -9,12 +10,17 @@ import dsoCatalog from "../../data/catalogs/dso_catalog.json";
 import { processObjectListOpenNGC } from "@/lib/observation_lists_utils";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { saveCurrentObjectListNameDb } from "@/db/db_utils";
-import { fetchObjectFavoriteNamesDb } from "@/db/db_utils";
 
 let dsoObject = processObjectListOpenNGC(dsoCatalog);
 console.info("DSO processObjectListOpenNGC");
 
-export default function AutoGoto() {
+type PropType = {
+  objectFavoriteNames: string[];
+  setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+};
+
+export default function AutoGoto(props: PropType) {
+  const { objectFavoriteNames, setObjectFavoriteNames } = props;
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
@@ -28,15 +34,6 @@ export default function AutoGoto() {
   }, []);
 
   let connectionCtx = useContext(ConnectionContext);
-  let [objectFavoriteNames, setObjectFavoriteNames] = useState<string[]>([]);
-
-  useEffect(() => {
-    // get objects lists from local storage on page load
-    let favoriteNames = fetchObjectFavoriteNamesDb();
-    if (favoriteNames) {
-      setObjectFavoriteNames(favoriteNames);
-    }
-  }, []);
 
   function selectListHandler(e: ChangeEvent<HTMLSelectElement>) {
     connectionCtx.setCurrentObjectListName(e.target.value);

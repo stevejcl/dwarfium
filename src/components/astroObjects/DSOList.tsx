@@ -173,6 +173,9 @@ export default function DSOList(props: PropType) {
     }
   }
 
+  // Function to remove spaces
+  const removeSpaces = (str) => str.replace(/\s+/g, "");
+
   function filterObjects() {
     let dataSearchTxt = "";
     if (connectionCtx.searchTxt) {
@@ -202,9 +205,9 @@ export default function DSOList(props: PropType) {
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.favorite &&
                 object.visible &&
-                object.displayName
-                  .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase())
+                removeSpaces(object.displayName.toLowerCase()).includes(
+                  removeSpaces(dataSearchTxt.toLowerCase())
+                )
               );
             })
           );
@@ -215,9 +218,9 @@ export default function DSOList(props: PropType) {
                 (sizeDso.length === 0 ||
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.visible &&
-                object.displayName
-                  .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase())
+                removeSpaces(object.displayName.toLowerCase()).includes(
+                  removeSpaces(dataSearchTxt.toLowerCase())
+                )
               );
             })
           );
@@ -228,9 +231,9 @@ export default function DSOList(props: PropType) {
                 (sizeDso.length === 0 ||
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 object.favorite &&
-                object.displayName
-                  .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase())
+                removeSpaces(object.displayName.toLowerCase()).includes(
+                  removeSpaces(dataSearchTxt.toLowerCase())
+                )
               );
             })
           );
@@ -240,9 +243,9 @@ export default function DSOList(props: PropType) {
               return (
                 (sizeDso.length === 0 ||
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
-                object.displayName
-                  .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase())
+                removeSpaces(object.displayName.toLowerCase()).includes(
+                  removeSpaces(dataSearchTxt.toLowerCase())
+                )
               );
             })
           );
@@ -307,9 +310,9 @@ export default function DSOList(props: PropType) {
                 selectedCategories.includes(object.typeCategory) &&
                 object.favorite &&
                 object.visible &&
-                object.displayName
-                  .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase())
+                removeSpaces(object.displayName.toLowerCase()).includes(
+                  removeSpaces(dataSearchTxt.toLowerCase())
+                )
               );
             })
           );
@@ -321,9 +324,9 @@ export default function DSOList(props: PropType) {
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 selectedCategories.includes(object.typeCategory) &&
                 object.visible &&
-                object.displayName
-                  .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase())
+                removeSpaces(object.displayName.toLowerCase()).includes(
+                  removeSpaces(dataSearchTxt.toLowerCase())
+                )
               );
             })
           );
@@ -335,9 +338,9 @@ export default function DSOList(props: PropType) {
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 selectedCategories.includes(object.typeCategory) &&
                 object.favorite &&
-                object.displayName
-                  .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase())
+                removeSpaces(object.displayName.toLowerCase()).includes(
+                  removeSpaces(dataSearchTxt.toLowerCase())
+                )
               );
             })
           );
@@ -348,9 +351,9 @@ export default function DSOList(props: PropType) {
                 (sizeDso.length === 0 ||
                   sizeDso.includes(object.notes?.toString() ?? "")) &&
                 selectedCategories.includes(object.typeCategory) &&
-                object.displayName
-                  .toLowerCase()
-                  .includes(dataSearchTxt.toLowerCase())
+                removeSpaces(object.displayName.toLowerCase()).includes(
+                  removeSpaces(dataSearchTxt.toLowerCase())
+                )
               );
             })
           );

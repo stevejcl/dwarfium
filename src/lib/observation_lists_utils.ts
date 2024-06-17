@@ -61,6 +61,7 @@ export function processObjectListStellarium(
 }
 
 export function processObjectListOpenNGC(objects: ObjectOpenNGC[]) {
+  console.error("Create Objects List Objects");
   return objects
     .map((object) => {
       return {
@@ -86,6 +87,78 @@ export function processObjectListOpenNGC(objects: ObjectOpenNGC[]) {
         a.objectNumber - b.objectNumber
       );
     });
+}
+
+// Function to find the first object matching the search names directly from the catalog data
+export function findFirstObjectByNamesListOpenNGC(
+  objects: ObjectOpenNGC[],
+  searchNames
+) {
+  // Convert the search names to lowercase for case-insensitive comparison
+  const lowerCaseSearchNames = searchNames.map((name) => name.toLowerCase());
+
+  // Iterate over the JSON data to find the first matching object
+  for (let object of objects) {
+    // Ensure the properties exist
+    const displayName = object["Catalogue Entry"]
+      ? object["Catalogue Entry"].toLowerCase()
+      : "";
+
+    // Split the alternate names string by commas, trim each name, and convert to lowercase
+    const alternateNames = object["Alternative Entries"]
+      ? object["Alternative Entries"]
+          .split(",")
+          .map((name) => name.trim().toLowerCase())
+      : [];
+
+    // Check if displayName or any of the alternateNames include any of the searchNames
+    const displayNameMatch = lowerCaseSearchNames.some((searchName) =>
+      displayName.startsWith(searchName)
+    );
+    const alternateNamesMatch = alternateNames.some((altName) =>
+      lowerCaseSearchNames.some((searchName) => altName.startsWith(searchName))
+    );
+
+    // Return the object if either displayName or any of the alternateNames match any search name
+    if (displayNameMatch || alternateNamesMatch) {
+      return object;
+    }
+  }
+
+  // Return null if no matching object is found
+  return null;
+}
+
+export function getObjectByNamesListOpenNGC(
+  objects: ObjectOpenNGC[],
+  searchNames,
+  objectFavoriteNames
+) {
+  let object = findFirstObjectByNamesListOpenNGC(objects, searchNames);
+
+  if (object) {
+    let displayName = formatObjectNameOpenNGC(object);
+    let favorite = false;
+    if (objectFavoriteNames && objectFavoriteNames.includes(displayName)) {
+      favorite = true;
+    }
+    return {
+      dec: formatOpenNGCDec(object.Declination),
+      designation: object["Catalogue Entry"],
+      magnitude: object.Magnitude,
+      type: object.Type,
+      typeCategory: object["Type Category"],
+      ra: formatOpenNGCRA(object["Right Ascension"]),
+      displayName: displayName,
+      alternateNames: object["Alternative Entries"],
+      catalogue: object["Name catalog"],
+      objectNumber: object["Name number"],
+      constellation: object.Constellation,
+      size: formatObjectSizeOpenNGC(object),
+      notes: object.Notes,
+      favorite: favorite,
+    };
+  } else return undefined;
 }
 
 function formatOpenNGCRA(ra: string | null): string | null {

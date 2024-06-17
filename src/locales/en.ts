@@ -236,6 +236,7 @@ const translations = {
   cGoToStellariumRightAscension: "Right Ascension",
   cGoToStellariumDeclination: "Declination",
   cGoToStellariumCenter: "Center",
+  cGoToStellariumFoundInCatalog: "Object found in Catalog",
   cGoToStellariumMoveCenter: " You can gently move the Center:",
   cGoToStellariumMoveCenterli1: "Click on buttons to move the center to",
   cGoToStellariumMoveCenterli2:

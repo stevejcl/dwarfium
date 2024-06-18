@@ -63,6 +63,9 @@ export type ConnectionContextType = {
   isSavedPosition: boolean | undefined;
   setIsSavedPosition: Dispatch<SetStateAction<boolean | undefined>>;
 
+  saveAstroData: AstroObject | undefined;
+  setSaveAstroData: Dispatch<SetStateAction<AstroObject | undefined>>;
+
   gotoType: string | undefined;
   setGotoType: Dispatch<SetStateAction<string | undefined>>;
 

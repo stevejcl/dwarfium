@@ -24,6 +24,8 @@ import {
   convertDecimalHoursToHMS,
   convertDMSToDecimalDegrees,
   convertDecimalDegreesToDMS,
+  formatModifyRa,
+  formatModifyDec,
 } from "@/lib/math_utils";
 import GotoModal from "./astroObjects/GotoModal";
 import ImportManualModal from "./ImportManualModal";
@@ -106,6 +108,7 @@ export default function ManualGoto(props: PropType) {
     setGotoSuccess(undefined);
     setDeclination(undefined);
     setRA(undefined);
+    setObjectName("");
     setObjectNGC(undefined);
   }
 
@@ -152,16 +155,25 @@ export default function ManualGoto(props: PropType) {
     let RA_number = 0;
 
     if (RA_dif) {
-      if (RA) RA_number = convertHMSToDecimalHours(RA);
+      if (RA) RA_number = convertHMSToDecimalHours(RA, 9);
       let new_RA = RA_number + RA_dif;
+      if (new_RA > 24) new_RA = 24;
+      if (new_RA < 0) new_RA = 0;
       let { hour, minute, second } = convertDecimalHoursToHMS(new_RA);
-      setRA(`${hour}h ${minute}m ${second}s`);
+      let secondParts = second.toString().split(".");
+      let secondStr = padNumber(Number(secondParts[0]));
+      if (secondParts[1]) {
+        secondStr = secondStr + "." + secondParts[1];
+      }
+      setRA(`${padNumber(hour)}h ${padNumber(minute)}m ${secondStr}s`);
     }
     if (dec_diff) {
       let declination_number = declination
-        ? convertDMSToDecimalDegrees(declination!)
+        ? convertDMSToDecimalDegrees(declination!, 7)
         : 0;
       let new_dec = declination_number + dec_diff;
+      if (new_dec > 90) new_dec = 90;
+      if (new_dec < -90) new_dec = -90;
       let { degree, minute, second, negative } =
         convertDecimalDegreesToDMS(new_dec);
       let secondParts = second.toString().split(".");
@@ -176,7 +188,26 @@ export default function ManualGoto(props: PropType) {
   }
 
   function importManualData() {
+    //    alert("test1 Ra:" + convertHMSToDecimalHours(RA, 9));
+    //   alert("test2 Ra:" + formatModifyRa(convertHMSToDecimalHours(RA, 9)));
     setShowImportModal(true);
+  }
+
+  function pasteData() {
+    if (connectionCtx.saveAstroData) {
+      setObjectName(connectionCtx.saveAstroData.displayName);
+      let RA: string | undefined = undefined;
+      if (connectionCtx.saveAstroData.ra != null) {
+        RA = connectionCtx.saveAstroData.ra;
+        setRA(RA);
+      } else setRA(undefined);
+      let Declination: string | undefined = undefined;
+      if (connectionCtx.saveAstroData.dec != null) {
+        Declination = connectionCtx.saveAstroData.dec;
+        setDeclination(Declination);
+      } else setDeclination(undefined);
+      setObjectNGC(connectionCtx.saveAstroData);
+    }
   }
 
   function gotoFn() {
@@ -241,6 +272,22 @@ export default function ManualGoto(props: PropType) {
       >
         {objectName && t("cGoToStellariumImportModifyData")}{" "}
         {!objectName && t("cGoToStellariumImportManualData")}
+      </button>
+      <button
+        className={`btn ${
+          connectionCtx.saveAstroData
+            ? connectionCtx.saveAstroData.displayName
+              ? "btn btn-more02"
+              : "btn-more02"
+            : "btn-more02"
+        } me-4 mb-3`}
+        onClick={pasteData}
+        disabled={
+          !connectionCtx.saveAstroData ||
+          !connectionCtx.saveAstroData.displayName
+        }
+      >
+        {t("cGoToStellariumPasteData")}
       </button>
       {errors && <p className="text-danger">{errors}</p>}
       <div className="row mb-3">
@@ -381,8 +428,11 @@ export default function ManualGoto(props: PropType) {
         setDeclination={setDeclination}
         setObjectName={setObjectName}
         displayName={objectName}
-        ra={RA && convertHMSToDecimalHours(RA).toString()}
-        dec={declination && convertDMSToDecimalDegrees(declination).toString()}
+        ra={RA && formatModifyRa(convertHMSToDecimalHours(RA, 9))}
+        dec={
+          declination &&
+          formatModifyDec(convertDMSToDecimalDegrees(declination, 7))
+        }
       />
       <GotoModal
         object={

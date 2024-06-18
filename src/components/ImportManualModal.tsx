@@ -11,6 +11,8 @@ import {
   formatRa,
   parseDecToFloat,
   formatDec,
+  formatModifyRa,
+  formatModifyDec,
 } from "@/lib/math_utils";
 
 type PropTypes = {
@@ -46,6 +48,11 @@ export default function ImportManualModal(props: PropTypes) {
     setShowImportModal(false);
   }
 
+  function handleShowModal() {
+    if (ra) setManualRA(ra);
+    if (dec) setManualDeclination(dec);
+  }
+
   function validateData(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -75,6 +82,16 @@ export default function ImportManualModal(props: PropTypes) {
       return;
     }
 
+    // verify Min Max Value
+    const parsedRaValue = parseRaToFloat(formRA);
+
+    if (typeof parsedRaValue === "number" && parsedRaValue > 24) {
+      parseRA = formatRa(24);
+    }
+    if (typeof parsedRaValue === "number" && parsedRaValue < 0) {
+      parseRA = formatRa(0);
+    }
+
     const formDeclination = formData.get("declination");
     if (formDeclination === null) {
       setError("Declination is required.");
@@ -92,11 +109,23 @@ export default function ImportManualModal(props: PropTypes) {
       return;
     }
 
+    // verify Min Max Value
+    const parsedDecValue = parseDecToFloat(formDeclination);
+
+    if (typeof parsedDecValue === "number" && parsedDecValue > 90) {
+      parseDeclination = formatDec(90);
+    }
+    if (typeof parsedDecValue === "number" && parsedDecValue < -90) {
+      parseDeclination = formatDec(-90);
+    }
+
     setObjectName(formName.toString());
 
     setRA(parseRA.toString());
+    setManualRA(formatModifyRa(parseRaToFloat(formRA)));
 
     setDeclination(parseDeclination.toString());
+    setManualDeclination(formatModifyDec(parseDecToFloat(formDeclination)));
 
     // close modal
     setShowImportModal(false);
@@ -130,7 +159,11 @@ export default function ImportManualModal(props: PropTypes) {
   }, []);
 
   return (
-    <Modal show={showImportModal} onHide={handleCloseModal}>
+    <Modal
+      show={showImportModal}
+      onHide={handleCloseModal}
+      onShow={handleShowModal}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{t("cImportManualModalTitle")}</Modal.Title>
       </Modal.Header>
@@ -161,7 +194,7 @@ export default function ImportManualModal(props: PropTypes) {
               className="form-control"
               id="right_ascension"
               name="right_ascension"
-              value={manualRA || ra}
+              value={manualRA}
               onChange={RAInputHandler}
               required
             />
@@ -176,7 +209,7 @@ export default function ImportManualModal(props: PropTypes) {
               className="form-control"
               id="declination"
               name="declination"
-              value={manualDeclination || dec}
+              value={manualDeclination}
               onChange={declinationInputHandler}
               required
             />

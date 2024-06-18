@@ -220,6 +220,10 @@ export default function DSOObject(props: AstronomyObjectPropType) {
     );
   }
 
+  function saveData() {
+    connectionCtx.setSaveAstroData(object);
+  }
+
   return (
     <div className="border-bottom p-2">
       <h3 className="fs-5 mb-0">
@@ -270,11 +274,21 @@ export default function DSOObject(props: AstronomyObjectPropType) {
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more02" : "btn-secondary"
-            } me-2 mb-2`}
+            } me-4 mb-2`}
             onClick={gotoFn}
             disabled={!connectionCtx.connectionStatus}
           >
             {t("cObjectsGoto")}
+          </button>
+          <button
+            className={`btn btn-more02 me-2 mb-2`}
+            onClick={saveData}
+            disabled={
+              !connectionCtx.saveAstroData ||
+              object.displayName == connectionCtx.saveAstroData.displayName
+            }
+          >
+            {t("cObjectsCopyData")}
           </button>
           <br />
           <GotoModal

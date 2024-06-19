@@ -18,10 +18,15 @@ import {
 type PropType = {
   objectFavoriteNames: string[];
   setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
 };
 
 export default function GotoUserLists(props: PropType) {
   const { objectFavoriteNames, setObjectFavoriteNames } = props;
+  const { setModule, setErrors, setSuccess } = props;
+
   let connectionCtx = useContext(ConnectionContext);
 
   let [objectListsNames, setObjectListsNames] = useState<string[]>([]);
@@ -121,6 +126,9 @@ export default function GotoUserLists(props: PropType) {
               objects={objectLists[connectionCtx.currentUserObjectListName]}
               objectFavoriteNames={objectFavoriteNames}
               setObjectFavoriteNames={setObjectFavoriteNames}
+              setModule={setModule}
+              setErrors={setErrors}
+              setSuccess={setSuccess}
             ></DSOList>
           )}
 

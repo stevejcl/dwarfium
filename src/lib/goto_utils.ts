@@ -473,7 +473,9 @@ function resetCameraData(connectionCtx) {
 
 export function savePositionHandler(
   connectionCtx: ConnectionContextType,
-  setPosition: Dispatch<SetStateAction<string | undefined>>
+  setPosition: Dispatch<SetStateAction<string | undefined>>,
+  current_position = "Recorded Position: ",
+  no_position = "No Recorded Position"
 ) {
   //Save Position
 
@@ -499,13 +501,14 @@ export function savePositionHandler(
 
       connectionCtx.setIsSavedPosition(true);
       setPosition(
-        "alt: " +
+        current_position +
+          "alt: " +
           ConvertStrDeg(formatFloatToDecimalPlaces(results.alt, 4)) +
           ",az: " +
           ConvertStrDeg(formatFloatToDecimalPlaces(results.az, 4))
       );
     }
-  } else setPosition("No position has been recorded");
+  } else setPosition(no_position);
 }
 
 export function gotoPositionHandler(
@@ -514,7 +517,8 @@ export function gotoPositionHandler(
   setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
   setGotoSuccess: Dispatch<SetStateAction<string | undefined>>,
   callback?: (options: any) => void, // eslint-disable-line no-unused-vars
-  info_txt = "Initial Position"
+  info_txt = "Initial Position",
+  no_position = "No Recorded Position"
 ) {
   //get Save Position
   let today = new Date();
@@ -534,7 +538,8 @@ export function gotoPositionHandler(
 
     if (results) {
       setPosition(
-        "alt: " +
+        info_txt +
+          ": alt: " +
           ConvertStrDeg(
             formatFloatToDecimalPlaces(
               connectionCtx.astroSavePosition.altitude,
@@ -565,7 +570,7 @@ export function gotoPositionHandler(
         true
       );
     }
-  } else setPosition("No position has been recorded");
+  } else setPosition(no_position);
 }
 
 export async function stopGotoHandler(

@@ -17,10 +17,14 @@ console.info("DSO processObjectListOpenNGC");
 type PropType = {
   objectFavoriteNames: string[];
   setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
 };
 
 export default function AutoGoto(props: PropType) {
   const { objectFavoriteNames, setObjectFavoriteNames } = props;
+  const { setModule, setErrors, setSuccess } = props;
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
@@ -94,10 +98,17 @@ export default function AutoGoto(props: PropType) {
             objects={dsoObject}
             objectFavoriteNames={objectFavoriteNames}
             setObjectFavoriteNames={setObjectFavoriteNames}
+            setModule={setModule}
+            setErrors={setErrors}
+            setSuccess={setSuccess}
           ></DSOList>
         )}
         {connectionCtx.currentObjectListName === "planets" && (
-          <PlanetsList></PlanetsList>
+          <PlanetsList
+            setModule={setModule}
+            setErrors={setErrors}
+            setSuccess={setSuccess}
+          ></PlanetsList>
         )}
       </div>
     </div>

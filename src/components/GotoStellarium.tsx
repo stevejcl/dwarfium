@@ -1,6 +1,6 @@
 /* eslint react/no-unescaped-entities: 0 */
 
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
@@ -37,14 +37,16 @@ type Message = {
 type PropType = {
   objectFavoriteNames: string[];
   setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
 };
 
 export default function ManualGoto(props: PropType) {
   const { objectFavoriteNames, setObjectFavoriteNames } = props;
+  const { setModule, setErrors, setSuccess } = props;
+  setModule("");
   let connectionCtx = useContext(ConnectionContext);
-  const [errors, setErrors] = useState<string | undefined>();
-  const [gotoErrors, setGotoErrors] = useState<string | undefined>();
-  const [gotoSuccess, setGotoSuccess] = useState<string | undefined>();
   const [RA, setRA] = useState<string | undefined>();
   const [declination, setDeclination] = useState<string | undefined>();
   const [objectName, setObjectName] = useState<string | undefined>();
@@ -54,17 +56,6 @@ export default function ManualGoto(props: PropType) {
   const [showModal, setShowModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
-  const prevErrors = usePrevious(gotoErrors);
-  const prevSuccess = usePrevious(gotoSuccess);
-
-  // custom hook for getting previous value
-  function usePrevious(value: any) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    }, [value]);
-    return ref.current;
-  }
 
   function noObjectSelectedHandler() {
     setErrors("You must select an object in Stellarium.");
@@ -104,8 +95,7 @@ export default function ManualGoto(props: PropType) {
 
   function resetData() {
     setErrors(undefined);
-    setGotoErrors(undefined);
-    setGotoSuccess(undefined);
+    setSuccess(undefined);
     setDeclination(undefined);
     setRA(undefined);
     setObjectName("");
@@ -145,7 +135,7 @@ export default function ManualGoto(props: PropType) {
             }
           }
         })
-        .catch((err) => stellariumErrorHandler(err, setGotoErrors));
+        .catch((err) => stellariumErrorHandler(err, setErrors));
     } else {
       setErrors("App is not connect to Stellarium.");
     }
@@ -215,8 +205,8 @@ export default function ManualGoto(props: PropType) {
 
     startGotoHandler(
       connectionCtx,
-      setGotoErrors,
-      setGotoSuccess,
+      setErrors,
+      setSuccess,
       undefined,
       RA,
       declination,
@@ -289,7 +279,6 @@ export default function ManualGoto(props: PropType) {
       >
         {t("cGoToStellariumPasteData")}
       </button>
-      {errors && <p className="text-danger">{errors}</p>}
       <div className="row mb-3">
         <div className="col-sm-4">{t("pLatitude")}</div>
         <div className="col-sm-8">{connectionCtx.latitude}</div>
@@ -321,6 +310,9 @@ export default function ManualGoto(props: PropType) {
           object={objectNGC}
           objectFavoriteNames={objectFavoriteNames}
           setObjectFavoriteNames={setObjectFavoriteNames}
+          setModule={setModule}
+          setErrors={setErrors}
+          setSuccess={setSuccess}
         />
       )}
       {objectNGC && <br />}
@@ -391,18 +383,6 @@ export default function ManualGoto(props: PropType) {
           >
             Dec - 0.1°
           </button>
-        </div>
-      </div>
-      <div className="row mb-3">
-        <div className="col-sm-4">
-          {prevErrors && <span className="text-danger"> {prevErrors} </span>}
-          {gotoErrors && gotoErrors != prevErrors && (
-            <span className="text-danger">{gotoErrors} </span>
-          )}
-          {prevSuccess && <span className="text-success"> {prevSuccess} </span>}
-          {gotoSuccess && gotoSuccess != prevSuccess && (
-            <span className="text-danger">{gotoSuccess} </span>
-          )}
         </div>
       </div>
       <div className="row mb-3">

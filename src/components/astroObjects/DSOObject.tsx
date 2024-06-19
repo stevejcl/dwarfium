@@ -25,16 +25,17 @@ type AstronomyObjectPropType = {
   object: AstroObject;
   objectFavoriteNames: string[];
   setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
 };
 type Message = {
   [k: string]: string;
 };
 export default function DSOObject(props: AstronomyObjectPropType) {
   const { object, objectFavoriteNames, setObjectFavoriteNames } = props;
-
+  const { setModule, setErrors, setSuccess } = props;
   let connectionCtx = useContext(ConnectionContext);
-  const [errors, setErrors] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
   const [showModal, setShowModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
   const [forceFavoriteUpdate, setForceFavoriteUpdate] = useState(false);
@@ -42,6 +43,8 @@ export default function DSOObject(props: AstronomyObjectPropType) {
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  setModule(t("cCalibrationDwarfLogProcessAstroObject"));
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
@@ -298,8 +301,6 @@ export default function DSOObject(props: AstronomyObjectPropType) {
             messages={gotoMessages}
             setMessages={setGotoMessages}
           />
-          {errors && <span className="text-danger">{errors}</span>}
-          {success && <span className="text-success">{success}</span>}
         </div>
       </div>
     </div>

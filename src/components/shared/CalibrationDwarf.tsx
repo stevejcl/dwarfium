@@ -1,5 +1,5 @@
-import { useState, useContext, useEffect, useRef } from "react";
-
+import { useState, useContext, useEffect } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { getExposureIndexByName, getGainIndexByName } from "@/lib/data_utils";
 import { saveLoggerViewDb, savePiPViewDb } from "@/db/db_utils";
@@ -26,16 +26,23 @@ import GotoModal from "../astroObjects/GotoModal";
 type Message = {
   [k: string]: string;
 };
+type CalibrationDwarfPropType = {
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
+};
 
-export default function CalibrationDwarf() {
+export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
+  const { setModule, setErrors, setSuccess } = props;
+
   let connectionCtx = useContext(ConnectionContext);
-  const [errors, setErrors] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
+  //const [errors, setErrors] = useState<string | undefined>();
+  //const [success, setSuccess] = useState<string | undefined>();
   const [position, setPosition] = useState<string | undefined>();
   const [showModal, setShowModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
-  const prevErrors = usePrevious(errors);
-  const prevSuccess = usePrevious(success);
+  //const prevErrors = usePrevious(errors);
+  //const prevSuccess = usePrevious(success);
 
   useEffect(() => {
     eventBus.on("clearErrors", () => {
@@ -58,16 +65,8 @@ export default function CalibrationDwarf() {
     }
   }, []);
 
-  // custom hook for getting previous value
-  function usePrevious(value: any) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    }, [value]);
-    return ref.current;
-  }
-
   function calibrateFn() {
+    setModule(t("cCalibrationDwarfLogProcessCalibration"));
     setShowModal(connectionCtx.loggerView);
     initCamera();
     setTimeout(() => {
@@ -78,6 +77,7 @@ export default function CalibrationDwarf() {
   }
 
   function stopGotoFn() {
+    setModule(t("cCalibrationDwarfLogProcessStopGoto"));
     setShowModal(connectionCtx.loggerView);
     stopGotoHandler(connectionCtx, setErrors, setSuccess, (options) => {
       setGotoMessages((prev) => prev.concat(options));
@@ -85,15 +85,21 @@ export default function CalibrationDwarf() {
   }
 
   function savePositionFn() {
-    savePositionHandler(connectionCtx, setPosition);
+    savePositionHandler(
+      connectionCtx,
+      setPosition,
+      t("cCalibrationDwarfRecordedPosition"),
+      t("cCalibrationDwarfNoPosition")
+    );
   }
 
   function resetPositionFn() {
     connectionCtx.setIsSavedPosition(false);
-    setPosition("No position has been recorded");
+    setPosition(t("cCalibrationDwarfNoPosition"));
   }
 
   function gotoPositionFn() {
+    setModule(t("cCalibrationDwarfLogProcessGotoPosition"));
     gotoPositionHandler(
       connectionCtx,
       setPosition,
@@ -102,11 +108,13 @@ export default function CalibrationDwarf() {
       (options) => {
         setGotoMessages((prev) => prev.concat(options));
       },
-      t("cCalibrationDwarfInitialPosition")
+      t("cCalibrationDwarfInitialPosition"),
+      t("cCalibrationDwarfNoPosition")
     );
   }
 
   function RingLightsOffFn() {
+    setModule(t("cCalibrationDwarfLogProcessRingLightsOff"));
     setShowModal(connectionCtx.loggerView);
     RingLightsHandlerFn(true, connectionCtx, setErrors, (options) => {
       setGotoMessages((prev) => prev.concat(options));
@@ -114,6 +122,7 @@ export default function CalibrationDwarf() {
   }
 
   function RingLightsOnFn() {
+    setModule(t("cCalibrationDwarfLogProcessRingLightsOn"));
     setShowModal(connectionCtx.loggerView);
     RingLightsHandlerFn(false, connectionCtx, setErrors, (options) => {
       setGotoMessages((prev) => prev.concat(options));
@@ -121,6 +130,7 @@ export default function CalibrationDwarf() {
   }
 
   function PowerLightsOffFn() {
+    setModule(t("cCalibrationDwarfLogProcessPowerLightsOff"));
     setShowModal(connectionCtx.loggerView);
     PowerLightsHandlerFn(true, connectionCtx, setErrors, (options) => {
       setGotoMessages((prev) => prev.concat(options));
@@ -128,6 +138,7 @@ export default function CalibrationDwarf() {
   }
 
   function PowerLightsOnFn() {
+    setModule(t("cCalibrationDwarfLogProcessPowerLightsOn"));
     setShowModal(connectionCtx.loggerView);
     PowerLightsHandlerFn(false, connectionCtx, setErrors, (options) => {
       setGotoMessages((prev) => prev.concat(options));
@@ -135,6 +146,7 @@ export default function CalibrationDwarf() {
   }
 
   function shutDownFn() {
+    setModule(t("cCalibrationDwarfLogProcessShutDown"));
     setShowModal(connectionCtx.loggerView);
     shutDownHandler(false, connectionCtx, setErrors, (options) => {
       setGotoMessages((prev) => prev.concat(options));
@@ -142,6 +154,7 @@ export default function CalibrationDwarf() {
   }
 
   function rebootFn() {
+    setModule(t("cCalibrationDwarfLogProcessReboot"));
     setShowModal(connectionCtx.loggerView);
     shutDownHandler(true, connectionCtx, setErrors, (options) => {
       setGotoMessages((prev) => prev.concat(options));
@@ -404,14 +417,6 @@ export default function CalibrationDwarf() {
           messages={gotoMessages}
           setMessages={setGotoMessages}
         />
-        {prevErrors && <span className="text-danger">{prevErrors} </span>}
-        {errors && errors != prevErrors && (
-          <span className="text-danger">{errors} </span>
-        )}
-        {prevSuccess && <span className="text-success">{prevSuccess} </span>}
-        {success && success != prevSuccess && (
-          <span className="text-success">{success}</span>
-        )}
       </div>
     </>
   );

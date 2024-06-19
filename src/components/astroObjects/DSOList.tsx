@@ -28,13 +28,16 @@ type PropType = {
   objects: AstroObject[];
   objectFavoriteNames: string[];
   setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
 };
 
 export default function DSOList(props: PropType) {
   let connectionCtx = useContext(ConnectionContext);
   let dsoObjects: AstroObject[] = props.objects;
   const { objectFavoriteNames, setObjectFavoriteNames } = props;
-
+  const { setModule, setErrors, setSuccess } = props;
   const [objects, setObjects] = useState(dsoObjects);
   const [selectedCategories, setSelectedCategories] = useState(["all"]);
   const [searchTxtValue, setSearchTxtValue] = useState(connectionCtx.searchTxt);
@@ -449,6 +452,9 @@ export default function DSOList(props: PropType) {
             object={object}
             objectFavoriteNames={objectFavoriteNames}
             setObjectFavoriteNames={setObjectFavoriteNames}
+            setModule={setModule}
+            setErrors={setErrors}
+            setSuccess={setSuccess}
           />
         ))}
       </div>

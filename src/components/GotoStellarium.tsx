@@ -79,7 +79,10 @@ export default function ManualGoto(props: PropType) {
       setErrors("Invalid declination: " + objectData.declination);
     }
 
-    setObjectName(objectData.objectNGC + " - " + objectData.objectName);
+    if (objectData.objectNGC)
+      setObjectName(objectData.objectNGC + " - " + objectData.objectName);
+    else
+      setObjectName(objectData.objectName);
 
     // find Object in DataBase
     console.log(objectData.objectNGC);
@@ -178,8 +181,6 @@ export default function ManualGoto(props: PropType) {
   }
 
   function importManualData() {
-    //    alert("test1 Ra:" + convertHMSToDecimalHours(RA, 9));
-    //   alert("test2 Ra:" + formatModifyRa(convertHMSToDecimalHours(RA, 9)));
     setShowImportModal(true);
   }
 

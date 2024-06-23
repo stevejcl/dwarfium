@@ -3,8 +3,9 @@ import i18n from "@/i18n";
 import { useEffect, useContext, useState } from "react";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { connectionHandler } from "@/lib/connect_utils";
+import { fetchIPDwarfDB } from "@/db/db_utils";
 
-function sleep(ms) {
+async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -19,12 +20,13 @@ export default function ConnectDwarfII() {
   async function checkConnection() {
     await sleep(100);
 
+    let IPDwarf = connectionCtx.IPDwarf;
+    if (IPDwarf === undefined || !IPDwarf) IPDwarf = fetchIPDwarfDB();
     setConnecting(true);
     setErrorTxt("");
-
     connectionHandler(
       connectionCtx,
-      connectionCtx.IPDwarf,
+      IPDwarf,
       false,
       setConnecting,
       setSlavemode,

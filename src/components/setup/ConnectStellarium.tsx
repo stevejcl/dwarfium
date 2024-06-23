@@ -13,10 +13,17 @@ import {
   saveUrlStellariumDB,
 } from "@/db/db_utils";
 
-export default function ConnectStellarium() {
+type PropType = {
+  showInfoTxt: boolean | undefined;
+};
+
+export default function ConnectStellarium(props: PropType) {
+  const { showInfoTxt } = props;
+
   let connectionCtx = useContext(ConnectionContext);
 
   const [connecting, setConnecting] = useState(false);
+  const [showInfoTxtData, setShowInfoTxtData] = useState(true);
 
   function checkConnection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -76,29 +83,39 @@ export default function ConnectStellarium() {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   useEffect(() => {
+    if (showInfoTxt !== undefined && !showInfoTxt) setShowInfoTxtData(false);
+
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
       i18n.changeLanguage(storedLanguage);
     }
   }, []);
+
+  function renderDetails() {
+    if (showInfoTxtData)
+      return (
+        <ol>
+          <li className="mb-2">{t("pConnectStellariumContent1")}</li>
+          <li className="mb-2">
+            {t("pConnectStellariumContent2")}{" "}
+            <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
+              Youtube video
+            </Link>{" "}
+            {t("pConnectStellariumContent2_1")}
+          </li>
+          <li className="mb-2">{t("pConnectStellariumContent3")}</li>
+        </ol>
+      );
+    else return <ol></ol>;
+  }
+
   return (
     <div>
       <h2>{t("pConnectStellarium")}</h2>
-      <p>{t("pConnectStellariumContent")}</p>
 
-      <ol>
-        <li className="mb-2">{t("pConnectStellariumContent1")}</li>
-        <li className="mb-2">
-          {t("pConnectStellariumContent2")}{" "}
-          <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
-            Youtube video
-          </Link>{" "}
-          {t("pConnectStellariumContent2_1")}
-        </li>
-        <li className="mb-2">{t("pConnectStellariumContent3")}</li>
-      </ol>
-
+      <p>{showInfoTxtData && t("pConnectStellariumContent")}</p>
+      {renderDetails()}
       <form onSubmit={checkConnection}>
         <div className="row mb-3">
           <div className="col-md-1">

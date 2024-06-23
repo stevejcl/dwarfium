@@ -156,6 +156,17 @@ body {
     margin-top: -40px;
 }
 
+.polar-align {
+    margin-left: 20%;
+    margin-top: -68px;
+}
+
+.polar-align-object {
+    padding-right: 50px;
+    margin-left: 25%;
+    margin-top: -73px;
+}
+
 .sethostmode-dwarf {
     display: flex;
     justify-content: space-between;

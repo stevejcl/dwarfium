@@ -61,7 +61,7 @@ export function processObjectListStellarium(
 }
 
 export function processObjectListOpenNGC(objects: ObjectOpenNGC[]) {
-  console.error("Create Objects List Objects");
+  console.debug("Create Objects List Objects");
   return objects
     .map((object) => {
       return {

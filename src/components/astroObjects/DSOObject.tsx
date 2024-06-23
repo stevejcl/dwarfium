@@ -33,8 +33,14 @@ type Message = {
   [k: string]: string;
 };
 export default function DSOObject(props: AstronomyObjectPropType) {
-  const { object, objectFavoriteNames, setObjectFavoriteNames } = props;
-  const { setModule, setErrors, setSuccess } = props;
+  const {
+    object,
+    objectFavoriteNames,
+    setObjectFavoriteNames,
+    setModule,
+    setErrors,
+    setSuccess,
+  } = props;
   let connectionCtx = useContext(ConnectionContext);
   const [showModal, setShowModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
@@ -43,8 +49,6 @@ export default function DSOObject(props: AstronomyObjectPropType) {
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
-
-  setModule(t("cCalibrationDwarfLogProcessAstroObject"));
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
@@ -55,6 +59,7 @@ export default function DSOObject(props: AstronomyObjectPropType) {
   }, []);
 
   useEffect(() => {
+    setModule(t("cCalibrationDwarfLogProcessAstroObject"));
     eventBus.on("clearErrors", () => {
       setErrors(undefined);
     });
@@ -103,20 +108,21 @@ export default function DSOObject(props: AstronomyObjectPropType) {
 
   function renderRiseSetTime() {
     if (connectionCtx.latitude && connectionCtx.longitude) {
-      let times = renderLocalRiseSetTime(
+      let timesObject = renderLocalRiseSetTime(
         object,
         connectionCtx.latitude,
         connectionCtx.longitude
       );
 
-      if (times?.error) {
-        return <span>{t(times.error)}</span>;
+      if (timesObject?.error) {
+        return <span>{t(timesObject.error)}</span>;
       }
 
-      if (times) {
+      if (timesObject) {
         return (
           <span>
-            {t("cObjectsRises")}: {times.rise}, {t("cObjectsSets")}: {times.set}
+            {t("cObjectsRises")}: {timesObject.rise}, {t("cObjectsSets")}:{" "}
+            {timesObject.set}
           </span>
         );
       }

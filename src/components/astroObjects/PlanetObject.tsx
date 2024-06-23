@@ -31,8 +31,6 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
-  setModule(t("cCalibrationDwarfLogProcessSolarObject"));
-
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
@@ -42,6 +40,7 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
   }, []);
 
   useEffect(() => {
+    setModule(t("cCalibrationDwarfLogProcessSolarObject"));
     eventBus.on("clearErrors", () => {
       setErrors(undefined);
     });
@@ -52,20 +51,20 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
 
   function renderRiseSetTime(object: AstroObject) {
     if (connectionCtx.latitude && connectionCtx.longitude) {
-      let times = renderLocalRiseSetTime(
+      let timesObject = renderLocalRiseSetTime(
         object,
         connectionCtx.latitude,
         connectionCtx.longitude
       );
 
-      if (times?.error) {
-        return <span>{times.error}</span>;
+      if (timesObject?.error) {
+        return <span>{timesObject.error}</span>;
       }
 
-      if (times) {
+      if (timesObject) {
         return (
           <span>
-            Rises: {times.rise}, Sets: {times.set}
+            Rises: {timesObject.rise}, Sets: {timesObject.set}
           </span>
         );
       }

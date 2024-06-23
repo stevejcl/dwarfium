@@ -1,6 +1,6 @@
 /*  eslint-disable @next/next/no-img-element */
 
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import {
   TransformWrapper,
   TransformComponent,
@@ -49,6 +49,7 @@ export default function DwarfCameras(props: PropType) {
   >("off");
   const [wideCameraSrc, setWideCameraSrc] = useState("");
   const [teleCameraSrc, setTeleCameraSrc] = useState("");
+  let lastRenderTime = useRef(Date.now());
 
   let IPDwarf = connectionCtx.IPDwarf || DwarfIP;
   const defaultTeleCameraSrc = "/images/dwarflab_camera.png";
@@ -259,8 +260,17 @@ export default function DwarfCameras(props: PropType) {
   }
 
   function renderMainCamera() {
-    console.info("Render useRawPreviewURL : ", useRawPreviewURL);
-    console.info("Render SRC : ", teleCameraSrc);
+    let newRenderTime = Date.now();
+
+    if (
+      lastRenderTime.current === undefined ||
+      newRenderTime > lastRenderTime.current + 500
+    ) {
+      lastRenderTime.current = newRenderTime;
+      console.debug("Timer Render useRawPreviewURL : ", useRawPreviewURL);
+    }
+    console.debug("Render useRawPreviewURL : ", useRawPreviewURL);
+    console.debug("Render SRC : ", teleCameraSrc);
     // TODO: use rawPreviewURL vs   telephotoURL,
     return (
       <div className="camera-container">

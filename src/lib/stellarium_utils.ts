@@ -13,7 +13,6 @@ export let catalogs = ["C", "Ced", "HIP", "IC", "LBN", "M", "NGC", "PGC"];
 
 export function parseStellariumData(text: string): ParsedStellariumData {
   let data = {} as ParsedStellariumData;
-
   const RADecData = parseRADec(text);
   if (RADecData) {
     data.RA = RADecData.RA;
@@ -52,7 +51,16 @@ function parseObjectName(text: string) {
 
     // Find the position of (
     let startIndex = content.indexOf("(");
-    if (startIndex !== -1)
+    if (startIndex == 0) {
+      let endIndex = content.indexOf(")", startIndex);
+      if (endIndex !== -1) {
+        let afterParenthesis = content.substring(endIndex + 1).trim();
+        // Return only the content after the closing ')'
+        return {
+          objectName: afterParenthesis,
+        };
+      }
+    } else if (startIndex !== -1)
       return {
         objectName: matches[1].split(")")[0].replace("<br />", "") + ")",
       };
@@ -111,13 +119,16 @@ function parseObjectNGC(text: string) {
       }
     } else {
       // Star  ?
-      // Split the content by " - " to get individual names
-      let names = content.split(" - ").map((name) => name.trim());
+      let indexDash = content.indexOf(" - ");
+      if (indexDash !== -1) {
+        // Split the content by " - " to get individual names
+        let names = content.split(" - ").map((name) => name.trim());
 
-      // Find the first occurrence of "HIP xxxx"
-      let hipName = names.find((name) => name.startsWith("HIP"));
+        // Find the first occurrence of "HIP xxxx"
+        let hipName = names.find((name) => name.startsWith("HIP"));
 
-      if (hipName) return { objectNGC: hipName };
+        if (hipName) return { objectNGC: hipName };
+      }
     }
   }
 }

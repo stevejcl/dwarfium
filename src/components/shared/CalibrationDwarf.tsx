@@ -14,6 +14,9 @@ import {
   gotoPositionHandler,
   RingLightsHandlerFn,
   PowerLightsHandlerFn,
+  dwarfResetMotorHandlerFn,
+  polarAlignHandlerFn,
+  polarAlignPositionHandlerFn,
 } from "@/lib/goto_utils";
 import {
   turnOnTeleCameraFn,
@@ -41,6 +44,7 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
   const [position, setPosition] = useState<string | undefined>();
   const [showModal, setShowModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
+  const [showPolarAlign, setShowPolarAlign] = useState(false);
   //const prevErrors = usePrevious(errors);
   //const prevSuccess = usePrevious(success);
 
@@ -84,6 +88,70 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
     });
   }
 
+  function dwarfResetMotorFn() {
+    setModule(t("cMotorResetProcess"));
+    let polarAlign = false;
+    setShowModal(connectionCtx.loggerView);
+    dwarfResetMotorHandlerFn(
+      polarAlign,
+      connectionCtx,
+      setErrors,
+      setSuccess,
+      (options) => {
+        setGotoMessages((prev) => prev.concat(options));
+      }
+    );
+  }
+
+  function polarAlignFn() {
+    setModule(t("cPolarAlignProcess"));
+    setShowModal(connectionCtx.loggerView);
+    polarAlignHandlerFn(connectionCtx, setErrors, setSuccess, (options) => {
+      setGotoMessages((prev) => prev.concat(options));
+    });
+  }
+
+  function polarAlignMode90Fn() {
+    setModule(t("cLensAlignProcess"));
+    setShowModal(connectionCtx.loggerView);
+    polarAlignPositionHandlerFn(
+      1,
+      connectionCtx,
+      setErrors,
+      setSuccess,
+      (options) => {
+        setGotoMessages((prev) => prev.concat(options));
+      }
+    );
+  }
+
+  function polarAlignMode0Fn() {
+    setModule(t("cLensAlignProcess"));
+    setShowModal(connectionCtx.loggerView);
+    polarAlignPositionHandlerFn(
+      0,
+      connectionCtx,
+      setErrors,
+      setSuccess,
+      (options) => {
+        setGotoMessages((prev) => prev.concat(options));
+      }
+    );
+  }
+
+  function polarAlignTurnDownFn() {
+    setModule(t("cLensTurnDownProcess"));
+    setShowModal(connectionCtx.loggerView);
+    polarAlignPositionHandlerFn(
+      2,
+      connectionCtx,
+      setErrors,
+      setSuccess,
+      (options) => {
+        setGotoMessages((prev) => prev.concat(options));
+      }
+    );
+  }
   function savePositionFn() {
     savePositionHandler(
       connectionCtx,
@@ -179,6 +247,10 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
     }
 
     connectionCtx.setPiPView((prev) => !prev);
+  }
+
+  function togglePolarAlignAction() {
+    setShowPolarAlign(!showPolarAlign);
   }
 
   function initCamera() {
@@ -401,9 +473,84 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
         </div>
       </div>
       <div>
-        <div className="col-sm-8">
-          {position && <span className="text-success">{position}</span>}
+        <div className="col-sm-8 mt-2">
+          &nbsp; {position && <span className="text-success">{position}</span>}
         </div>
+        {showPolarAlign && (
+          <div className="polar-align-object">
+            <button
+              className={`btn ${
+                connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+              } me-4 mt-5`}
+              onClick={dwarfResetMotorFn}
+              disabled={!connectionCtx.connectionStatus}
+            >
+              {t("cMotorResetAction")}
+            </button>
+            <button
+              className={`btn ${
+                connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+              } me-2 mt-5`}
+              onClick={polarAlignFn}
+              disabled={!connectionCtx.connectionStatus}
+            >
+              {t("cPolarAlignAction")}
+            </button>
+            <button
+              className={`btn ${
+                connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+              } me-2 mt-5`}
+              onClick={polarAlignMode90Fn}
+              disabled={!connectionCtx.connectionStatus}
+            >
+              {t("cPolarAlignTo90")}
+            </button>
+            <button
+              className={`btn ${
+                connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+              } me-2 mt-5`}
+              onClick={polarAlignMode0Fn}
+              disabled={!connectionCtx.connectionStatus}
+            >
+              {t("cPolarAlignInitial")}
+            </button>
+            <button
+              className={`btn ${
+                connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+              } me-2 mt-5`}
+              onClick={polarAlignTurnDownFn}
+              disabled={!connectionCtx.connectionStatus}
+            >
+              {t("cPolarAlignTurnDownLens")}
+            </button>
+          </div>
+        )}
+        {showPolarAlign && (
+          <div className="connect-dwarf" title={t("cMotorActionHide")}>
+            <button
+              className={`btn ${
+                connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+              } mb-4`}
+              onClick={togglePolarAlignAction}
+              disabled={!connectionCtx.connectionStatus}
+            >
+              {t(">")}
+            </button>
+          </div>
+        )}
+        {!showPolarAlign && (
+          <div className="connect-dwarf" title={t("cMotorActionShow")}>
+            <button
+              className={`btn ${
+                connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+              } mb-4`}
+              onClick={togglePolarAlignAction}
+              disabled={!connectionCtx.connectionStatus}
+            >
+              {t("<")}
+            </button>
+          </div>
+        )}
         <GotoModal
           object={
             {

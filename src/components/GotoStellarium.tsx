@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import ConnectStellarium from "@/components/setup/ConnectStellarium";
 import { statusPath, parseStellariumData } from "@/lib/stellarium_utils";
 import { AstroObject, ParsedStellariumData } from "@/types";
 import DSOObject from "@/components/astroObjects/DSOObject";
@@ -45,7 +46,6 @@ type PropType = {
 export default function ManualGoto(props: PropType) {
   const { objectFavoriteNames, setObjectFavoriteNames } = props;
   const { setModule, setErrors, setSuccess } = props;
-  setModule("");
   let connectionCtx = useContext(ConnectionContext);
   const [RA, setRA] = useState<string | undefined>();
   const [declination, setDeclination] = useState<string | undefined>();
@@ -81,8 +81,7 @@ export default function ManualGoto(props: PropType) {
 
     if (objectData.objectNGC)
       setObjectName(objectData.objectNGC + " - " + objectData.objectName);
-    else
-      setObjectName(objectData.objectName);
+    else setObjectName(objectData.objectName);
 
     // find Object in DataBase
     console.log(objectData.objectNGC);
@@ -223,6 +222,7 @@ export default function ManualGoto(props: PropType) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   useEffect(() => {
+    setModule("");
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
@@ -235,6 +235,10 @@ export default function ManualGoto(props: PropType) {
       {!connectionCtx.connectionStatusStellarium && (
         <p className="text-danger">{t("cGoToStellariumConnectStellarium")}</p>
       )}
+      {!connectionCtx.connectionStatusStellarium && (
+        <ConnectStellarium showInfoTxt={false} />
+      )}
+      {!connectionCtx.connectionStatusStellarium && <br />}
       {!connectionCtx.connectionStatus && (
         <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
       )}
@@ -245,6 +249,7 @@ export default function ManualGoto(props: PropType) {
         <li>{t("cGoToStellariumList1")}</li>
         <li>{t("cGoToStellariumList2")}</li>
       </ol>
+      <br />
       <button
         className={`btn ${
           connectionCtx.connectionStatusStellarium

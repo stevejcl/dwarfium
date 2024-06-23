@@ -76,6 +76,39 @@ export function fetchIPDwarfDB(): string | undefined {
   }
 }
 
+export function saveIPConnectDB(ip: string) {
+  localStorage.setItem("IPConnect", ip);
+}
+
+export function fetchIPConnectDB(): string | undefined {
+  let data = localStorage.getItem("IPConnect");
+  if (data) {
+    return data;
+  }
+}
+
+export function saveIPCheckTimerDB(ip: string) {
+  localStorage.setItem("IPCheckTimer", ip);
+}
+
+export function fetchIPCheckTimerDB(): string | undefined {
+  let data = localStorage.getItem("IPCheckTimer");
+  if (data) {
+    return data;
+  }
+}
+
+export function saveLastCheckTimerDB() {
+  localStorage.setItem("LastCheckTimer", Date.now().toString());
+}
+
+export function fetchLastCheckTimerDB(): number | undefined {
+  let time = localStorage.getItem("LastCheckTimer");
+  if (time) {
+    return Number(time);
+  }
+}
+
 export function saveBlePWDDwarfDB(ble_pwd: string) {
   localStorage.setItem("BlePWDDwarf", ble_pwd);
 }

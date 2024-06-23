@@ -12,7 +12,7 @@ import {
   saveInitialConnectionTimeDB,
 } from "@/db/db_utils";
 import { getAllTelescopeISPSetting } from "@/lib/dwarf_utils";
-import { saveImagingSessionDb } from "@/db/db_utils";
+import { saveImagingSessionDb, saveIPConnectDB } from "@/db/db_utils";
 import { logger } from "@/lib/logger";
 
 export async function connectionHandler(
@@ -48,6 +48,7 @@ export async function connectionHandler(
       connectionCtx.setInitialConnectionTime(Date.now());
       saveConnectionStatusDB(true);
       saveInitialConnectionTimeDB();
+      saveIPConnectDB(IPDwarf);
     } else if (
       result_data.cmd ==
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE

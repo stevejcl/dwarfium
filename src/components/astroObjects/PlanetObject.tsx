@@ -1,4 +1,7 @@
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 import { useState, useContext, useEffect } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { AstroObject } from "@/types";
@@ -9,20 +12,35 @@ import GotoModal from "./GotoModal";
 
 type AstronomyObjectPropType = {
   object: AstroObject;
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
 };
 type Message = {
   [k: string]: string;
 };
 export default function PlanetObject(props: AstronomyObjectPropType) {
   const { object } = props;
+  const { setModule, setErrors, setSuccess } = props;
 
   let connectionCtx = useContext(ConnectionContext);
-  const [errors, setErrors] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
   const [showModal, setShowModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
   useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
+  useEffect(() => {
+    setModule(t("cCalibrationDwarfLogProcessSolarObject"));
     eventBus.on("clearErrors", () => {
       setErrors(undefined);
     });
@@ -33,20 +51,20 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
 
   function renderRiseSetTime(object: AstroObject) {
     if (connectionCtx.latitude && connectionCtx.longitude) {
-      let times = renderLocalRiseSetTime(
+      let timesObject = renderLocalRiseSetTime(
         object,
         connectionCtx.latitude,
         connectionCtx.longitude
       );
 
-      if (times?.error) {
-        return <span>{times.error}</span>;
+      if (timesObject?.error) {
+        return <span>{timesObject.error}</span>;
       }
 
-      if (times) {
+      if (timesObject) {
         return (
           <span>
-            Rises: {times.rise}, Sets: {times.set}
+            Rises: {timesObject.rise}, Sets: {timesObject.set}
           </span>
         );
       }
@@ -132,8 +150,6 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
             messages={gotoMessages}
             setMessages={setGotoMessages}
           />
-          {errors && <span className="text-danger">{errors}</span>}
-          {success && <span className="text-success">{success}</span>}
         </div>
       </div>
     </div>

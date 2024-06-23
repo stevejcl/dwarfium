@@ -54,7 +54,7 @@ import { saveAstroSettingsDb } from "@/db/db_utils";
 export const telephotoCamera = 0;
 export const wideangleCamera = 1;
 
-function sleep(ms) {
+async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 

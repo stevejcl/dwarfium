@@ -3,6 +3,7 @@ import { ArraySensorDataInterface } from "@/lib/witmotion/Interfaces";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import DwarfCameras from "@/components/DwarfCameras";
 import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
+import PolarAlign from "@/components/shared/PolarAlign";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import i18n from "@/i18n";
@@ -23,9 +24,13 @@ export const Graphs: React.FC<GraphsInterface> = ({ inputData }) => {
       i18n.changeLanguage(storedLanguage);
     }
   }, []);
+
   return (
     <>
-      <ConnectDwarfII />
+      <div className="polar-align">
+        <PolarAlign />
+        <ConnectDwarfII />
+      </div>
       <Grid2 container spacing={4}>
         <Grid2 md={9} xs={12} className="camera-container">
           <div className="camera-witmotion">
@@ -41,6 +46,10 @@ export const Graphs: React.FC<GraphsInterface> = ({ inputData }) => {
                 useRawPreviewURL={false}
                 showControls={false}
               />
+              <br />
+              <br />
+              <br />
+              <br />
             </main>
           </div>
         </Grid2>

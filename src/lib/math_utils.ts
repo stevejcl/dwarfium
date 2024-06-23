@@ -67,12 +67,47 @@ export function formatRa(raDecimal) {
     return "Invalid RA";
   }
 
-  const hours = Math.floor(raDecimal);
+  let hours = Math.floor(raDecimal);
   const minutesDecimal = (raDecimal % 1) * 60;
-  const minutes = Math.floor(minutesDecimal);
-  const seconds = (minutesDecimal % 1) * 60;
+  let minutes = Math.floor(minutesDecimal);
+  let seconds = (minutesDecimal % 1) * 60;
+  seconds = Math.round(seconds * 100) / 100;
+
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes += 1;
+  }
+
+  if (minutes >= 60) {
+    minutes = 0;
+    hours += 1;
+  }
 
   return `${hours}h ${minutes}m ${seconds.toFixed(2)}s`;
+}
+
+export function formatModifyRa(raDecimal) {
+  if (raDecimal === false) {
+    return "Invalid RA";
+  }
+
+  let hours = Math.floor(raDecimal);
+  const minutesDecimal = (raDecimal % 1) * 60;
+  let minutes = Math.floor(minutesDecimal);
+  let seconds = (minutesDecimal % 1) * 60;
+  seconds = Math.round(seconds * 100) / 100;
+
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes += 1;
+  }
+
+  if (minutes >= 60) {
+    minutes = 0;
+    hours += 1;
+  }
+
+  return `${hours}:${minutes}:${seconds.toFixed(2)}`;
 }
 
 export function parseDecToFloat(decString) {
@@ -95,11 +130,10 @@ export function parseDecToFloat(decString) {
   if (decParts.length !== 3 || decParts.some(isNaN)) {
     return false;
   }
-
   const [degrees, minutes, seconds] = decParts;
 
   // Convert to decimal degrees
-  const decDecimal = sign * degrees + minutes / 60 + seconds / 3600;
+  const decDecimal = sign * (degrees + minutes / 60 + seconds / 3600);
 
   return decDecimal;
 }
@@ -110,13 +144,50 @@ export function formatDec(decDecimal) {
   }
 
   const absDecDecimal = Math.abs(decDecimal);
-  const degrees = Math.floor(absDecDecimal);
-  const minutes = Math.floor((absDecDecimal % 1) * 60);
-  const seconds = (absDecDecimal * 3600) % 60;
+  let degrees = Math.floor(absDecDecimal);
+  let minutes = Math.floor((absDecDecimal % 1) * 60);
+  let seconds = (absDecDecimal * 3600) % 60;
+  seconds = Math.round(seconds * 100) / 100;
+
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes += 1;
+  }
+
+  if (minutes >= 60) {
+    minutes = 0;
+    degrees += 1;
+  }
 
   const sign = decDecimal < 0 ? "-" : "+";
 
   return `${sign}${degrees}° ${minutes}' ${seconds.toFixed(1)}"`;
+}
+
+export function formatModifyDec(decDecimal) {
+  if (decDecimal === false) {
+    return "Invalid Dec";
+  }
+
+  const absDecDecimal = Math.abs(decDecimal);
+  let degrees = Math.floor(absDecDecimal);
+  let minutes = Math.floor((absDecDecimal % 1) * 60);
+  let seconds = (absDecDecimal * 3600) % 60;
+  seconds = Math.round(seconds * 100) / 100;
+
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes += 1;
+  }
+
+  if (minutes >= 60) {
+    minutes = 0;
+    degrees += 1;
+  }
+
+  const sign = decDecimal < 0 ? "-" : "+";
+
+  return `${sign}${degrees}:${minutes}:${seconds.toFixed(1)}`;
 }
 
 // https://www.vedantu.com/question-answer/calculate-the-right-ascension-and-decli-class-11-physics-cbse-5ff94d1cbfdd3912f3ab841e
@@ -223,10 +294,24 @@ export function convertDecimalDegreesToHMS(decimal: number) {
 // Dwarf uses RA in decimal hour : don't divide by 15 !
 export function convertDecimalHoursToHMS(decimal: number) {
   let degree = decimal;
+  let hours = 0 | (degree < 0 ? (degree = -degree) : degree);
+  let minutes = 0 | (((degree += 1e-9) % 1) * 60);
+  let seconds = (0 | (((degree * 60) % 1) * 6000)) / 100;
+
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes += 1;
+  }
+
+  if (minutes >= 60) {
+    minutes = 0;
+    hours += 1;
+  }
+
   return {
-    hour: 0 | (degree < 0 ? (degree = -degree) : degree),
-    minute: 0 | (((degree += 1e-9) % 1) * 60),
-    second: (0 | (((degree * 60) % 1) * 6000)) / 100,
+    hour: hours,
+    minute: minutes,
+    second: seconds,
   };
 }
 
@@ -312,11 +397,25 @@ export function extractDMSValues(text: string) {
 export function convertDecimalDegreesToDMS(decimal: number) {
   const data = sexa.degToDMS(decimal);
 
+  let degrees = data[1];
+  let minutes = data[2];
+  let seconds = data[3];
+
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes += 1;
+  }
+
+  if (minutes >= 60) {
+    minutes = 0;
+    degrees += 1;
+  }
+
   return {
     negative: data[0],
-    degree: data[1],
-    minute: data[2],
-    second: data[3],
+    degree: degrees,
+    minute: minutes,
+    second: seconds,
   };
 }
 

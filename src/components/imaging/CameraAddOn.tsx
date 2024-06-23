@@ -49,6 +49,8 @@ export default function CameraAddOn(props: PropTypes) {
   const { showModal, setShowModal } = props;
   const [imgSrc] = useState<string>("/images/photo-camera-white.png");
   const [errorTxt, setErrorTxt] = useState("");
+  const [oldErrorTxt, setOldErrorTxt] = useState<string>("");
+  const [isVisible, setIsVisible] = useState(true);
 
   const [joystickId, setJoystickId] = useState(undefined);
   const joystickSpeed = useRef(2.2);
@@ -135,6 +137,25 @@ export default function CameraAddOn(props: PropTypes) {
   const [teleSharpnessValue, setTeleSharpnessValue] = useState<
     number | undefined
   >(connectionCtx.cameraTeleSettings.sharpness);
+
+  useEffect(() => {
+    if (errorTxt != oldErrorTxt) {
+      setIsVisible(true);
+      setOldErrorTxt(errorTxt);
+      let timer;
+      if (activeAction == PhotosModeActions[2].toString()) {
+        timer = setTimeout(() => {
+          setIsVisible(false);
+        }, 30000);
+      } else {
+        timer = setTimeout(() => {
+          setIsVisible(false);
+        }, 6000);
+      }
+      // Clear the timeout if new messages come in within the 10 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [errorTxt]);
 
   // Size > 1500
   let closePane = useRef(true);
@@ -777,7 +798,7 @@ export default function CameraAddOn(props: PropTypes) {
 
   return (
     <div>
-      {errorTxt && showModal && closePane.current && (
+      {isVisible && errorTxt && showModal && closePane.current && (
         <div
           className="slide-pane_from_bottom"
           style={{
@@ -787,7 +808,12 @@ export default function CameraAddOn(props: PropTypes) {
             transform: "translateX(-50%)",
             width: "fit-content",
             height: "30px",
-            padding: "0px",
+            paddingTop: "5px",
+            paddingBottom: "20px",
+            paddingLeft: "50px",
+            paddingRight: "50px",
+            color: "rgb(255, 255, 255)",
+            backgroundColor: "rgba(0,178,128, 0.7)",
           }}
         >
           {errorTxt}

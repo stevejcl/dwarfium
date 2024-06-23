@@ -18,6 +18,8 @@ import {
   messageRgbPowerOpenRGB,
   messageRgbPowerPowerIndOFF,
   messageRgbPowerPowerIndON,
+  messageStepMotorReset,
+  messageStepMotorMotionTo,
   //  messageCameraTeleGetAllFeatureParams,
   WebSocketHandler,
 } from "dwarfii_api";
@@ -40,7 +42,7 @@ import {
   getAllTelescopeISPSetting,
 } from "@/lib/dwarf_utils";
 
-function sleep(ms) {
+async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -473,7 +475,9 @@ function resetCameraData(connectionCtx) {
 
 export function savePositionHandler(
   connectionCtx: ConnectionContextType,
-  setPosition: Dispatch<SetStateAction<string | undefined>>
+  setPosition: Dispatch<SetStateAction<string | undefined>>,
+  current_position = "Recorded Position: ",
+  no_position = "No Recorded Position"
 ) {
   //Save Position
 
@@ -499,13 +503,14 @@ export function savePositionHandler(
 
       connectionCtx.setIsSavedPosition(true);
       setPosition(
-        "alt: " +
+        current_position +
+          "alt: " +
           ConvertStrDeg(formatFloatToDecimalPlaces(results.alt, 4)) +
           ",az: " +
           ConvertStrDeg(formatFloatToDecimalPlaces(results.az, 4))
       );
     }
-  } else setPosition("No position has been recorded");
+  } else setPosition(no_position);
 }
 
 export function gotoPositionHandler(
@@ -513,7 +518,9 @@ export function gotoPositionHandler(
   setPosition: Dispatch<SetStateAction<string | undefined>>,
   setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
   setGotoSuccess: Dispatch<SetStateAction<string | undefined>>,
-  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+  callback?: (options: any) => void, // eslint-disable-line no-unused-vars
+  info_txt = "Initial Position",
+  no_position = "No Recorded Position"
 ) {
   //get Save Position
   let today = new Date();
@@ -533,7 +540,8 @@ export function gotoPositionHandler(
 
     if (results) {
       setPosition(
-        "alt: " +
+        info_txt +
+          ": alt: " +
           ConvertStrDeg(
             formatFloatToDecimalPlaces(
               connectionCtx.astroSavePosition.altitude,
@@ -559,12 +567,12 @@ export function gotoPositionHandler(
         undefined,
         ConvertStrHours(results.ra / 15),
         ConvertStrDeg(results.dec),
-        "",
+        info_txt,
         callback,
         true
       );
     }
-  } else setPosition("No position has been recorded");
+  } else setPosition(no_position);
 }
 
 export async function stopGotoHandler(
@@ -786,7 +794,299 @@ export async function shutDownHandler(
     console.error(" Can't launch Web Socket Run Action!");
   }
 
-  await sleep(20000);
+  await sleep(5000);
+}
+
+export async function dwarfResetMotorHandlerFn(
+  polarAlign: boolean,
+  connectionCtx: ConnectionContextType,
+  setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
+  setGotoSuccess: Dispatch<SetStateAction<string | undefined>>,
+  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+) {
+  if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+
+  setGotoErrors(undefined);
+  setGotoSuccess("Start Motor Reseting");
+  eventBus.dispatch("clearErrors", { message: "clear errors" });
+  let currentCommand = 0;
+  let maxCommand = 4;
+
+  const customMessageHandler = (txt_info, result_data) => {
+    let find_error = false;
+    if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_STEP_MOTOR_RESET) {
+      if (result_data.type == 3) {
+        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+          console.log("Notification CMD_STEP_MOTOR_RESET");
+          processCommand(currentCommand);
+          currentCommand++;
+          setGotoSuccess("Motor Reset");
+          setGotoErrors("");
+          if (callback) {
+            callback("Polar align Goto");
+          }
+        } else find_error = true;
+      } else if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setGotoSuccess("Motor Reset");
+        setGotoErrors("");
+        if (callback) {
+          callback("Motor Reseting");
+        }
+      } else find_error = true;
+    } else {
+      logger("", result_data, connectionCtx);
+      return;
+    }
+    if (callback) {
+      callback(result_data);
+    }
+    logger(txt_info, result_data, connectionCtx);
+    if (find_error) {
+      if (result_data.data.errorPlainTxt)
+        setGotoErrors("Error: " + result_data.data.errorPlainTxt);
+      else if (result_data.data.errorTxt)
+        setGotoErrors("Error: " + result_data.data.errorTxt);
+      else setGotoErrors("Error: " + result_data.data.code);
+    }
+  };
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  if (connectionCtx.socketIPDwarf) {
+    console.log("OK KEEP SOCKET");
+  } else {
+    console.log("NO NEW SOCKET");
+  }
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  const processCommand = (indCommand) => {
+    if (indCommand < maxCommand) {
+      webSocketHandler.prepare(
+        WS_Packet[indCommand],
+        txtInfoCommand,
+        [Dwarfii_Api.DwarfCMD.CMD_STEP_MOTOR_RESET],
+        customMessageHandler
+      );
+    }
+    if (indCommand == maxCommand && polarAlign)
+      polarAlignHandlerFn(
+        connectionCtx,
+        setGotoErrors,
+        setGotoSuccess,
+        callback
+      );
+  };
+  // Send Command : messageStepMotorReset
+  let WS_Packet = new Array();
+  WS_Packet[0] = messageStepMotorReset(1, true);
+  WS_Packet[1] = messageStepMotorReset(1, false);
+  WS_Packet[2] = messageStepMotorReset(2, false);
+  WS_Packet[3] = messageStepMotorReset(2, true);
+  let txtInfoCommand = "motor Reset";
+
+  if (!webSocketHandler.run()) {
+    console.error(" Can't launch Web Socket Run Action!");
+  }
+
+  processCommand(currentCommand);
+  currentCommand++;
+}
+
+export async function polarAlignHandlerFn(
+  connectionCtx: ConnectionContextType,
+  setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
+  setGotoSuccess: Dispatch<SetStateAction<string | undefined>>,
+  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+) {
+  if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+
+  setGotoErrors(undefined);
+  setGotoSuccess("Start Polar Align Process");
+  eventBus.dispatch("clearErrors", { message: "clear errors" });
+  let currentCommand = 0;
+  let maxCommand = 2;
+
+  const customMessageHandler = (txt_info, result_data) => {
+    let find_error = false;
+    if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_STEP_MOTOR_RUN_TO) {
+      if (result_data.type == 3) {
+        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+          console.log("Notification CMD_STEP_MOTOR_RUN_TO");
+          if (currentCommand < maxCommand) {
+            processCommand(currentCommand);
+            currentCommand++;
+            setGotoSuccess("Motor Goto Position");
+            setGotoErrors("");
+            if (callback) {
+              callback("Polar align Goto");
+            }
+          } else {
+            // End OK
+            setGotoSuccess("POLAR ALIGN POSITION OK");
+            setGotoErrors("");
+          }
+        } else find_error = true;
+      } else if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setGotoSuccess("Motor Goto Position");
+        setGotoErrors("");
+        if (callback) {
+          callback("Polar align Goto");
+        }
+      } else find_error = true;
+    } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_STEP_MOTOR_RESET) {
+      if (result_data.type == 3) {
+        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+          console.log("Notification CMD_STEP_MOTOR_RESET");
+          processCommand(currentCommand);
+          currentCommand++;
+          setGotoSuccess("Motor Reset");
+          setGotoErrors("");
+          if (callback) {
+            callback("Polar align Goto");
+          }
+        } else find_error = true;
+      } else if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setGotoSuccess("Motor Reset");
+        setGotoErrors("");
+        if (callback) {
+          callback("Polar align Goto");
+        }
+      } else find_error = true;
+    } else {
+      logger("", result_data, connectionCtx);
+      return;
+    }
+    if (callback) {
+      callback(result_data);
+    }
+    logger(txt_info, result_data, connectionCtx);
+    if (find_error) {
+      if (result_data.data.errorPlainTxt)
+        setGotoErrors("Error: " + result_data.data.errorPlainTxt);
+      else if (result_data.data.errorTxt)
+        setGotoErrors("Error: " + result_data.data.errorTxt);
+      else setGotoErrors("Error: " + result_data.data.code);
+    }
+  };
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  if (connectionCtx.socketIPDwarf) {
+    console.log("OK KEEP SOCKET");
+  } else {
+    console.log("NO NEW SOCKET");
+  }
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  const processCommand = (indCommand) => {
+    if (indCommand < maxCommand) {
+      webSocketHandler.prepare(
+        WS_Packet[indCommand],
+        txtInfoCommand,
+        [Dwarfii_Api.DwarfCMD.CMD_STEP_MOTOR_RUN_TO],
+        customMessageHandler
+      );
+    }
+  };
+  // Send Command : messageStepMotorReset
+  let WS_Packet = new Array();
+  WS_Packet[0] = messageStepMotorMotionTo(1, 160, 10, 100, 3);
+  WS_Packet[1] = messageStepMotorMotionTo(2, 146.5, 10, 100, 3);
+  let txtInfoCommand = "Polar align Goto";
+
+  if (!webSocketHandler.run()) {
+    console.error(" Can't launch Web Socket Run Action!");
+  }
+
+  processCommand(currentCommand);
+  currentCommand++;
+}
+
+export async function polarAlignPositionHandlerFn(
+  mode: number,
+  connectionCtx: ConnectionContextType,
+  setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
+  setGotoSuccess: Dispatch<SetStateAction<string | undefined>>,
+  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+) {
+  if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+
+  setGotoErrors(undefined);
+  setGotoSuccess("Start Polar Align Position");
+  eventBus.dispatch("clearErrors", { message: "clear errors" });
+
+  const customMessageHandler = (txt_info, result_data) => {
+    let find_error = false;
+    if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_STEP_MOTOR_RUN_TO) {
+      if (result_data.type == 3) {
+        if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+          console.log("Notification CMD_STEP_MOTOR_RUN_TO");
+          if (mode == 1) setGotoSuccess("POLAR ALIGN POSITION OK");
+          else setGotoSuccess("POLAR ALIGN POSITION OK");
+          setGotoErrors("");
+          if (callback) {
+            callback("Polar align Goto");
+          }
+        } else find_error = true;
+      } else if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setGotoSuccess("Motor Goto Position");
+        setGotoErrors("");
+        if (callback) {
+          callback("Polar align Goto");
+        }
+      } else find_error = true;
+    } else {
+      logger("", result_data, connectionCtx);
+      return;
+    }
+    if (callback) {
+      callback(result_data);
+    }
+    logger(txt_info, result_data, connectionCtx);
+    if (find_error) {
+      if (result_data.data.errorPlainTxt)
+        setGotoErrors("Error: " + result_data.data.errorPlainTxt);
+      else if (result_data.data.errorTxt)
+        setGotoErrors("Error: " + result_data.data.errorTxt);
+      else setGotoErrors("Error: " + result_data.data.code);
+    }
+  };
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  if (connectionCtx.socketIPDwarf) {
+    console.log("OK KEEP SOCKET");
+  } else {
+    console.log("NO NEW SOCKET");
+  }
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  let WS_Packet;
+  if (mode == 1) WS_Packet = messageStepMotorMotionTo(1, 69, 10, 100, 3);
+  else if (mode == 0) WS_Packet = messageStepMotorMotionTo(1, 160, 10, 100, 3);
+  else if (mode == 2) WS_Packet = messageStepMotorMotionTo(2, 317, 10, 100, 2);
+
+  let txtInfoCommand = "Polar align Position";
+
+  webSocketHandler.prepare(
+    WS_Packet,
+    txtInfoCommand,
+    [Dwarfii_Api.DwarfCMD.CMD_STEP_MOTOR_RUN_TO],
+    customMessageHandler
+  );
+
+  if (!webSocketHandler.run()) {
+    console.error(" Can't launch Web Socket Run Action!");
+  }
 }
 
 export function stellariumErrorHandler(

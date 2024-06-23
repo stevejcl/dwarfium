@@ -11,6 +11,7 @@ describe("parseStellariumData", () => {
       RA: "3h43m23.32s",
       declination: "+19°43'59.3\"",
       objectName: "Sun",
+      objectNGC: "",
     };
     let res = parseStellariumData(text);
 
@@ -24,6 +25,7 @@ describe("parseStellariumData", () => {
       RA: "56.99046°",
       declination: "19.9770°",
       objectName: "Sun",
+      objectNGC: "",
     };
     let res = parseStellariumData(text);
 
@@ -38,6 +40,7 @@ describe("parseStellariumData", () => {
       RA: "13h25m12.45s",
       declination: "-11°09'47.6\"",
       objectName: "Spica (Azimech - Alaraph)",
+      objectNGC: "",
     };
     let res = parseStellariumData(text);
 

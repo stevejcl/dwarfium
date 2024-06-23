@@ -39,7 +39,7 @@ export default function SetupScope() {
         <hr />
         <ConnectDwarf />
         <hr />
-        <ConnectStellarium />
+        <ConnectStellarium showInfoTxt={true} />
       </div>
       <br />
       <br />

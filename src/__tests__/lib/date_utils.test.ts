@@ -2,21 +2,21 @@ import { calculateImagingTime, calculateElapsedTime } from "@/lib/date_utils";
 
 describe("calculateImagingTime", () => {
   it("returns seconds if total time is <= 59 seconds", () => {
-    let times = [
+    let timesObject = [
       { count: 0, expected: { hours: 0, minutes: 0, seconds: 0 } },
       { count: 5, expected: { hours: 0, minutes: 0, seconds: 5 } },
       { count: 59, expected: { hours: 0, minutes: 0, seconds: 59 } },
     ];
     let exposure = 1;
 
-    times.forEach((time) => {
-      let res = calculateImagingTime(time.count, exposure);
-      expect(res).toEqual(time.expected);
+    timesObject.forEach((timeObject) => {
+      let res = calculateImagingTime(timeObject.count, exposure);
+      expect(res).toEqual(timeObject.expected);
     });
   });
 
   it("returns minutes and seconds if total time is > 59 and < 3600", () => {
-    let times = [
+    let timesObject = [
       { count: 60, expected: { hours: 0, minutes: 1, seconds: 0 } },
       { count: 65, expected: { hours: 0, minutes: 1, seconds: 5 } },
       { count: 179, expected: { hours: 0, minutes: 2, seconds: 59 } },
@@ -24,14 +24,14 @@ describe("calculateImagingTime", () => {
     ];
     let exposure = 1;
 
-    times.forEach((time) => {
-      let res = calculateImagingTime(time.count, exposure);
-      expect(res).toEqual(time.expected);
+    timesObject.forEach((timeObject) => {
+      let res = calculateImagingTime(timeObject.count, exposure);
+      expect(res).toEqual(timeObject.expected);
     });
   });
 
   it("returns hours, minutes and seconds if total time is >= 3600 ", () => {
-    let times = [
+    let timesObject = [
       { count: 3600, expected: { hours: 1, minutes: 0, seconds: 0 } },
       { count: 3605, expected: { hours: 1, minutes: 0, seconds: 5 } },
       { count: 3779, expected: { hours: 1, minutes: 2, seconds: 59 } },
@@ -40,16 +40,16 @@ describe("calculateImagingTime", () => {
     ];
     let exposure = 1;
 
-    times.forEach((time) => {
-      let res = calculateImagingTime(time.count, exposure);
-      expect(res).toEqual(time.expected);
+    timesObject.forEach((timeObject) => {
+      let res = calculateImagingTime(timeObject.count, exposure);
+      expect(res).toEqual(timeObject.expected);
     });
   });
 });
 
 describe("calculateElapsedTime", () => {
   it("returns seconds if total time is <= 59 seconds", () => {
-    let times = [
+    let timesObject = [
       {
         start: "2000-01-01 12:00:00",
         now: "2000-01-01 12:00:00",
@@ -67,17 +67,17 @@ describe("calculateElapsedTime", () => {
       },
     ];
 
-    times.forEach((time) => {
+    timesObject.forEach((timeObject) => {
       let res = calculateElapsedTime(
-        new Date(time.start).getTime(),
-        new Date(time.now).getTime()
+        new Date(timeObject.start).getTime(),
+        new Date(timeObject.now).getTime()
       );
-      expect(res).toEqual(time.expected);
+      expect(res).toEqual(timeObject.expected);
     });
   });
 
   it("returns minutes and seconds if total time is > 59 and < 3600", () => {
-    let times = [
+    let timesObject = [
       {
         start: "2000-01-01 12:00:00",
         now: "2000-01-01 12:01:00",
@@ -100,17 +100,17 @@ describe("calculateElapsedTime", () => {
       },
     ];
 
-    times.forEach((time) => {
+    timesObject.forEach((timeObject) => {
       let res = calculateElapsedTime(
-        new Date(time.start).getTime(),
-        new Date(time.now).getTime()
+        new Date(timeObject.start).getTime(),
+        new Date(timeObject.now).getTime()
       );
-      expect(res).toEqual(time.expected);
+      expect(res).toEqual(timeObject.expected);
     });
   });
 
   it("returns hours, minutes and seconds if total time is >= 3600 ", () => {
-    let times = [
+    let timesObject = [
       {
         start: "2000-01-01 12:00:00",
         now: "2000-01-01 13:00:00",
@@ -138,12 +138,12 @@ describe("calculateElapsedTime", () => {
       },
     ];
 
-    times.forEach((time) => {
+    timesObject.forEach((timeObject) => {
       let res = calculateElapsedTime(
-        new Date(time.start).getTime(),
-        new Date(time.now).getTime()
+        new Date(timeObject.start).getTime(),
+        new Date(timeObject.now).getTime()
       );
-      expect(res).toEqual(time.expected);
+      expect(res).toEqual(timeObject.expected);
     });
   });
 });

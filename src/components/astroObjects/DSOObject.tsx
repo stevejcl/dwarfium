@@ -25,16 +25,23 @@ type AstronomyObjectPropType = {
   object: AstroObject;
   objectFavoriteNames: string[];
   setObjectFavoriteNames: Dispatch<SetStateAction<string[]>>;
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
 };
 type Message = {
   [k: string]: string;
 };
 export default function DSOObject(props: AstronomyObjectPropType) {
-  const { object, objectFavoriteNames, setObjectFavoriteNames } = props;
-
+  const {
+    object,
+    objectFavoriteNames,
+    setObjectFavoriteNames,
+    setModule,
+    setErrors,
+    setSuccess,
+  } = props;
   let connectionCtx = useContext(ConnectionContext);
-  const [errors, setErrors] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
   const [showModal, setShowModal] = useState(false);
   const [gotoMessages, setGotoMessages] = useState<Message[]>([] as Message[]);
   const [forceFavoriteUpdate, setForceFavoriteUpdate] = useState(false);
@@ -52,6 +59,7 @@ export default function DSOObject(props: AstronomyObjectPropType) {
   }, []);
 
   useEffect(() => {
+    setModule(t("cCalibrationDwarfLogProcessAstroObject"));
     eventBus.on("clearErrors", () => {
       setErrors(undefined);
     });
@@ -100,20 +108,21 @@ export default function DSOObject(props: AstronomyObjectPropType) {
 
   function renderRiseSetTime() {
     if (connectionCtx.latitude && connectionCtx.longitude) {
-      let times = renderLocalRiseSetTime(
+      let timesObject = renderLocalRiseSetTime(
         object,
         connectionCtx.latitude,
         connectionCtx.longitude
       );
 
-      if (times?.error) {
-        return <span>{t(times.error)}</span>;
+      if (timesObject?.error) {
+        return <span>{t(timesObject.error)}</span>;
       }
 
-      if (times) {
+      if (timesObject) {
         return (
           <span>
-            {t("cObjectsRises")}: {times.rise}, {t("cObjectsSets")}: {times.set}
+            {t("cObjectsRises")}: {timesObject.rise}, {t("cObjectsSets")}:{" "}
+            {timesObject.set}
           </span>
         );
       }
@@ -220,6 +229,10 @@ export default function DSOObject(props: AstronomyObjectPropType) {
     );
   }
 
+  function saveData() {
+    connectionCtx.setSaveAstroData(object);
+  }
+
   return (
     <div className="border-bottom p-2">
       <h3 className="fs-5 mb-0">
@@ -270,11 +283,21 @@ export default function DSOObject(props: AstronomyObjectPropType) {
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more02" : "btn-secondary"
-            } me-2 mb-2`}
+            } me-4 mb-2`}
             onClick={gotoFn}
             disabled={!connectionCtx.connectionStatus}
           >
             {t("cObjectsGoto")}
+          </button>
+          <button
+            className={`btn btn-more02 me-2 mb-2`}
+            onClick={saveData}
+            disabled={
+              !connectionCtx.saveAstroData ||
+              object.displayName == connectionCtx.saveAstroData.displayName
+            }
+          >
+            {t("cObjectsCopyData")}
           </button>
           <br />
           <GotoModal
@@ -284,8 +307,6 @@ export default function DSOObject(props: AstronomyObjectPropType) {
             messages={gotoMessages}
             setMessages={setGotoMessages}
           />
-          {errors && <span className="text-danger">{errors}</span>}
-          {success && <span className="text-success">{success}</span>}
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import i18n from "@/i18n";
 
 import { useContext } from "react";
@@ -12,6 +12,7 @@ import CalibrationDwarf from "@/components/shared/CalibrationDwarf";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import { useLoadIntialValues } from "@/hooks/useLoadIntialValues";
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { fetchObjectFavoriteNamesDb } from "@/db/db_utils";
 
 import ResizablePIP from "@/components/ResizablePIP";
 import DwarfCameras from "@/components/DwarfCameras";
@@ -24,6 +25,14 @@ export default function Goto() {
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const [objectFavoriteNames, setObjectFavoriteNames] = useState<string[]>([]);
+  const [errors, setErrors] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
+  const [module, setModule] = useState<string | undefined>();
+  const [isVisible, setIsVisible] = useState(true);
+  const [message, setMessage] = useState<string | undefined>();
+  const prevErrors = usePrevious(errors);
+  const prevSuccess = usePrevious(success);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
@@ -32,6 +41,41 @@ export default function Goto() {
       i18n.changeLanguage(storedLanguage);
     }
   }, []);
+
+  // custom hook for getting previous value
+  function usePrevious(value: any) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    }, [value]);
+    return ref.current;
+  }
+
+  useEffect(() => {
+    // get objects lists from local storage on page load
+    let favoriteNames = fetchObjectFavoriteNamesDb();
+    if (favoriteNames) {
+      setObjectFavoriteNames(favoriteNames);
+    }
+  }, []);
+
+  useEffect(() => {
+    let new_message =
+      (prevErrors ?? "") +
+      (errors ?? "") +
+      (prevSuccess ?? "") +
+      (success ?? "");
+    if (new_message != (message ?? "")) {
+      setIsVisible(true);
+      setMessage(new_message);
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 30000);
+
+      // Clear the timeout if new messages come in within the 10 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [prevErrors, errors, prevSuccess, success]);
 
   return (
     <section className="daily-horp d-inline-block w-100">
@@ -43,7 +87,11 @@ export default function Goto() {
 
         <StatusBar />
         <hr></hr>
-        <CalibrationDwarf />
+        <CalibrationDwarf
+          setModule={setModule}
+          setErrors={setErrors}
+          setSuccess={setSuccess}
+        />
         <hr />
         <ul className=" nav nav-tabs mb-2">
           <li
@@ -88,14 +136,83 @@ export default function Goto() {
             </ResizablePIP>
           </div>
         )}
-        {connectionCtx.gotoType === "lists" && <GotoLists />}
-        {connectionCtx.gotoType === "stellarium" && <GotoStellarium />}
-        {connectionCtx.gotoType === "userLists" && <GotoUserLists />}
+        {connectionCtx.gotoType === "lists" && (
+          <GotoLists
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+            setModule={setModule}
+            setErrors={setErrors}
+            setSuccess={setSuccess}
+          ></GotoLists>
+        )}
+        {connectionCtx.gotoType === "stellarium" && (
+          <GotoStellarium
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+            setModule={setModule}
+            setErrors={setErrors}
+            setSuccess={setSuccess}
+          ></GotoStellarium>
+        )}
+        {connectionCtx.gotoType === "userLists" && (
+          <GotoUserLists
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+            setModule={setModule}
+            setErrors={setErrors}
+            setSuccess={setSuccess}
+          ></GotoUserLists>
+        )}
         <br />
         <br />
         <br />
         <br />
       </div>
+      {isVisible && (prevErrors || errors || prevSuccess || success) && (
+        <div
+          className="slide-pane_from_bottom"
+          style={{
+            position: "fixed",
+            bottom: "65px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "fit-content",
+            height: "30px",
+            paddingTop: "5px",
+            paddingBottom: "20px",
+            paddingLeft: "50px",
+            paddingRight: "50px",
+            color: "rgb(0, 0, 0)",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+          }}
+        >
+          {module && (
+            <span>
+              <b> {module} </b>{" "}
+            </span>
+          )}
+          {prevErrors && (
+            <span className="text-danger">
+              <b>{prevErrors} </b>
+            </span>
+          )}
+          {errors && errors != prevErrors && (
+            <span className="text-danger">
+              <b>{errors} </b>
+            </span>
+          )}
+          {prevSuccess && (
+            <span className="text-success">
+              <b>{prevSuccess} </b>
+            </span>
+          )}
+          {success && success != prevSuccess && (
+            <span className="text-success">
+              <b>{success} </b>
+            </span>
+          )}
+        </div>
+      )}
     </section>
   );
 }

@@ -272,9 +272,9 @@ export function getRiseSetTimeLocal(
   let tmp = {} as RiseSetTransit;
 
   if (notLocalPlanet(object)) {
-    let times = getRiseSetTime(object, lat, lon, jd);
-    if (times) {
-      tmp = times;
+    let timesObject = getRiseSetTime(object, lat, lon, jd);
+    if (timesObject) {
+      tmp = timesObject;
     }
   } else {
     let date = new Date();
@@ -357,7 +357,7 @@ export function renderLocalRiseSetTime(
     date.getDate()
   );
   let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  let times = { rise: "--", set: "--", error: null };
+  let timesObject = { rise: "--", set: "--", error: null };
   let useDaylightSavings = isDstObserved(date);
 
   try {
@@ -370,24 +370,24 @@ export function renderLocalRiseSetTime(
       useDaylightSavings
     );
     if (result.rise) {
-      times.rise = result.rise;
+      timesObject.rise = result.rise;
     }
     if (result.set) {
-      times.set = result.set;
+      timesObject.set = result.set;
     }
   } catch (err: any) {
     if (err.message === "always above horizon") {
-      times.error = err.message;
+      timesObject.error = err.message;
       object.visible = true;
     } else if (err.message === "always below horizon") {
-      times.error = err.message;
+      timesObject.error = err.message;
       object.visible = false;
     } else {
       console.error("err", err);
     }
   }
 
-  return times;
+  return timesObject;
 }
 
 // Unit : Deg for alt and az, Hours for lst and H

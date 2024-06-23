@@ -9,6 +9,7 @@ import {
   CameraWideSettings,
   CameraTeleSettings,
   SkyLimitObject,
+  AstroObject,
 } from "@/types";
 
 type ProviderProps = {
@@ -70,6 +71,10 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   >();
 
   const [isSavedPosition, setIsSavedPosition] = useState<boolean | undefined>();
+
+  const [saveAstroData, setSaveAstroData] = useState<AstroObject | undefined>(
+    {} as AstroObject
+  );
 
   const [gotoType, setGotoType] = useState<string | undefined>("lists");
 
@@ -165,6 +170,9 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
 
     isSavedPosition,
     setIsSavedPosition,
+
+    saveAstroData,
+    setSaveAstroData,
 
     gotoType,
     setGotoType,

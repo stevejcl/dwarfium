@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { fabric } from "fabric";
-import { loadFITS } from "@/lib/fitsUtils"; // Ensure correct path
-import { calculateHistogram } from "@/lib/histogramUtils"; // Ensure correct path
+import { loadFITS } from "@/lib/fitsUtils";
+import { calculateHistogram } from "@/lib/histogramUtils";
 
 const ImageEditor: React.FC = () => {
+  // eslint-disable-next-line no-unused-vars
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
   const [hue, setHue] = useState<number>(0);
   const [saturation, setSaturation] = useState<number>(0);
@@ -57,7 +58,7 @@ const ImageEditor: React.FC = () => {
               canvas.clear();
               const fabricImg = new fabric.Image(img);
               setImageObject(fabricImg);
-              fitImageToScreen(fabricImg); // Fit image to screen on load
+              fitImageToScreen(fabricImg);
               canvas.add(fabricImg);
               canvas.renderAll();
               updateHistogram(img);
@@ -75,7 +76,7 @@ const ImageEditor: React.FC = () => {
       const ctx = canvasElement.getContext("2d");
       if (!ctx) return;
 
-      const width = Math.sqrt(data.length); // Assuming square image data
+      const width = Math.sqrt(data.length);
       const height = width;
       const imageData = ctx.createImageData(width, height);
 

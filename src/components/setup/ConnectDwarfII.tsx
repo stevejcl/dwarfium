@@ -84,9 +84,7 @@ export default function ConnectDwarfII() {
           <button className="btn btn-more02" onClick={checkConnection}>
         {t("pConnect")}
           </button></div>
-          <div className="connect-stellarium">
-              <button className="btn btn-more02">Stellarium
-          </button></div>
+          
       </div>
 
   );

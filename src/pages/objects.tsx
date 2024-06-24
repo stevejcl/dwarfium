@@ -7,6 +7,7 @@ import { useContext } from "react";
 import GotoStellarium from "@/components/GotoStellarium";
 import GotoLists from "@/components/GotoLists";
 import GotoUserLists from "@/components/GotoUserLists";
+import Asteroids from "@/components/Asteroids";
 import StatusBar from "@/components/shared/StatusBar";
 import CalibrationDwarf from "@/components/shared/CalibrationDwarf";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
@@ -118,6 +119,14 @@ export default function Goto() {
           >
             Stellarium
           </li>
+          <li
+            className={`nav-item nav-link ${connectionCtx.gotoType === "asteroids" ? "active" : ""
+            }`}
+            onClick={() => connectionCtx.setGotoType("asteroids")}
+          >
+          Asteroids
+          </li>
+
         </ul>
         <hr />
         {connectionCtx.connectionStatus && connectionCtx.PiPView && (
@@ -162,7 +171,16 @@ export default function Goto() {
             setErrors={setErrors}
             setSuccess={setSuccess}
           ></GotoUserLists>
-        )}
+         )}
+         {connectionCtx.gotoType === "asteroids" && (
+           <Asteroids
+             objectFavoriteNames={objectFavoriteNames}
+             setObjectFavoriteNames={setObjectFavoriteNames}
+             setModule={setModule}
+             setErrors={setErrors}
+             setSuccess={setSuccess}
+           ></Asteroids>
+              )}
         <br />
         <br />
         <br />

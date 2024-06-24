@@ -1,4 +1,5 @@
-﻿html {
+﻿
+html {
     font-size: 68.75%
 }
 
@@ -144,7 +145,7 @@ header {
 }
 .col-sm-4-cal {
     flex: 0 0 auto;
-    width: 30.33333333%;
+    width: 31.33333333%;
 }
 .main {
     margin: 0px auto;

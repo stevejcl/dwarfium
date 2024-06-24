@@ -206,6 +206,14 @@ export default function StatusBar() {
               {goto_progress}
             </span>
           )}
+              </div>
+              <div className="col-sm align-self-center">
+          {connectionCtx.astroSettings.target !== undefined && (
+            <span className="me-3">
+              {t("cStatusBarCurTarget")} {connectionCtx.astroSettings.target}{" "}
+              {goto_progress}
+            </span>
+          )}
         </div>
       </div>
     </div>

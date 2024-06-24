@@ -1,3 +1,5 @@
+
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -148,13 +150,17 @@ body {
     font-family: Arial;
     text-align: center;
 }
-
+.connect-stellarium {
+    margin-left: -105px;
+    margin-top: 44px;
+}
 .connect-dwarf {
     justify-content: space-between;
     float: right !important;
     height: fit-content;
     margin-top: -40px;
 }
+<<<<<<< Updated upstream
 
 .polar-align {
     margin-left: 20%;
@@ -167,6 +173,15 @@ body {
     margin-top: -73px;
 }
 
+=======
+.connect-dwarf-status {
+    margin-left: -105px;
+    margin-top: 0px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+>>>>>>> Stashed changes
 .sethostmode-dwarf {
     display: flex;
     justify-content: space-between;
@@ -174,7 +189,7 @@ body {
     float: right !important;
     height: fit-content;
     margin-right: 50%;
-    margin-top: -50px;
+    margin-top: -39px;
 }
 
 .top-align {
@@ -260,29 +275,7 @@ body {
         background: #fff !important;
         color: #d3a417
     }
-/*.daily-horp-camera {
-    padding: 0px 0 0 0;
-    background: url(/images/bg-bannerpic.jpg) no-repeat;
-    background-size: cover;
-    background-position: top left;
-    height: 900px;
-}
-.daily-horp-object {
-    padding: 0px 0 0 0;
-    background: url(/images/bg-bannerpic.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-.daily-horp-userlist {
-    padding: 0px 0 0 0;
-    background: url(/images/bg-bannerpic.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}*/
+
 .container-construction {
     position: absolute;
     top: 50%;
@@ -947,7 +940,8 @@ img {
 
 .connect-dwarf {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
 }
 
     .connect-dwarf button {

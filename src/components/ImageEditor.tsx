@@ -144,7 +144,7 @@ const ImageEditor: React.FC = () => {
       setIsDragging(true);
       setLastPosX(event.e.clientX);
       setLastPosY(event.e.clientY);
-      canvas?.setCursor('move');
+      canvas?.setCursor("move");
     }
   };
 
@@ -163,7 +163,7 @@ const ImageEditor: React.FC = () => {
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    canvas?.setCursor('default');
+    canvas?.setCursor("default");
   };
 
   const handleMouseWheel = (event: fabric.IEvent) => {

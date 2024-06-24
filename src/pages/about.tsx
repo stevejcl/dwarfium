@@ -32,7 +32,7 @@ export default function About() {
           <p>
             {t("pAboutInfo")}{" "}
             <Link
-              href="https://github.com/DwarfTelescopeUsers/dwarfii-stellarium-goto"
+              href="https://github.com/stevejcl/dwarfii-stellarium-goto"
               target="_blank"
             >
               Github repo.

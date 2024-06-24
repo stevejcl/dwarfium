@@ -52,7 +52,13 @@ export const Asteroid: React.FC<AsteroidProps> = ({ data }) => {
                     ) : (
                         <div className='notDangerous'>Not Dangerous</div>
                     )}
-                </div>
+                    <button
+                    type="button" // Changed to button to avoid form submission
+                    className="btn btn-more02 w-40"
+                >
+                    Goto
+                </button>
+                </div> 
                 <div className='comparison'>
                     <Image
                         className='comparisonSizeImage'

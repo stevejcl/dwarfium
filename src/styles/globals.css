@@ -1423,44 +1423,42 @@ img {
     /*font-size: 18px;*/
 }
 
-    .dark-theme .footer {
-        background-color: #333333; /* Change to your preferred dark theme color */
-        color: #fff;
-    }
+.dark-theme .footer {
+    background-color: #333333; /* Change to your preferred dark theme color */
+    color: #fff;
+}
 
-    .dark-theme h1, h2, h3 {
-        color: #1D20A1;
-    }
+.dark-theme h1, h2, h3 {
+    color: #1D20A1;
+}
 
-    .dark-theme.modal-content-theme h2 {
-        font-size: 2.5rem;
-        margin-bottom: 0px;
-        color: #1D20A1;
-    }
+.dark-theme.modal-content-theme h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0px;
+    color: #1D20A1;
+}
 
-    .dark-theme thead {
-        background-color: #1D20A1;
-        color: #1D20A1;
-    }
+.dark-theme thead {
+    background-color: #1D20A1;
+    color: #1D20A1;
+}
 
-    .dark-theme td {
-        border: 1px solid #1D20A1;
-    }
+.dark-theme td {
+    border: 1px solid #1D20A1;
+}
 
-    .dark-theme th {
-        background-color: #1D20A1;
-    }
+.dark-theme th {
+    background-color: #1D20A1;
+}
 
-    .dark-theme .prosP {
-        color: #1D20A1;
-        font-weight: 600;
-    }
+.dark-theme .prosP {
+    color: #1D20A1;
+    font-weight: 600;
+}
 
-    .dark-theme .calendar {
-        border: #1D20A1;
-    }
-
-
+.dark-theme .calendar {
+    border: #1D20A1;
+}
 
 .light-logo {
     display: block;
@@ -1569,7 +1567,7 @@ img {
     position: relative;
   }
   
-  button {
+button {
     background-color: #555;
     color: #fff;
     border: none;
@@ -1577,16 +1575,16 @@ img {
     margin-top: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
+}
   
-  button:hover {
+button:hover {
     background-color: #777;
-  }
+}
   
-  .upper-canvas {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-  }
+.upper-canvas {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
   

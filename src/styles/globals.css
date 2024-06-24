@@ -160,7 +160,6 @@ body {
     height: fit-content;
     margin-top: -40px;
 }
-<<<<<<< Updated upstream
 
 .polar-align {
     margin-left: 20%;
@@ -173,7 +172,6 @@ body {
     margin-top: -73px;
 }
 
-=======
 .connect-dwarf-status {
     margin-left: -105px;
     margin-top: 0px;
@@ -181,7 +179,7 @@ body {
     align-items: flex-start;
     gap: 1rem;
 }
->>>>>>> Stashed changes
+
 .sethostmode-dwarf {
     display: flex;
     justify-content: space-between;

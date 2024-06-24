@@ -191,7 +191,7 @@ export default function Goto() {
           className="slide-pane_from_bottom"
           style={{
             position: "fixed",
-            bottom: "65px",
+            bottom: "60px",
             left: "50%",
             transform: "translateX(-50%)",
             width: "fit-content",

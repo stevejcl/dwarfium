@@ -9,6 +9,7 @@ Index = Page name
 Description = identifier
 
 */
+
 const translations = {
   pIndexDescription:
     "Dwarfium ermöglicht es euch, Teile des Dwarf II mithilfe der Dwarf-API zu steuern.",
@@ -26,7 +27,6 @@ const translations = {
   pIndexBug1: "Bitte meldet Bugs und sonstige Themen im Discord: ",
   pIndexBug2: "",
   pIndexBug3: "",
-  pIndexLinkBug: `<a href="https://discord.gg/5vFWbsXDfv"> Auf unserem Discord-Server </a>`,
   pCalendarTitle: "Astronomischer Kalender der Himmelsereignisse",
   pCalendarYear: "Kalenderjahr",
   pAbout: "Über",
@@ -130,7 +130,7 @@ const translations = {
     "Die Kamera erfasst Licht auf jedem einzelnen physischen Pixel.",
   cAstroSettingsInfoBin2x2: "Binning - 2x2",
   cAstroSettingsInfoBin2x2Desc:
-    "Die Kamera kombiniert physische Pixel in Gruppen von 2x2 (4 Pixeln) und betrachtet das gesamte im Gruppen erfasste Licht als einen einzigen Pixel. Kann als 'virtueller' Pixel betrachtet werden. Dies macht die Pixelgröße größer und reduziert die Auflösung um einen Faktor, der dem Binning entspricht.",
+    "Die Kamera kombiniert physische Pixel in Gruppen von 2x2 (4 Pixeln) und betrachtet das gesamte im Gruppen erfasste Licht als einen einzigen Pixel. Kann als ",
   cAstroSettingsInfoFormatFITS: "Format - FITS",
   cAstroSettingsInfoFormatFITSDesc:
     "Astronomisches verlustfreies numerisches Dateiformat. Kann Metadaten des Bildes enthalten (Koordinaten, Kamera, Pixelgröße Binning, Filter usw.), die von Verarbeitungssoftware verwendet werden können.",
@@ -219,17 +219,15 @@ const translations = {
     "118 der hellsten Sterne mit gebräuchlichen Namen, mindestens einer pro Sternbild.",
   cGotoListDSOList5:
     "Die Liste der Planeten, Mond und Sonne enthält die Planeten unseres Sonnensystems mit dem Mond und der Sonne. Beachten Sie, dass Dwarf II nicht gut geeignet ist, um Bilder von den Planeten aufzunehmen.",
-  cGotoListinfo:
-    "'Zentrieren' zeigt das ausgewählte Objekt in Stellarium an. 'Goto' bewegt Dwarf II zum ausgewählten Objekt.",
+  cGotoListinfo: "",
   cGoToStellariumConnectStellarium:
     "Sie müssen sich mit Stellarium verbinden, damit Importdaten funktioniert.",
   cGoToStellariumPickObject:
     "Sie können Stellarium verwenden, um Objekte auszuwählen.",
   cGoToStellariumListTitle: "Wählen Sie ein Objekt in Stellarium aus.",
   cGoToStellariumList1:
-    "Importieren Sie Rektaszension und Deklination aus Stellarium, indem Sie auf 'Daten importieren' klicken.",
-  cGoToStellariumList2:
-    "Starten Sie den Goto-Vorgang, indem Sie auf 'Goto' klicken.",
+    "Importieren Sie Rektaszension und Deklination aus Stellarium, indem Sie auf ",
+  cGoToStellariumList2: "Starten Sie den Goto-Vorgang, indem Sie auf ",
   cGoToStellariumImportData: "Daten importieren",
   cGoToStellariumImportManualData: "Manuelle Daten importieren",
   cGoToStellariumImportModifyData: "Daten ändern",
@@ -244,16 +242,11 @@ const translations = {
     "+/- 1 min für Rektaszension, +/- 0.1° für Deklination",
   cGoToStellariumMoveCenterli3: "Die Koordinaten werden aktualisiert",
   cGoToStellariumMoveCenterli4:
-    "Zentrieren Sie erneut in Stellarium, indem Sie auf 'Zentrieren' klicken",
+    "Zentrieren Sie erneut in Stellarium, indem Sie auf ",
   cGoToStellariumMoveCenterli5:
-    "Starten Sie dann den Goto-Vorgang, indem Sie auf 'Goto' klicken",
+    "Starten Sie dann den Goto-Vorgang, indem Sie auf ",
   cGoToUserListNewList: "Neue Liste hinzufügen",
   cGoToUserListDeleteList: "Liste löschen",
-  cGoToUserListCustomObjectsListInstruction1: `
-    Um benutzerdefinierte Objektlisten hinzuzufügen, erstellen Sie eine Objektliste auf 
-    <a href="https://telescopius.com">Telescopius</a>, laden Sie 
-    die CSV-Datei herunter und klicken Sie auf "Neue Liste hinzufügen".
-  `,
   cGoToUserListCustomObjectsListInstruction2:
     "Die Listen werden im Browser-Datenbankspeicher (localStorage) gespeichert. Da die Daten im Browser gespeichert sind, können andere Benutzer der Website nicht auf Ihre Listen zugreifen.",
   cGoToUserListCustomObjectsListInstruction3:
@@ -296,8 +289,6 @@ const translations = {
   pObjectsList: "Listen",
   pObjectsCustomsList: "Benutzerdefinierte Listen",
   cObjectsIn: " in ",
-  "always above horizon": "immer über dem Horizont",
-  "always below horizon": "immer unter dem Horizont",
   cObjectsSize: "Größe",
   cObjectsMagnitude: "Helligkeit",
   cObjectsRises: "Aufgang",
@@ -325,9 +316,6 @@ const translations = {
   Galaxies: "Galaxien",
   Nebulae: "Nebel",
   Stars: "Sterne",
-  "Large Dso": "Große Dso",
-  "Small Dso": "Kleine Dso",
-  "Tiny Dso": "Winzige Dso",
   Mosaic: "Mosaik",
   Object: "Objekt",
   Objects: "Objekte",
@@ -335,17 +323,6 @@ const translations = {
   Galaxy: "Galaxie",
   Cluster: "Haufen",
   Nebula: "Nebel",
-  "Dark Nebula": "Dunkelnebel",
-  "Reflection Nebula": "Reflexionsnebel",
-  "Planetary Nebula": "Planetarischer Nebel",
-  "Supernova remnant": "Supernova-Überrest",
-  "Association of stars": "Sternassoziation",
-  "Open Cluster": "Offener Haufen",
-  "Globular Cluster": "Kugelsternhaufen",
-  "Star cluster + Nebula": "Sternhaufen + Nebel",
-  "HII Ionized region": "HII-ionisierte Region",
-  "Other classification (see object notes)":
-    "Andere Klassifikation (siehe Objektanmerkungen)",
   cCloudsChartCloudCover: "Bewölkung (%)",
   cCloudsChartHumidity: "Feuchtigkeit(%)",
   cCloudsChartWindSpeed: "Windgeschwindigkeit (km/hr)",

@@ -80,12 +80,12 @@ export default function ConnectDwarfII() {
 
   return (
     <div className="connect-dwarf">
-      <div className="connect-dwarf-status">{renderConnectionStatus()}{" "}
-          <button className="btn btn-more02" onClick={checkConnection}>
-        {t("pConnect")}
-          </button></div>
-          
+      <div className="connect-dwarf-status">
+        {renderConnectionStatus()}{" "}
+        <button className="btn btn-more02" onClick={checkConnection}>
+          {t("pConnect")}
+        </button>
       </div>
-
+    </div>
   );
 }

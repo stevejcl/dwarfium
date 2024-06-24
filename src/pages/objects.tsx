@@ -120,13 +120,13 @@ export default function Goto() {
             Stellarium
           </li>
           <li
-            className={`nav-item nav-link ${connectionCtx.gotoType === "asteroids" ? "active" : ""
+            className={`nav-item nav-link ${
+              connectionCtx.gotoType === "asteroids" ? "active" : ""
             }`}
             onClick={() => connectionCtx.setGotoType("asteroids")}
           >
-          Asteroids
+            Asteroids
           </li>
-
         </ul>
         <hr />
         {connectionCtx.connectionStatus && connectionCtx.PiPView && (
@@ -171,16 +171,16 @@ export default function Goto() {
             setErrors={setErrors}
             setSuccess={setSuccess}
           ></GotoUserLists>
-         )}
-         {connectionCtx.gotoType === "asteroids" && (
-           <Asteroids
-             objectFavoriteNames={objectFavoriteNames}
-             setObjectFavoriteNames={setObjectFavoriteNames}
-             setModule={setModule}
-             setErrors={setErrors}
-             setSuccess={setSuccess}
-           ></Asteroids>
-              )}
+        )}
+        {connectionCtx.gotoType === "asteroids" && (
+          <Asteroids
+            objectFavoriteNames={objectFavoriteNames}
+            setObjectFavoriteNames={setObjectFavoriteNames}
+            setModule={setModule}
+            setErrors={setErrors}
+            setSuccess={setSuccess}
+          ></Asteroids>
+        )}
         <br />
         <br />
         <br />

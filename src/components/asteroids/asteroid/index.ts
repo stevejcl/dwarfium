@@ -1,1 +1,1 @@
-export { default } from './Asteroid'
+export { default } from "./Asteroid";

@@ -1423,44 +1423,42 @@ img {
     /*font-size: 18px;*/
 }
 
-    .dark-theme .footer {
-        background-color: #333333; /* Change to your preferred dark theme color */
-        color: #fff;
-    }
+.dark-theme .footer {
+    background-color: #333333; /* Change to your preferred dark theme color */
+    color: #fff;
+}
 
-    .dark-theme h1, h2, h3 {
-        color: #1D20A1;
-    }
+.dark-theme h1, h2, h3 {
+    color: #1D20A1;
+}
 
-    .dark-theme.modal-content-theme h2 {
-        font-size: 2.5rem;
-        margin-bottom: 0px;
-        color: #1D20A1;
-    }
+.dark-theme.modal-content-theme h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0px;
+    color: #1D20A1;
+}
 
-    .dark-theme thead {
-        background-color: #1D20A1;
-        color: #1D20A1;
-    }
+.dark-theme thead {
+    background-color: #1D20A1;
+    color: #1D20A1;
+}
 
-    .dark-theme td {
-        border: 1px solid #1D20A1;
-    }
+.dark-theme td {
+    border: 1px solid #1D20A1;
+}
 
-    .dark-theme th {
-        background-color: #1D20A1;
-    }
+.dark-theme th {
+    background-color: #1D20A1;
+}
 
-    .dark-theme .prosP {
-        color: #1D20A1;
-        font-weight: 600;
-    }
+.dark-theme .prosP {
+    color: #1D20A1;
+    font-weight: 600;
+}
 
-    .dark-theme .calendar {
-        border: #1D20A1;
-    }
-
-
+.dark-theme .calendar {
+    border: #1D20A1;
+}
 
 .light-logo {
     display: block;
@@ -1478,3 +1476,115 @@ img {
     display: contents;
 }
 
+.image-editor-container {
+    display: flex;
+    height: 100vh;
+    background-color: #2d2d2d;
+    color: #d0d0d0;
+    padding: 20px;
+  }
+  
+  .sidebar {
+    width: 300px;
+    padding: 10px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .dropzone {
+    border: 2px dashed #777;
+    background-color: #444;
+    color: #bbb;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .controls {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .controls label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .controls input[type="range"] {
+    width: 100%;
+  }
+  
+  .histogram {
+    margin-top: 20px;
+    width: 100%;
+    color: #fff;
+  }
+  
+  .histogram h3 {
+    text-align: center;
+  }
+  
+  .histogram-container {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .histogram-channel {
+    width: 30px;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .histogram-bar {
+    background-color: #888;
+    width: 100%;
+  }
+  
+  .histogram-channel-0 .histogram-bar {
+    background-color: #ff5555;
+  }
+  
+  .histogram-channel-1 .histogram-bar {
+    background-color: #55ff55;
+  }
+  
+  .histogram-channel-2 .histogram-bar {
+    background-color: #5555ff;
+  }
+  
+  .canvas-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222;
+    padding: 10px;
+    position: relative;
+  }
+  
+button {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  
+button:hover {
+    background-color: #777;
+}
+  
+.upper-canvas {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+  

@@ -11,15 +11,18 @@ Description = identifier
 */
 
 const translations = {
-  pIndexDescription: "Dwarfium ermöglicht es euch, Teile des Dwarf II mithilfe der Dwarf-API zu steuern.",
+  pIndexDescription:
+    "Dwarfium ermöglicht es euch, Teile des Dwarf II mithilfe der Dwarf-API zu steuern.",
   pIndexFeature: "Funktionen",
   pIndexFeature1: "1. Objektliste mit über 850 Objekten.",
   pIndexFeature2: "2. Importieren von Objektlisten aus Telescopius.",
   pIndexFeature3: "3. Importieren von Mosaiklisten aus Telescopius.",
-  pIndexFeature4: "4. Verbinden mit der Stellarium-Planetarium-App, um Ziele auszuwählen.",
+  pIndexFeature4:
+    "4. Verbinden mit der Stellarium-Planetarium-App, um Ziele auszuwählen.",
   pIndexFeature5: "5. Astrofotos machen.",
   pIndexFeature6: "6. 1x1 Binning für Astrofotos.",
-  pIndexClaimer: "Dwarfium und die Dwarf-API befinden sich in der Beta-Phase. Es sind noch nicht alle Funktionen der mobilen App vorhanden. Verwenden Sie diese App nur, wenn Sie sich als Beta-Softwaretester auskennen.",
+  pIndexClaimer:
+    "Dwarfium und die Dwarf-API befinden sich in der Beta-Phase. Es sind noch nicht alle Funktionen der mobilen App vorhanden. Verwenden Sie diese App nur, wenn Sie sich als Beta-Softwaretester auskennen.",
   pIndexBugsHeader: "Fehler:",
   pIndexBug1: "Bitte meldet Bugs und sonstige Themen im Discord: ",
   pIndexBug2: "",
@@ -27,58 +30,82 @@ const translations = {
   pCalendarTitle: "Astronomischer Kalender der Himmelsereignisse",
   pCalendarYear: "Kalenderjahr",
   pAbout: "Über",
-  pAboutInfo: "Das Projekt wurde von Wai-Yin Kwan mit Hilfe von JC LESAINT gestartet. Diese App ist ein Nebenprojekt, um ihr Interesse an Programmierung, Astronomie und der Dwarf-II-API zu vereinen. Um Fehler zu melden oder den Originalcode einzusehen, besuchen Sie sein ",
+  pAboutInfo:
+    "Das Projekt wurde von Wai-Yin Kwan mit Hilfe von JC LESAINT gestartet. Diese App ist ein Nebenprojekt, um ihr Interesse an Programmierung, Astronomie und der Dwarf-II-API zu vereinen. Um Fehler zu melden oder den Originalcode einzusehen, besuchen Sie sein ",
   pAboutDataCredit: "Datenquellen",
-  pAboutDataCreditInfo: "Die Daten für die Objektlisten stammen aus verschiedenen Quellen.",
+  pAboutDataCreditInfo:
+    "Die Daten für die Objektlisten stammen aus verschiedenen Quellen.",
   pAboutDataCreditDSO: "Die Daten zu den DSO stammen von ",
-  pAboutDataCreditDSOAuth: "Dr. Michael Camilleri, Auckland Astronomical Society, Neuseeland, hat Objektnamen und -größen für DSO bereitgestellt, die 15 Bogenminuten oder größer sind.",
+  pAboutDataCreditDSOAuth:
+    "Dr. Michael Camilleri, Auckland Astronomical Society, Neuseeland, hat Objektnamen und -größen für DSO bereitgestellt, die 15 Bogenminuten oder größer sind.",
   pAboutDataCreditDSOStars: "Die Daten zu den Sternen stammen von ",
-  pAboutDataCreditVisual: "Die Daten zur visuellen Helligkeit von Planeten und Mond stammen von ",
+  pAboutDataCreditVisual:
+    "Die Daten zur visuellen Helligkeit von Planeten und Mond stammen von ",
   pAboutDataCreditConstellationData: "Die Konstellationsdaten stammen von ",
   pAboutDataCreditJuypterThe: "Das ",
-  pAboutDataCreditJuypterText: "im GitHub-Repository zeigt die Schritte, die ich unternommen habe, um die Rohdaten in die Objektlisten zu transformieren.",
+  pAboutDataCreditJuypterText:
+    "im GitHub-Repository zeigt die Schritte, die ich unternommen habe, um die Rohdaten in die Objektlisten zu transformieren.",
   pAboutDataCreditCode: "Diese Website verwendet Code von ",
   pAboutDataCreditCodeAnd: "Und",
   pAboutDataCreditCodeAndText: "astronomische Berechnungen durchzuführen.",
   pAboutUserData: "Benutzerdaten",
-  pAboutUserDataDesc: "Die von Benutzern eingegebenen Informationen werden in der Datenbank des Browsers (localStorage) gespeichert. Da die Daten in Ihrem Browser gespeichert sind, können andere Benutzer der Website nicht auf Ihre Daten zugreifen. Dies bedeutet auch, dass die Daten nicht zwischen verschiedenen Browsern oder Geräten synchronisiert werden können, wenn ein Benutzer mehrere Browser oder Geräte verwendet.",
+  pAboutUserDataDesc:
+    "Die von Benutzern eingegebenen Informationen werden in der Datenbank des Browsers (localStorage) gespeichert. Da die Daten in Ihrem Browser gespeichert sind, können andere Benutzer der Website nicht auf Ihre Daten zugreifen. Dies bedeutet auch, dass die Daten nicht zwischen verschiedenen Browsern oder Geräten synchronisiert werden können, wenn ein Benutzer mehrere Browser oder Geräte verwendet.",
   pAboutAdditional: "Zusätzliche Datenquellen",
   pAboutAdditionalWeatherData: "Wetterdaten werden von ",
   pAboutAdditionalRSSData: "Der RSS-Feed für Deep-Sky-Objekte wird von ",
-  pAboutAdditionalWitmotion: "Die Integration des Witmotion-Sensors basiert auf ",
+  pAboutAdditionalWitmotion:
+    "Die Integration des Witmotion-Sensors basiert auf ",
   cWitmotionCamera: "Kamera",
   cWitmotionAltitude: "Altitude",
-  cWitmotionPolaris1: "Richten Sie den Dwarf II auf Polaris und passen Sie den Winkel an.",
+  cWitmotionPolaris1:
+    "Richten Sie den Dwarf II auf Polaris und passen Sie den Winkel an.",
   cWitmotionPolaris2: "Sie sollten Polaris in der Sensormitte sehen.",
   pFirstSteps: "Erste Schritte",
-  pFirstStepsContent: "Verwenden Sie die mobile Dwarf II-App von Dwarf Labs, um Dunkelbilder aufzunehmen, das Zielfernrohr zu fokussieren und Goto zu kalibrieren.",
+  pFirstStepsContent:
+    "Verwenden Sie die mobile Dwarf II-App von Dwarf Labs, um Dunkelbilder aufzunehmen, das Zielfernrohr zu fokussieren und Goto zu kalibrieren.",
   pSetLocation: "Ort festlegen",
-  pSetLocationContent: "Damit goto funktioniert, benötigt diese Seite Ihren Breitengrad, Längengrad und Ihre Zeitzone. Westlich von Greenwich ist der Längengrad negativ",
+  pSetLocationContent:
+    "Damit goto funktioniert, benötigt diese Seite Ihren Breitengrad, Längengrad und Ihre Zeitzone. Westlich von Greenwich ist der Längengrad negativ",
   pLatitude: "Breite",
   pLongitude: "Längengrad",
   pTimezone: "Zeitzone",
   pUseCurrentLocation: "Aktuellen Standort",
   pEnableSTA: "Aktivieren Sie den STA-Modus auf Dwarf II",
-  pEnableSTAContent: "Damit dieser Standort eine Verbindung zum Dwarf II herstellen kann, muss auf dem Dwarf II der STA-Modus konfiguriert und aktiviert sein.",
-  pEnableSTAContent1: "Bei der ersten Verwendung benötigen Sie die mobile DwarfLab-App, um die Verbindung herzustellen. Anschließend können Sie, ohne den Zwerg neu zu starten, über die Schaltfläche „Bluetooth verbinden“ eine Verbindung herstellen. Die Konfiguration wird dann gespeichert.",
-  pEnableSTAContent2: "Bei den nächsten Starts des Dwarf können Sie sich dann direkt über Bluetooth mit ihm verbinden, ohne die mobile Anwendung zu verwenden.",
-  pEnableSTAContent3: "Klicken Sie auf „Verbinden“. Diese Seite wird versuchen, über Bluetooth eine Verbindung zu Dwarf II herzustellen.",
+  pEnableSTAContent:
+    "Damit dieser Standort eine Verbindung zum Dwarf II herstellen kann, muss auf dem Dwarf II der STA-Modus konfiguriert und aktiviert sein.",
+  pEnableSTAContent1:
+    "Bei der ersten Verwendung benötigen Sie die mobile DwarfLab-App, um die Verbindung herzustellen. Anschließend können Sie, ohne den Zwerg neu zu starten, über die Schaltfläche „Bluetooth verbinden“ eine Verbindung herstellen. Die Konfiguration wird dann gespeichert.",
+  pEnableSTAContent2:
+    "Bei den nächsten Starts des Dwarf können Sie sich dann direkt über Bluetooth mit ihm verbinden, ohne die mobile Anwendung zu verwenden.",
+  pEnableSTAContent3:
+    "Klicken Sie auf „Verbinden“. Diese Seite wird versuchen, über Bluetooth eine Verbindung zu Dwarf II herzustellen.",
   pBluetoothPWD: "Bluetooth-PASSWORT",
   pConnect: "Verbinden",
   pConnectDwarfII: "Verbinde dich mit Dwarf II",
-  pConnectDwarfIIContent: "Damit diese Site eine Verbindung zum Dwarf II herstellen kann, müssen sowohl der Dwarf II als auch die Website dasselbe WLAN-Netzwerk verwenden.",
-  pConnectDwarfIIContent1: "Nach dem Neustart müssen Sie zunächst über Bluetooth eine Verbindung zum DwarfII herstellen.",
-  pConnectDwarfIIContent2: "Stellen Sie dann mit der WLAN-Verbindungstaste eine Verbindung her. Dann brauchen Sie die App nicht mehr zu verwenden, um von dieser Website aus zu kalibrieren, zu Goto zu wechseln und eine Bildbearbeitungssitzung durchzuführen.",
-  pConnectDwarfIIContent3: "Besuchen Sie diese Website auf einem Gerät, das mit demselben WLAN-Netzwerk wie der Dwarf II verbunden ist.",
-  pConnectDwarfIIContent4: "Geben Sie die IP für den Dwarf II ein. Wenn Sie Dwarf-WLAN verwenden, lautet die IP 192.168.88.1. Wenn Sie den STA-Modus verwenden, verwenden Sie die IP für Ihr WLAN-Netzwerk.",
-  pConnectDwarfIIContent5: "Klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Dwarf II herzustellen.",
-  pConnectDwarfIIContent6: "Wenn Sie die Meldung sehen: => Live gehen, haben Sie eine Bildgebungssitzung abgeschlossen, gehen Sie zur Kameraseite und klicken Sie auf die Schaltfläche „Live“.",
+  pConnectDwarfIIContent:
+    "Damit diese Site eine Verbindung zum Dwarf II herstellen kann, müssen sowohl der Dwarf II als auch die Website dasselbe WLAN-Netzwerk verwenden.",
+  pConnectDwarfIIContent1:
+    "Nach dem Neustart müssen Sie zunächst über Bluetooth eine Verbindung zum DwarfII herstellen.",
+  pConnectDwarfIIContent2:
+    "Stellen Sie dann mit der WLAN-Verbindungstaste eine Verbindung her. Dann brauchen Sie die App nicht mehr zu verwenden, um von dieser Website aus zu kalibrieren, zu Goto zu wechseln und eine Bildbearbeitungssitzung durchzuführen.",
+  pConnectDwarfIIContent3:
+    "Besuchen Sie diese Website auf einem Gerät, das mit demselben WLAN-Netzwerk wie der Dwarf II verbunden ist.",
+  pConnectDwarfIIContent4:
+    "Geben Sie die IP für den Dwarf II ein. Wenn Sie Dwarf-WLAN verwenden, lautet die IP 192.168.88.1. Wenn Sie den STA-Modus verwenden, verwenden Sie die IP für Ihr WLAN-Netzwerk.",
+  pConnectDwarfIIContent5:
+    "Klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Dwarf II herzustellen.",
+  pConnectDwarfIIContent6:
+    "Wenn Sie die Meldung sehen: => Live gehen, haben Sie eine Bildgebungssitzung abgeschlossen, gehen Sie zur Kameraseite und klicken Sie auf die Schaltfläche „Live“.",
   pConnectStellarium: "Stellen Sie eine Verbindung zu Stellarium her",
-  pConnectStellariumContent: "Um Stellarium nutzen zu können, müssen wir das Remote Control-Plugin einrichten.",
+  pConnectStellariumContent:
+    "Um Stellarium nutzen zu können, müssen wir das Remote Control-Plugin einrichten.",
   pConnectStellariumContent1: "Starten Sie die Stellarium-Desktop-App.",
   pConnectStellariumContent2: "Der Anfang davon",
-  pConnectStellariumContent2_1: " demonstriert die Einrichtung des Remote Control-Plugins von Stellarium (0 bis 1:40); Überspringen Sie den Teil über NINA. Klicken Sie auf „ CORS für folgenden Ursprung aktivieren “ und geben Sie „ * “ ein.",
-  pConnectStellariumContent3: "Geben Sie IP und Port für das Remote Control-Plugin ein und klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Stellarium herzustellen.",
+  pConnectStellariumContent2_1:
+    " demonstriert die Einrichtung des Remote Control-Plugins von Stellarium (0 bis 1:40); Überspringen Sie den Teil über NINA. Klicken Sie auf „ CORS für folgenden Ursprung aktivieren “ und geben Sie „ * “ ein.",
+  pConnectStellariumContent3:
+    "Geben Sie IP und Port für das Remote Control-Plugin ein und klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Stellarium herzustellen.",
   pIPAdress: "IP Adresse",
   pPort: "Port",
   cUnlockHost: "Schalten Sie den Host-Modus frei",
@@ -87,21 +114,29 @@ const translations = {
   pConnecting: "Verbinden...",
   pConnectingFailed: "Verbindung fehlgeschlagen!",
   cAstroSettingsInfoGain: "Gain",
-  cAstroSettingsInfoGainDesc: "Gain ist eine Einstellung der Digitalkamera, die die Verstärkung des Signals vom Kameradetektor steuert. Es sollte beachtet werden, dass dies das gesamte Signal einschließlich aller damit verbundenen Hintergrundgeräusche verstärkt.",
+  cAstroSettingsInfoGainDesc:
+    "Gain ist eine Einstellung der Digitalkamera, die die Verstärkung des Signals vom Kameradetektor steuert. Es sollte beachtet werden, dass dies das gesamte Signal einschließlich aller damit verbundenen Hintergrundgeräusche verstärkt.",
   cAstroSettingsInfoExposure: "Belichtung",
-  cAstroSettingsInfoExposureDesc: "Zeit, während der der Sensor Licht ausgesetzt und Informationen (Energie) aufzeichnet",
+  cAstroSettingsInfoExposureDesc:
+    "Zeit, während der der Sensor Licht ausgesetzt und Informationen (Energie) aufzeichnet",
   cAstroSettingsInfoIRPass: "IR (Infrarot) - Pass",
-  cAstroSettingsInfoIRPassDesc: "Ermöglicht es der Infrarotwellenlänge, den Sensor zu erreichen. Mehrere astronomische Objekte senden in dieser Wellenlänge aus.",
+  cAstroSettingsInfoIRPassDesc:
+    "Ermöglicht es der Infrarotwellenlänge, den Sensor zu erreichen. Mehrere astronomische Objekte senden in dieser Wellenlänge aus.",
   cAstroSettingsInfoIRCut: "IR (Infrarot) - Abschneiden",
-  cAstroSettingsInfoIRCutDesc: "Blockiert die Infrarotwellenlänge. Nützlich für Mond- und Planetenaufnahmen.",
+  cAstroSettingsInfoIRCutDesc:
+    "Blockiert die Infrarotwellenlänge. Nützlich für Mond- und Planetenaufnahmen.",
   cAstroSettingsInfoBin1x1: "Binning - 1x1",
-  cAstroSettingsInfoBin1x1Desc: "Die Kamera erfasst Licht auf jedem einzelnen physischen Pixel.",
+  cAstroSettingsInfoBin1x1Desc:
+    "Die Kamera erfasst Licht auf jedem einzelnen physischen Pixel.",
   cAstroSettingsInfoBin2x2: "Binning - 2x2",
-  cAstroSettingsInfoBin2x2Desc: "Die Kamera kombiniert physische Pixel in Gruppen von 2x2 (4 Pixeln) und betrachtet das gesamte im Gruppen erfasste Licht als einen einzigen Pixel. Kann als ",
+  cAstroSettingsInfoBin2x2Desc:
+    "Die Kamera kombiniert physische Pixel in Gruppen von 2x2 (4 Pixeln) und betrachtet das gesamte im Gruppen erfasste Licht als einen einzigen Pixel. Kann als ",
   cAstroSettingsInfoFormatFITS: "Format - FITS",
-  cAstroSettingsInfoFormatFITSDesc: "Astronomisches verlustfreies numerisches Dateiformat. Kann Metadaten des Bildes enthalten (Koordinaten, Kamera, Pixelgröße Binning, Filter usw.), die von Verarbeitungssoftware verwendet werden können.",
+  cAstroSettingsInfoFormatFITSDesc:
+    "Astronomisches verlustfreies numerisches Dateiformat. Kann Metadaten des Bildes enthalten (Koordinaten, Kamera, Pixelgröße Binning, Filter usw.), die von Verarbeitungssoftware verwendet werden können.",
   cAstroSettingsInfoFormatTIFF: "Format - TIFF",
-  cAstroSettingsInfoFormatTIFFDesc: "Ein verlustfreies Dateiformat, das jedoch nicht speziell auf die Astronomie ausgerichtet ist.",
+  cAstroSettingsInfoFormatTIFFDesc:
+    "Ein verlustfreies Dateiformat, das jedoch nicht speziell auf die Astronomie ausgerichtet ist.",
   cAstroSettingsInfoCount: "Anzahl",
   cAstroSettingsInfoCountDesc: "Anzahl der aufzunehmenden Bilder",
   cAstroSettingsInfoBack: "Zurück",
@@ -120,7 +155,8 @@ const translations = {
   cCalibrationDwarfPowerOn: "Strom An",
   cCalibrationDwarfPowerOff: "Strom Aus",
   cCalibrationDwarfTitle: "Kalibrieren des Dwarf II",
-  cCalibrationDwarfTitleDesc: "Um die Astrofunktion zu nutzen, müssen Sie zuerst den Dwarf II kalibrieren.",
+  cCalibrationDwarfTitleDesc:
+    "Um die Astrofunktion zu nutzen, müssen Sie zuerst den Dwarf II kalibrieren.",
   cCalibrationDwarfWarning: "WARNUNG:",
   cCalibrationDwarfWarningDesc: "Setzen Sie jetzt nichts auf das Objektiv.",
   CCalibrationDwarfCalibrate: "Kalibrieren",
@@ -165,22 +201,32 @@ const translations = {
   cWeatherInfoFeelsLike: "Gefühlt wie:",
   cWeatherInfoHumidity: "Luftfeuchtigkeit:",
   cWeatherInfoWind: "Wind:",
-  cGoToListConnectStellarium: "Sie müssen sich mit Stellarium verbinden, damit das Zentrum funktioniert.",
-  cGoToListConnectDwarf: "Sie müssen sich mit Dwarf II verbinden, damit Goto funktioniert.",
+  cGoToListConnectStellarium:
+    "Sie müssen sich mit Stellarium verbinden, damit das Zentrum funktioniert.",
+  cGoToListConnectDwarf:
+    "Sie müssen sich mit Dwarf II verbinden, damit Goto funktioniert.",
   cGoToListdefault: "Wählen Sie Objektlisten aus",
   cGotoListplanets: "Planeten, Mond und Sonne",
   cGotoListSelectObject: "Bitte wählen Sie eine Objektliste aus.",
   cGotoListDSOList: "Die DSO-Liste enthält Objekte, die:",
-  cGotoListDSOList1: "Groß (> 15 Bogenminuten) und relativ hell (unter 10 Magnituden) sind. 119 Objekte.",
-  cGotoListDSOList2: "Groß (> 15 Bogenminuten) und unbekannte Helligkeit haben. 84 Objekte.",
-  cGotoListDSOList3: "Klein (< 15 Bogenminuten), relativ hell (unter 10 Magnituden), mit gebräuchlichen Namen. 234 Objekte.",
-  cGotoListDSOList4: "118 der hellsten Sterne mit gebräuchlichen Namen, mindestens einer pro Sternbild.",
-  cGotoListDSOList5: "Die Liste der Planeten, Mond und Sonne enthält die Planeten unseres Sonnensystems mit dem Mond und der Sonne. Beachten Sie, dass Dwarf II nicht gut geeignet ist, um Bilder von den Planeten aufzunehmen.",
+  cGotoListDSOList1:
+    "Groß (> 15 Bogenminuten) und relativ hell (unter 10 Magnituden) sind. 119 Objekte.",
+  cGotoListDSOList2:
+    "Groß (> 15 Bogenminuten) und unbekannte Helligkeit haben. 84 Objekte.",
+  cGotoListDSOList3:
+    "Klein (< 15 Bogenminuten), relativ hell (unter 10 Magnituden), mit gebräuchlichen Namen. 234 Objekte.",
+  cGotoListDSOList4:
+    "118 der hellsten Sterne mit gebräuchlichen Namen, mindestens einer pro Sternbild.",
+  cGotoListDSOList5:
+    "Die Liste der Planeten, Mond und Sonne enthält die Planeten unseres Sonnensystems mit dem Mond und der Sonne. Beachten Sie, dass Dwarf II nicht gut geeignet ist, um Bilder von den Planeten aufzunehmen.",
   cGotoListinfo: "",
-  cGoToStellariumConnectStellarium: "Sie müssen sich mit Stellarium verbinden, damit Importdaten funktioniert.",
-  cGoToStellariumPickObject: "Sie können Stellarium verwenden, um Objekte auszuwählen.",
+  cGoToStellariumConnectStellarium:
+    "Sie müssen sich mit Stellarium verbinden, damit Importdaten funktioniert.",
+  cGoToStellariumPickObject:
+    "Sie können Stellarium verwenden, um Objekte auszuwählen.",
   cGoToStellariumListTitle: "Wählen Sie ein Objekt in Stellarium aus.",
-  cGoToStellariumList1: "Importieren Sie Rektaszension und Deklination aus Stellarium, indem Sie auf ",
+  cGoToStellariumList1:
+    "Importieren Sie Rektaszension und Deklination aus Stellarium, indem Sie auf ",
   cGoToStellariumList2: "Starten Sie den Goto-Vorgang, indem Sie auf ",
   cGoToStellariumImportData: "Daten importieren",
   cGoToStellariumImportManualData: "Manuelle Daten importieren",
@@ -190,19 +236,26 @@ const translations = {
   cGoToStellariumDeclination: "Deklination",
   cGoToStellariumCenter: "Zentrieren",
   cGoToStellariumMoveCenter: " Sie können das Zentrum sanft bewegen:",
-  cGoToStellariumMoveCenterli1: "Klicken Sie auf die Schaltflächen, um das Zentrum zu bewegen",
-  cGoToStellariumMoveCenterli2: "+/- 1 min für Rektaszension, +/- 0.1° für Deklination",
+  cGoToStellariumMoveCenterli1:
+    "Klicken Sie auf die Schaltflächen, um das Zentrum zu bewegen",
+  cGoToStellariumMoveCenterli2:
+    "+/- 1 min für Rektaszension, +/- 0.1° für Deklination",
   cGoToStellariumMoveCenterli3: "Die Koordinaten werden aktualisiert",
-  cGoToStellariumMoveCenterli4: "Zentrieren Sie erneut in Stellarium, indem Sie auf ",
-  cGoToStellariumMoveCenterli5: "Starten Sie dann den Goto-Vorgang, indem Sie auf ",
+  cGoToStellariumMoveCenterli4:
+    "Zentrieren Sie erneut in Stellarium, indem Sie auf ",
+  cGoToStellariumMoveCenterli5:
+    "Starten Sie dann den Goto-Vorgang, indem Sie auf ",
   cGoToUserListNewList: "Neue Liste hinzufügen",
   cGoToUserListDeleteList: "Liste löschen",
-  cGoToUserListCustomObjectsListInstruction2: "Die Listen werden im Browser-Datenbankspeicher (localStorage) gespeichert. Da die Daten im Browser gespeichert sind, können andere Benutzer der Website nicht auf Ihre Listen zugreifen.",
-  cGoToUserListCustomObjectsListInstruction3: "Wenn Sie Ihre Liste mit anderen Personen teilen möchten, können Sie anderen Personen die CSV-Datei von Telescopius senden.",
+  cGoToUserListCustomObjectsListInstruction2:
+    "Die Listen werden im Browser-Datenbankspeicher (localStorage) gespeichert. Da die Daten im Browser gespeichert sind, können andere Benutzer der Website nicht auf Ihre Listen zugreifen.",
+  cGoToUserListCustomObjectsListInstruction3:
+    "Wenn Sie Ihre Liste mit anderen Personen teilen möchten, können Sie anderen Personen die CSV-Datei von Telescopius senden.",
   cImportManualModalTitle: "Manuelle Daten eingeben",
   cImportManualModalObjecTName: "Objektname",
   cImportObservationListModalTitle: "Objektliste hinzufügen",
-  cImportObservationListfromTelescopius: "Importieren Sie die Objektliste von Telescopius.",
+  cImportObservationListfromTelescopius:
+    "Importieren Sie die Objektliste von Telescopius.",
   cImportObservationListListName: "Listenname",
   cImportObservationImportList: "Liste importieren",
   cDeleteObservationListModalTitle: "Objektliste löschen",
@@ -222,7 +275,8 @@ const translations = {
   pImageSessionNoShootingInfo: "Keine Aufnahmendaten verfügbar",
   pImageSessionNoAdditionalInfo: "Keine zusätzlichen Informationen verfügbar",
   pImageSessionData: "Sitzungsdaten",
-  pImageSessionSortTable: "Sie können die Tabelle durch Klicken auf Ziel oder Datum sortieren",
+  pImageSessionSortTable:
+    "Sie können die Tabelle durch Klicken auf Ziel oder Datum sortieren",
   pImageSessionPreview: "Vorschau",
   pImageSessionTarget: "Ziel",
   pImageSessionDate: "Datum",
@@ -244,12 +298,17 @@ const translations = {
   cObjectsSearch: "Suche",
   cVisibleSkyLimit: "Sichtbarkeitsgrenze des Himmels",
   cSkyLimitHelp1: "Geben Sie die Sichtbarkeitsgrenze des Himmels ein.",
-  cSkyLimitHelp2: "Das Format ist eine durch Kommas getrennte Liste von Feldern, jedes Feld ist der Höhenwinkelwert (kann 0 sein), gefolgt von einer oder mehreren Richtungen, die durch ein Minuszeichen getrennt sind.",
-  cSkyLimitHelp3: "Objekte werden einbezogen, wenn ihre Höhe für die angegebene Liste von Richtungen größer oder gleich dieser Zahl ist.",
-  cSkyLimitHelp4: "Die Liste der möglichen Werte für die Richtungen lautet: N-NE-E-SE-S-SW-W-NW.",
-  cSkyLimitHelp5: "Wenn eine Richtung fehlt, betrachten wir dies als keine Begrenzung.",
+  cSkyLimitHelp2:
+    "Das Format ist eine durch Kommas getrennte Liste von Feldern, jedes Feld ist der Höhenwinkelwert (kann 0 sein), gefolgt von einer oder mehreren Richtungen, die durch ein Minuszeichen getrennt sind.",
+  cSkyLimitHelp3:
+    "Objekte werden einbezogen, wenn ihre Höhe für die angegebene Liste von Richtungen größer oder gleich dieser Zahl ist.",
+  cSkyLimitHelp4:
+    "Die Liste der möglichen Werte für die Richtungen lautet: N-NE-E-SE-S-SW-W-NW.",
+  cSkyLimitHelp5:
+    "Wenn eine Richtung fehlt, betrachten wir dies als keine Begrenzung.",
   cSkyLimitHelp6: "Hier ist ein Beispiel für mögliche Werte: 20 N-NE, 35 S-SW",
-  cSkyLimitHelp7: "Verwenden Sie das Tag Sichtbar, um nur die Objekte anzuzeigen, die mit Ihrer Himmelsansicht übereinstimmen",
+  cSkyLimitHelp7:
+    "Verwenden Sie das Tag Sichtbar, um nur die Objekte anzuzeigen, die mit Ihrer Himmelsansicht übereinstimmen",
   All: "Alle",
   Favorites: "Favoriten",
   Visible: "Sichtbar",

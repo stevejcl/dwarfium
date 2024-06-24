@@ -1566,7 +1566,7 @@ img {
     align-items: center;
     background-color: #222;
     padding: 10px;
-    position: relative; /* Ensure canvas is positioned relative for absolute positioning of upper canvas */
+    position: relative;
   }
   
   button {
@@ -1587,6 +1587,6 @@ img {
     position: absolute !important;
     top: 0;
     left: 0;
-    pointer-events: none; /* Ensure upper canvases do not capture mouse events */
+    pointer-events: none;
   }
   

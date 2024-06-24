@@ -35,7 +35,6 @@
     "react-redux": "^9.1.0",
     "aladin-lite": "^3.3.2",
     "astronomia": "^4.1.1",
-    "asteroid-loading-spinner": "^2.0.2",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",

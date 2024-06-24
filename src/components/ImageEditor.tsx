@@ -47,7 +47,12 @@ const ImageEditor: React.FC = () => {
         }
       };
       reader.readAsArrayBuffer(file);
-    } else if (file.type === "image/tiff" || file.type === "image/tif" || file.name.endsWith(".tiff") || file.name.endsWith(".tif")) {
+    } else if (
+      file.type === "image/tiff" ||
+      file.type === "image/tif" ||
+      file.name.endsWith(".tiff") ||
+      file.name.endsWith(".tif")
+    ) {
       reader.onload = (event) => {
         const buffer = event.target?.result;
         if (buffer) {
@@ -86,11 +91,11 @@ const ImageEditor: React.FC = () => {
     const rgbaArray = new Uint8ClampedArray(UTIF.toRGBA8(timage));
     const imageData = new ImageData(rgbaArray, timage.width, timage.height);
 
-    const tempCanvas = document.createElement('canvas');
+    const tempCanvas = document.createElement("canvas");
     tempCanvas.width = timage.width;
     tempCanvas.height = timage.height;
 
-    const ctx = tempCanvas.getContext('2d');
+    const ctx = tempCanvas.getContext("2d");
     if (ctx) {
       ctx.putImageData(imageData, 0, 0);
 

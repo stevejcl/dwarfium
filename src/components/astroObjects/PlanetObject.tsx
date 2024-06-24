@@ -51,6 +51,7 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
 
   function renderRiseSetTime(object: AstroObject) {
     if (connectionCtx.latitude && connectionCtx.longitude) {
+      // eslint-disable-next-line testing-library/render-result-naming-convention
       let timesObject = renderLocalRiseSetTime(
         object,
         connectionCtx.latitude,

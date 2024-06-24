@@ -9,7 +9,10 @@ import Counter from "@/components/asteroids/counter";
 
 const MainPage: NextPage = () => {
   const currentDate = new Date().toISOString().split("T")[0];
-  const [localStorageData, setLocalStorageData] = useLocalStorage("asteroids", "");
+  const [localStorageData, setLocalStorageData] = useLocalStorage(
+    "asteroids",
+    ""
+  );
   const [NasaApiKey, setNasaApiKey] = useLocalStorage("NasaApiKey", ""); // Store NasaApiKey in local storage
   const [getAsteroids, { data, isLoading }] = useGetAsteroidsMutation(); // Using the hook directly
   const [inputNasaApiKey, setInputNasaApiKey] = useState("");

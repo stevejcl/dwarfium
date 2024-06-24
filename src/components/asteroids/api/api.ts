@@ -15,7 +15,7 @@ const getApiKey = () => {
 
 export const API = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.nasa.gov/neo/rest/v1/feed',
+    baseUrl: "https://api.nasa.gov/neo/rest/v1/feed",
   }),
   endpoints: (builder) => ({
     getAsteroids: builder.mutation<ApiNasaResponse, string>({

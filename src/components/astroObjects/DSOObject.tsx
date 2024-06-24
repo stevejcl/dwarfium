@@ -108,17 +108,18 @@ export default function DSOObject(props: AstronomyObjectPropType) {
 
   function renderRiseSetTime() {
     if (connectionCtx.latitude && connectionCtx.longitude) {
-      let timesObject = renderLocalRiseSetTime(
+      // eslint-disable-next-line testing-library/render-result-naming-convention
+      const timesObject = renderLocalRiseSetTime(
         object,
         connectionCtx.latitude,
         connectionCtx.longitude
       );
 
-      if (timesObject?.error) {
+      if (timesObject.error !== null) {
         return <span>{t(timesObject.error)}</span>;
       }
 
-      if (timesObject) {
+      if (timesObject.rise && timesObject.set) {
         return (
           <span>
             {t("cObjectsRises")}: {timesObject.rise}, {t("cObjectsSets")}:{" "}

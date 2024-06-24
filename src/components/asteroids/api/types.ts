@@ -61,5 +61,6 @@ export interface AsteroidApproach {
 }
 
 export enum OrbitingBody {
+  // eslint-disable-next-line no-unused-vars
   Earth,
 }

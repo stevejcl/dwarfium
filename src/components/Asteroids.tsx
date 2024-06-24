@@ -1,7 +1,7 @@
 import API from '@/components/asteroids/api/api'
 import { ApiNasaResponse } from '@/components/asteroids/api/types'
 import { useLocalStorage } from '@/components/asteroids/functions/hooks'
-import AsteroidLoadingSpinner from 'asteroid-loading-spinner'
+//import AsteroidLoadingSpinner from 'asteroid-loading-spinner'
 import { NextPage } from 'next'
 import React from 'react'
 
@@ -70,7 +70,7 @@ const MainPage: NextPage = () => {
                     <div className={'loader'}>
                         <h2>Please wait</h2>
                         <h4>Looking for asteroids approaching Earth</h4>
-                        <AsteroidLoadingSpinner />
+                        
                     </div>
                 )}
                 {asteroidsData &&

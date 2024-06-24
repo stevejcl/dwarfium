@@ -1,0 +1,213 @@
+body {
+    background-color: #1b1b1b;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-size: 1.1rem;
+    font-weight: 300;
+    word-spacing: 1px;
+    line-height: 28px;
+}
+
+.wrapper {
+    /*max-width: 1000px;*/
+    margin: 0 auto;
+    padding: 0.5rem;
+}
+.form-control-nasa {
+    flex: 1; /* Take up remaining space */
+    margin-right: 1rem; /* Add margin between input and button */
+    padding: 0.375rem 0.75rem; /* Bootstrap default padding */
+    font-size: 1rem; /* Adjust font size */
+    /*line-height: 1.5;  Adjust line height */
+    color: #495057; /* Text color */
+    background-color: #fff; /* Background color */
+    background-clip: padding-box; /* Box-sizing for background */
+    border: 1px solid #ced4da; /* Border color */
+    border-radius: 0.25rem; /* Border radius */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transition effect */
+}
+.input-button-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 2rem auto; /* Adjust margin to center horizontally */
+    max-width: 300px; /* Set maximum width for the container */
+}
+p {
+    /*text-align: justify;*/
+    padding: 0 0 0.5rem 0;
+}
+
+.date {
+    font-size: 2.1rem;
+    font-weight: 500;
+    color: #ffa33b;
+    word-spacing: -2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem; /* Adjust margin as needed */
+   
+}
+
+.loader {
+    text-align: center;
+    margin: 5em 0;
+}
+
+    .loader h2 {
+        font-size: 2.5em;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+
+.counter {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+    .counter .divider {
+        width: 50%;
+        background-color: #2a2a2a;
+        height: 1px;
+        margin: 0.5rem auto 1.5rem;
+    }
+
+    .counter .totalNumber,
+    .counter .dangerNumber {
+        font-weight: bold;
+    }
+
+    .counter .dangerNumber {
+        color: #fb5252;
+    }
+
+.asteroid {
+    margin: 0 0 2rem 0;
+}
+
+    .asteroid .container {
+        background-color: transparent;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        justify-items: stretch;
+        width: 100%;
+        border-radius: 5px;
+        padding: 1.5rem 0 1.5rem 2rem;
+        letter-spacing: 0.4px;
+    }
+
+@media only screen and (max-width: 768px) {
+    .asteroid .container {
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+        padding: 0.8rem 0;
+        gap: 0.5rem;
+    }
+}
+
+.asteroid .container .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 200;
+}
+
+@media only screen and (max-width: 768px) {
+    .asteroid .container .details {
+        grid-column: span 2;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+}
+
+.asteroid .container .details .name {
+    font-size: 2.2rem;
+    font-weight: bold;
+    line-height: 3rem;
+    margin: 0;
+}
+
+.asteroid .container .details p {
+    margin: 0;
+    padding-bottom: 0;
+    font-size: 1.5rem;
+    line-height: 1.7rem;
+}
+
+.asteroid .container .details .dangerous,
+.asteroid .container .details .notDangerous {
+    background-color: #fb5252;
+    color: #fff;
+    font-weight: 400;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.1rem 1rem;
+    margin: 1rem 0 0 0;
+}
+
+.asteroid .container .details .notDangerous {
+    background-color: #6fff87;
+    color: #000;
+}
+
+.asteroid .container .details .toggle-orbit-btn {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-radius: 12px;
+}
+
+    .asteroid .container .details .toggle-orbit-btn:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid #4caf50;
+    }
+
+    .asteroid .container .details .toggle-orbit-btn.toggle-orbit-btn-1 {
+        background-color: #008cba;
+        border: none;
+        color: white;
+        padding: 10px 24px;
+        font-size: 14px;
+        margin: 2px 1px;
+        border-radius: 8px;
+    }
+
+        .asteroid .container .details .toggle-orbit-btn.toggle-orbit-btn-1:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid #008cba;
+        }
+
+.asteroid .container .comparison {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 300;
+    text-align: center;
+    padding: 0 20px;
+}
+
+    .asteroid .container .comparison .comparisonSizeImage {
+        max-height: 120px;
+        width: auto;
+        margin-top: 0.35rem;
+    }
+
+    .asteroid .container .comparison .comparisonSpeedImage {
+        max-height: 120px;
+        width: auto;
+    }

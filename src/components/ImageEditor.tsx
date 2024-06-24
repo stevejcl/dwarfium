@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { fabric } from "fabric";
-import { loadFITS } from "@/lib/fitsUtils"; // Ensure correct path
-import { calculateHistogram } from "@/lib/histogramUtils"; // Ensure correct path
+import { loadFITS } from "@/lib/fitsUtils";
+import { calculateHistogram } from "@/lib/histogramUtils";
 
 const ImageEditor: React.FC = () => {
+  // eslint-disable-next-line no-unused-vars
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
   const [hue, setHue] = useState<number>(0);
   const [saturation, setSaturation] = useState<number>(0);
@@ -13,16 +14,20 @@ const ImageEditor: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
   const [imageObject, setImageObject] = useState<fabric.Image | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [lastPosX, setLastPosX] = useState<number | null>(null);
+  const [lastPosY, setLastPosY] = useState<number | null>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
       const canvasInstance = new fabric.Canvas(canvasRef.current, {
-        selection: false, // Disable selection highlighting
+        selection: false,
       });
       setCanvas(canvasInstance);
       canvasInstance.on("mouse:down", handleMouseDown);
       canvasInstance.on("mouse:move", handleMouseMove);
       canvasInstance.on("mouse:up", handleMouseUp);
+      canvasInstance.on("mouse:wheel", handleMouseWheel);
     }
   }, []);
 
@@ -34,7 +39,6 @@ const ImageEditor: React.FC = () => {
       reader.onload = async (event) => {
         const buffer = event.target?.result;
         if (buffer) {
-          // Use the utility function to load and process the FITS file
           const imageData = await loadFITS(buffer as ArrayBuffer);
           if (imageData) {
             renderFitsImage(imageData);
@@ -53,11 +57,11 @@ const ImageEditor: React.FC = () => {
             if (canvas) {
               canvas.clear();
               const fabricImg = new fabric.Image(img);
+              setImageObject(fabricImg);
+              fitImageToScreen(fabricImg);
               canvas.add(fabricImg);
               canvas.renderAll();
-              setImageObject(fabricImg);
               updateHistogram(img);
-              fitImageToScreen(); // Ensure image fits screen on load
             }
           };
         }
@@ -72,7 +76,7 @@ const ImageEditor: React.FC = () => {
       const ctx = canvasElement.getContext("2d");
       if (!ctx) return;
 
-      const width = Math.sqrt(data.length); // Assuming square image data
+      const width = Math.sqrt(data.length);
       const height = width;
       const imageData = ctx.createImageData(width, height);
 
@@ -90,12 +94,12 @@ const ImageEditor: React.FC = () => {
 
       if (canvas) {
         const fabricImg = new fabric.Image(canvasElement);
+        setImageObject(fabricImg);
+        fitImageToScreen(fabricImg); // Fit image to screen on load
         canvas.clear();
         canvas.add(fabricImg);
         canvas.renderAll();
-        setImageObject(fabricImg);
         updateHistogram(canvasElement);
-        fitImageToScreen(); // Ensure image fits screen on load
       }
     }
   };
@@ -115,38 +119,67 @@ const ImageEditor: React.FC = () => {
     );
   };
 
-  const fitImageToScreen = () => {
-    if (imageObject && canvas) {
+  const fitImageToScreen = (fabricImg: fabric.Image) => {
+    if (canvas && fabricImg) {
+      const canvasWidth = canvas.width!;
+      const canvasHeight = canvas.height!;
+      const imgWidth = fabricImg.width!;
+      const imgHeight = fabricImg.height!;
+
+      // Calculate scale factor to fit the image within the canvas dimensions
       const scaleFactor = Math.min(
-        canvas.width / imageObject.width!,
-        canvas.height / imageObject.height!
+        canvasWidth / imgWidth,
+        canvasHeight / imgHeight
       );
-      imageObject.scale(scaleFactor);
-      canvas.centerObject(imageObject);
+
+      fabricImg.scale(scaleFactor);
+      canvas.centerObject(fabricImg);
+      fabricImg.setCoords();
       canvas.renderAll();
     }
   };
 
   const handleMouseDown = (event: fabric.IEvent) => {
     if (event.target) {
-      const target = event.target as fabric.Object;
-      if (target.type === "image") {
-        target.set("selectable", true);
-      }
+      setIsDragging(true);
+      setLastPosX(event.e.clientX);
+      setLastPosY(event.e.clientY);
+      canvas?.setCursor("move");
     }
   };
 
-  const handleMouseMove = () => {
-    // Handle panning here if needed
+  const handleMouseMove = (event: fabric.IEvent) => {
+    if (isDragging && imageObject) {
+      const deltaX = event.e.clientX - (lastPosX || 0);
+      const deltaY = event.e.clientY - (lastPosY || 0);
+
+      imageObject.left! += deltaX;
+      imageObject.top! += deltaY;
+      setLastPosX(event.e.clientX);
+      setLastPosY(event.e.clientY);
+      canvas?.renderAll();
+    }
   };
 
-  const handleMouseUp = (event: fabric.IEvent) => {
-    if (event.target) {
-      const target = event.target as fabric.Object;
-      if (target.type === "image") {
-        target.set("selectable", false);
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    canvas?.setCursor("default");
+  };
+
+  const handleMouseWheel = (event: fabric.IEvent) => {
+    if (imageObject && canvas) {
+      const delta = event.e.deltaY;
+      let zoom = imageObject.scaleX || 1;
+      zoom *= 1 - delta / 200;
+      if (zoom > 0.1) {
+        imageObject.scale(zoom);
+        imageObject.setCoords();
+        canvas.centerObject(imageObject);
+        canvas.renderAll();
       }
     }
+    event.e.preventDefault();
+    event.e.stopPropagation();
   };
 
   useEffect(() => {

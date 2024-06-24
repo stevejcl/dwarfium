@@ -1,10 +1,9 @@
-import API from '@/components/asteroids/api/api'
-import { ApiNasaResponse } from '@/components/asteroids/api/types'
-import { useLocalStorage } from '@/components/asteroids/functions/hooks'
+import API from "@/components/asteroids/api/api";
+import { ApiNasaResponse } from "@/components/asteroids/api/types";
+import { useLocalStorage } from "@/components/asteroids/functions/hooks";
 //import AsteroidLoadingSpinner from 'asteroid-loading-spinner'
-import { NextPage } from 'next'
-import React from 'react'
-
+import { NextPage } from "next";
+import React from "react";
 
 import Asteroid from "@/components/asteroids/asteroid";
 import Counter from "@/components/asteroids/counter";

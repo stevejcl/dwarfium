@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { fabric } from "fabric";
 import { loadFITS } from "@/lib/fitsUtils";
 import { calculateHistogram } from "@/lib/histogramUtils";
+import * as UTIF from "utif";
 
 const ImageEditor: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
@@ -46,6 +47,19 @@ const ImageEditor: React.FC = () => {
         }
       };
       reader.readAsArrayBuffer(file);
+    } else if (
+      file.type === "image/tiff" ||
+      file.type === "image/tif" ||
+      file.name.endsWith(".tiff") ||
+      file.name.endsWith(".tif")
+    ) {
+      reader.onload = (event) => {
+        const buffer = event.target?.result;
+        if (buffer) {
+          renderTiffImage(buffer as ArrayBuffer);
+        }
+      };
+      reader.readAsArrayBuffer(file);
     } else {
       reader.onload = (event) => {
         const src = event.target?.result;
@@ -67,6 +81,33 @@ const ImageEditor: React.FC = () => {
         }
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const renderTiffImage = (buffer: ArrayBuffer) => {
+    const ifds = UTIF.decode(buffer);
+    const timage = ifds[0];
+    UTIF.decodeImage(buffer, timage);
+    const rgbaArray = new Uint8ClampedArray(UTIF.toRGBA8(timage));
+    const imageData = new ImageData(rgbaArray, timage.width, timage.height);
+
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = timage.width;
+    tempCanvas.height = timage.height;
+
+    const ctx = tempCanvas.getContext("2d");
+    if (ctx) {
+      ctx.putImageData(imageData, 0, 0);
+
+      if (canvas) {
+        const fabricImg = new fabric.Image(tempCanvas);
+        setImageObject(fabricImg);
+        fitImageToScreen(fabricImg);
+        canvas.clear();
+        canvas.add(fabricImg);
+        canvas.renderAll();
+        updateHistogram(tempCanvas);
+      }
     }
   };
 

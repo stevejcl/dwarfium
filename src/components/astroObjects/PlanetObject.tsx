@@ -51,20 +51,21 @@ export default function PlanetObject(props: AstronomyObjectPropType) {
 
   function renderRiseSetTime(object: AstroObject) {
     if (connectionCtx.latitude && connectionCtx.longitude) {
-      let view = renderLocalRiseSetTime(
+      // eslint-disable-next-line testing-library/render-result-naming-convention
+      let timesObject = renderLocalRiseSetTime(
         object,
         connectionCtx.latitude,
         connectionCtx.longitude
       );
 
-      if (view?.error) {
-        return <span>{view.error}</span>;
+      if (timesObject?.error) {
+        return <span>{timesObject.error}</span>;
       }
 
-      if (view) {
+      if (timesObject) {
         return (
           <span>
-            Rises: {view.rise}, Sets: {view.set}
+            Rises: {timesObject.rise}, Sets: {timesObject.set}
           </span>
         );
       }

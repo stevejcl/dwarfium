@@ -75,7 +75,7 @@ const ImageEditor: React.FC = () => {
               fitImageToScreen(fabricImg);
               canvas.add(fabricImg);
               canvas.renderAll();
-              updateHistogram(img);
+              updateHistogram();
             }
           };
         }
@@ -106,7 +106,7 @@ const ImageEditor: React.FC = () => {
         canvas.clear();
         canvas.add(fabricImg);
         canvas.renderAll();
-        updateHistogram(tempCanvas);
+        updateHistogram();
       }
     }
   };
@@ -140,7 +140,7 @@ const ImageEditor: React.FC = () => {
         canvas.clear();
         canvas.add(fabricImg);
         canvas.renderAll();
-        updateHistogram(canvasElement);
+        updateHistogram();
       }
     }
   };
@@ -244,9 +244,23 @@ const ImageEditor: React.FC = () => {
     }
   };
 
-  const updateHistogram = (image: HTMLImageElement | HTMLCanvasElement) => {
-    const histogramData = calculateHistogram(image);
-    setHistogram(histogramData);
+  const updateHistogram = () => {
+    if (!canvas || !imageObject) return;
+
+    canvas.renderAll();
+
+    let targetImage: HTMLImageElement | HTMLCanvasElement | null = null;
+
+    if (imageObject.getElement() instanceof HTMLCanvasElement) {
+      targetImage = imageObject.getElement() as HTMLCanvasElement;
+    } else if (imageObject.getElement() instanceof HTMLImageElement) {
+      targetImage = imageObject.getElement() as HTMLImageElement;
+    }
+
+    if (targetImage) {
+      const histogramData = calculateHistogram(targetImage);
+      setHistogram(histogramData);
+    }
   };
 
   const { getRootProps, getInputProps } = useDropzone({

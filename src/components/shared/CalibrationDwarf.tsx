@@ -526,11 +526,11 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
           </div>
         )}
         {showPolarAlign && (
-          <div className="connect-dwarf" title={t("cMotorActionHide")}>
+          <div className="connect-dwarf-1" title={t("cMotorActionHide")}>
             <button
               className={`btn ${
                 connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-              } mb-4`}
+              } mb-3`}
               onClick={togglePolarAlignAction}
               disabled={!connectionCtx.connectionStatus}
             >
@@ -539,11 +539,11 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
           </div>
         )}
         {!showPolarAlign && (
-          <div className="connect-dwarf" title={t("cMotorActionShow")}>
+          <div className="connect-dwarf-1" title={t("cMotorActionShow")}>
             <button
               className={`btn ${
                 connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-              } mb-4`}
+              } mb-3`}
               onClick={togglePolarAlignAction}
               disabled={!connectionCtx.connectionStatus}
             >

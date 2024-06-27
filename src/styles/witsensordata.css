@@ -1,0 +1,74 @@
+/* WitSensorData.css */
+
+
+.witsensor {
+    text-align: center;
+    margin-top: 20px;
+}
+.div-inner {
+    margin-left: 105px;
+    margin-top: 8px;
+}
+.witimage img {
+    max-width: 100%;
+}
+
+.camera-witmotion {
+    /*background-color: #f0f0f0;*/
+    /*padding: 20px;*/
+    margin-left: 305px;
+    border-radius: 8px;
+    display: flex;
+}
+
+    .camera-witmotion h3 {
+        margin-top: 0;
+    }
+
+.camera-witmotion-content {
+    width: fit-content;
+    padding: 20px;
+    margin-top: 20px;
+    float: right;
+}
+
+.polar-align-wit {
+    text-align: center;
+    margin-top: -180px;
+    margin-left: 0%;
+}
+
+.witsensor {
+    margin-top: 95px;
+}
+
+.witimage {
+    /*text-align: right;*/
+    margin-top: 20px;
+    display: flex;
+
+}
+
+    .witimage img {
+        width: 150px;
+    }
+.container-cam {
+    margin-top: 50px;
+}
+.camera-con {
+    margin-top: 50px;
+    width: 800px;
+}
+.mnu-polar {
+    margin-top: 28px;
+}
+.mnu-polar-con {
+    margin-top: 80px;
+    width:max-content;
+    float: right;
+    display:flex;
+}
+.altitude-description-wit {
+    display: flex;
+    align-items: center;
+}

@@ -4,10 +4,11 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import { useApplication } from "@/components/witmotion/ApplicationProvider";
 import { ArraySensorDataInterface } from "@/lib/witmotion/Interfaces";
 import { SwitchSelector } from "@/components/witmotion/Switch";
-import { Graphs } from "@/components/witmotion/Graphs";
+//import { Graphs } from "@/components/witmotion/Graphs";
 import { dataFlowRestriction } from "@/lib/witmotion/DataFlowRestriction";
 import MenuSettings from "./MenuSettings";
-
+import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
+import PolarAlign from "@/components/shared/PolarAlign";
 export const Inner: React.FC = () => {
   const inputDataInit = {
     axc: { x: [], y: [], z: [] },
@@ -54,13 +55,23 @@ export const Inner: React.FC = () => {
             color={buttonLogic[Number(disabled)][0]}
             className="btn-more02"
           >
-            {buttonLogic[Number(disabled)][1]}
+                      {buttonLogic[Number(disabled)][1]}
+                      
           </Button>
           <MenuSettings dis={disabled} />
         </ButtonGroup>
       </Grid2>
 
-      <Grid2 xs={12}>{!disabled && <Graphs inputData={inputData} />}</Grid2>
+          <Grid2 xs={6}>
+              <div className="mnu-polar">
+                  <PolarAlign />
+              </div>
+          </Grid2>
+          <Grid2 xs={4}>
+              <div className="mnu-polar-con">
+                  <ConnectDwarfII />
+              </div>
+          </Grid2>
     </>
   );
 };

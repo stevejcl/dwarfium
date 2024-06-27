@@ -1,0 +1,114 @@
+
+.image-editor-container {
+    display: flex;
+    height: 80vh;
+    background-color: #2d2d2d;
+    color: #d0d0d0;
+    padding: 8px;
+    margin-top: 90px;
+    border-radius: 5px;
+}
+
+.sidebar {
+    width: 300px;
+    padding: 10px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dropzone {
+    border: 2px dashed #777;
+    background-color: #444;
+    color: #bbb;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.controls {
+    margin-top: 20px;
+    width: 100%;
+}
+
+    .controls label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .controls input[type="range"] {
+        width: 100%;
+    }
+
+.histogram {
+    margin-top: 20px;
+    width: 100%;
+    color: #fff;
+}
+
+    .histogram h3 {
+        text-align: center;
+    }
+
+.histogram-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.histogram-channel {
+    width: 30px;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.histogram-bar {
+    background-color: #888;
+    width: 100%;
+}
+
+.histogram-channel-0 .histogram-bar {
+    background-color: #ff5555;
+}
+
+.histogram-channel-1 .histogram-bar {
+    background-color: #55ff55;
+}
+
+.histogram-channel-2 .histogram-bar {
+    background-color: #5555ff;
+}
+
+.canvas-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222;
+    padding: 10px;
+    position: relative;
+}
+
+button {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    button:hover {
+        background-color: #777;
+    }
+
+.upper-canvas {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}

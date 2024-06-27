@@ -7,6 +7,8 @@ import deTranslation from "@/locales/de.json";
 import nlTranslation from "@/locales/nl.json";
 import itTranslation from "@/locales/it.json";
 import plTranslation from "@/locales/pl.json";
+import zhCNTranslation from "@/locales/zh_CN.json";
+
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -17,6 +19,7 @@ i18n.use(initReactI18next).init({
     nl: { translation: nlTranslation },
     it: { translation: itTranslation },
     pl: { translation: plTranslation },
+    zhCN: { translation: zhCNTranslation },
   },
   fallbackLng: "en",
   lng: "en", // Default language

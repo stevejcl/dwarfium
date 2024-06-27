@@ -47,6 +47,7 @@ const Modal: React.FC = () => {
     it: "Italiano",
     nl: "Nederlands",
     pl: "Polish",
+    zhCN: "简体中文",
   };
 
   const availableLanguages = Object.keys(languages);

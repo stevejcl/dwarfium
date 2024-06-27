@@ -46,4 +46,5 @@ export let typesTypesCategories = {
   star: "stars",
   "supernova remnant": "nebulae",
   Mosaic: "mosaic",
+  Asteroid: "asteroid",
 };

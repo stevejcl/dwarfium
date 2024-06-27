@@ -174,8 +174,6 @@ export default function Goto() {
         )}
         {connectionCtx.gotoType === "asteroids" && (
           <Asteroids
-            objectFavoriteNames={objectFavoriteNames}
-            setObjectFavoriteNames={setObjectFavoriteNames}
             setModule={setModule}
             setErrors={setErrors}
             setSuccess={setSuccess}

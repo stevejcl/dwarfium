@@ -43,6 +43,10 @@ function parseRADec(text: string) {
   }
 }
 
+function removeHtmlTags(str) {
+  return str.replace(/<[^>]*>/g, "");
+}
+
 function parseObjectName(text: string) {
   let matches = text.match(/<h2>(.*?)<\/h2>/);
   if (matches) {
@@ -57,14 +61,16 @@ function parseObjectName(text: string) {
         let afterParenthesis = content.substring(endIndex + 1).trim();
         // Return only the content after the closing ')'
         return {
-          objectName: afterParenthesis,
+          objectName: removeHtmlTags(afterParenthesis),
         };
       }
     } else if (startIndex !== -1)
       return {
-        objectName: matches[1].split(")")[0].replace("<br />", "") + ")",
+        objectName: removeHtmlTags(
+          matches[1].split(")")[0].replace("<br />", "") + ")"
+        ),
       };
-    else return { objectName: matches[1].split("<br")[0] };
+    else return { objectName: removeHtmlTags(matches[1].split("<br")[0]) };
   }
 }
 

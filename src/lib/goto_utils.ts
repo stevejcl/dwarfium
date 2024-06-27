@@ -1152,7 +1152,8 @@ export function centerCoordinatesHandler(
 export function centerHandler(
   object: AstroObject,
   connectionCtx: ConnectionContextType,
-  setErrors: Dispatch<SetStateAction<string | undefined>>
+  setErrors: Dispatch<SetStateAction<string | undefined>>,
+  functionSuccess?: () => void // eslint-disable-line no-unused-vars
 ) {
   eventBus.dispatch("clearErrors", { message: "clear errors" });
 
@@ -1197,7 +1198,7 @@ export function centerHandler(
         })
         .then((data) => {
           console.log(data);
-          if (data != "true") {
+          if (data != "true" && object.type != "Asteroid") {
             // try by coordinate
             // Convert Ra and Dec to Vec3d used by Stellarium
             let RA_number = object.ra
@@ -1230,7 +1231,11 @@ export function centerHandler(
                 }
               })
               .catch((err) => stellariumErrorHandler(err, setErrors));
-          }
+          } else if (data != "true" && object.type == "Asteroid") {
+            setErrors(
+              `Could not find Asteroid : ${object.designation} in Stellarium`
+            );
+          } else if (functionSuccess) functionSuccess();
         })
         .catch((err) => stellariumErrorHandler(err, setErrors));
     }

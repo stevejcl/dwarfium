@@ -55,25 +55,25 @@ export const Inner: React.FC = () => {
             color={buttonLogic[Number(disabled)][0]}
             className="btn-more02"
           >
-                      {buttonLogic[Number(disabled)][1]}
-                      
+            {buttonLogic[Number(disabled)][1]}
           </Button>
           <MenuSettings dis={disabled} />
-              </ButtonGroup>
-              
+        </ButtonGroup>
       </Grid2>
 
-          <Grid2 xs={6}>
-              <div className="mnu-polar">
-                  <PolarAlign />
-                  <div className="graph-wit">{!disabled && <Graphs inputData={inputData} />}</div>
-              </div>
-          </Grid2>
-              <Grid2 xs={4}>
-              <div className="mnu-polar-con">
-                  <ConnectDwarfII />
-              </div>
-          </Grid2>
+      <Grid2 xs={6}>
+        <div className="mnu-polar">
+          <PolarAlign />
+          <div className="graph-wit">
+            {!disabled && <Graphs inputData={inputData} />}
+          </div>
+        </div>
+      </Grid2>
+      <Grid2 xs={4}>
+        <div className="mnu-polar-con">
+          <ConnectDwarfII />
+        </div>
+      </Grid2>
     </>
   );
 };

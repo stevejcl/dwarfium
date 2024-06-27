@@ -39,21 +39,19 @@ export default function WitSensorData() {
         {""}
       </div>
       <div className="polar-align-wit">
-              {/*<PolarAlign />
+        {/*<PolarAlign />
         <ConnectDwarfII />*/}
       </div>
       <Grid2 container spacing={3}>
         <Grid2 md={6} xs={12} className="camera-container">
           <div className="camera-witmotion">
-                      {/*<h3>{t("cWitmotionCamera")}</h3>*/}
-                      <main className="camera-con">
-                          
+            {/*<h3>{t("cWitmotionCamera")}</h3>*/}
+            <main className="camera-con">
               <DwarfCameras
                 showWideangle={false}
                 useRawPreviewURL={false}
                 showControls={false}
               />
-              
             </main>
           </div>
         </Grid2>

@@ -2,17 +2,28 @@ import { useGetAsteroidsMutation } from "@/components/asteroids/api/api"; // Adj
 import { ApiNasaResponse } from "@/components/asteroids/api/types";
 import { useLocalStorage } from "@/components/asteroids/functions/hooks";
 import { NextPage } from "next";
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import { ConnectionContext } from "@/stores/ConnectionContext";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 import Asteroid from "@/components/asteroids/asteroid";
 import Counter from "@/components/asteroids/counter";
 
-const MainPage: NextPage = () => {
+type PropType = {
+  setModule: Dispatch<SetStateAction<string | undefined>>;
+  setErrors: Dispatch<SetStateAction<string | undefined>>;
+  setSuccess: Dispatch<SetStateAction<string | undefined>>;
+};
+
+const MainPage: NextPage<PropType> = ({ setModule, setErrors, setSuccess }) => {
   const currentDate = new Date().toISOString().split("T")[0];
   const [localStorageData, setLocalStorageData] = useLocalStorage(
     "asteroids",
     ""
   );
+  let connectionCtx = useContext(ConnectionContext);
   const [NasaApiKey, setNasaApiKey] = useLocalStorage("NasaApiKey", ""); // Store NasaApiKey in local storage
   const [getAsteroids, { data, isLoading }] = useGetAsteroidsMutation(); // Using the hook directly
   const [inputNasaApiKey, setInputNasaApiKey] = useState("");
@@ -23,6 +34,19 @@ const MainPage: NextPage = () => {
     () => (localStorageData ? JSON.parse(localStorageData) : {}),
     [localStorageData]
   );
+
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    setModule("Asteroids");
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   // Fetch asteroids data if not available in local storage for the current date
   useEffect(() => {
@@ -57,6 +81,13 @@ const MainPage: NextPage = () => {
   return (
     <>
       <div className="wrapper">
+        {!connectionCtx.connectionStatusStellarium && (
+          <p className="text-danger">{t("cGoToAsteroidConnectStellarium")}</p>
+        )}
+        {!connectionCtx.connectionStatusStellarium && <br />}
+        {!connectionCtx.connectionStatus && (
+          <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
+        )}
         <div className="col-sm-6 col-md-3 mb-3 input-button-container">
           <input
             type="text"
@@ -102,7 +133,14 @@ const MainPage: NextPage = () => {
             ?.sort(({ is_potentially_hazardous_asteroid }) =>
               is_potentially_hazardous_asteroid ? -1 : 1
             )
-            .map((data, index) => <Asteroid key={index} data={data} />)}
+            .map((data, index) => (
+              <Asteroid
+                key={index}
+                data={data}
+                setErrors={setErrors}
+                setSuccess={setSuccess}
+              />
+            ))}
       </div>
     </>
   );

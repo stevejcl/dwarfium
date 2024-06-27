@@ -1,5 +1,5 @@
 // Assuming this is the updated version of calculateHistogram function in histogramUtils.ts
-import { fabric } from "fabric";
+//import { fabric } from "fabric";
 
 export const calculateHistogram = (
   imageElement: HTMLImageElement | HTMLCanvasElement
@@ -19,7 +19,12 @@ export const calculateHistogram = (
   const data = imageData.data;
 
   // Initialize histogram arrays for RGB channels
-  const histogram = [[], [], []];
+  //const histogram = [[], [], []];
+  const histogram: number[][] = [
+    new Array(256).fill(0), // Red channel
+    new Array(256).fill(0), // Green channel
+    new Array(256).fill(0), // Blue channel
+  ];
 
   // Iterate through every pixel
   for (let i = 0; i < data.length; i += 4) {

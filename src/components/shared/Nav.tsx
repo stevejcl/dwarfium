@@ -139,16 +139,16 @@ export default function Nav() {
                   {t("cNavAstronomyCalendar")}
                 </Link>
               </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    href="/polar-alignment"
-                    style={{ display: devState ? "block" : "none" }}
-                  >
-                    {t("cNavPolarAlignment")}
-                  </Link>
-                </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  href="/polar-alignment"
+                  style={{ display: devState ? "block" : "none" }}
+                >
+                  {t("cNavPolarAlignment")}
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link
                   className="nav-link active"

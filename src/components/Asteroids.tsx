@@ -67,14 +67,14 @@ const MainPage: NextPage = () => {
           />
           <button
             type="button"
-            className="btn btn-more02 w-40"
+            className="btn btn-more02 w-100 me-2"
             onClick={handleSaveNasaApiKey}
           >
             Save API
           </button>
           <button
             type="button"
-            className="btn btn-more02 w-40 ml-2"
+            className="btn btn-more02 w-100 me-2 ml-2"
             onClick={handleLoadObjects}
           >
             Load Objects

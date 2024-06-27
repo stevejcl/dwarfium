@@ -5,13 +5,6 @@ import { useTranslation } from "react-i18next";
 const Modal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [devState, setDevState] = useState(() => {
-    if (typeof window !== "undefined") {
-      const storedDevState = localStorage.getItem("devState");
-      return storedDevState === "true";
-    }
-    return false;
-  });
   const [fontSize, setFontSize] = useState<number>(() => {
     if (typeof window !== "undefined" && window.localStorage) {
       const storedFontSize = localStorage.getItem("fontSize");
@@ -64,12 +57,6 @@ const Modal: React.FC = () => {
 
   const closeModal = () => {
     setShowModal(false);
-  };
-
-  const handleDevOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    setDevState(isChecked);
-    localStorage.setItem("devState", isChecked.toString());
   };
 
   const applyBackground = () => {
@@ -280,17 +267,6 @@ const Modal: React.FC = () => {
             <button className="apply-button" onClick={applyBackground}>
               {t("cThemeSettingsApply")}
             </button>
-            <div className="witmotion-sensor">
-              <label className="checkbox-container">
-                <input
-                  type="checkbox"
-                  className="custom-checkbox"
-                  checked={devState}
-                  onChange={handleDevOptionChange}
-                />
-                : Enable Witmotion Sensor
-              </label>
-            </div>
           </div>
         </div>
       )}

@@ -47,16 +47,13 @@ export default function WitSensorData() {
           <div className="camera-witmotion">
                       {/*<h3>{t("cWitmotionCamera")}</h3>*/}
                       <main className="camera-con">
-                          <br /><br /><br /><br /><br /><br />
+                          
               <DwarfCameras
                 showWideangle={false}
                 useRawPreviewURL={false}
                 showControls={false}
               />
-              <br />
-              <br />
-              <br />
-              <br />
+              
             </main>
           </div>
         </Grid2>

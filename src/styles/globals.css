@@ -1467,3 +1467,20 @@ img {
     margin-right: 15px !important;
     margin-top: -40px;
 }
+
+.camera-con {
+    position: relative;
+  }
+  
+.overlay-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;  /* outer diameter of the circle */
+    height: 40px;
+    border: 2px solid red;  /* red border with a specified thickness */
+    border-radius: 50%;  /* makes it a circle */
+    transform: translate(-50%, -50%);  /* centers the circle */
+    pointer-events: none;  /* allows interaction with elements underneath */
+    background: transparent;  /* ensures the center is transparent */
+ }

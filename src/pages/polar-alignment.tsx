@@ -2,9 +2,9 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import { Inner } from "@/components/witmotion/Inner";
 import { ApplicationProvider } from "@/components/witmotion/ApplicationProvider";
 import { Application } from "@/lib/witmotion/Application";
-//import PolarAlign from "@/components/shared/PolarAlign";
+// import PolarAlign from "@/components/shared/PolarAlign";
 import DwarfCameras from "@/components/DwarfCameras";
-//import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
+// import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
 import { useEffect, useState } from "react";
 import i18n from "@/i18n";
 import { useTranslation } from "react-i18next";
@@ -38,20 +38,16 @@ export default function WitSensorData() {
         </ApplicationProvider>
         {""}
       </div>
-      <div className="polar-align-wit">
-        {/*<PolarAlign />
-        <ConnectDwarfII />*/}
-      </div>
       <Grid2 container spacing={3}>
         <Grid2 md={6} xs={12} className="camera-container">
           <div className="camera-witmotion">
-            {/*<h3>{t("cWitmotionCamera")}</h3>*/}
             <main className="camera-con">
               <DwarfCameras
                 showWideangle={false}
                 useRawPreviewURL={false}
                 showControls={false}
               />
+              <div className="overlay-circle"></div>
             </main>
           </div>
         </Grid2>

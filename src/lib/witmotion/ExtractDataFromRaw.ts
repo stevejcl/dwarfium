@@ -6,7 +6,6 @@ export interface SensorData {
   acceleration: Coordinates;
   angularVelocity: Coordinates;
   corners: Coordinates;
-  direction: string;
 }
 
 interface Coordinates {
@@ -33,20 +32,6 @@ export function extractDataFromRaw(raw: Uint8Array): SensorData {
     cornersDecoded[i] = (decoded[i + 6] / divider) * 180;
   }
 
-  // Determine direction based on angular velocity
-  let direction = "Unknown";
-  if (angularVelocityDecoded[1] > 0) {
-    direction = "North";
-  } else if (angularVelocityDecoded[1] < 0) {
-    direction = "South";
-  }
-
-  if (angularVelocityDecoded[0] > 0) {
-    direction += " East";
-  } else if (angularVelocityDecoded[0] < 0) {
-    direction += " West";
-  }
-
   return {
     acceleration: {
       x: accelerationDecoded[0],
@@ -63,6 +48,5 @@ export function extractDataFromRaw(raw: Uint8Array): SensorData {
       y: cornersDecoded[1],
       z: cornersDecoded[2],
     },
-    direction: direction,
   };
 }

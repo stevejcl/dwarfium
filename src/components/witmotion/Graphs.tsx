@@ -13,6 +13,7 @@ export const Graphs: React.FC<GraphsInterface> = ({ inputData }) => {
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  console.log(inputData.ang.y[0].toFixed(2));
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
@@ -29,7 +30,7 @@ export const Graphs: React.FC<GraphsInterface> = ({ inputData }) => {
           <div className="camera-witmotion">
             <div>
               <p>
-                {t("cWitmotionAltitude")}: {inputData.ang.y[0].toFixed(2)}°
+                {t("cWitmotionAltitude")}: {inputData.ang.y[0]?.toFixed(2)}°
               </p>
             </div>
           </div>

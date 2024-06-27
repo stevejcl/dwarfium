@@ -4,7 +4,7 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import { useApplication } from "@/components/witmotion/ApplicationProvider";
 import { ArraySensorDataInterface } from "@/lib/witmotion/Interfaces";
 import { SwitchSelector } from "@/components/witmotion/Switch";
-//import { Graphs } from "@/components/witmotion/Graphs";
+import { Graphs } from "@/components/witmotion/Graphs";
 import { dataFlowRestriction } from "@/lib/witmotion/DataFlowRestriction";
 import MenuSettings from "./MenuSettings";
 import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
@@ -59,15 +59,17 @@ export const Inner: React.FC = () => {
                       
           </Button>
           <MenuSettings dis={disabled} />
-        </ButtonGroup>
+              </ButtonGroup>
+              
       </Grid2>
 
           <Grid2 xs={6}>
               <div className="mnu-polar">
                   <PolarAlign />
+                  <div className="graph-wit">{!disabled && <Graphs inputData={inputData} />}</div>
               </div>
           </Grid2>
-          <Grid2 xs={4}>
+              <Grid2 xs={4}>
               <div className="mnu-polar-con">
                   <ConnectDwarfII />
               </div>

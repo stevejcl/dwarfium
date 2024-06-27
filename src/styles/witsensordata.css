@@ -19,6 +19,7 @@
     margin-left: 305px;
     border-radius: 8px;
     display: flex;
+    margin-top: -100px;
 }
 
     .camera-witmotion h3 {
@@ -57,7 +58,7 @@
     margin-top: 50px;
 }
 .camera-con {
-    margin-top: 50px;
+    margin-top: 190px;
     width: 800px;
 }
 .mnu-polar {
@@ -72,4 +73,9 @@
 .altitude-description-wit {
     display: flex;
     align-items: center;
+}
+.graph-wit{
+    margin-left: -490px;
+    margin-top:100px;
+    height: 20px;
 }

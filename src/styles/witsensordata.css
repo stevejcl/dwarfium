@@ -51,6 +51,7 @@
 
     .witimage img {
         width: 150px;
+        margin-left: 25px;
     }
 .container-cam {
     margin-top: 50px;

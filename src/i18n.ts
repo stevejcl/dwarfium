@@ -1,11 +1,12 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import enTranslation from "@/locales/en";
-import esTranslation from "@/locales/es";
-import frTranslation from "@/locales/fr";
-import deTranslation from "@/locales/de";
-import nlTranslation from "@/locales/nl";
-import itTranslation from "@/locales/it";
+import enTranslation from "@/locales/en.json";
+import esTranslation from "@/locales/es.json";
+import frTranslation from "@/locales/fr.json";
+import deTranslation from "@/locales/de.json";
+import nlTranslation from "@/locales/nl.json";
+import itTranslation from "@/locales/it.json";
+import plTranslation from "@/locales/pl.json";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -15,6 +16,7 @@ i18n.use(initReactI18next).init({
     fr: { translation: frTranslation },
     nl: { translation: nlTranslation },
     it: { translation: itTranslation },
+    pl: { translation: plTranslation },
   },
   fallbackLng: "en",
   lng: "en", // Default language

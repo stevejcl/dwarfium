@@ -1484,3 +1484,10 @@ img {
     pointer-events: none;  /* allows interaction with elements underneath */
     background: transparent;  /* ensures the center is transparent */
  }
+.github-corner {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+}

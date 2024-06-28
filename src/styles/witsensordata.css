@@ -19,7 +19,7 @@
     margin-left: 305px;
     border-radius: 8px;
     display: flex;
-    margin-top: -100px;
+    margin-top: -250px;
 }
 
     .camera-witmotion h3 {
@@ -58,7 +58,7 @@
     margin-top: 50px;
 }
 .camera-con {
-    margin-top: 190px;
+    margin-top: 50px;
     width: 800px;
 }
 .mnu-polar {
@@ -76,6 +76,6 @@
 }
 .graph-wit{
     margin-left: -490px;
-    margin-top:100px;
+    margin-top:250px;
     height: 20px;
 }

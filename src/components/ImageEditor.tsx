@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { fabric } from "fabric";
@@ -91,23 +92,26 @@ const ImageEditor: React.FC = () => {
         console.error("No IFDs found in the TIFF file.");
         return;
       }
-  
+
       const timage = ifds[0];
       UTIF.decodeImage(buffer, timage);
-  
+
       // Check if 'bitsPerSample' is defined and is an array
       if (!timage.bitsPerSample || !Array.isArray(timage.bitsPerSample)) {
-        console.error("bitsPerSample is undefined or not an array in the TIFF metadata.", timage);
+        console.error(
+          "bitsPerSample is undefined or not an array in the TIFF metadata.",
+          timage
+        );
         // You can add a fallback handling here, e.g., assume 8 bits per sample
         // or decide to skip processing this image.
         // Fallback: Assume 8 bits per sample
         processTiffImageWithFallback(timage, 8);
         return;
       }
-  
+
       const bitDepth = timage.bitsPerSample[0];
       const is32Bit = bitDepth === 32;
-  
+
       if (is32Bit) {
         process32BitTiff(timage);
       } else {
@@ -117,37 +121,42 @@ const ImageEditor: React.FC = () => {
       console.error("An error occurred while rendering the TIFF image:", error);
     }
   };
-  
+
   // eslint-disable-next-line no-unused-vars
-  const processTiffImageWithFallback = (timage: any, assumedBitDepth: number) => {
+  const processTiffImageWithFallback = (
+    timage: any,
+    assumedBitDepth: number
+  ) => {
     // Implement a way to handle TIFF image processing with a fallback assumed bit depth
-    console.log("Processing TIFF image with assumed bit depth: ${assumedBitDepth}");
-  
+    console.log(
+      "Processing TIFF image with assumed bit depth: ${assumedBitDepth}"
+    );
+
     // For simplicity, let's assume it's an 8-bit image and process accordingly
     const rgbaArray = new Uint8ClampedArray(UTIF.toRGBA8(timage));
     const imageData = new ImageData(rgbaArray, timage.width, timage.height);
     displayImageOnCanvas(imageData);
   };
-  
+
   const process32BitTiff = (timage: any) => {
     if (!timage.data || !(timage.data.buffer instanceof ArrayBuffer)) {
       console.error("Image data buffer is not valid for a 32-bit TIFF image.");
       return;
     }
-  
+
     const data = new Float32Array(timage.data.buffer);
     const length = timage.width * timage.height;
     const rgbaArray = new Uint8ClampedArray(length * 4);
-  
+
     let min = Number.POSITIVE_INFINITY;
     let max = Number.NEGATIVE_INFINITY;
-  
+
     for (let i = 0; i < data.length; i++) {
       if (data[i] < min) min = data[i];
       if (data[i] > max) max = data[i];
     }
     const range = max - min;
-  
+
     for (let i = 0; i < length; i++) {
       const normalizedValue = ((data[i] - min) / range) * 255;
       const pixelIndex = i * 4;
@@ -156,28 +165,27 @@ const ImageEditor: React.FC = () => {
       rgbaArray[pixelIndex + 2] = normalizedValue;
       rgbaArray[pixelIndex + 3] = 255;
     }
-  
+
     const imageData = new ImageData(rgbaArray, timage.width, timage.height);
     displayImageOnCanvas(imageData);
   };
-  
+
   const processOtherBitDepths = (timage: any) => {
     // Handle other bit depths (like 8-bit, 16-bit)
     const rgbaArray = new Uint8ClampedArray(UTIF.toRGBA8(timage));
     const imageData = new ImageData(rgbaArray, timage.width, timage.height);
     displayImageOnCanvas(imageData);
   };
-  
-  
+
   const displayImageOnCanvas = (imageData: ImageData) => {
     const tempCanvas = document.createElement("canvas");
     tempCanvas.width = imageData.width;
     tempCanvas.height = imageData.height;
-  
+
     const ctx = tempCanvas.getContext("2d");
     if (ctx) {
       ctx.putImageData(imageData, 0, 0);
-  
+
       if (canvas) {
         const fabricImg = new fabric.Image(tempCanvas);
         setImageObject(fabricImg);
@@ -189,8 +197,6 @@ const ImageEditor: React.FC = () => {
       }
     }
   };
-  
-  
 
   const renderFitsImage = (data: number[][] | Float32Array | Int16Array) => {
     const canvasElement = canvasRef.current;

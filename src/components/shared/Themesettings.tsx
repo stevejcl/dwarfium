@@ -47,6 +47,7 @@ const Modal: React.FC = () => {
     it: "Italiano",
     nl: "Nederlands",
     pl: "Polski",
+    pt: "Português",
     zhCN: "简体中文",
   };
 

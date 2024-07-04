@@ -307,5 +307,6 @@
   "cCloudsSearch": "Search",
   "cCloudsSaveAPIKey": "Save API Key",
   "pWeatherLoading": "Loading...",
-  "cCameraAddonTimeLapse": "Time-lapse"
+  "cCameraAddonTimeLapse": "Time-lapse",
+  "cGoToAsteroidConnectStellarium": "You must connect to Stellarium for Goto to work."
 }

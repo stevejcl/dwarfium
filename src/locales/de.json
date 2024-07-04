@@ -307,5 +307,6 @@
   "cPolarAlignTo90": "Kamera um 90° drehen",
   "cPolarAlignTurnDownLens": "Objektiv nach unten drehen",
   "pDisconnect": "Trennen",
-  "pIndexLinkBug": "<a href=\"https://discord.gg/5vFWbsXDfv\"> Auf unserem Discord-Server </a>"
+  "pIndexLinkBug": "<a href=\"https://discord.gg/5vFWbsXDfv\"> Auf unserem Discord-Server </a>",
+  "cGoToAsteroidConnectStellarium": "Damit Goto funktioniert, müssen Sie eine Verbindung zu Stellarium herstellen."
 }

@@ -307,5 +307,6 @@
   "pSetLocationContent": "Aby móc działać, ta witryna potrzebuje Twojej szerokości i długości geograficznej oraz strefy czasowej. \nDługość geograficzna na zachód od Greenwich jest ujemna",
   "pTimezone": "Strefa czasowa",
   "pUseCurrentLocation": "Użyj bieżącej lokalizacji",
-  "pWeatherLoading": "Ładowanie..."
+  "pWeatherLoading": "Ładowanie...",
+  "cGoToAsteroidConnectStellarium": "Aby Goto mogło działać, musisz połączyć się ze Stellarium."
 }

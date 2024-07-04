@@ -307,5 +307,6 @@
   "cCloudsSaveAPIKey": "Enregistrer la clé API",
   "pWeatherLoading": "Chargement...",
   "cCameraAddOnTimeLapse": "Laps de temps",
-  "cPolarAlignTurnDownLens": "L'objectif baisse"
+  "cPolarAlignTurnDownLens": "L'objectif baisse",
+  "cGoToAsteroidConnectStellarium": "Vous devez vous connecter à Stellarium pour que Goto fonctionne."
 }

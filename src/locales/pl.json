@@ -284,8 +284,6 @@
   "pImageSessionSortTable": "Możesz posortować tabelę, klikając Cel lub Data",
   "pImageSessionTarget": "Cel",
   "pIndexBug1": "Swoje ustalenia możesz przesłać tutaj:",
-  "pIndexBug2": "",
-  "pIndexBug3": "",
   "pIndexBugsHeader": "Błędy:",
   "pIndexClaimer": "Dwarfium i Dwarf API są w fazie beta. \nNie wszystkie funkcje aplikacji mobilnej są jeszcze dostępne. \nKorzystaj z tej aplikacji tylko wtedy, gdy czujesz się komfortowo jako tester oprogramowania w wersji beta.",
   "pIndexDescription": "Dwarfium pozwala kontrolować Dwarf II za pomocą Dwarf API.",

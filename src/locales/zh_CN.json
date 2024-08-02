@@ -305,5 +305,6 @@
   "pSetLocation": "设置位置",
   "pSetLocationContent": "为了使 goto 正常工作，该网站需要您的纬度、经度和时区。\n格林威治以西经度为负",
   "pTimezone": "时区",
-  "pUseCurrentLocation": "使用当前位置"
+  "pUseCurrentLocation": "使用当前位置",
+  "cGoToAsteroidConnectStellarium": "您必须连接到 Stellarium 才能让 Goto 工作。"
 }

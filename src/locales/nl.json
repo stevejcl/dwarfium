@@ -305,5 +305,6 @@
   "cPolarAlignProcess": "Polaire uitlijning camera verwerken:",
   "cPolarAlignTo90": "Camera Draai naar 90°",
   "cPolarAlignTurnDownLens": "Lens naar beneden draaien",
-  "pDisconnect": "Loskoppelen"
+  "pDisconnect": "Loskoppelen",
+  "cGoToAsteroidConnectStellarium": "Je moet verbinding maken met Stellarium om Goto te laten werken."
 }

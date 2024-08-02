@@ -305,5 +305,6 @@
   "cPolarAlignProcess": "Elaborazione dell'allineamento polare della fotocamera:",
   "cPolarAlignTo90": "Telecamera Ruotare di 90°",
   "cPolarAlignTurnDownLens": "Lente abbassata",
-  "pDisconnect": "Disconnetti"
+  "pDisconnect": "Disconnetti",
+  "cGoToAsteroidConnectStellarium": "È necessario connettersi a Stellarium affinché Goto funzioni."
 }

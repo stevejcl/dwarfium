@@ -240,7 +240,11 @@ export default function ManualGoto(props: PropType) {
       )}
       {!connectionCtx.connectionStatusStellarium && <br />}
       {!connectionCtx.connectionStatus && (
-        <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
+        <p className="text-danger">
+          {t("cGoToListConnectDwarf", {
+            DwarfType: connectionCtx.typeNameDwarf,
+          })}
+        </p>
       )}
 
       <p>{t("cGoToStellariumPickObject")}</p>

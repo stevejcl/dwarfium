@@ -373,7 +373,7 @@ export async function getAllTelescopeISPSetting(
           else exposureMode = modeManual;
           if (filteredArray[0].index) exposure = filteredArray[0].index;
           else if (exposureMode == modeAuto)
-            exposure = getExposureIndexDefault();
+            exposure = getExposureIndexDefault(connectionCtx.typeIdDwarf);
           // For id=1 : "Gain"
           const resultObject1 = result_data.data.allParams.find(
             (item) => item.id === 1
@@ -489,7 +489,8 @@ function update_data_camera_wide_settings(connectionCtx, result_data) {
     if (!filteredArray[0].autoMode) exp_mode = modeAuto;
     else exp_mode = modeManual;
     if (filteredArray[0].index) exp_index = filteredArray[0].index;
-    else if (exp_mode == modeAuto) exp_index = getWideExposureIndexDefault();
+    else if (exp_mode == modeAuto)
+      exp_index = getWideExposureIndexDefault(connectionCtx.typeIdDwarf);
 
     // For id=1 : "Gain"
     const resultObject1 = result_data.data.allParams.find(

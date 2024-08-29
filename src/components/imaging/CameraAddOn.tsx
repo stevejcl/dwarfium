@@ -491,7 +491,11 @@ export default function CameraAddOn(props: PropTypes) {
     HTMLImageElement
   > = async () => {
     // Wait for stopTimeLapse() to finish before continuing
-    await stopTimeLapse(CameraType[activeBtnTimeLapse], connectionCtx, setErrorTxt);
+    await stopTimeLapse(
+      CameraType[activeBtnTimeLapse],
+      connectionCtx,
+      setErrorTxt
+    );
     // stopTimeLapseAuto is called
   };
 

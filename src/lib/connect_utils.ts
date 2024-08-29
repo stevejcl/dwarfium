@@ -1,4 +1,5 @@
 import { ConnectionContextType } from "@/types";
+import axios from "axios";
 
 import {
   Dwarfii_Api,
@@ -14,6 +15,30 @@ import {
 import { getAllTelescopeISPSetting } from "@/lib/dwarf_utils";
 import { saveImagingSessionDb, saveIPConnectDB } from "@/db/db_utils";
 import { logger } from "@/lib/logger";
+
+const getConfigData = async (IPDwarf: string | undefined) => {
+  try {
+    // Make the HTTP GET request to the specified URL
+    let RequestAddr = "http://" + IPDwarf + ":8082/getDefaultParamsConfig";
+    const response = await axios.get(RequestAddr);
+
+    // Check if the response has data
+    if (response.data && response.data.data) {
+      const { id, name } = response.data.data;
+
+      console.log(`ID: ${id}`);
+      console.log(`Name: ${name}`);
+
+      return { id, name };
+    } else {
+      console.error("No data found in the response.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching config data:", error);
+    return null;
+  }
+};
 
 export async function connectionHandler(
   connectionCtx: ConnectionContextType,
@@ -49,6 +74,30 @@ export async function connectionHandler(
       saveConnectionStatusDB(true);
       saveInitialConnectionTimeDB();
       saveIPConnectDB(IPDwarf);
+
+      // get the type of Dwarf from result_data
+      if (result_data.deviceId) {
+        connectionCtx.setTypeIdDwarf(result_data.deviceId);
+        // Construct Name from deviceId
+        let name = "Dwarf";
+        if (result_data.deviceId == 1) name += " II";
+        else name += `${result_data.deviceId + 1}`;
+        connectionCtx.setTypeNameDwarf(name);
+        console.log(
+          `Extracted CMD Dwarf Data: ID=${result_data.deviceId}, Name=${name}`
+        );
+      } else {
+        // Call the request to get config data on the Dwarf
+        getConfigData(IPDwarf).then((result) => {
+          if (result) {
+            if (result.id) connectionCtx.setTypeIdDwarf(result.id);
+            if (result.name) connectionCtx.setTypeNameDwarf(result.name);
+            console.log(
+              `Extracted JSON Dwarf Data: ID=${result.id}, Name=${result.name}`
+            );
+          }
+        });
+      }
     } else if (
       result_data.cmd ==
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_SYSTEM_WORKING_STATE
@@ -217,8 +266,8 @@ export async function connectionHandler(
     ) {
       connectionCtx.setStatusPowerLightsDwarf(result_data.data.state == 1);
     } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_POWER_OFF) {
-      setErrorTxt(" The DwarfII is powering Off!");
-      console.error("The DwarfII is powering Off!");
+      setErrorTxt(` The ${connectionCtx.typeNameDwarf} is powering Off!`);
+      console.error(`The ${connectionCtx.typeNameDwarf} is powering Off!`);
       setConnecting(false);
       connectionCtx.setConnectionStatus(false);
       saveConnectionStatusDB(false);

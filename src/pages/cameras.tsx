@@ -58,7 +58,11 @@ export default function AstroPhoto() {
             <h1>{t("cCameraTitle")}</h1>
 
             {notConnected && (
-              <p className="text-danger">{t("cCameraConnection")}</p>
+              <p className="text-danger">
+                {t("cCameraConnection", {
+                  DwarfType: connectionCtx.typeNameDwarf,
+                })}
+              </p>
             )}
 
             {noCoordinates && (

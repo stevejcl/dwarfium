@@ -85,7 +85,11 @@ export default function GotoUserLists(props: PropType) {
           <p className="text-danger">{t("cGoToListConnectStellarium")}.</p>
         )}
         {!connectionCtx.connectionStatus && (
-          <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
+          <p className="text-danger">
+            {t("cGoToListConnectDwarf", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </p>
         )}
 
         <div className="row">

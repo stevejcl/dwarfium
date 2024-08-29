@@ -1,6 +1,8 @@
 import React from "react";
 import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Formik } from "formik";
+import { useContext } from "react";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
   allowedIntervalTimeLapse,
   allowedTotalTimeTimeLapse,
@@ -15,6 +17,7 @@ type PropTypes = {
 };
 
 export default function CameraPanoSettings(props: PropTypes) {
+  let connectionCtx = useContext(ConnectionContext);
   const {
     intervalIndexValue,
     setIntervalIndexValue,
@@ -32,21 +35,29 @@ export default function CameraPanoSettings(props: PropTypes) {
     setTotalTimeIndexValue(parseInt(targetValue, 10));
   }
 
-  const allowedIntervalTimeLapseOptions = allowedIntervalTimeLapse.values.map(
-    ({ index, name }) => (
+  // Function to generate options for a specific Dwarf model
+  const generateIntervalTimeLapseOptions = (DwarfModelId = 1) => {
+    const intervalTimeLapse = allowedIntervalTimeLapse[DwarfModelId];
+    return intervalTimeLapse.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedIntervalTimeLapseOptions = generateIntervalTimeLapseOptions(); //DwarfModelId
 
-  const allowedTotalTimeTimeLapseOptions = allowedTotalTimeTimeLapse.values.map(
-    ({ index, name }) => (
+  // Function to generate options for a specific Dwarf model
+  const generateTotalTimeTimeLapseOptions = (DwarfModelId = 1) => {
+    const totalTimeTimeLapse = allowedTotalTimeTimeLapse[DwarfModelId];
+    return totalTimeTimeLapse.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedTotalTimeTimeLapseOptions = generateTotalTimeTimeLapseOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
 
   return (
     <div>

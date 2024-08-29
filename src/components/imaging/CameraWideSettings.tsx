@@ -145,29 +145,42 @@ export default function CameraWideSettings(props: PropTypes) {
     setWideSharpnessValue(targetValue);
   }
 
-  const allowedWideExposuresOptions = allowedWideExposures.values.map(
-    ({ index, name }) => (
+  // Function to generate options for a specific Dwarf model
+  const generateWideExposureOptions = (DwarfModelId = 1) => {
+    const exposures = allowedWideExposures[DwarfModelId];
+    return exposures.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedWideExposuresOptions = generateWideExposureOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
 
-  const allowedWideGainsOptions = allowedWideGains.values.map(
-    ({ index, name }) => (
+  const generateWideGainOptions = (DwarfModelId = 1) => {
+    const gains = allowedWideGains[DwarfModelId];
+    return gains.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedWideGainsOptions = generateWideGainOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
 
-  const allowedWideWBColorTempOptions = allowedWideWBColorTemp.values.map(
-    ({ index, name }) => (
+  const generateWideWBColorTempOptions = (DwarfModelId = 1) => {
+    const WBColorTemp = allowedWideWBColorTemp[DwarfModelId];
+    return WBColorTemp.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedWideWBColorTempOptions = generateWideWBColorTempOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
 
   function call_setWideAllParamsFn() {
     let WBindex: number | undefined = 0;

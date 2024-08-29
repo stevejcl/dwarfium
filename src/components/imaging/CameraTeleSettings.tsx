@@ -130,13 +130,17 @@ export default function CameraTeleSettings(props: PropTypes) {
     setTeleSharpnessValue(targetValue);
   }
 
-  const allowedTeleWBColorTempOptions = allowedWBColorTemp.values.map(
-    ({ index, name }) => (
+  const generateWBColorTempOptions = (DwarfModelId = 1) => {
+    const WBColorTemp = allowedWBColorTemp[DwarfModelId];
+    return WBColorTemp.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedTeleWBColorTempOptions = generateWBColorTempOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
 
   const allowedTeleWBSceneOptions = Object.entries(
     whiteBalanceScenesIDValue

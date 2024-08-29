@@ -267,14 +267,14 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
       setTimeout(() => {
         updateTelescopeISPSetting(
           "gain",
-          getGainIndexByName("80"),
+          getGainIndexByName("80", connectionCtx.typeIdDwarf),
           connectionCtx
         );
       }, 2500);
       setTimeout(() => {
         updateTelescopeISPSetting(
           "exposure",
-          getExposureIndexByName("1"),
+          getExposureIndexByName("1", connectionCtx.typeIdDwarf),
           connectionCtx
         );
       }, 3500);
@@ -354,10 +354,16 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
 
   return (
     <>
-      <h2>{t("cCalibrationDwarfTitle")}</h2>
+      <h2>
+        {t("cCalibrationDwarfTitle", {
+          DwarfType: connectionCtx.typeNameDwarf,
+        })}
+      </h2>
 
       <p>
-        {t("cCalibrationDwarfTitleDesc")}
+        {t("cCalibrationDwarfTitleDesc", {
+          DwarfType: connectionCtx.typeNameDwarf,
+        })}
         <br />
         <span className="text-danger">
           <b> {t("cCalibrationDwarfWarning")} </b>

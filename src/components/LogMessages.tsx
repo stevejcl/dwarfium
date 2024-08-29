@@ -51,8 +51,8 @@ export default function DebugMessages() {
       <h1>Message Log</h1>
       <p>
         If turn on the logger, this app will save and display all the messages
-        sent between this app and Dwarf II. The messages are ordered from oldest
-        to newest.
+        sent between this app and Dwarf device. The messages are ordered from
+        oldest to newest.
       </p>
       <div className="mb-3">
         Log status: {connectionCtx.loggerStatus ? "on" : "off"}

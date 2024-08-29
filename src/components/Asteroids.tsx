@@ -86,7 +86,11 @@ const MainPage: NextPage<PropType> = ({ setModule, setErrors, setSuccess }) => {
         )}
         {!connectionCtx.connectionStatusStellarium && <br />}
         {!connectionCtx.connectionStatus && (
-          <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
+          <p className="text-danger">
+            {t("cGoToListConnectDwarf", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </p>
         )}
         <div className="col-sm-6 col-md-3 mb-3 input-button-container">
           <input

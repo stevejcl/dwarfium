@@ -55,7 +55,11 @@ export default function AutoGoto(props: PropType) {
           <p className="text-danger">{t("cGoToListConnectStellarium")}</p>
         )}
         {!connectionCtx.connectionStatus && (
-          <p className="text-danger">{t("cGoToListConnectDwarf")}</p>
+          <p className="text-danger">
+            {t("cGoToListConnectDwarf", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </p>
         )}
 
         <select
@@ -81,9 +85,15 @@ export default function AutoGoto(props: PropType) {
                   <li>{t("cGotoListDSOList4")}</li>
                 </ul>
               </li>
-              <li>{t("cGotoListDSOList5")}</li>
+              <li>
+                {t("cGotoListDSOList5", {
+                  DwarfType: connectionCtx.typeNameDwarf,
+                })}
+              </li>
             </ol>
-            <p>{t("cGotoListinfo")}</p>
+            <p>
+              {t("cGotoListinfo", { DwarfType: connectionCtx.typeNameDwarf })}
+            </p>
             {""}
             <br />
             <br />

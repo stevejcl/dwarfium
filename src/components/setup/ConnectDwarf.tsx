@@ -106,16 +106,38 @@ export default function ConnectDwarf() {
   }, []);
   return (
     <div>
-      <h2>{t("pConnectDwarfII")}</h2>
+      <h2>
+        {t("pConnectDwarfII", { DwarfType: connectionCtx.typeNameDwarf })}
+      </h2>
 
-      <p>{t("pConnectDwarfIIContent")}</p>
+      <p>
+        {t("pConnectDwarfIIContent", {
+          DwarfType: connectionCtx.typeNameDwarf,
+        })}
+      </p>
 
       <ol>
-        <li className="mb-2">{t("pConnectDwarfIIContent1")}</li>
+        <li className="mb-2">
+          {t("pConnectDwarfIIContent1", {
+            DwarfType: connectionCtx.typeNameDwarf,
+          })}
+        </li>
         <li className="mb-2">{t("pConnectDwarfIIContent2")}</li>
-        <li className="mb-2">{t("pConnectDwarfIIContent3")}</li>
-        <li className="mb-2">{t("pConnectDwarfIIContent4")}</li>
-        <li className="mb-2">{t("pConnectDwarfIIContent5")}</li>
+        <li className="mb-2">
+          {t("pConnectDwarfIIContent3", {
+            DwarfType: connectionCtx.typeNameDwarf,
+          })}
+        </li>
+        <li className="mb-2">
+          {t("pConnectDwarfIIContent4", {
+            DwarfType: connectionCtx.typeNameDwarf,
+          })}
+        </li>
+        <li className="mb-2">
+          {t("pConnectDwarfIIContent5", {
+            DwarfType: connectionCtx.typeNameDwarf,
+          })}
+        </li>
         <form onSubmit={checkConnection} className="mb-3">
           <div className="row mb-3">
             <div className="col-md-1">

@@ -68,7 +68,7 @@ export default function Nav() {
               </li>
               <div className="dropdown">
                 <button className="dropbtn">
-                  DwarfII <i className="fa fa-caret-down"></i>
+                  Dwarf <i className="fa fa-caret-down"></i>
                 </button>
                 <div className="dropdown-content">
                   <Link

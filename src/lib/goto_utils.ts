@@ -66,7 +66,7 @@ export async function calibrationHandler(
 
   let lat = connectionCtx.latitude;
   /////////////////////////////////////////
-  // Reverse the Longitude for the dwarf II : positive for WEST
+  // Reverse the Longitude for the dwarf : positive for WEST
   /////////////////////////////////////////
   let lon = 0;
   if (connectionCtx.longitude) lon = -connectionCtx.longitude;
@@ -271,7 +271,7 @@ export async function startGotoHandler(
   let lat = 0;
   if (connectionCtx.latitude) lat = connectionCtx.latitude;
   /////////////////////////////////////////
-  // Reverse the Longitude for the dwarf II : positive for WEST
+  // Reverse the Longitude for the dwarf : positive for WEST
   /////////////////////////////////////////
   let lon = 0;
   if (connectionCtx.longitude) lon = -connectionCtx.longitude;

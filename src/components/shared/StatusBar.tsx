@@ -63,7 +63,8 @@ export default function StatusBar() {
     connectionCtx.astroSettings.exposure !== undefined
   )
     exposureValue = getExposureNameByIndex(
-      connectionCtx.astroSettings.exposure
+      connectionCtx.astroSettings.exposure,
+      connectionCtx.typeIdDwarf
     );
 
   return (
@@ -71,7 +72,9 @@ export default function StatusBar() {
       <div className="row mb ">
         <div className="col-sm align-center">
           <div className="container-connection">
-            <span className="con">Dwarf II: {connection}</span>
+            <span className="con">
+              {connectionCtx.typeNameDwarf}: {connection}
+            </span>
             <span className="con">Stellarium: {connectionStellarium}</span>
           </div>
           <div className="container-battery">
@@ -117,7 +120,11 @@ export default function StatusBar() {
                   <span className="tooltip-text" id="top">
                     Gain
                   </span>
-                  : {getGainNameByIndex(connectionCtx.astroSettings.gain)}
+                  :{" "}
+                  {getGainNameByIndex(
+                    connectionCtx.astroSettings.gain,
+                    connectionCtx.typeIdDwarf
+                  )}
                 </div>
               </span>
             )}

@@ -18,7 +18,7 @@ export default function Footer() {
         >
           <p>
             Copyright Dwarfium &copy; 2024. All rights reserved. Made with{" "}
-            <span style={{ color: "red" }}>&#10084;</span> for the DwarfII.
+            <span style={{ color: "red" }}>&#10084;</span> for the Dwarf Device.
           </p>
           <span className="version-text"> Version: {versionNumber}</span>
         </div>

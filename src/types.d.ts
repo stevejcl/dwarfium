@@ -14,6 +14,10 @@ export type ConnectionContextType = {
   setIPDwarf: Dispatch<SetStateAction<string | undefined>>;
   socketIPDwarf: any | undefined;
   setSocketIPDwarf: Dispatch<SetStateAction<any | undefined>>;
+  typeIdDwarf: number | undefined;
+  setTypeIdDwarf: Dispatch<SetStateAction<number | undefined>>;
+  typeNameDwarf: string | undefined;
+  setTypeNameDwarf: Dispatch<SetStateAction<string>>;
   BlePWDDwarf: string | undefined;
   setBlePWDDwarf: Dispatch<SetStateAction<string | undefined>>;
   BleSTASSIDDwarf: string | undefined;

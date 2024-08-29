@@ -1,6 +1,8 @@
 import React from "react";
 import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Formik } from "formik";
+import { useContext } from "react";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 import { allowedCountBurst, allowedIntervalBurst } from "@/lib/data_utils";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
@@ -15,6 +17,7 @@ type PropTypes = {
 };
 
 export default function CameraPanoSettings(props: PropTypes) {
+  let connectionCtx = useContext(ConnectionContext);
   const {
     countValue,
     setCountValue,
@@ -33,21 +36,31 @@ export default function CameraPanoSettings(props: PropTypes) {
     setIntervalValue(parseInt(targetValue, 10));
   }
 
-  const allowedCountBurstOptions = allowedCountBurst.values.map(
-    ({ index, name }) => (
+  // Function to generate options for a specific Dwarf model
+  const generateCountBurstOptions = (DwarfModelId = 1) => {
+    const countBurst = allowedCountBurst[DwarfModelId];
+    return countBurst.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedCountBurstOptions = generateCountBurstOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
 
-  const allowedIntervalBurstOptions = allowedIntervalBurst.values.map(
-    ({ index, name }) => (
+  // Function to generate options for a specific Dwarf model
+  const generateIntervalBurstOptions = (DwarfModelId = 1) => {
+    const intervalBurst = allowedIntervalBurst[DwarfModelId];
+    return intervalBurst.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedIntervalBurstOptions = generateIntervalBurstOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
 
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars

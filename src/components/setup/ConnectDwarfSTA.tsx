@@ -311,7 +311,7 @@ export default function ConnectDwarfSTA() {
     if (findDwarfBluetooth && !connectionStatus) {
       return (
         <span className="text-warning-connect">
-          Found Dwarf II
+          Found Dwarf device
           {errorTxt}.
         </span>
       );
@@ -319,7 +319,7 @@ export default function ConnectDwarfSTA() {
     if (etatBluetooth && !connectionStatus) {
       return (
         <span className="text-warning-connect">
-          Connected to Dwarf II
+          Connected to Dwarf Device
           {errorTxt}.
         </span>
       );
@@ -346,17 +346,23 @@ export default function ConnectDwarfSTA() {
 
   return (
     <div>
-      <h2>{t("pEnableSTA")}</h2>
+      <h2>{t("pEnableSTA", { DwarfType: connectionCtx.typeNameDwarf })}</h2>
 
-      <p>{t("pEnableSTAContent")}</p>
+      <p>
+        {t("pEnableSTAContent", { DwarfType: connectionCtx.typeNameDwarf })}
+      </p>
 
       <ol>
         <li className="mb-2">
-          {t("pEnableSTAContent1")}
+          {t("pEnableSTAContent1", { DwarfType: connectionCtx.typeNameDwarf })}
           <br />
         </li>
-        <li>{t("pEnableSTAContent2")}</li>
-        <li className="mb-2">{t("pEnableSTAContent3")}</li>
+        <li>
+          {t("pEnableSTAContent2", { DwarfType: connectionCtx.typeNameDwarf })}
+        </li>
+        <li className="mb-2">
+          {t("pEnableSTAContent3", { DwarfType: connectionCtx.typeNameDwarf })}
+        </li>
         <br />
         <form onSubmit={checkConnection} className="mb-3">
           <div className="row mb-3">

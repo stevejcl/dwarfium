@@ -102,7 +102,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
 
     if (targetValue === "auto") {
       modeValue = modeAuto;
-      value = Number(getExposureDefault);
+      value = Number(getExposureDefault(connectionCtx.typeIdDwarf));
     } else {
       modeValue = modeManual;
       value = Number(targetValue);
@@ -246,19 +246,28 @@ export default function TakeAstroPhoto(props: PropTypes) {
     setShowSettingsInfo(!showSettingsInfo);
   }
 
-  const allowedExposuresOptions = allowedExposures.values.map(
-    ({ index, name }) => (
+  // Function to generate options for a specific Dwarf model
+  const generateExposureOptions = (DwarfModelId = 1) => {
+    const exposures = allowedExposures[DwarfModelId];
+    return exposures.values.map(({ index, name }) => (
       <option key={index} value={index}>
         {name}
       </option>
-    )
-  );
+    ));
+  };
+  const allowedExposuresOptions = generateExposureOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
 
-  const allowedGainsOptions = allowedGains.values.map(({ index, name }) => (
-    <option key={index} value={index}>
-      {name}
-    </option>
-  ));
+  const generateGainOptions = (DwarfModelId = 1) => {
+    const gains = allowedGains[DwarfModelId];
+    return gains.values.map(({ index, name }) => (
+      <option key={index} value={index}>
+        {name}
+      </option>
+    ));
+  };
+  const allowedGainsOptions = generateGainOptions(connectionCtx.typeIdDwarf); //DwarfModelId
 
   if (showSettingsInfo) {
     return <AstroSettingsInfo onClick={toggleShowSettingsInfo} />;
@@ -469,7 +478,10 @@ export default function TakeAstroPhoto(props: PropTypes) {
               <div className="col-8">
                 {setImagingTime(
                   connectionCtx.astroSettings.count,
-                  getExposureValueByIndex(connectionCtx.astroSettings.exposure)
+                  getExposureValueByIndex(
+                    connectionCtx.astroSettings.exposure,
+                    connectionCtx.typeIdDwarf
+                  )
                 )}
               </div>
             </div>

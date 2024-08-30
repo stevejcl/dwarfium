@@ -52,7 +52,9 @@ export default function CameraAddOn(props: PropTypes) {
   const [oldErrorTxt, setOldErrorTxt] = useState<string>("");
   const [isVisible, setIsVisible] = useState(true);
 
-  const [joystickId, setJoystickId] = useState(undefined);
+  const [joystickId, setJoystickId] = useState<JoystickController | undefined>(
+    undefined
+  );
   const joystickSpeed = useRef(2.2);
 
   const [activeAction, setActiveAction] = useState<string | undefined>(

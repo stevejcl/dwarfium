@@ -47,7 +47,7 @@
     "fs": "^0.0.1-security",
     "i18next": "^23.11.2",
     "intl": "^1.2.5",
-    "joystick-controller": "^1.0.15",
+    "joystick-controller": "1.0.15",
     "lunarphase-js": "^2.0.3",
     "modules": "^0.4.0",
     "next": "13.4.2",

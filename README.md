@@ -6,7 +6,7 @@
 [![Discord](https://dcbadge.vercel.app/api/server/5vFWbsXDfv)](https://discord.gg/5vFWbsXDfv)
 ![Repobeats](https://repobeats.axiom.co/api/embed/14963aa4fc5307591a6e387817c1dedf75d7e8f9.svg "Repobeats analytics image")
 
-This application connects to the DWARF II telescope and integrates with Stellarium via the [DWARF II API](https://hj433clxpv.feishu.cn/docx/MiRidJmKOobM2SxZRVGcPCVknQg) and the Stellarium remote control plugin. Once DWARF II and Stellarium are connected, you can select an object in Stellarium and command DWARF II to point to that object.
+This application connects to the DWARF telescope and integrates with Stellarium via the [DWARF API](https://hj433clxpv.feishu.cn/docx/MiRidJmKOobM2SxZRVGcPCVknQg) and the Stellarium remote control plugin. Once DWARF II and Stellarium are connected, you can select an object in Stellarium and command DWARF II to point to that object.
 
 You can find the documentation [here](https://tinyurl.com/Dwarfium).
 
@@ -14,13 +14,13 @@ You can find the documentation [here](https://tinyurl.com/Dwarfium).
 
 ## Features
 
-### DWARF II Session Data
+### DWARF Session Data
 
 You can access and download your session data for inspection.
 
 ![Screenshot of session data](images/session-data.png)
 
-### DWARF II Camera
+### DWARF Camera
 
 You can control the telescope just as you would with the official app.
 
@@ -36,7 +36,7 @@ The desktop application is available for Windows, macOS, and Linux.
 
 Support for macOS is limited as we do not have a Mac available for dedicated support. Running this tool as a desktop application requires signing, which is currently not feasible for us.
 
-You can still use Dwarfium with the provided web package available [here](https://github.com/stevejcl/dwarfii-stellarium-goto/releases).
+You can still use Dwarfium with the provided web package available [here](https://github.com/stevejcl/dwarfium/releases).
 
 For Mac ARM users:
 If you encounter an issue where the application can't be installed and should be moved to the trash, use the following command:
@@ -83,7 +83,7 @@ npm run tauri build
 
 If you just want to get the site up and running on your machine, follow these steps:
 
-1. Download the desired [release](https://github.com/stevejcl/dwarfii-stellarium-goto/releases).
+1. Download the desired [release](https://github.com/stevejcl/dwarfium/releases).
 
 2. For the web browser version:
 
@@ -102,6 +102,6 @@ If you just want to get the site up and running on your machine, follow these st
 
 The Stellarium remote control plugin starts a web server that allows access to the Stellarium desktop app through a web browser. When you select an object in Stellarium, you can retrieve information about that object through `http://<localhost or IP>:<port>/api/main/status`.
 
-This app connects to `/api/main/status` and parses the returned data to get the object's name, right ascension, and declination. It then sends a go-to command to the DWARF II with the right ascension, declination, latitude, and longitude data via the DWARF II API.
+This app connects to `/api/main/status` and parses the returned data to get the object's name, right ascension, and declination. It then sends a go-to command to the DWARF with the right ascension, declination, latitude, and longitude data via the DWARF API.
 
 The desktop app wraps the web service in a windowed environment. Rust provides the web service and serves the pages.

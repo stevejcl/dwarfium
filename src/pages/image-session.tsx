@@ -11,7 +11,7 @@ export default function AstroPhoto() {
   useSetupConnection();
   useLoadIntialValues();
   const connectionCtx = useContext(ConnectionContext);
-
+  let thumbnailUrl = "";
   const [notification] = useState<string | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [progress, setProgress] = useState(0);
@@ -22,8 +22,11 @@ export default function AstroPhoto() {
   const [thumbnailExists, setThumbnailExists] = useState<boolean[]>([]);
 
   const fetchThumbnailExists = async (sessionName: string) => {
-    const thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-
+    if (connectionCtx.typeNameDwarf == "DWARF II") {
+      thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+    } else {
+      thumbnailUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+    }
     try {
       const response = await fetch(thumbnailUrl);
       console.log(`Response status for ${sessionName}: ${response.status}`);

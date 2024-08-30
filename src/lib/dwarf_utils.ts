@@ -2,8 +2,6 @@ import {
   Dwarfii_Api,
   binning1x1,
   binning2x2,
-  IRCut,
-  IRPass,
   fileFits,
   fileTiff,
   modeManual,
@@ -242,6 +240,24 @@ export async function updateTelescopeISPSetting(
     );
     cmd2 = Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_FEATURE_PARAMS;
     WS_Packet2 = messageCameraTeleGetAllFeatureParams();
+  } else if (type === "AiEnhance") {
+    cmd = Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_SET_FEATURE_PARAM;
+    let hasAuto = false;
+    let autoMode = 1; // Manual
+    let id = 14; // "Astro format"
+    let modeIndex = 0;
+    let index = value;
+    let continueValue = 0;
+    WS_Packet = messageCameraTeleSetFeatureParams(
+      hasAuto,
+      autoMode,
+      id,
+      modeIndex,
+      index,
+      continueValue
+    );
+    cmd2 = Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_FEATURE_PARAMS;
+    WS_Packet2 = messageCameraTeleGetAllFeatureParams();
   } else if (type === "count") {
     cmd = Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_SET_FEATURE_PARAM;
     let hasAuto = false;
@@ -386,14 +402,8 @@ export async function getAllTelescopeISPSetting(
             (item) => item.id === 8
           );
           console.log("allParams-resultObject2:", resultObject2);
-          let val_IRCut;
-          if (resultObject2.index) val_IRCut = IRPass;
-          else val_IRCut = IRCut;
-          // For id=8 : IR Cut
-          const resultObject3 = result_data.data.allParams.find(
-            (item) => item.id === 8
-          );
-          console.log("allParams-resultObject3:", resultObject3);
+          let val_IRCut = 0;
+          if (resultObject2.index) val_IRCut = resultObject2.index;
           // For id=9 : previewQuality
           let previewQuality = 0;
           const resultObject4 = result_data.data.allParams.find(

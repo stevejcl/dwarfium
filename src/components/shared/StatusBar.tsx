@@ -1,8 +1,12 @@
 import { useContext } from "react";
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { IRCut, modeAuto, modeManual } from "dwarfii_api";
+import { modeAuto, modeManual } from "dwarfii_api";
 import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
-import { getExposureNameByIndex, getGainNameByIndex } from "@/lib/data_utils";
+import {
+  getExposureNameByIndex,
+  getGainNameByIndex,
+  getIRNameByIndex,
+} from "@/lib/data_utils";
 import BatteryMeter from "@/components/BatteryMeter";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import { useTranslation } from "react-i18next";
@@ -146,7 +150,11 @@ export default function StatusBar() {
                   <span className="tooltip-text" id="top">
                     {t("cStatusBarIRFilter")}
                   </span>
-                  : {connectionCtx.astroSettings.IR === IRCut ? "Cut" : "Pass"}
+                  :{" "}
+                  {getIRNameByIndex(
+                    connectionCtx.astroSettings.IR,
+                    connectionCtx.typeIdDwarf
+                  )}
                 </div>
               </span>
             )}
@@ -181,6 +189,11 @@ export default function StatusBar() {
                   </span>{" "}
                   : {connectionCtx.astroSettings.quality}
                 </div>
+              </span>
+            )}
+            {connectionCtx.astroSettings.AiEnhance == 1 && (
+              <span className="me-3">
+                <div className="hover-text">AI</div>
               </span>
             )}
             {Object.keys(connectionCtx.imagingSession).length > 0 &&

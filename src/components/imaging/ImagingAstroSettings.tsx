@@ -18,7 +18,11 @@ import {
   allowedExposures,
   allowedGains,
   getExposureValueByIndex,
+  allowedIRs,
 } from "@/lib/data_utils";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import i18n from "@/i18n";
 
 type PropTypes = {
   setValidSettings: any;
@@ -30,6 +34,17 @@ export default function TakeAstroPhoto(props: PropTypes) {
   const { setValidSettings, setShowSettingsMenu } = props;
   let connectionCtx = useContext(ConnectionContext);
   const [showSettingsInfo, setShowSettingsInfo] = useState(false);
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
 
   function defaultValueHandler(settingName: keyof AstroSettings) {
     connectionCtx.setAstroSettings((prev) => {
@@ -188,6 +203,21 @@ export default function TakeAstroPhoto(props: PropTypes) {
     updateTelescopeISPSetting("fileFormat", value, connectionCtx);
   }
 
+  function changeAiEnhanceHandler(e: ChangeEvent<HTMLSelectElement>) {
+    if (e.target.value === "default") {
+      defaultValueHandler("AiEnhance");
+      return;
+    }
+
+    let value = Number(e.target.value);
+    connectionCtx.setAstroSettings((prev) => {
+      prev["AiEnhance"] = value;
+      return { ...prev };
+    });
+    saveAstroSettingsDb("AiEnhance", e.target.value);
+    updateTelescopeISPSetting("AiEnhance", value, connectionCtx);
+  }
+
   function changeCountHandler(e: ChangeEvent<HTMLInputElement>) {
     if (Number(e.target.value) < 1) {
       defaultValueHandler("fileFormat");
@@ -269,6 +299,16 @@ export default function TakeAstroPhoto(props: PropTypes) {
   };
   const allowedGainsOptions = generateGainOptions(connectionCtx.typeIdDwarf); //DwarfModelId
 
+  const generateIROptions = (DwarfModelId = 1) => {
+    const iR = allowedIRs[DwarfModelId];
+    return iR.values.map(({ index, name }) => (
+      <option key={index} value={index}>
+        {name}
+      </option>
+    ));
+  };
+  const allowedIROptions = generateIROptions(connectionCtx.typeIdDwarf); //DwarfModelId
+
   if (showSettingsInfo) {
     return <AstroSettingsInfo onClick={toggleShowSettingsInfo} />;
   }
@@ -287,6 +327,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
           rightAscension: connectionCtx.astroSettings.rightAscension,
           declination: connectionCtx.astroSettings.declination,
           quality: connectionCtx.astroSettings.quality,
+          AiEnhance: connectionCtx.astroSettings.AiEnhance,
           target: connectionCtx.astroSettings.target,
           status: connectionCtx.astroSettings.status,
         }}
@@ -305,7 +346,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
           <form onSubmit={handleSubmit}>
             <div className="row mb-md-2 mb-sm-1">
               <div className="fs-5 mb-2">
-                Camera Settings{" "}
+                {t("cAstroSettings")}{" "}
                 <i
                   className="bi bi-info-circle"
                   role="button"
@@ -315,7 +356,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
 
               <div className="col-4">
                 <label htmlFor="gain" className="form-label">
-                  Gain
+                  {t("cAstroSettingsGain")}{" "}
                 </label>
               </div>
               <div className="col-8">
@@ -328,7 +369,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
                   onBlur={handleBlur}
                   value={values.gain}
                 >
-                  <option value="default">Select</option>
+                  <option value="default">{t("cAstroSettingsSelect")}</option>
                   {allowedGainsOptions}
                 </select>
               </div>
@@ -336,7 +377,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-4">
                 <label htmlFor="exposure" className="form-label">
-                  Exposure
+                  {t("cAstroSettingsExposure")}{" "}
                 </label>
               </div>
               <div className="col-8">
@@ -351,7 +392,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
                     values.exposureMode == modeAuto ? "auto" : values.exposure
                   }
                 >
-                  <option value="default">Select</option>
+                  <option value="default">{t("cAstroSettingsSelect")}</option>
                   <option value="auto">Auto</option>
                   {allowedExposuresOptions}
                 </select>
@@ -360,7 +401,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-4">
                 <label htmlFor="ir" className="form-label">
-                  IR
+                  {t("cAstroSettingsIR")}{" "}
                 </label>
               </div>
               <div className="col-8">
@@ -373,16 +414,14 @@ export default function TakeAstroPhoto(props: PropTypes) {
                   onBlur={handleBlur}
                   value={values.IR}
                 >
-                  <option value="default">Select</option>
-                  <option value="0">Cut</option>
-                  <option value="1">Pass</option>
+                  {allowedIROptions}
                 </select>
               </div>
             </div>
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-4">
                 <label htmlFor="binning" className="form-label">
-                  Binning
+                  {t("cAstroSettingsBinning")}{" "}
                 </label>
               </div>
               <div className="col-8">
@@ -395,7 +434,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
                   onBlur={handleBlur}
                   value={values.binning}
                 >
-                  <option value="default">Select</option>
+                  <option value="default">{t("cAstroSettingsSelect")}</option>
                   <option value="0">4k</option>
                   <option value="1">2k</option>
                 </select>
@@ -404,7 +443,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-4">
                 <label htmlFor="fileFormat" className="form-label">
-                  Format
+                  {t("cAstroSettingsFormat")}{" "}
                 </label>
               </div>
               <div className="col-8">
@@ -417,7 +456,7 @@ export default function TakeAstroPhoto(props: PropTypes) {
                   onBlur={handleBlur}
                   value={values.fileFormat}
                 >
-                  <option value="default">Select</option>
+                  <option value="default">{t("cAstroSettingsSelect")}</option>
                   <option value="0">FITS</option>
                   <option value="1">TIFF</option>
                 </select>
@@ -425,8 +464,30 @@ export default function TakeAstroPhoto(props: PropTypes) {
             </div>
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-4">
+                <label htmlFor="AiEnhance" className="form-label">
+                  {t("cAstroSettingsAIEnhance")}{" "}
+                </label>
+              </div>
+              <div className="col-8">
+                <select
+                  name="AiEnhance"
+                  onChange={(e) => {
+                    handleChange(e);
+                    changeAiEnhanceHandler(e);
+                  }}
+                  onBlur={handleBlur}
+                  value={values.AiEnhance}
+                >
+                  <option value="default">{t("cAstroSettingsSelect")}</option>
+                  <option value="0">{t("cAstroSettingsAIEnhanceOFF")}</option>
+                  <option value="1">{t("cAstroSettingsAIEnhanceON")}</option>
+                </select>
+              </div>
+            </div>
+            <div className="row mb-md-2 mb-sm-1">
+              <div className="col-4">
                 <label htmlFor="count" className="form-label">
-                  Count
+                  {t("cAstroSettingsCount")}{" "}
                 </label>
               </div>
               <div className="col-8">

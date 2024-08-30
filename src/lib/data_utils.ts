@@ -352,3 +352,42 @@ export const getTotalTimeTimeLapseIndexByValue = (name, DwarfModelId = 1) => {
       allowedTotalTimeTimeLapse[DwarfModelId].defaultValueIndex;
   return foundOption ? foundOption.index : 0;
 };
+
+// Function to get the IR from JSON data
+const getIRDwarf2 = () => {
+  let value;
+  let supportParam;
+  const camera = data_dwarf2_config.data.cameras.find(
+    (camera) => camera.id === 0
+  );
+  if (camera)
+    supportParam = camera.supportParams.find((param) => param.id === 8);
+  value = supportParam.gearMode;
+  return value ? value : false;
+};
+
+const getIRDwarf3 = () => {
+  let value;
+  let supportParam;
+  const camera = data_dwarf3_config.data.cameras.find(
+    (camera) => camera.id === 0
+  );
+  if (camera)
+    supportParam = camera.supportParams.find((param) => param.id === 8);
+  value = supportParam.gearMode;
+  return value ? value : false;
+};
+
+export const allowedIRs = {
+  1: getIRDwarf2(),
+  2: getIRDwarf3(),
+};
+
+export const getIRNameByIndex = (index, DwarfModelId = 1) => {
+  let foundOption;
+  if (allowedIRs[DwarfModelId])
+    foundOption = allowedIRs[DwarfModelId].values.find(
+      (option) => option.index === index
+    );
+  return foundOption ? foundOption.name : "_";
+};

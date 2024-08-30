@@ -45,6 +45,10 @@ export default function AstroSettingsInfo(props: PropTypes) {
         <dd>{t("cAstroSettingsInfoFormatFITSDesc")}</dd>
         <dt>{t("cAstroSettingsInfoFormatTIFF")}</dt>
         <dd>{t("cAstroSettingsInfoFormatTIFFDesc")}</dd>
+        <dt>{t("cAstroSettingsInfoAIEnhance")}</dt>
+        <dd>{t("cAstroSettingsInfoAIEnhanceDesc")}</dd>
+        <dt>{t("cAstroSettingsInfoQuality")}</dt>
+        <dd>{t("cAstroSettingsInfoQualityDesc")}</dd>
         <dt>{t("cAstroSettingsInfoCount")}</dt>
         <dd>{t("cAstroSettingsInfoCountDesc")}</dd>
       </dl>

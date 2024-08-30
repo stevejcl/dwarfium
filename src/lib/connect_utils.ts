@@ -3,6 +3,7 @@ import axios from "axios";
 
 import {
   Dwarfii_Api,
+  getDefaultParamsConfig,
   messageCameraTeleGetSystemWorkingState,
   messageCameraTeleOpenCamera,
   messageCameraWideOpenCamera,
@@ -19,19 +20,27 @@ import { logger } from "@/lib/logger";
 const getConfigData = async (IPDwarf: string | undefined) => {
   try {
     // Make the HTTP GET request to the specified URL
-    let RequestAddr = "http://" + IPDwarf + ":8082/getDefaultParamsConfig";
-    const response = await axios.get(RequestAddr);
+    let requestAddr;
+    if (IPDwarf) {
+      requestAddr = getDefaultParamsConfig(IPDwarf);
+    }
+    if (requestAddr) {
+      const response = await axios.get(requestAddr);
 
-    // Check if the response has data
-    if (response.data && response.data.data) {
-      const { id, name } = response.data.data;
+      // Check if the response has data
+      if (response.data && response.data.data) {
+        const { id, name } = response.data.data;
 
-      console.log(`ID: ${id}`);
-      console.log(`Name: ${name}`);
+        console.log(`ID: ${id}`);
+        console.log(`Name: ${name}`);
 
-      return { id, name };
+        return { id, name };
+      } else {
+        console.error("getConfigData : No data found in the response.");
+        return null;
+      }
     } else {
-      console.error("No data found in the response.");
+      console.error("Invalid request for getConfigData.");
       return null;
     }
   } catch (error) {
@@ -86,6 +95,14 @@ export async function connectionHandler(
         console.log(
           `Extracted CMD Dwarf Data: ID=${result_data.deviceId}, Name=${name}`
         );
+        // Update it for the next frames to be sent
+        if (webSocketHandler.setDeviceIdDwarf(result_data.deviceId)) {
+          console.log(
+            "The device id has been updated for the next frames to be sent"
+          );
+        } else {
+          console.error("Error during update of the device id");
+        }
       } else {
         // Call the request to get config data on the Dwarf
         getConfigData(IPDwarf).then((result) => {
@@ -95,6 +112,14 @@ export async function connectionHandler(
             console.log(
               `Extracted JSON Dwarf Data: ID=${result.id}, Name=${result.name}`
             );
+            // Update it for the next frames to be sent
+            if (webSocketHandler.setDeviceIdDwarf(result.id)) {
+              console.log(
+                "The device id has been updated for the next frames to be sent"
+              );
+            } else {
+              console.error("Error during update of the device id");
+            }
           }
         });
       }

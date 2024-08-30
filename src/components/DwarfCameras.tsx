@@ -55,6 +55,9 @@ export default function DwarfCameras(props: PropType) {
   const defaultTeleCameraSrc = "/images/dwarflab_camera.png";
   const defaultWideCameraSrc = "/images/dwarfII.png";
 
+  const [teleCameraClass, setTeleCameraClass] = useState(styles.telephoto);
+  const [wideCameraClass, setWideCameraClass] = useState(styles.wideangle);
+
   useEffect(() => {
     console.debug("Start Of Effect DwarfCameras");
     checkCameraStatus(connectionCtx);
@@ -253,7 +256,7 @@ export default function DwarfCameras(props: PropType) {
           }
           src={wideCameraSrc}
           alt={wideCameraSrc ? "livestream for wideangle camera" : ""}
-          className={styles.wideangle}
+          className={wideCameraClass}
         ></img>
       </div>
     );
@@ -283,10 +286,17 @@ export default function DwarfCameras(props: PropType) {
           }
           src={teleCameraSrc}
           alt={teleCameraSrc ? "livestream for telephoto camera" : ""}
-          className={styles.telephoto}
+          className={teleCameraClass}
         ></img>
       </div>
     );
+  }
+
+  function exchangeCameras() {
+    // Swap the classes
+    const tempClass = teleCameraClass;
+    setTeleCameraClass(wideCameraClass);
+    setWideCameraClass(tempClass);
   }
 
   const Controls = () => {
@@ -310,6 +320,12 @@ export default function DwarfCameras(props: PropType) {
           onClick={() => zoomOut()}
         >
           Zoom Out
+        </button>
+        <button
+          className="btn btn-more02 me-3 top-align"
+          onClick={() => exchangeCameras()}
+        >
+          Exchange
         </button>
       </>
     );

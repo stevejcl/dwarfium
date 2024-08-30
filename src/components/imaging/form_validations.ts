@@ -20,6 +20,7 @@ export function validateAstroSettings(values: Fields) {
     "fileFormat",
     "count",
     "quality",
+    "AIEnhance",
   ].forEach((item) => {
     if (
       values[item as keyof Fields] === undefined ||

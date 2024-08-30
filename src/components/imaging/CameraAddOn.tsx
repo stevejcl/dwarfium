@@ -174,6 +174,7 @@ export default function CameraAddOn(props: PropTypes) {
   let intervalTimer = useRef<ReturnType<typeof setInterval> | undefined>(
     undefined
   );
+  let isDwarfII = connectionCtx.typeIdDwarf == 1;
 
   let gLastTimeMotorCmd = Date.now();
   let gMotorState = false;
@@ -190,6 +191,7 @@ export default function CameraAddOn(props: PropTypes) {
     };
     update_control();
     window.addEventListener("resize", handleResize);
+    isDwarfII = connectionCtx.typeIdDwarf == 1;
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -940,16 +942,38 @@ export default function CameraAddOn(props: PropTypes) {
                   }
                   style={{ cursor: "pointer" }}
                 />
-                <div className="button-container">
-                  <button
-                    className={`button-cent ${
-                      activeBtnVideo === "tele" ? "active" : ""
-                    }`}
-                    onClick={() => handleBtnVideoClick("tele")}
-                  >
-                    Tele
-                  </button>
-                </div>
+                {isDwarfII && (
+                  <div className="button-container">
+                    <button
+                      className={`button-cent ${
+                        activeBtnVideo === "tele" ? "active" : ""
+                      }`}
+                      onClick={() => handleBtnVideoClick("tele")}
+                    >
+                      Tele
+                    </button>
+                  </div>
+                )}
+                {!isDwarfII && (
+                  <div className="button-container">
+                    <button
+                      className={`button ${
+                        activeBtnVideo === "tele" ? "active" : ""
+                      }`}
+                      onClick={() => handleBtnVideoClick("tele")}
+                    >
+                      Tele
+                    </button>
+                    <button
+                      className={`button ${
+                        activeBtnVideo === "wide" ? "active" : ""
+                      }`}
+                      onClick={() => handleBtnVideoClick("wide")}
+                    >
+                      Wide
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="column">
                 <div className="header">
@@ -1001,16 +1025,38 @@ export default function CameraAddOn(props: PropTypes) {
                   }
                   style={{ cursor: "pointer" }}
                 />
-                <div className="button-container">
-                  <button
-                    className={`button-cent ${
-                      activeBtnPano === "tele" ? "active" : ""
-                    }`}
-                    onClick={() => handleBtnPanoClick("tele")}
-                  >
-                    Tele
-                  </button>
-                </div>
+                {isDwarfII && (
+                  <div className="button-container">
+                    <button
+                      className={`button-cent ${
+                        activeBtnPano === "tele" ? "active" : ""
+                      }`}
+                      onClick={() => handleBtnPanoClick("tele")}
+                    >
+                      Tele
+                    </button>
+                  </div>
+                )}
+                {!isDwarfII && (
+                  <div className="button-container">
+                    <button
+                      className={`button ${
+                        activeBtnPano === "tele" ? "active" : ""
+                      }`}
+                      onClick={() => handleBtnPanoClick("tele")}
+                    >
+                      Tele
+                    </button>
+                    <button
+                      className={`button ${
+                        activeBtnPano === "wide" ? "active" : ""
+                      }`}
+                      onClick={() => handleBtnPanoClick("wide")}
+                    >
+                      Wide
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="column">
                 <div className="header">

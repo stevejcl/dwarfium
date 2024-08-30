@@ -264,6 +264,7 @@ export type AstroSettings = {
   IR?: number;
   binning?: number;
   fileFormat?: number;
+  AiEnhance?: number;
   count?: number;
   quality?: number;
   target?: string;

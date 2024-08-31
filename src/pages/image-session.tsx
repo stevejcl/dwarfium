@@ -22,7 +22,7 @@ export default function AstroPhoto() {
   const [thumbnailExists, setThumbnailExists] = useState<boolean[]>([]);
 
   const fetchThumbnailExists = async (sessionName: string) => {
-    if (connectionCtx.typeNameDwarf == "DWARF II") {
+    if (connectionCtx.typeNameDwarf == "Dwarf II") {
       thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
     } else {
       thumbnailUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;

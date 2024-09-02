@@ -289,7 +289,6 @@
   "cCalibrationDwarfNoPosition": "Es wurde keine Position erfasst",
   "cCalibrationDwarfRecordedPosition": "Aufgezeichnete Position:",
   "cGoToStellariumFoundInCatalog": "Objekt im Katalog gefunden",
-  "cCameraAddonTimeLapse": "Zeitraffer",
   "cGoToStellariumPasteData": "Daten einfügen",
   "cGoToUserListCustomObjectsListInstruction1": "Um benutzerdefinierte Objektlisten hinzuzufügen, erstellen Sie eine Objektliste unter \r\n  \n<a href=\"https://telescopius.com\">Telescopius</a>, herunterladen \r\n  \ndie CSV-Datei und klicken Sie auf „Neue Liste hinzufügen“.",
   "cLensAlignProcess": "Kameraausrichtung verarbeiten:",

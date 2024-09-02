@@ -508,32 +508,34 @@ export default function TakeAstroPhoto(props: PropTypes) {
               </div>
               {errors.count && <p className="text-danger">{errors.count}</p>}
             </div>
-            <div className="row mb-md-2 mb-sm-1">
-              <div className="col-4">
-                <label htmlFor="quality" className="form-label">
-                  Quality
-                </label>
+            {connectionCtx.typeNameDwarf == "Dwarf II" && (
+              <div className="row mb-md-2 mb-sm-1">
+                <div className="col-4">
+                  <label htmlFor="quality" className="form-label">
+                    Quality
+                  </label>
+                </div>
+                <div className="col-8">
+                  <input
+                    type="number"
+                    className="form-control"
+                    name="quality"
+                    max="100"
+                    placeholder="0"
+                    min="0"
+                    onChange={(e) => {
+                      handleChange(e);
+                      changeQualityHandler(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={values.quality}
+                  />
+                </div>
+                {errors.quality && (
+                  <p className="text-danger">{errors.quality}</p>
+                )}
               </div>
-              <div className="col-8">
-                <input
-                  type="number"
-                  className="form-control"
-                  name="quality"
-                  max="100"
-                  placeholder="0"
-                  min="0"
-                  onChange={(e) => {
-                    handleChange(e);
-                    changeQualityHandler(e);
-                  }}
-                  onBlur={handleBlur}
-                  value={values.quality}
-                />
-              </div>
-              {errors.quality && (
-                <p className="text-danger">{errors.quality}</p>
-              )}
-            </div>
+            )}
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-4">Total time</div>
               <div className="col-8">

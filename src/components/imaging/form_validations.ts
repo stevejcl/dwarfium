@@ -8,6 +8,7 @@ type Fields = {
   fileFormat: FieldValues;
   count: FieldValues;
   quality: FieldValues;
+  AiEnhance: FieldValues;
 };
 
 export function validateAstroSettings(values: Fields) {
@@ -20,7 +21,7 @@ export function validateAstroSettings(values: Fields) {
     "fileFormat",
     "count",
     "quality",
-    "AIEnhance",
+    "AiEnhance",
   ].forEach((item) => {
     if (
       values[item as keyof Fields] === undefined ||

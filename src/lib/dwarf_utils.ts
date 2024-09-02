@@ -244,7 +244,7 @@ export async function updateTelescopeISPSetting(
     cmd = Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_SET_FEATURE_PARAM;
     let hasAuto = false;
     let autoMode = 1; // Manual
-    let id = 14; // "Astro format"
+    let id = 14; // "AiEnhance"
     let modeIndex = 0;
     let index = value;
     let continueValue = 0;
@@ -334,6 +334,7 @@ export async function getAllTelescopeISPSetting(
         let count = 0;
         let binning;
         let fileFormat;
+        let AiEnhance;
         if (result_data.data.allFeatureParams) {
           console.log("allFeatureParams:", result_data.data.allFeatureParams);
           // For id=0 : "Astro binning"
@@ -360,12 +361,25 @@ export async function getAllTelescopeISPSetting(
           console.log("allFeatureParams-resultObject2:", resultObject2);
           if (resultObject2.index) fileFormat = fileTiff;
           else fileFormat = fileFits;
+
+          // For id=14 : AiEnhance
+          const resultObject3 = result_data.data.allFeatureParams.find(
+            (item) => item.id === 14
+          );
+          console.log("allFeatureParams-resultObject3:", resultObject3);
+          AiEnhance = 0;
+          if (resultObject3.index) {
+            AiEnhance = resultObject3.index;
+          }
+
           connectionCtx.astroSettings.binning = binning;
           saveAstroSettingsDb("binning", binning.toString());
           connectionCtx.astroSettings.fileFormat = fileFormat;
           saveAstroSettingsDb("fileFormat", fileFormat.toString());
           connectionCtx.astroSettings.count = count;
           saveAstroSettingsDb("count", count.toString());
+          connectionCtx.astroSettings.AiEnhance = AiEnhance;
+          saveAstroSettingsDb("AiEnhance", AiEnhance.toString());
         }
       }
     }
@@ -404,17 +418,18 @@ export async function getAllTelescopeISPSetting(
           console.log("allParams-resultObject2:", resultObject2);
           let val_IRCut = 0;
           if (resultObject2.index) val_IRCut = resultObject2.index;
-          // For id=9 : previewQuality
-          let previewQuality = 0;
+          // For id=9 : previewQuality : only dwarf II
+          let previewQuality;
           const resultObject4 = result_data.data.allParams.find(
             (item) => item.id === 9
           );
-          console.log(
-            "previewQuality: allParams-resultObject4:",
-            resultObject4
-          );
-          if (resultObject4.continueValue)
+          if (resultObject4 && resultObject4.continueValue) {
+            console.log(
+              "previewQuality: allParams-resultObject4:",
+              resultObject4
+            );
             previewQuality = resultObject4.continueValue;
+          }
           connectionCtx.astroSettings.gain = gain;
           saveAstroSettingsDb("gain", gain.toString());
           connectionCtx.astroSettings.gainMode = modeManual;
@@ -425,8 +440,10 @@ export async function getAllTelescopeISPSetting(
           saveAstroSettingsDb("exposureMode", exposureMode.toString());
           connectionCtx.astroSettings.IR = val_IRCut;
           saveAstroSettingsDb("IR", val_IRCut.toString());
-          connectionCtx.astroSettings.quality = previewQuality;
-          saveAstroSettingsDb("quality", previewQuality.toString());
+          if (previewQuality) {
+            connectionCtx.astroSettings.quality = previewQuality;
+            saveAstroSettingsDb("quality", previewQuality.toString());
+          }
         }
       }
     }

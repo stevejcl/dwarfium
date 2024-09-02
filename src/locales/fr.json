@@ -112,7 +112,7 @@
   "cCameraAddOnPhoto": "Photo",
   "cCameraAddOnVideo": "Vidéo",
   "cCameraAddOnPanorama": "Panorama",
-  "cCameraAddonTimeLapse": "Time-lapse",
+  "cCameraAddOnTimeLapse": "Time Lapse",
   "cCameraBurstSettingsCount": "Compteur",
   "cCameraBurstSettingsinterval": "Intervalle",
   "cCameraTitle": "Astro Photos",
@@ -320,7 +320,6 @@
   "cCloudsSearch": "Rechercher",
   "cCloudsSaveAPIKey": "Enregistrer la clé API",
   "pWeatherLoading": "Chargement...",
-  "cCameraAddOnTimeLapse": "Laps de temps",
   "cPolarAlignTurnDownLens": "L'objectif baisse",
   "cGoToAsteroidConnectStellarium": "Vous devez vous connecter à Stellarium pour que Goto fonctionne."
 }

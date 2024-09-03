@@ -31,8 +31,8 @@ export default function ConnectDwarfSTA() {
 
   let IsFirstStepOK = false;
   let configValue;
-  let deviceDwarfII;
-  let characteristicDwarfII;
+  let deviceDwarf;
+  let characteristicDwarf;
   let BluetoothPWD;
 
   async function checkConnection(e: FormEvent<HTMLFormElement>) {
@@ -52,71 +52,78 @@ export default function ConnectDwarfSTA() {
       setFindDwarfBluetooth(false);
       setEtatBluetooth(false);
 
-      if (deviceDwarfII) {
+      if (deviceDwarf) {
         // disconnect Bluetooth
         console.debug("disconnect already connected device");
         actionDisconnect();
       }
 
+      const Dwarf_Characteristic_String =
+        "00009999-0000-1000-8000-00805f9b34fb";
+      const DwarfII_ID_String = "0000daf2-0000-1000-8000-00805f9b34fb";
+      const Dwarf3_ID_String = "0000daf3-0000-1000-8000-00805f9b34fb";
+
       const device = await navigator.bluetooth.requestDevice({
         filters: [
           { namePrefix: "DWARF" },
-          { services: ["0000daf2-0000-1000-8000-00805f9b34fb"] },
+          { services: [DwarfII_ID_String, Dwarf3_ID_String] },
         ],
-        optionalServices: ["0000daf2-0000-1000-8000-00805f9b34fb"],
+        optionalServices: [DwarfII_ID_String, Dwarf3_ID_String],
       });
 
       if (device) {
-        deviceDwarfII = device;
+        deviceDwarf = device;
         // Add the new class
         setFindDwarfBluetooth(true);
-        setErrorTxt(deviceDwarfII.name);
-        console.debug("Got device:", deviceDwarfII.name);
-        console.debug("id:", deviceDwarfII.id);
-        deviceDwarfII.addEventListener(
-          "gattserverdisconnected",
-          onDisconnected
-        );
+        setErrorTxt(deviceDwarf.name);
+        console.debug("Got device:", deviceDwarf.name);
+        console.debug("id:", deviceDwarf.id);
+        deviceDwarf.addEventListener("gattserverdisconnected", onDisconnected);
 
-        if (!deviceDwarfII.gatt) throw new Error("Can't get bluetooth gatt ");
-        else console.debug("gatt:", deviceDwarfII.gatt);
+        if (!deviceDwarf.gatt) throw new Error("Can't get bluetooth gatt ");
+        else console.debug("gatt:", deviceDwarf.gatt);
 
-        const server = await deviceDwarfII.gatt.connect();
+        const server = await deviceDwarf.gatt.connect();
         if (!server) throw new Error("Can't get gatt bluetooth service");
         else console.debug("Got bluetooth connected");
 
-        const service = await server.getPrimaryService(
-          "0000daf2-0000-1000-8000-00805f9b34fb"
-        );
+        let service;
+        try {
+          service = await server.getPrimaryService(DwarfII_ID_String);
+        } catch (error) {
+          // If the first service isn't found, try the second one
+          service = await server.getPrimaryService(Dwarf3_ID_String);
+        }
+
         if (!service) throw new Error("Can't get bluetooth service");
         else console.debug("Got bluetooth service");
 
         const characteristic = await service.getCharacteristic(
-          "00009999-0000-1000-8000-00805f9b34fb"
+          Dwarf_Characteristic_String
         );
         if (!characteristic)
           throw new Error("Can't get bluetooth characteristic");
 
-        characteristicDwarfII = characteristic;
-        console.debug("Got characteristic:", characteristicDwarfII.uuid);
-        console.debug("Got characteristic:", characteristicDwarfII.service);
-        console.debug(characteristicDwarfII);
+        characteristicDwarf = characteristic;
+        console.debug("Got characteristic:", characteristicDwarf.uuid);
+        console.debug("Got characteristic:", characteristicDwarf.service);
+        console.debug(characteristicDwarf);
         setEtatBluetooth(true);
 
-        characteristicDwarfII.addEventListener(
+        characteristicDwarf.addEventListener(
           "characteristicvaluechanged",
           handleValueChanged
         );
-        await characteristicDwarfII.startNotifications();
+        await characteristicDwarf.startNotifications();
 
-        const data_test = await characteristicDwarfII.readValue();
+        const data_test = await characteristicDwarf.readValue();
         console.debug("Got detail characteristic:", data_test);
         console.debug(data_test);
 
         // get Wifi
         let bufferGetConfig = messageGetconfig(BluetoothPWD);
 
-        await characteristicDwarfII.writeValue(bufferGetConfig);
+        await characteristicDwarf.writeValue(bufferGetConfig);
       }
     } catch (error) {
       // Add the new class
@@ -175,7 +182,7 @@ export default function ConnectDwarfSTA() {
             connectionCtx.BleSTASSIDDwarf,
             connectionCtx.BleSTAPWDDwarf
           );
-          await characteristicDwarfII.writeValue(bufferSetWifiSta);
+          await characteristicDwarf.writeValue(bufferSetWifiSta);
         }
         // check StaMod Configured
         else if (result_data.state != 2) {
@@ -204,7 +211,7 @@ export default function ConnectDwarfSTA() {
             result_data.ssid,
             result_data.psd
           );
-          await characteristicDwarfII.writeValue(bufferSetWifiSta);
+          await characteristicDwarf.writeValue(bufferSetWifiSta);
         }
       } else if (IsFirstStepOK && value.byteLength) {
         IsFirstStepOK = false;
@@ -249,8 +256,8 @@ export default function ConnectDwarfSTA() {
           saveBleSTAPWDDwarfDB(result_data.psd);
           setConnecting(false);
           setConnectionStatus(true);
-          await characteristicDwarfII.stopNotifications();
-          characteristicDwarfII.removeEventListener(
+          await characteristicDwarf.stopNotifications();
+          characteristicDwarf.removeEventListener(
             "characteristicvaluechanged",
             handleValueChanged
           );
@@ -275,19 +282,19 @@ export default function ConnectDwarfSTA() {
   async function actionDisconnect() {
     try {
       // disconnect Bluetooth
-      if (characteristicDwarfII) {
-        await characteristicDwarfII.stopNotifications();
-        characteristicDwarfII.removeEventListener(
+      if (characteristicDwarf) {
+        await characteristicDwarf.stopNotifications();
+        characteristicDwarf.removeEventListener(
           "characteristicvaluechanged",
           handleValueChanged
         );
       }
-      if (deviceDwarfII) {
-        deviceDwarfII.removeEventListener(
+      if (deviceDwarf) {
+        deviceDwarf.removeEventListener(
           "gattserverdisconnected",
           onDisconnected
         );
-        if (deviceDwarfII.gatt) await deviceDwarfII.gatt.disconnect();
+        if (deviceDwarf.gatt) await deviceDwarf.gatt.disconnect();
       }
     } catch (error) {
       console.error(error);

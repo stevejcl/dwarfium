@@ -368,7 +368,7 @@ export async function getAllTelescopeISPSetting(
           );
           console.log("allFeatureParams-resultObject3:", resultObject3);
           AiEnhance = 0;
-          if (resultObject3.index) {
+          if (resultObject3 && resultObject3.index) {
             AiEnhance = resultObject3.index;
           }
 

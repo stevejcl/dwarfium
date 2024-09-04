@@ -84,8 +84,20 @@ export async function connectionHandler(
       saveInitialConnectionTimeDB();
       saveIPConnectDB(IPDwarf);
 
-      // get the type of Dwarf from result_data
-      if (result_data.deviceId) {
+      // get the type of Dwarf from bluetooth or result_data
+      if (connectionCtx.typeIdDwarf) {
+        // Update it for the next frames to be sent
+        if (webSocketHandler.setDeviceIdDwarf(connectionCtx.typeIdDwarf)) {
+          console.log(
+            "The device id has been updated for the next frames to be sent"
+          );
+        } else {
+          console.error("Error during update of the device id");
+        }
+      } else if (
+        connectionCtx.typeIdDwarf === undefined &&
+        result_data.deviceId
+      ) {
         connectionCtx.setTypeIdDwarf(result_data.deviceId);
         // Construct Name from deviceId
         let name = "Dwarf";
@@ -103,7 +115,7 @@ export async function connectionHandler(
         } else {
           console.error("Error during update of the device id");
         }
-      } else {
+      } else if (connectionCtx.typeIdDwarf === undefined) {
         // Call the request to get config data on the Dwarf
         getConfigData(IPDwarf).then((result) => {
           if (result) {

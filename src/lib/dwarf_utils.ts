@@ -378,8 +378,10 @@ export async function getAllTelescopeISPSetting(
           saveAstroSettingsDb("fileFormat", fileFormat.toString());
           connectionCtx.astroSettings.count = count;
           saveAstroSettingsDb("count", count.toString());
-          connectionCtx.astroSettings.AiEnhance = AiEnhance;
-          saveAstroSettingsDb("AiEnhance", AiEnhance.toString());
+          if (AiEnhance) {
+            connectionCtx.astroSettings.AiEnhance = AiEnhance;
+            saveAstroSettingsDb("AiEnhance", AiEnhance.toString());
+          }
         }
       }
     }

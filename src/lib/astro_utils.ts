@@ -145,14 +145,24 @@ function setVisibility(object, date_rise, date_set) {
   // check visibility
   let currentDate = new Date();
 
-  if (date_rise === null && date_set === null) return;
+  if (
+    (date_rise === null || date_rise === undefined) &&
+    (date_set === null || date_set === undefined)
+  )
+    return;
 
-  if (date_rise === null && compareTime(currentDate, date_set) < 1) {
+  if (
+    (date_rise === null || date_rise === undefined) &&
+    compareTime(currentDate, date_set) < 1
+  ) {
     object.visible = true;
     return;
   }
 
-  if (date_set === null && compareTime(date_rise, currentDate) < 1) {
+  if (
+    (date_set === null || date_set === undefined) &&
+    compareTime(date_rise, currentDate) < 1
+  ) {
     object.visible = true;
     return;
   }
@@ -223,9 +233,15 @@ export function getRiseSetTimePlanet(
     setVisibility(object, rs.rise, rs.set);
 
     return_data = {
-      rise: rs.rise !== null ? formatTimePartsPlanet(rs.rise) : null,
+      rise:
+        rs.rise !== null && rs.rise !== undefined
+          ? formatTimePartsPlanet(rs.rise)
+          : null,
       transit: null,
-      set: rs.set !== null ? formatTimePartsPlanet(rs.set) : null,
+      set:
+        rs.set !== null && rs.set !== undefined
+          ? formatTimePartsPlanet(rs.set)
+          : null,
     };
   } else {
     const earth = new planetposition.Planet(vsop87Bearth);
@@ -238,9 +254,18 @@ export function getRiseSetTimePlanet(
     setVisibility(object, rs.rise, rs.set);
 
     return_data = {
-      rise: formatTimePartsPlanet(rs.rise),
-      transit: formatTimePartsPlanet(rs.transit),
-      set: formatTimePartsPlanet(rs.set),
+      rise:
+        rs.rise !== null && rs.rise !== undefined
+          ? formatTimePartsPlanet(rs.rise)
+          : null,
+      transit:
+        rs.transit !== null && rs.transit !== undefined
+          ? formatTimePartsPlanet(rs.transit)
+          : null,
+      set:
+        rs.set !== null && rs.set !== undefined
+          ? formatTimePartsPlanet(rs.set)
+          : null,
     };
   }
 

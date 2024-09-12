@@ -94,27 +94,6 @@ export async function connectionHandler(
         } else {
           console.error("Error during update of the device id");
         }
-      } else if (
-        connectionCtx.typeIdDwarf === undefined &&
-        result_data.deviceId
-      ) {
-        connectionCtx.setTypeIdDwarf(result_data.deviceId);
-        // Construct Name from deviceId
-        let name = "Dwarf";
-        if (result_data.deviceId == 1) name += " II";
-        else name += `${result_data.deviceId + 1}`;
-        connectionCtx.setTypeNameDwarf(name);
-        console.log(
-          `Extracted CMD Dwarf Data: ID=${result_data.deviceId}, Name=${name}`
-        );
-        // Update it for the next frames to be sent
-        if (webSocketHandler.setDeviceIdDwarf(result_data.deviceId)) {
-          console.log(
-            "The device id has been updated for the next frames to be sent"
-          );
-        } else {
-          console.error("Error during update of the device id");
-        }
       } else if (connectionCtx.typeIdDwarf === undefined) {
         // Call the request to get config data on the Dwarf
         getConfigData(IPDwarf).then((result) => {
@@ -126,6 +105,24 @@ export async function connectionHandler(
             );
             // Update it for the next frames to be sent
             if (webSocketHandler.setDeviceIdDwarf(result.id)) {
+              console.log(
+                "The device id has been updated for the next frames to be sent"
+              );
+            } else {
+              console.error("Error during update of the device id");
+            }
+          } else if (result_data.deviceId) {
+            connectionCtx.setTypeIdDwarf(result_data.deviceId);
+            // Construct Name from deviceId
+            let name = "Dwarf";
+            if (result_data.deviceId == 1) name += " II";
+            else name += `${result_data.deviceId + 1}`;
+            connectionCtx.setTypeNameDwarf(name);
+            console.log(
+              `Extracted CMD Dwarf Data: ID=${result_data.deviceId}, Name=${name}`
+            );
+            // Update it for the next frames to be sent
+            if (webSocketHandler.setDeviceIdDwarf(result_data.deviceId)) {
               console.log(
                 "The device id has been updated for the next frames to be sent"
               );

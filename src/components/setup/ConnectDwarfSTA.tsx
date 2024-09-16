@@ -213,6 +213,20 @@ export default function ConnectDwarfSTA() {
           setConnecting(false);
           setConnectionStatus(false);
           actionDisconnect();
+        } else if (
+          result_data.ip == "192.168.88.1" &&
+          connectionCtx.BleSTASSIDDwarf &&
+          connectionCtx.BleSTAPWDDwarf
+        ) {
+          setErrorTxt("Load WiFi configuration...");
+          IsFirstStepOK = true;
+          let bufferSetWifiSta = messageWifiSTA(
+            1,
+            BluetoothPWD,
+            connectionCtx.BleSTASSIDDwarf,
+            connectionCtx.BleSTAPWDDwarf
+          );
+          await characteristicDwarf.writeValue(bufferSetWifiSta);
         } else {
           IsFirstStepOK = true;
           let bufferSetWifiSta = messageWifiSTA(

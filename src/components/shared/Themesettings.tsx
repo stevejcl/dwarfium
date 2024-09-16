@@ -237,15 +237,6 @@ const Modal: React.FC = () => {
                 >
                   {t("cThemeSettingsDarkTheme")}
                 </button>
-                <button
-                  className={`btn btn-more02 ${
-                    theme === "dark" ? "active" : ""
-                  }`}
-                  onClick={() => handleThemeChange("dark")}
-                >
-                  {t("cThemeSettingsAstroTheme")}
-                  <br />({t("cThemeSettingsUnderconstruction")})
-                </button>
               </div>
             </div>
             <br />

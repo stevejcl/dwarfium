@@ -385,6 +385,7 @@ export default function ConnectDwarfSTA() {
         </li>
         <li>
           {t("pEnableSTAContent2", { DwarfType: connectionCtx.typeNameDwarf })}
+          <br />
         </li>
         <li className="mb-2">
           {t("pEnableSTAContent3", { DwarfType: connectionCtx.typeNameDwarf })}

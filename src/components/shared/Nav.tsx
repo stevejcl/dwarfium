@@ -126,15 +126,6 @@ export default function Nav() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  href="/astro-calendar"
-                >
-                  {t("cNavAstronomyCalendar")}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
                   href="/polar-alignment"
                 >
                   {t("cNavPolarAlignment")}
@@ -191,3 +182,16 @@ export default function Nav() {
     </>
   );
 }
+/*
+              <!--
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  href="/astro-calendar"
+                >
+                  {t("cNavAstronomyCalendar")}
+                </Link>
+              </li>
+              -->
+*/

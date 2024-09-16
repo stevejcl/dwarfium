@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 export default function Nav() {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [theme] = useState<"light" | "dark">("light");
-  const [devState, setDevState] = useState(false);
 
   const { t } = useTranslation();
-
-  useEffect(() => {
-    const devState = localStorage.getItem("devState");
-    if (devState !== null) {
-      setDevState(devState === "true");
-    }
-  }, []);
 
   const handleNavbarToggle = () => {
     setNavbarOpen(!navbarOpen);
@@ -144,7 +136,6 @@ export default function Nav() {
                   className="nav-link active"
                   aria-current="page"
                   href="/polar-alignment"
-                  style={{ display: devState ? "block" : "none" }}
                 >
                   {t("cNavPolarAlignment")}
                 </Link>

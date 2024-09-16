@@ -987,14 +987,46 @@ img {
     }
 }
 
-.footer {
+.footer-container {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #00B280;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer {
+    background-color: #00b280;
     text-align: center;
     color: gainsboro;
-}
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .footer-minimized {
+    background-color: #00b280;
+    padding: 2px; 
+    width: 50px; 
+    height: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; 
+  }
+  
+  .footer-toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 12px; 
+  }
+  
+  .footer-toggle-btn:hover {
+    color: lightgray;
+  }
+  
 
 .version-text {
     margin-right: 0px;

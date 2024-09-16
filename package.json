@@ -25,6 +25,7 @@
     "@mui/material": "^5.15.15",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@reduxjs/toolkit": "^2.2.1",
+    "@tauri-apps/api": "^1.6.0",
     "@types/chart.js": "^2.9.41",
     "@types/dom-serial": "^1.0.6",
     "@types/node": "20.2.1",

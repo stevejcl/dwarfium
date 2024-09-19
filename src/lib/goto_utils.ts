@@ -997,10 +997,9 @@ export async function polarAlignHandlerFn(
   // Send Command : messageStepMotorReset
   let WS_Packet = new Array();
   WS_Packet[0] = messageStepMotorMotionTo(1, 160, 10, 100, 3);
-  if (connectionCtx.typeNameDwarf == "Dwarf II") {
+  if (connectionCtx.typeNameDwarf == "Dwarf II")
     WS_Packet[1] = messageStepMotorMotionTo(2, 146.5, 10, 100, 3);
-  else
-    WS_Packet[1] = messageStepMotorMotionTo(2, 166.5, 10, 100, 3);
+  else WS_Packet[1] = messageStepMotorMotionTo(2, 166.5, 10, 100, 3);
   let txtInfoCommand = "Polar align Goto";
 
   if (!webSocketHandler.run()) {

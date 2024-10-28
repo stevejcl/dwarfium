@@ -186,8 +186,8 @@ body {
     width: 30rem;
     float: right !important;
     height: fit-content;
-    margin-right: 50%;
-    margin-top: -39px;
+    margin-right: 40%;
+    margin-top: 0px;
 }
 
 .top-align {
@@ -197,8 +197,8 @@ body {
 }
 
 .right-align {
-    margin-left: auto;
-    margin-right: 10px;
+    text-align: right;
+    margin-right: 300px;
 }
 
 .float-right-align {

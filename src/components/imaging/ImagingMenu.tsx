@@ -10,6 +10,8 @@ import {
   Dwarfii_Api,
   messageAstroStartCaptureRawLiveStacking,
   messageAstroStopCaptureRawLiveStacking,
+  messageAstroStartCaptureRawWideLiveStacking,
+  messageAstroStopCaptureRawWideLiveStacking,
   messageAstroGoLive,
   messageFocusStartAstroAutoFocus,
   messageFocusStopAstroAutoFocus,
@@ -26,7 +28,9 @@ import { ImagingSession } from "@/types";
 import { saveImagingSessionDb, removeImagingSessionDb } from "@/db/db_utils";
 import CameraAddOn from "@/components/imaging/CameraAddOn";
 import {
+  wideangleCamera,
   turnOnTeleCameraFn,
+  turnOnWideCameraFn,
   calculateSessionTime,
   updateTelescopeISPSetting,
 } from "@/lib/dwarf_utils";
@@ -171,7 +175,7 @@ export default function ImagingMenu(props: PropType) {
 
       let now = Date.now();
       connectionCtx.setImagingSession((prev) => {
-        prev.startTime = now;
+        prev["startTime"] = now;
         return { ...prev };
       });
       connectionCtx.setImagingSession((prev) => {
@@ -186,10 +190,18 @@ export default function ImagingMenu(props: PropType) {
         prev["isStackedCountStart"] = false;
         return { ...prev };
       });
+      connectionCtx.setImagingSession((prev) => {
+        prev["astroCamera"] = connectionCtx.currentAstroCamera;
+        return { ...prev };
+      });
       saveImagingSessionDb("isRecording", true.toString());
       saveImagingSessionDb("endRecording", false.toString());
       saveImagingSessionDb("isStackedCountStart", false.toString());
       saveImagingSessionDb("startTime", now.toString());
+      saveImagingSessionDb(
+        "astroCamera",
+        connectionCtx.currentAstroCamera.toString()
+      );
 
       //startAstroPhotoHandler
 
@@ -209,9 +221,12 @@ export default function ImagingMenu(props: PropType) {
 
       const customMessageHandler = (txt_info, result_data) => {
         // CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING -> Start Capture
+        // CMD_ASTRO_START_CAPTURE_WIDE_RAW_LIVE_STACKING -> Start Capture Wide angle
         if (
           result_data.cmd ==
-          Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING
+            Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING ||
+          result_data.cmd ==
+            Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_WIDE_RAW_LIVE_STACKING
         ) {
           if (
             result_data.data.code ==
@@ -239,14 +254,20 @@ export default function ImagingMenu(props: PropType) {
         ? connectionCtx.socketIPDwarf
         : new WebSocketHandler(connectionCtx.IPDwarf);
 
-      // Send Command : messageAstroStartCaptureRawLiveStacking
-      let WS_Packet = messageAstroStartCaptureRawLiveStacking();
+      // Send Command : messageAstroStartCaptureRawLiveStacking or messageAstroStartCaptureRawWideLiveStacking
+      let WS_Packet;
+      if (connectionCtx.currentAstroCamera != wideangleCamera)
+        WS_Packet = messageAstroStartCaptureRawLiveStacking();
+      else WS_Packet = messageAstroStartCaptureRawWideLiveStacking();
       let txtInfoCommand = "takeAstroPhoto";
 
       webSocketHandler.prepare(
         WS_Packet,
         txtInfoCommand,
-        [Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING],
+        [
+          Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_RAW_LIVE_STACKING,
+          Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_CAPTURE_WIDE_RAW_LIVE_STACKING,
+        ],
         customMessageHandler
       );
 
@@ -263,9 +284,12 @@ export default function ImagingMenu(props: PropType) {
 
     const customMessageHandler = (txt_info, result_data) => {
       // CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING -> Stop Capture
+      // CMD_ASTRO_STOP_CAPTURE_WIDE_RAW_LIVE_STACKING -> Stop Capture Wide angle
       if (
         result_data.cmd ==
-        Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING
+          Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING ||
+        result_data.cmd ==
+          Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_WIDE_RAW_LIVE_STACKING
       ) {
         if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
           console.debug("Stop Capture error", {}, connectionCtx);
@@ -284,14 +308,20 @@ export default function ImagingMenu(props: PropType) {
       ? connectionCtx.socketIPDwarf
       : new WebSocketHandler(connectionCtx.IPDwarf);
 
-    // Send Command : messageAstroStopCaptureRawLiveStacking
-    let WS_Packet = messageAstroStopCaptureRawLiveStacking();
+    // Send Command : messageAstroStopCaptureRawLiveStacking or messageAstroStopCaptureRawWideLiveStacking
+    let WS_Packet;
+    if (connectionCtx.currentAstroCamera != wideangleCamera)
+      WS_Packet = messageAstroStopCaptureRawLiveStacking();
+    else WS_Packet = messageAstroStopCaptureRawWideLiveStacking();
     let txtInfoCommand = "stopAstroPhoto";
 
     webSocketHandler.prepare(
       WS_Packet,
       txtInfoCommand,
-      [Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING],
+      [
+        Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING,
+        Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_WIDE_RAW_LIVE_STACKING,
+      ],
       customMessageHandler
     );
 
@@ -408,43 +438,58 @@ export default function ImagingMenu(props: PropType) {
     setUseRawPreviewURL(false);
 
     setTimeout(() => {
-      turnOnTeleCameraFn(connectionCtx);
+      if (connectionCtx.currentAstroCamera != wideangleCamera)
+        turnOnTeleCameraFn(connectionCtx);
+      else turnOnWideCameraFn(connectionCtx);
     }, 1000);
+    let gain = "gain";
+    let gainValue = connectionCtx.astroSettings.gain;
+    let exposureMode = "exposureMode";
+    let exposureModeValue = connectionCtx.astroSettings.exposureMode;
+    let exposure = "exposure";
+    let exposureValue = connectionCtx.astroSettings.exposure;
+
+    if (connectionCtx.currentAstroCamera != wideangleCamera) {
+      setTimeout(() => {
+        updateTelescopeISPSetting(
+          "gainMode",
+          connectionCtx.astroSettings.gainMode as number,
+          connectionCtx
+        );
+      }, 1000);
+      setTimeout(() => {
+        updateTelescopeISPSetting(
+          "IR",
+          connectionCtx.astroSettings.IR as number,
+          connectionCtx
+        );
+      }, 3500);
+    } else {
+      gain = "wideGain";
+      gainValue = connectionCtx.astroSettings.wideGain;
+      exposureMode = "wideExposureMode";
+      exposureModeValue = connectionCtx.astroSettings.wideExposureMode;
+      exposure = "wideExposure";
+      exposureValue = connectionCtx.astroSettings.wideExposure;
+    }
+
     setTimeout(() => {
       updateTelescopeISPSetting(
-        "gainMode",
-        connectionCtx.astroSettings.gainMode as number,
-        connectionCtx
-      );
-    }, 1500);
-    setTimeout(() => {
-      updateTelescopeISPSetting(
-        "exposureMode",
-        connectionCtx.astroSettings.exposureMode as number,
+        exposureMode,
+        exposureModeValue as number,
         connectionCtx
       );
     }, 2000);
     setTimeout(() => {
-      updateTelescopeISPSetting(
-        "gain",
-        connectionCtx.astroSettings.gain as number,
-        connectionCtx
-      );
+      updateTelescopeISPSetting(gain, gainValue as number, connectionCtx);
     }, 2500);
     setTimeout(() => {
       updateTelescopeISPSetting(
-        "exposure",
-        connectionCtx.astroSettings.exposure as number,
+        exposure,
+        exposureValue as number,
         connectionCtx
       );
     }, 3000);
-    setTimeout(() => {
-      updateTelescopeISPSetting(
-        "IR",
-        connectionCtx.astroSettings.IR as number,
-        connectionCtx
-      );
-    }, 3500);
   }
 
   function focusMinus() {
@@ -742,11 +787,21 @@ export default function ImagingMenu(props: PropType) {
       if (showModal) setShowModal(false);
       return (
         <Link href="#" className="" onClick={() => {}}>
-          Astro
+          {getAstroText()}
         </Link>
       );
     }
     return "";
+  }
+
+  function getAstroText() {
+    let strAstroText = "Astro";
+    if (connectionCtx.typeIdDwarf != 1) {
+      if (connectionCtx.currentAstroCamera != wideangleCamera)
+        strAstroText += " TELE";
+      else strAstroText += " WIDE";
+    }
+    return strAstroText;
   }
 
   return (
@@ -763,7 +818,7 @@ export default function ImagingMenu(props: PropType) {
                 setShowModal(true);
               }}
             >
-              Astro
+              {getAstroText()}
             </Link>
           )}
         {showModal &&

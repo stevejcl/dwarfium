@@ -1,6 +1,8 @@
 import { createContext, useState } from "react";
 import type { ReactNode } from "react";
 
+import { telephotoCamera } from "@/lib/dwarf_utils";
+
 import {
   ConnectionContextType,
   AstroSettings,
@@ -89,6 +91,10 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [astroSettings, setAstroSettings] = useState<AstroSettings>(
     {} as AstroSettings
   );
+
+  const [currentAstroCamera, setCurrentAstroCamera] =
+    useState<number>(telephotoCamera);
+
   const [astroSavePosition, setAstroSavePosition] = useState<AstroSavePosition>(
     {} as AstroSavePosition
   );
@@ -190,6 +196,8 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
 
     astroSettings,
     setAstroSettings,
+    currentAstroCamera,
+    setCurrentAstroCamera,
     cameraWideSettings,
     setCameraWideSettings,
     cameraTeleSettings,

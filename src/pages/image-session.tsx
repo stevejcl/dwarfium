@@ -73,9 +73,16 @@ export default function AstroPhoto() {
     }
 
     try {
-      const response = await fetch(
-        `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/`
-      );
+      let response;
+      if (connectionCtx.typeNameDwarf == "Dwarf II") {
+        response = await fetch(
+          `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/`
+        );
+      } else {
+        response = await fetch(
+          `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/`
+        );
+      }
       const data = await response.text();
       const folderRegex =
         /href="([^"]*?)\/"[^>]*?>([^<]+)<\/a>\s+(\d{2}-[a-zA-Z]{3}-\d{4} \d{2}:\d{2})/gi;
@@ -86,9 +93,15 @@ export default function AstroPhoto() {
         const folderDate = matches[3];
         if (!/dwarf_dark|solving_failed/i.test(folderName)) {
           try {
-            await fetch(
-              `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`
-            );
+            if (connectionCtx.typeNameDwarf == "Dwarf II") {
+              await fetch(
+                `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`
+              );
+            } else {
+              await fetch(
+                `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${folderName}/shotsInfo.json`
+              );
+            }
             sessionList.push({ name: folderName, date: folderDate });
           } catch (error) {
             console.log(
@@ -112,9 +125,16 @@ export default function AstroPhoto() {
 
   const fetchSessionInfo = async (sessionName: string) => {
     try {
-      const response = await fetch(
-        `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/shotsInfo.json`
-      );
+      let response;
+      if (connectionCtx.typeNameDwarf == "Dwarf II") {
+        response = await fetch(
+          `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/shotsInfo.json`
+        );
+      } else {
+        response = await fetch(
+          `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/shotsInfo.json`
+        );
+      }
       if (!response.ok) {
         throw new Error(`Failed to fetch session info: ${response.statusText}`);
       }
@@ -156,9 +176,16 @@ export default function AstroPhoto() {
           decodeURIComponent(sessionName),
           { create: true }
         );
-        const folderResponse = await fetch(
-          `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}`
-        );
+        let folderResponse;
+        if (connectionCtx.typeNameDwarf == "Dwarf II") {
+          folderResponse = await fetch(
+            `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}`
+          );
+        } else {
+          folderResponse = await fetch(
+            `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}`
+          );
+        }
         const folderData = await folderResponse.text();
         if (folderData !== null) {
           const fitsFilesMatch = folderData.match(
@@ -171,13 +198,24 @@ export default function AstroPhoto() {
             const totalFiles = fitsFiles.length;
             let downloadedFiles = 0;
             for (const fitsFile of fitsFiles) {
-              const fileResponse = await fetch(
-                `http://${
-                  connectionCtx.IPDwarf
-                }/sdcard/DWARF_II/Astronomy/${sessionName}/${encodeURIComponent(
-                  fitsFile
-                )}`
-              );
+              let fileResponse;
+              if (connectionCtx.typeNameDwarf == "Dwarf II") {
+                fileResponse = await fetch(
+                  `http://${
+                    connectionCtx.IPDwarf
+                  }/sdcard/DWARF_II/Astronomy/${sessionName}/${encodeURIComponent(
+                    fitsFile
+                  )}`
+                );
+              } else {
+                fileResponse = await fetch(
+                  `http://${
+                    connectionCtx.IPDwarf
+                  }/DWARF3/Astronomy/${sessionName}/${encodeURIComponent(
+                    fitsFile
+                  )}`
+                );
+              }
               const fileBlob = await fileResponse.blob();
               const fileHandle = await sessionFolderHandle.getFileHandle(
                 fitsFile,
@@ -317,10 +355,17 @@ export default function AstroPhoto() {
                   {sessions.map((session, index) => (
                     <tr className="active-row" key={index}>
                       <td>
-                        {thumbnailExists[index] === true ? (
+                        {thumbnailExists[index] === true &&
+                        connectionCtx.typeNameDwarf == "Dwarf II" ? (
                           <img
                             className="thumblarge"
                             src={`http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`}
+                            alt="Thumbnail"
+                          />
+                        ) : thumbnailExists[index] === true ? (
+                          <img
+                            className="thumblarge"
+                            src={`http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${session.name}/stacked_thumbnail.jpg`}
                             alt="Thumbnail"
                           />
                         ) : thumbnailExists[index] === false ||

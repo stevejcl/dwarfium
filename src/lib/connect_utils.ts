@@ -13,6 +13,7 @@ import {
   saveConnectionStatusDB,
   saveInitialConnectionTimeDB,
 } from "@/db/db_utils";
+import { telephotoCamera, wideangleCamera } from "@/lib/dwarf_utils";
 import { getAllTelescopeISPSetting } from "@/lib/dwarf_utils";
 import { saveImagingSessionDb, saveIPConnectDB } from "@/db/db_utils";
 import { logger } from "@/lib/logger";
@@ -48,6 +49,29 @@ const getConfigData = async (IPDwarf: string | undefined) => {
     return null;
   }
 };
+
+function updateAstroCamera(connectionCtx: ConnectionContextType, cmd) {
+  if (
+    cmd ==
+      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_WIDE_LIVE_STACKING ||
+    cmd ==
+      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_WIDE_LIVE_STACKING
+  ) {
+    saveImagingSessionDb("astroCamera", wideangleCamera.toString());
+    connectionCtx.setImagingSession((prev) => {
+      prev["astroCamera"] = wideangleCamera;
+      return { ...prev };
+    });
+    connectionCtx.setCurrentAstroCamera(wideangleCamera);
+  } else {
+    saveImagingSessionDb("astroCamera", telephotoCamera.toString());
+    connectionCtx.setImagingSession((prev) => {
+      prev["astroCamera"] = telephotoCamera;
+      return { ...prev };
+    });
+    connectionCtx.setCurrentAstroCamera(telephotoCamera);
+  }
+}
 
 export async function connectionHandler(
   connectionCtx: ConnectionContextType,
@@ -172,8 +196,12 @@ export async function connectionHandler(
       }
     } else if (
       result_data.cmd ==
-      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING
+        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING ||
+      result_data.cmd ==
+        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_WIDE_LIVE_STACKING
     ) {
+      // update astroCamera
+      updateAstroCamera(connectionCtx, result_data.cmd);
       if (
         result_data.data.state ==
         Dwarfii_Api.OperationState.OPERATION_STATE_STOPPED
@@ -229,8 +257,12 @@ export async function connectionHandler(
       }
     } else if (
       result_data.cmd ==
-      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING
+        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING ||
+      result_data.cmd ==
+        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_WIDE_LIVE_STACKING
     ) {
+      // update astroCamera
+      updateAstroCamera(connectionCtx, result_data.cmd);
       if (
         result_data.data.updateCountType == 0 ||
         result_data.data.updateCountType == 2
@@ -377,6 +409,8 @@ export async function connectionHandler(
         Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_OPEN_CAMERA,
         Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_LIVE_STACKING,
         Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_LIVE_STACKING,
+        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STATE_CAPTURE_RAW_WIDE_LIVE_STACKING,
+        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_CAPTURE_RAW_WIDE_LIVE_STACKING,
       ],
       customMessageHandler,
       customStateHandler,

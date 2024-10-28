@@ -62,10 +62,17 @@ export default function DwarfCameras(props: PropType) {
     console.debug("Start Of Effect DwarfCameras");
     checkCameraStatus(connectionCtx);
     return () => {
-      setWideangleCameraStatus("off");
-      setTelephotoCameraStatus("off");
-      setWideCameraSrc(defaultWideCameraSrc);
-      setTeleCameraSrc(defaultTeleCameraSrc);
+      if (connectionCtx.connectionStatusSlave) {
+        setWideangleCameraStatus("on");
+        setSrcWideCamera(true);
+        setTelephotoCameraStatus("on");
+        setSrcTeleCamera(true);
+      } else {
+        setWideangleCameraStatus("off");
+        setTelephotoCameraStatus("off");
+        setWideCameraSrc(defaultWideCameraSrc);
+        setTeleCameraSrc(defaultTeleCameraSrc);
+      }
       console.debug("End Of Effect DwarfCameras");
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -188,6 +195,16 @@ export default function DwarfCameras(props: PropType) {
     if (connectionCtx.IPDwarf === undefined) {
       return;
     }
+
+    // Slave Mode turn on Camera
+    if (connectionCtx.connectionStatusSlave) {
+      setWideangleCameraStatus("on");
+      setSrcWideCamera(true);
+      setTelephotoCameraStatus("on");
+      setSrcTeleCamera(true);
+      return;
+    }
+
     console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
     const webSocketHandler = connectionCtx.socketIPDwarf
       ? connectionCtx.socketIPDwarf
@@ -297,6 +314,20 @@ export default function DwarfCameras(props: PropType) {
     const tempClass = teleCameraClass;
     setTeleCameraClass(wideCameraClass);
     setWideCameraClass(tempClass);
+
+    // Not Recording
+    if (
+      !connectionCtx.imagingSession.isRecording &&
+      !connectionCtx.imagingSession.endRecording &&
+      !connectionCtx.imagingSession.isGoLive &&
+      connectionCtx.typeIdDwarf != 1
+    ) {
+      connectionCtx.setCurrentAstroCamera(
+        connectionCtx.currentAstroCamera == telephotoCamera
+          ? wideangleCamera
+          : telephotoCamera
+      );
+    }
   }
 
   const Controls = () => {

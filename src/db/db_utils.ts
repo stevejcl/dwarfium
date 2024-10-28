@@ -260,6 +260,9 @@ export function fetchAstroSettingsDb() {
       "gain",
       "gainMode",
       "qualityPreview",
+      "wideGain",
+      "wideExposure",
+      "wideExposureMode",
     ].forEach((field) => {
       if (obj[field] !== undefined) {
         if (/^\d+$/.test(obj[field])) {
@@ -300,6 +303,7 @@ export function fetchImagingSessionDb() {
       "isStackedCountStart",
       "endRecording",
       "isGoLive",
+      "astroCamera",
     ].forEach((field) => {
       if (obj[field] !== undefined) {
         // Check if the value is a string representation of 'true' or 'false'

@@ -7,6 +7,11 @@ import {
   getGainNameByIndex,
   getIRNameByIndex,
 } from "@/lib/data_utils";
+import {
+  getWideExposureNameByIndex,
+  getWideGainNameByIndex,
+} from "@/lib/data_wide_utils";
+import { telephotoCamera, wideangleCamera } from "@/lib/dwarf_utils";
 import BatteryMeter from "@/components/BatteryMeter";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import { useTranslation } from "react-i18next";
@@ -55,6 +60,14 @@ export default function StatusBar() {
       <i className="bi bi-x-circle" style={{ color: "red" }}></i>
     );
 
+  let astroWide: string | undefined = undefined;
+  if (
+    connectionCtx.currentAstroCamera !== undefined &&
+    connectionCtx.currentAstroCamera == wideangleCamera
+  ) {
+    astroWide = "WIDE";
+  }
+
   let exposureValue: string | undefined = undefined;
   if (
     connectionCtx.astroSettings.exposureMode !== undefined &&
@@ -68,6 +81,22 @@ export default function StatusBar() {
   )
     exposureValue = getExposureNameByIndex(
       connectionCtx.astroSettings.exposure,
+      connectionCtx.typeIdDwarf
+    );
+
+  let wideExposureValue: string | undefined = undefined;
+  if (
+    connectionCtx.astroSettings.wideExposureMode !== undefined &&
+    connectionCtx.astroSettings.wideExposureMode == modeAuto
+  )
+    wideExposureValue = "Auto";
+  else if (
+    connectionCtx.astroSettings.wideExposureMode !== undefined &&
+    connectionCtx.astroSettings.wideExposureMode == modeManual &&
+    connectionCtx.astroSettings.wideExposure !== undefined
+  )
+    wideExposureValue = getWideExposureNameByIndex(
+      connectionCtx.astroSettings.wideExposure,
       connectionCtx.typeIdDwarf
     );
 
@@ -117,58 +146,100 @@ export default function StatusBar() {
                   </div>
                 </span>
               )}
-            {connectionCtx.astroSettings.gain !== undefined && (
+            {astroWide !== undefined && (
               <span className="me-3">
                 <div className="hover-text">
-                  <i className="icon-bullseye" />
                   <span className="tooltip-text" id="top">
-                    Gain
+                    Camera
                   </span>
-                  :{" "}
-                  {getGainNameByIndex(
-                    connectionCtx.astroSettings.gain,
-                    connectionCtx.typeIdDwarf
-                  )}
+                  {astroWide}
                 </div>
               </span>
             )}
-            {exposureValue !== undefined && (
-              <span className="me-3">
-                <div className="hover-text">
-                  <i className="icon-adjust" />
-                  <span className="tooltip-text" id="top">
-                    {t("cStatusBarExposure")}
-                  </span>
-                  : {exposureValue}
-                </div>
-              </span>
-            )}
-            {connectionCtx.astroSettings.IR !== undefined && (
-              <span className="me-3">
-                <div className="hover-text">
-                  <i className="icon-filter" />
-                  <span className="tooltip-text" id="top">
-                    {t("cStatusBarIRFilter")}
-                  </span>
-                  :{" "}
-                  {getIRNameByIndex(
-                    connectionCtx.astroSettings.IR,
-                    connectionCtx.typeIdDwarf
-                  )}
-                </div>
-              </span>
-            )}
-            {connectionCtx.astroSettings.binning !== undefined && (
-              <span className="me-3">
-                <div className="hover-text">
-                  <i className="icon-picture" />
-                  <span className="tooltip-text" id="top">
-                    {t("cStatusBarBinning")}
-                  </span>
-                  : {connectionCtx.astroSettings.binning == 0 ? "1x1" : "2x2"}
-                </div>
-              </span>
-            )}
+            {connectionCtx.currentAstroCamera == telephotoCamera &&
+              connectionCtx.astroSettings.gain !== undefined && (
+                <span className="me-3">
+                  <div className="hover-text">
+                    <i className="icon-bullseye" />
+                    <span className="tooltip-text" id="top">
+                      Gain
+                    </span>
+                    :{" "}
+                    {getGainNameByIndex(
+                      connectionCtx.astroSettings.gain,
+                      connectionCtx.typeIdDwarf
+                    )}
+                  </div>
+                </span>
+              )}
+            {connectionCtx.currentAstroCamera == telephotoCamera &&
+              exposureValue !== undefined && (
+                <span className="me-3">
+                  <div className="hover-text">
+                    <i className="icon-adjust" />
+                    <span className="tooltip-text" id="top">
+                      {t("cStatusBarExposure")}
+                    </span>
+                    : {exposureValue}
+                  </div>
+                </span>
+              )}
+            {connectionCtx.currentAstroCamera == wideangleCamera &&
+              connectionCtx.astroSettings.wideGain !== undefined && (
+                <span className="me-3">
+                  <div className="hover-text">
+                    <i className="icon-bullseye" />
+                    <span className="tooltip-text" id="top">
+                      Gain
+                    </span>
+                    :{" "}
+                    {getWideGainNameByIndex(
+                      connectionCtx.astroSettings.wideGain,
+                      connectionCtx.typeIdDwarf
+                    )}
+                  </div>
+                </span>
+              )}
+            {connectionCtx.currentAstroCamera == wideangleCamera &&
+              wideExposureValue !== undefined && (
+                <span className="me-3">
+                  <div className="hover-text">
+                    <i className="icon-adjust" />
+                    <span className="tooltip-text" id="top">
+                      {t("cStatusBarExposure")}
+                    </span>
+                    : {wideExposureValue}
+                  </div>
+                </span>
+              )}
+            {connectionCtx.currentAstroCamera == telephotoCamera &&
+              connectionCtx.astroSettings.IR !== undefined && (
+                <span className="me-3">
+                  <div className="hover-text">
+                    <i className="icon-filter" />
+                    <span className="tooltip-text" id="top">
+                      {t("cStatusBarIRFilter")}
+                    </span>
+                    :{" "}
+                    {getIRNameByIndex(
+                      connectionCtx.astroSettings.IR,
+                      connectionCtx.typeIdDwarf
+                    )}
+                  </div>
+                </span>
+              )}
+            {connectionCtx.currentAstroCamera == telephotoCamera &&
+              connectionCtx.astroSettings.binning !== undefined && (
+                <span className="me-3">
+                  <div className="hover-text">
+                    <i className="icon-picture" />
+                    <span className="tooltip-text" id="top">
+                      {t("cStatusBarBinning")}
+                    </span>
+                    : {connectionCtx.astroSettings.binning == 0 ? "1x1" : "2x2"}
+                  </div>
+                </span>
+              )}
             {connectionCtx.astroSettings.count !== undefined && (
               <span className="me-3">
                 <div className="hover-text">

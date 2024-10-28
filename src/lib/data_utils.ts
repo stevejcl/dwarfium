@@ -68,7 +68,7 @@ export const getExposureIndexByName = (name, DwarfModelId = 1) => {
   let foundOption;
   if (allowedExposures[DwarfModelId])
     foundOption = allowedExposures[DwarfModelId].values.find(
-      (option) => option.name === name
+      (option) => option.name === String(name)
     );
   if (!foundOption)
     foundOption.index = allowedExposures[DwarfModelId].defaultValueIndex;
@@ -118,7 +118,7 @@ export const getGainIndexByName = (name, DwarfModelId = 1) => {
   let foundOption;
   if (allowedGains[DwarfModelId])
     foundOption = allowedGains[DwarfModelId].values.find(
-      (option) => option.name === name
+      (option) => option.name === String(name)
     );
   if (!foundOption)
     foundOption.index = allowedGains[DwarfModelId].defaultValueIndex;
@@ -168,7 +168,7 @@ export const getWBColorTempIndexByValue = (name, DwarfModelId = 1) => {
   let foundOption;
   if (allowedWBColorTemp[DwarfModelId])
     foundOption = allowedWBColorTemp[DwarfModelId].values.find(
-      (option) => option.name === name
+      (option) => option.name === String(name)
     );
   if (!foundOption)
     foundOption.index = allowedWBColorTemp[DwarfModelId].defaultValueIndex;
@@ -212,7 +212,7 @@ export const getCountBurstIndexByValue = (name, DwarfModelId = 1) => {
   let foundOption;
   if (allowedCountBurst[DwarfModelId])
     foundOption = allowedCountBurst[DwarfModelId].values.find(
-      (option) => option.name === name
+      (option) => option.name === String(name)
     );
   if (!foundOption)
     foundOption.index = allowedCountBurst[DwarfModelId].defaultValueIndex;
@@ -256,7 +256,7 @@ export const getIntervalBurstIndexByValue = (name, DwarfModelId = 1) => {
   let foundOption;
   if (allowedIntervalBurst[DwarfModelId])
     foundOption = allowedIntervalBurst[DwarfModelId].values.find(
-      (option) => option.name === name
+      (option) => option.name === String(name)
     );
   if (!foundOption)
     foundOption.index = allowedIntervalBurst[DwarfModelId].defaultValueIndex;
@@ -300,7 +300,7 @@ export const getIntervalTimeLapseIndexByValue = (name, DwarfModelId = 1) => {
   let foundOption;
   if (allowedIntervalTimeLapse[DwarfModelId])
     foundOption = allowedIntervalTimeLapse[DwarfModelId].values.find(
-      (option) => option.name === name
+      (option) => option.name === String(name)
     );
   if (!foundOption)
     foundOption.index =
@@ -345,7 +345,7 @@ export const getTotalTimeTimeLapseIndexByValue = (name, DwarfModelId = 1) => {
   let foundOption;
   if (allowedTotalTimeTimeLapse[DwarfModelId])
     foundOption = allowedTotalTimeTimeLapse[DwarfModelId].values.find(
-      (option) => option.name === name
+      (option) => option.name === String(name)
     );
   if (!foundOption)
     foundOption.index =

@@ -110,6 +110,21 @@ export default function CmdHostLockDwarf() {
         </div>
       );
     }
+    if (
+      connectionCtx.connectionStatus === true &&
+      connectionCtx.connectionStatusSlave == true
+    ) {
+      return (
+        <div>
+          <button
+            onClick={handleClickDisconnect}
+            className="btn btn-more02 me-3 right-align"
+          >
+            {t("pDisconnect")}
+          </button>
+        </div>
+      );
+    }
     return null;
   }
 

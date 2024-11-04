@@ -176,6 +176,13 @@ export default function ConnectDwarf() {
     }
   };
 
+  const handleReset = (event) => {
+    event.preventDefault();
+
+    connectionCtx.setTypeIdDwarf(undefined);
+    connectionCtx.setTypeNameDwarf(undefined);
+  };
+
   const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
@@ -222,6 +229,19 @@ export default function ConnectDwarf() {
           })}
         </li>
         <form onSubmit={checkConnection} className="mb-3">
+          <div className="row mb-3">
+            <div className="col-md-1">
+              <label htmlFor="notify" className="form-label">
+                {connectionCtx.typeNameDwarf}
+              </label>
+            </div>
+            <div className="col">
+              <button className="btn-refresh" onClick={handleReset}>
+                <i className="fa fa-refresh" aria-hidden="true"></i>
+              </button>{" "}
+              {t("pResetDwarfType")}
+            </div>
+          </div>
           <div className="row mb-3">
             <div className="col-md-1">
               <label htmlFor="notify" className="form-label">

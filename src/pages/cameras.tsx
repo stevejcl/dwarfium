@@ -28,6 +28,7 @@ export default function AstroPhoto() {
   useLoadIntialValues();
   let connectionCtx = useContext(ConnectionContext);
 
+  const [exchangeCamerasStatus, setExchangeCamerasStatus] = useState(false);
   const [showWideangle, setShowWideangle] = useState(false);
   const [useRawPreviewURL, setUseRawPreviewURL] = useState(false);
 
@@ -117,6 +118,7 @@ export default function AstroPhoto() {
             <div className="row px-0">
               <main className="col">
                 <DwarfCameras
+                  setExchangeCamerasStatus={setExchangeCamerasStatus}
                   showWideangle={showWideangle}
                   useRawPreviewURL={useRawPreviewURL}
                   showControls={true}
@@ -131,6 +133,7 @@ export default function AstroPhoto() {
                 <br />
                 <br />
                 <ImagingMenu
+                  exchangeCamerasStatus={exchangeCamerasStatus}
                   setShowWideangle={setShowWideangle}
                   setUseRawPreviewURL={setUseRawPreviewURL}
                 />

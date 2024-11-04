@@ -241,8 +241,16 @@ body {
 
 /*style cameras.tsx*/
 .camera-container {
-    height: fit-content;
+  width: 100%;
+  height: fit-content;
 }
+
+.camera-container img {
+  width: 100%;
+  height: auto; /* Ensures proportional resizing */
+  display: block; /* Removes unwanted spaces between elements */
+}
+
 
 .altitude-description {
     display: flex;

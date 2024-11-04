@@ -37,12 +37,14 @@ import {
 import styles from "@/components/imaging/ImagingMenu.module.css";
 
 type PropType = {
+  exchangeCamerasStatus: boolean;
   setShowWideangle: Dispatch<SetStateAction<boolean>>;
   setUseRawPreviewURL: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function ImagingMenu(props: PropType) {
-  const { setShowWideangle, setUseRawPreviewURL } = props;
+  const { exchangeCamerasStatus, setShowWideangle, setUseRawPreviewURL } =
+    props;
   let connectionCtx = useContext(ConnectionContext);
   const [showWideAngle, setShowWideAngle] = useState(false);
   const [astroFocus, setAstroFocus] = useState(false);
@@ -885,7 +887,7 @@ export default function ImagingMenu(props: PropType) {
             ></i>
           </Link>
         )}
-        {showWideAngle && (
+        {showWideAngle && !exchangeCamerasStatus && (
           <Link
             href="#"
             className=""

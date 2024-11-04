@@ -133,11 +133,12 @@ export default function Goto() {
           <div className="float-right-align">
             <ResizablePIP
               width={320}
-              height={180}
-              minConstraints={[320, 180]}
-              maxConstraints={[1280, 720]}
+              height={190}
+              minConstraints={[320, 190]}
+              maxConstraints={[1280, 730]}
             >
               <DwarfCameras
+                setExchangeCamerasStatus={function () {}}
                 showWideangle={false}
                 useRawPreviewURL={false}
                 showControls={false}

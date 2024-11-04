@@ -43,6 +43,7 @@ export default function WitSensorData() {
           <div className="camera-witmotion">
             <main className="camera-con">
               <DwarfCameras
+                setExchangeCamerasStatus={function () {}}
                 showWideangle={false}
                 useRawPreviewURL={false}
                 showControls={false}

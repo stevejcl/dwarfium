@@ -1,0 +1,23 @@
+import React, {useEffect, useRef} from 'react';
+import ReactHlsPlayer from "@krokky/react-hls-player";
+
+export default function App() {
+  const hlsRef = useRef(null);
+
+  useEffect(() => {
+    console.log(hlsRef.current); // {getHlsInstance: ƒ (), initPlayer: ƒ (), video: video}
+  }, []);
+  
+  return (
+    <div>
+      <ReactHlsPlayer
+        ref={hlsRef}
+        src="http://localhost:8888/dwarf_wide"
+        autoPlay={false}
+        controls={true}
+        width="100%"
+        height="auto"
+      />
+    </div>
+  );
+}

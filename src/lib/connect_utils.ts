@@ -82,7 +82,11 @@ const getDwarfType = async (IPDwarf: string | undefined) => {
       }
     }
   } catch (error) {
-    console.error("Error during fetch:", error.message);
+    if (error instanceof Error) {
+      console.error("Error checking dwarf info:", error.message);
+    } else {
+      console.error("Error checking dwarf info:", error);
+    }
   }
   return false;
 };

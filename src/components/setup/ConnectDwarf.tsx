@@ -180,7 +180,7 @@ export default function ConnectDwarf() {
     event.preventDefault();
 
     connectionCtx.setTypeIdDwarf(undefined);
-    connectionCtx.setTypeNameDwarf(undefined);
+    connectionCtx.setTypeNameDwarf("");
   };
 
   const { t } = useTranslation();

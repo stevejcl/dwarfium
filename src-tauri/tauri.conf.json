@@ -21,7 +21,19 @@
       "deb": {
         "depends": []
       },
-      "externalBin": [],
+      "externalBin": [ 
+        "../install/windows/Start_Dwarfium.exe",
+        "../install/windows/mediamtx.exe"
+      ],
+      "resources": [
+        "../install/windows/Dwarfium.bat",
+        "../install/windows/mediamtx.yml"
+      ],
+      "allowlist": {
+        "fs": {
+          "copyFile": true
+        }
+      },
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -42,19 +54,6 @@
       "shortDescription": "",
       "targets": "all",
       "windows": {
-        "externalBin": [ 
-          "../install/windows/Start_Dwarfium.exe",
-          "../install/windows/mediamtx.exe"
-        ],
-        "resources": [
-          "../install/windows/Dwarfium.bat",
-          "../install/windows/mediamtx.yml"
-        ],
-        "allowlist": {
-          "fs": {
-            "copyFile": true
-          }
-        },
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
         "timestampUrl": ""

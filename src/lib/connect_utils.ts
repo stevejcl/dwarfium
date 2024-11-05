@@ -1,5 +1,4 @@
 import { ConnectionContextType } from "@/types";
-import fetch from "node-fetch";
 
 import {
   Dwarfii_Api,

@@ -40,6 +40,14 @@ jobs:
       - name: Install dependencies
         run: npm install
   
+      - name: Copy required files to dist
+        if: matrix.platform == 'windows-latest'
+        run: |
+          cp install/windows/Dwarfium.bat dist\
+          cp install/windows/mediamtx.exe dist\
+          cp install/windows/mediamtx.yml dist\
+          cp install/windows/Start_Dwarfium.exe dist\
+
       - name: Build
         if: matrix.platform == 'ubuntu-20.04'
         run: |

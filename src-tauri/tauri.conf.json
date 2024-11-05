@@ -50,7 +50,7 @@
           "../install/windows/Dwarfium.bat",
           "../install/windows/mediamtx.yml"
         ],
-        allowlist": {
+        "allowlist": {
           "fs": {
             "copyFile": true
           }

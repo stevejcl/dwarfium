@@ -37,8 +37,7 @@ export default function ConnectDwarf() {
 
   useEffect(() => {
     console.log("new IPDwarf:" + connectionCtx.IPDwarf);
-    if (connectionCtx.IPDwarf != undefined)
-      setIpValue(connectionCtx.IPDwarf);
+    if (connectionCtx.IPDwarf != undefined) setIpValue(connectionCtx.IPDwarf);
   }, [connectionCtx.IPDwarf]);
 
   async function checkConnection(e: FormEvent<HTMLFormElement>) {

@@ -30,6 +30,9 @@ const getConfigData = async (IPDwarf: string | undefined) => {
 
       // Check if the response has data
       if (response.ok) {
+        console.log(`getConfigData: status ${response.status}`);
+      }
+      if (response.ok && response.status === 200) {
         const result = await response.json();
 
         if (result && result.data) {
@@ -259,6 +262,7 @@ export async function connectionHandler(
   }
   let getInfoCamera = true;
   let isStopRecording = false;
+  let initDwarfId = 0;
 
   console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
   const webSocketHandler = connectionCtx.socketIPDwarf
@@ -280,80 +284,104 @@ export async function connectionHandler(
       saveInitialConnectionTimeDB();
       saveIPConnectDB(IPDwarf);
 
-      if (connectionCtx.typeIdDwarf) {
-        // get the type of Dwarf from bluetooth or result_data
-        // Update it for the next frames to be sent
-        if (webSocketHandler.setDeviceIdDwarf(connectionCtx.typeIdDwarf)) {
+      if (
+        !(
+          connectionCtx.typeIdDwarf && connectionCtx.typeIdDwarf === initDwarfId
+        )
+      ) {
+        // need to update typeIdDwarf
+        if (
+          connectionCtx.typeIdDwarf &&
+          connectionCtx.typeIdDwarf != initDwarfId
+        ) {
+          // get the type of Dwarf from bluetooth or result_data
           console.log(
-            "The device id has been updated for the next frames to be sent"
+            `Device type read: ${
+              connectionCtx.typeIdDwarf === 1 ? "Dwarf II" : "Dwarf 3"
+            }`
           );
-        } else {
-          console.error("Error during update of the device id");
-        }
-        // Update Streams for D3
-        if (connectionCtx.typeIdDwarf == 2)
-          checkMediaMtxStreamWithUpdate(IPDwarf);
-      } else {
-        // get the type of Dwarf from http directory
-        const dwarfType = await getDwarfType(IPDwarf);
-        if (dwarfType) {
-          console.log(
-            `Device type detected: ${dwarfType === 1 ? "Dwarf II" : "Dwarf 3"}`
-          );
-          connectionCtx.typeIdDwarf = dwarfType;
-          let name = "Dwarf";
-          if (dwarfType == 1) name += " II";
-          else name += `${dwarfType + 1}`;
-          connectionCtx.setTypeNameDwarf(name);
-          console.log(`Extracted Dwarf Data: ID=${dwarfType}, Name=${name}`);
+          initDwarfId = connectionCtx.typeIdDwarf;
           // Update it for the next frames to be sent
-          if (webSocketHandler.setDeviceIdDwarf(dwarfType)) {
+          if (webSocketHandler.setDeviceIdDwarf(connectionCtx.typeIdDwarf)) {
             console.log(
               "The device id has been updated for the next frames to be sent"
             );
+          } else {
+            console.error("Error during update of the device id");
           }
-        } else if (connectionCtx.typeIdDwarf === undefined) {
-          // Call the request to get config data on the Dwarf
-          getConfigData(IPDwarf).then((result) => {
-            if (result && result.id) {
-              if (result.id) connectionCtx.setTypeIdDwarf(result.id);
-              if (result.name) connectionCtx.setTypeNameDwarf(result.name);
+          // Update Streams for D3
+          if (connectionCtx.typeIdDwarf == 2)
+            checkMediaMtxStreamWithUpdate(IPDwarf);
+        } else {
+          // get the type of Dwarf from http directory
+          const dwarfType = await getDwarfType(IPDwarf);
+          if (dwarfType) {
+            console.log(
+              `Device type detected: ${
+                dwarfType === 1 ? "Dwarf II" : "Dwarf 3"
+              }`
+            );
+            connectionCtx.typeIdDwarf = dwarfType;
+            initDwarfId = dwarfType;
+            let name = "Dwarf";
+            if (dwarfType == 1) name += " II";
+            else name += `${dwarfType + 1}`;
+            connectionCtx.setTypeNameDwarf(name);
+            console.log(`Extracted Dwarf Data: ID=${dwarfType}, Name=${name}`);
+            // Update it for the next frames to be sent
+            if (webSocketHandler.setDeviceIdDwarf(dwarfType)) {
               console.log(
-                `Extracted JSON Dwarf Data: ID=${result.id}, Name=${result.name}`
+                "The device id has been updated for the next frames to be sent"
               );
-              // Update it for the next frames to be sent
-              if (webSocketHandler.setDeviceIdDwarf(result.id)) {
-                console.log(
-                  "The device id has been updated for the next frames to be sent"
-                );
-              } else {
-                console.error("Error during update of the device id");
-              }
-              // Update Streams for D3
-              if (result.id == 2) checkMediaMtxStreamWithUpdate(IPDwarf);
-            } else if (result_data.deviceId) {
-              connectionCtx.setTypeIdDwarf(result_data.deviceId);
-              // Construct Name from deviceId
-              let name = "Dwarf";
-              if (result_data.deviceId == 1) name += " II";
-              else name += `${result_data.deviceId + 1}`;
-              connectionCtx.setTypeNameDwarf(name);
-              console.log(
-                `Extracted CMD Dwarf Data: ID=${result_data.deviceId}, Name=${name}`
-              );
-              // Update it for the next frames to be sent
-              if (webSocketHandler.setDeviceIdDwarf(result_data.deviceId)) {
-                console.log(
-                  "The device id has been updated for the next frames to be sent"
-                );
-              } else {
-                console.error("Error during update of the device id");
-              }
-              // Update Streams for D3
-              if (result_data.deviceId == 2)
-                checkMediaMtxStreamWithUpdate(IPDwarf);
             }
-          });
+          } else if (connectionCtx.typeIdDwarf === undefined) {
+            // Call the request to get config data on the Dwarf
+            getConfigData(IPDwarf).then((result) => {
+              if (result && result.id) {
+                if (result.id) connectionCtx.setTypeIdDwarf(result.id);
+                if (result.name) connectionCtx.setTypeNameDwarf(result.name);
+                console.log(
+                  `Extracted JSON Dwarf Data: ID=${result.id}, Name=${result.name}`
+                );
+                initDwarfId = result.id;
+                // Update it for the next frames to be sent
+                if (webSocketHandler.setDeviceIdDwarf(result.id)) {
+                  console.log(
+                    "The device id has been updated for the next frames to be sent"
+                  );
+                } else {
+                  console.error("Error during update of the device id");
+                }
+                // Update Streams for D3
+                if (result.id == 2) checkMediaMtxStreamWithUpdate(IPDwarf);
+              } else if (result_data.deviceId) {
+                console.log(
+                  `Extracted result socket Data: ID=${result_data.deviceId}`
+                );
+                connectionCtx.setTypeIdDwarf(result_data.deviceId);
+                initDwarfId = result_data.deviceId;
+                // Construct Name from deviceId
+                let name = "Dwarf";
+                if (result_data.deviceId == 1) name += " II";
+                else name += `${result_data.deviceId + 1}`;
+                connectionCtx.setTypeNameDwarf(name);
+                console.log(
+                  `Extracted CMD Dwarf Data: ID=${result_data.deviceId}, Name=${name}`
+                );
+                // Update it for the next frames to be sent
+                if (webSocketHandler.setDeviceIdDwarf(result_data.deviceId)) {
+                  console.log(
+                    "The device id has been updated for the next frames to be sent"
+                  );
+                } else {
+                  console.error("Error during update of the device id");
+                }
+                // Update Streams for D3
+                if (result_data.deviceId == 2)
+                  checkMediaMtxStreamWithUpdate(IPDwarf);
+              }
+            });
+          }
         }
       }
     } else if (

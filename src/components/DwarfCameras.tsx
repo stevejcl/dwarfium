@@ -21,9 +21,9 @@ import {
 } from "dwarfii_api";
 
 import Image from "next/image";
-
-import imgTeleCameraSrc from "/public/images/dwarflab_camera.png"
-import imgWideCameraSrc from "/public/images/dwarfII.png"
+import { StaticImageData } from "next/image";
+import imgTeleCameraSrc from "/public/images/dwarflab_camera.png";
+import imgWideCameraSrc from "/public/images/dwarfII.png";
 
 import styles from "@/components/DwarfCameras.module.css";
 import { ConnectionContextType } from "@/types";
@@ -63,13 +63,21 @@ export default function DwarfCameras(props: PropType) {
   const [wideangleCameraStatus, setWideangleCameraStatus] = useState<
     string | undefined
   >("off");
-  const [wideCameraSrc, setWideCameraSrc] = useState< string>("");
-  const [teleCameraSrc, setTeleCameraSrc] = useState< string>("");
+
+  const defaultTeleCameraSrc: StaticImageData = imgTeleCameraSrc;
+  const defaultWideCameraSrc: StaticImageData = imgWideCameraSrc;
+  console.info("Render Wide SRC : ", defaultWideCameraSrc.src);
+  console.info("Render Tele SRC : ", defaultTeleCameraSrc.src);
+
+  const [wideCameraSrc, setWideCameraSrc] = useState<string>(
+    defaultWideCameraSrc.src
+  );
+  const [teleCameraSrc, setTeleCameraSrc] = useState<string>(
+    defaultTeleCameraSrc.src
+  );
   let lastRenderTime = useRef(Date.now());
 
   let IPDwarf = connectionCtx.IPDwarf || DwarfIP;
-  const defaultTeleCameraSrc : string = imgTeleCameraSrc.src;
-  const defaultWideCameraSrc : string = imgWideCameraSrc.src;
 
   const [teleCameraClass, setTeleCameraClass] = useState(styles.telephoto);
   const [wideCameraClass, setWideCameraClass] = useState(styles.wideangle);
@@ -104,8 +112,13 @@ export default function DwarfCameras(props: PropType) {
       setExchangeCamerasStatus(false);
       setWideangleCameraStatus("off");
       setTelephotoCameraStatus("off");
-      setWideCameraSrc(defaultWideCameraSrc);
-      setTeleCameraSrc(defaultTeleCameraSrc);
+      setWideCameraSrc(defaultWideCameraSrc.src);
+      setTeleCameraSrc(defaultTeleCameraSrc.src);
+      console.log(
+        `Device type read: ${connectionCtx.typeIdDwarf} - ${
+          connectionCtx.typeIdDwarf === 1 ? "Dwarf II" : "Dwarf 3"
+        }`
+      );
       console.debug("End Of Effect DwarfCameras");
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -139,10 +152,10 @@ export default function DwarfCameras(props: PropType) {
   }
 
   function checkCameraStatus(connectionCtx: ConnectionContextType) {
-    if (wideCameraSrc && wideCameraSrc !== defaultWideCameraSrc)
+    if (wideCameraSrc && wideCameraSrc !== defaultWideCameraSrc.src)
       setWideangleCameraStatus("on");
     else setWideangleCameraStatus("off");
-    if (teleCameraSrc && teleCameraSrc !== defaultTeleCameraSrc)
+    if (teleCameraSrc && teleCameraSrc !== defaultTeleCameraSrc.src)
       setTelephotoCameraStatus("on");
     else setTelephotoCameraStatus("off");
     setTimeout(() => {
@@ -289,7 +302,7 @@ export default function DwarfCameras(props: PropType) {
       const url: string = getWideAngleURL();
       setWideCameraSrc(url);
     } else {
-      const url: string = defaultWideCameraSrc;
+      const url: string = defaultWideCameraSrc.src;
       setWideCameraSrc(url);
     }
   }
@@ -301,7 +314,7 @@ export default function DwarfCameras(props: PropType) {
       const url: string = getTelePhotoURL();
       setTeleCameraSrc(url);
     } else {
-      const url: string = defaultTeleCameraSrc;
+      const url: string = defaultTeleCameraSrc.src;
       setTeleCameraSrc(url);
     }
   }
@@ -316,9 +329,9 @@ export default function DwarfCameras(props: PropType) {
             wideangleCameraStatus == "off" ? wideCameraClass : "d-none"
           }`}
           id="idImgWideCamera"
-          width = "720"
-          height = "480"
-          src={defaultWideCameraSrc}
+          width="720"
+          height="480"
+          src={defaultWideCameraSrc.src}
           alt={wideCameraSrc ? "livestream for wide camera" : ""}
           ref={imgWideRef} // Reference to the image element
           style={{
@@ -334,7 +347,7 @@ export default function DwarfCameras(props: PropType) {
             <img
               id="idWideCamera"
               onLoad={() => {
-                wideCameraSrc !== defaultWideCameraSrc
+                wideCameraSrc !== defaultWideCameraSrc.src
                   ? setWideangleCameraStatus("on")
                   : setWideangleCameraStatus("off");
               }}
@@ -347,7 +360,7 @@ export default function DwarfCameras(props: PropType) {
             <iframe
               id="idWideCamera"
               onLoad={() => {
-                wideCameraSrc !== defaultWideCameraSrc
+                wideCameraSrc !== defaultWideCameraSrc.src
                   ? setWideangleCameraStatus("on")
                   : setWideangleCameraStatus("off");
               }}
@@ -367,7 +380,7 @@ export default function DwarfCameras(props: PropType) {
 
   const handleImageLoad = () => {
     // Only hide the image and show the iframe after adjusting the size
-    if (teleCameraSrc !== defaultTeleCameraSrc) {
+    if (teleCameraSrc !== defaultTeleCameraSrc.src) {
       adjustIframeSize();
       setTelephotoCameraStatus("on");
     } else {
@@ -394,8 +407,8 @@ export default function DwarfCameras(props: PropType) {
           className={`${telephotoCameraStatus == "off" ? "" : "d-none"}`}
           id="idTeleCamera"
           src={teleCameraSrc}
-          width = "1280"
-          height = "720"
+          width="1280"
+          height="720"
           alt={teleCameraSrc ? "livestream for telephoto camera" : ""}
           ref={imgTeleRef} // Reference to the image element
           onLoad={() => handleImageLoad()}
@@ -408,14 +421,14 @@ export default function DwarfCameras(props: PropType) {
           <iframe
             id="idTeleCamera"
             onLoad={() =>
-              teleCameraSrc !== defaultTeleCameraSrc
+              teleCameraSrc !== defaultTeleCameraSrc.src
                 ? setTelephotoCameraStatus("on")
                 : setTelephotoCameraStatus("off")
             }
             scrolling="no"
             style={{
-              height: "720",
-              width: "1280",
+              height: "720px",
+              width: "1280px",
             }}
             src={teleCameraSrc}
             className={teleCameraClass}

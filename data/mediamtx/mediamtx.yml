@@ -323,7 +323,7 @@ hlsSegmentDuration: 500ms
 # Parts are used in Low-Latency HLS in place of segments.
 # Part duration is influenced by the distance between video/audio samples
 # and is adjusted in order to produce segments with a similar duration.
-hlsPartDuration: 100ms
+hlsPartDuration: 150ms
 # Maximum size of each segment.
 # This prevents RAM exhaustion.
 hlsSegmentMaxSize: 50M

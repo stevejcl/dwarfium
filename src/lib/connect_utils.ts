@@ -24,19 +24,27 @@ const getConfigData = async (IPDwarf: string | undefined) => {
     if (IPDwarf) {
       requestAddr = getDefaultParamsConfig(IPDwarf);
     }
+
     if (requestAddr) {
       const response = await fetch(requestAddr);
 
       // Check if the response has data
-      if (response.data && response.data.data) {
-        const { id, name } = response.data.data;
+      if (response.ok) {
+        const result = await response.json();
 
-        console.log(`ID: ${id}`);
-        console.log(`Name: ${name}`);
+        if (result && result.data) {
+          const { id, name } = result.data;
 
-        return { id, name };
+          console.log(`ID: ${id}`);
+          console.log(`Name: ${name}`);
+
+          return { id, name };
+        } else {
+          console.error("getConfigData : No data found in the response.");
+          return null;
+        }
       } else {
-        console.error("getConfigData : No data found in the response.");
+        console.error("getConfigData : Error durin the request.");
         return null;
       }
     } else {

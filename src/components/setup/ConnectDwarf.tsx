@@ -21,9 +21,9 @@ export default function ConnectDwarf() {
     useState(DwarfClientID); // Store initial DwarfClientID
   const [isChecked, setIsChecked] = useState(false); // Track checkbox state
   const [randomDwarfClientID, setRandomDwarfClientID] = useState("");
-
   const originalDwarfClientID = useRef(DwarfClientID_original);
 
+  const [ipValue, setIpValue] = useState(connectionCtx.IPDwarf);
   const [connecting, setConnecting] = useState(false);
   const [slavemode, setSlavemode] = useState(false);
   const [goLive, setGoLive] = useState(false);
@@ -34,6 +34,12 @@ export default function ConnectDwarf() {
     console.log("DwarfClientID:" + DwarfClientID);
     setIsChecked(originalDwarfClientID.current != DwarfClientID);
   }, []);
+
+  useEffect(() => {
+    console.log("new IPDwarf:" + connectionCtx.IPDwarf);
+    if (connectionCtx.IPDwarf != undefined)
+      setIpValue(connectionCtx.IPDwarf);
+  }, [connectionCtx.IPDwarf]);
 
   async function checkConnection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -276,6 +282,7 @@ export default function ConnectDwarf() {
                 placeholder="127.0.0.1"
                 required
                 defaultValue={connectionCtx.IPDwarf}
+                value={ipValue}
                 onChange={(e) => ipHandler(e)}
               />
             </div>

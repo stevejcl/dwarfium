@@ -1,12 +1,28 @@
 .telephoto {
   width: 100%;
+  z-index : 50;
+}
+
+.telephoto iframe {
+  width: 100%;
+  height: auto; /* Ensures proportional resizing */
+  display: block; /* Removes unwanted spaces between elements */
 }
 
 .wideangle {
-  width: 30%;
+  width: 35%;
+  height: 35%;
   position: absolute;
   top: 0;
   border: 1px solid white;
+  z-index : 60;
+}
+
+.wideangle iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block; /* Removes unwanted spaces between elements */
 }
 
 .section {

@@ -3,6 +3,8 @@ type FieldValues = number | "default" | undefined;
 type Fields = {
   gain: FieldValues | string;
   exposure: FieldValues | string;
+  wideGain: FieldValues | string;
+  wideExposure: FieldValues | string;
   IR: FieldValues;
   binning: FieldValues;
   fileFormat: FieldValues;
@@ -16,6 +18,8 @@ export function validateAstroSettings(values: Fields) {
   [
     "gain",
     "exposure",
+    "wideGain",
+    "wideExposure",
     "IR",
     "binning",
     "fileFormat",

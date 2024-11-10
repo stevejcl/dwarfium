@@ -214,14 +214,30 @@ export default function ConnectDwarfSTA() {
           setConnectionStatus(false);
           actionDisconnect();
         } else if (
-          result_data.ip == "192.168.88.1" &&
+          (result_data.ip == "192.168.88.1" ||
+            result_data.ssid.startsWith("DWARF3_")) &&
           connectionCtx.BleSTASSIDDwarf &&
           connectionCtx.BleSTAPWDDwarf
         ) {
           setErrorTxt("Load WiFi configuration...");
           IsFirstStepOK = true;
           let bufferSetWifiSta = messageWifiSTA(
-            1,
+            0,
+            BluetoothPWD,
+            connectionCtx.BleSTASSIDDwarf,
+            connectionCtx.BleSTAPWDDwarf
+          );
+          await characteristicDwarf.writeValue(bufferSetWifiSta);
+        } else if (
+          result_data.ssid &&
+          result_data.psd &&
+          connectionCtx.BleSTASSIDDwarf &&
+          connectionCtx.BleSTAPWDDwarf
+        ) {
+          setErrorTxt("Load WiFi configuration...");
+          IsFirstStepOK = true;
+          let bufferSetWifiSta = messageWifiSTA(
+            0,
             BluetoothPWD,
             connectionCtx.BleSTASSIDDwarf,
             connectionCtx.BleSTAPWDDwarf
@@ -230,7 +246,7 @@ export default function ConnectDwarfSTA() {
         } else {
           IsFirstStepOK = true;
           let bufferSetWifiSta = messageWifiSTA(
-            1,
+            0,
             BluetoothPWD,
             result_data.ssid,
             result_data.psd

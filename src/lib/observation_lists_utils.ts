@@ -247,7 +247,8 @@ export function processObjectListTelescopius(objects: ObjectTelescopius[]) {
     .sort((a, b) => {
       return (
         a.catalogue.localeCompare(b.catalogue) ||
-        a.objectNumber - b.objectNumber
+        a.objectNumber - b.objectNumber ||
+        a.designation.localeCompare(b.designation)
       );
     });
 }

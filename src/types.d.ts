@@ -78,6 +78,9 @@ export type ConnectionContextType = {
   currentUserObjectListName: string | undefined;
   setUserCurrentObjectListName: Dispatch<SetStateAction<string | undefined>>;
 
+  currentAstroCamera: number;
+  setCurrentAstroCamera: Dispatch<SetStateAction<number>>;
+
   astroSettings: AstroSettings;
   setAstroSettings: Dispatch<SetStateAction<AstroSettings>>;
   astroSavePosition: AstroSavePosition;
@@ -269,6 +272,9 @@ export type AstroSettings = {
   quality?: number;
   target?: string;
   status?: number;
+  wideExposure?: number | string;
+  wideExposureMode?: number;
+  wideGain?: number | string;
 };
 
 export type ImagingSession = {
@@ -280,6 +286,7 @@ export type ImagingSession = {
   isStackedCountStart: boolean;
   endRecording: boolean;
   isGoLive: boolean;
+  astroCamera: number;
 };
 
 export type AstroSavePosition = {

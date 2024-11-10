@@ -41,10 +41,16 @@ import {
   messageCameraTeleSetSaturation,
   messageCameraTeleSetHue,
   messageCameraTeleSetSharpness,
+  messageCameraWideGetExpMode,
+  messageCameraWideGetExp,
+  messageCameraWideGetGain,
   WebSocketHandler,
 } from "dwarfii_api";
 import { getExposureIndexDefault } from "@/lib/data_utils";
-import { getWideExposureIndexDefault } from "@/lib/data_wide_utils";
+import {
+  getWideExposureIndexDefault,
+  getWideGainIndexByName,
+} from "@/lib/data_wide_utils";
 import { ConnectionContextType } from "@/types";
 import { logger } from "@/lib/logger";
 import { saveAstroSettingsDb } from "@/db/db_utils";
@@ -62,6 +68,15 @@ export async function turnOnTeleCameraFn(
   setSrcTeleCamera: any | undefined = undefined
 ) {
   if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+
+  // Slave Mode turn on Camera
+  if (connectionCtx.connectionStatusSlave) {
+    if (setTelephotoCameraStatus) {
+      setTelephotoCameraStatus("on");
+      setSrcTeleCamera(true);
+    }
     return;
   }
 
@@ -119,6 +134,15 @@ export async function turnOnWideCameraFn(
   setSrcWideCamera: any | undefined = undefined
 ) {
   if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+
+  // Slave Mode turn on Camera
+  if (connectionCtx.connectionStatusSlave) {
+    if (setWideangleCameraStatus) {
+      setWideangleCameraStatus("on");
+      setSrcWideCamera(true);
+    }
     return;
   }
 
@@ -199,6 +223,21 @@ export async function updateTelescopeISPSetting(
     WS_Packet = messageCameraTeleSetGainMode(value);
     cmd2 = Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_GAIN_MODE;
     WS_Packet2 = messageCameraTeleGetGainMode();
+  } else if (type === "wideExposure") {
+    cmd = Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_SET_EXP;
+    WS_Packet = messageCameraWideSetExp(value);
+    cmd2 = Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_EXP;
+    WS_Packet2 = messageCameraWideGetExp();
+  } else if (type === "wideExposureMode") {
+    cmd = Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_SET_EXP_MODE;
+    WS_Packet = messageCameraWideSetExpMode(value);
+    cmd2 = Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_EXP_MODE;
+    WS_Packet2 = messageCameraWideGetExpMode();
+  } else if (type === "wideGain") {
+    cmd = Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_SET_GAIN;
+    WS_Packet = messageCameraWideSetGain(value);
+    cmd2 = Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_GAIN;
+    WS_Packet2 = messageCameraWideGetGain();
   } else if (type === "IR") {
     cmd = Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_SET_IRCUT;
     WS_Packet = messageCameraTeleSetIRCut(value);
@@ -449,6 +488,45 @@ export async function getAllTelescopeISPSetting(
         }
       }
     }
+    if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS
+    ) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        let wideExposureMode;
+        let wideExposure = 0;
+        if (result_data.data.allParams) {
+          console.log("allParams:", result_data.data.allParams);
+          // For id=0 : "WideExposure"
+          const filteredArray = result_data.data.allParams.filter(
+            (commonParam) =>
+              !Object.prototype.hasOwnProperty.call(commonParam, "id") ||
+              commonParam.id === undefined
+          );
+          // id = 0 (no present)
+          // autoMode == 0 => Auto not present
+          if (!filteredArray[0].autoMode) wideExposureMode = modeAuto;
+          else wideExposureMode = modeManual;
+          if (filteredArray[0].index) wideExposure = filteredArray[0].index;
+          else if (wideExposureMode == modeAuto)
+            wideExposure = getWideExposureIndexDefault(
+              connectionCtx.typeIdDwarf
+            );
+          // For id=1 : "Gain"
+          const resultObjectW1 = result_data.data.allParams.find(
+            (item) => item.id === 1
+          );
+          console.log("allParams-resultObjectW1:", resultObjectW1);
+          let wideGain = 0;
+          if (resultObjectW1.index) wideGain = resultObjectW1.index;
+          connectionCtx.astroSettings.wideGain = wideGain;
+          saveAstroSettingsDb("wideGain", wideGain.toString());
+          connectionCtx.astroSettings.wideExposure = wideExposure;
+          saveAstroSettingsDb("wideExposure", wideExposure.toString());
+          connectionCtx.astroSettings.wideExposureMode = wideExposureMode;
+          saveAstroSettingsDb("wideExposureMode", wideExposureMode.toString());
+        }
+      }
+    }
   };
 
   // get webSocketHandlerVal from first connection : avoid undefined value from connectionCtx
@@ -461,14 +539,16 @@ export async function getAllTelescopeISPSetting(
 
   let txtInfoCommand = "get CameraParameter";
   let WS_Packet = messageCameraTeleGetAllParams();
-  let WS_Packet2 = messageCameraTeleGetAllFeatureParams();
+  let WS_Packet2 = messageCameraWideGetAllParams();
+  let WS_Packet3 = messageCameraTeleGetAllFeatureParams();
 
   webSocketHandler.prepare(
-    [WS_Packet, WS_Packet2],
+    [WS_Packet, WS_Packet2, WS_Packet3],
     txtInfoCommand,
     [
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_PARAMS,
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_GET_ALL_FEATURE_PARAMS,
+      Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS,
     ],
     customMessageHandler
   );
@@ -492,7 +572,11 @@ export async function getAllTelescopeISPSetting(
 */
 }
 
-function update_data_camera_wide_settings(connectionCtx, result_data) {
+function update_data_camera_wide_settings(
+  connectionCtx,
+  result_data,
+  bDoneGain
+) {
   let exp_mode,
     exp_index,
     gain_index,
@@ -526,7 +610,7 @@ function update_data_camera_wide_settings(connectionCtx, result_data) {
       (item) => item.id === 1
     );
     console.log("allParams-resultObject1:", resultObject1);
-    if (resultObject1.index) gain_index = resultObject1.index;
+    if (!bDoneGain && resultObject1.index) gain_index = resultObject1.index;
 
     // For id=2 : WB
     const resultObject2 = result_data.data.allParams.find(
@@ -583,7 +667,7 @@ function update_data_camera_wide_settings(connectionCtx, result_data) {
     // Save Settings
     connectionCtx.cameraWideSettings.exp_index = exp_index;
     connectionCtx.cameraWideSettings.exp_mode = exp_mode;
-    connectionCtx.cameraWideSettings.gain_index = gain_index;
+    if (!bDoneGain) connectionCtx.cameraWideSettings.gain_index = gain_index;
     connectionCtx.cameraWideSettings.wb_mode = wb_mode;
     connectionCtx.cameraWideSettings.wb_index = wb_index;
     connectionCtx.cameraWideSettings.brightness = brightness;
@@ -675,13 +759,29 @@ function update_data_camera_tele_settings(connectionCtx, result_data) {
 }
 
 export async function getWideAllParamsFn(connectionCtx: ConnectionContextType) {
+  let bDoneGain = false;
   const customMessageHandler = (txt_info, result_data) => {
     if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        update_data_camera_wide_settings(connectionCtx, result_data);
+        update_data_camera_wide_settings(connectionCtx, result_data, bDoneGain);
         logger(txt_info, result_data, connectionCtx);
+        return;
+      } else {
+        logger(txt_info, result_data, connectionCtx);
+        return;
+      }
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_GAIN
+    ) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        connectionCtx.cameraWideSettings.gain_index = getWideGainIndexByName(
+          result_data.data.value,
+          connectionCtx.typeIdDwarf
+        );
+        logger(txt_info, result_data, connectionCtx);
+        bDoneGain = true;
         return;
       } else {
         logger(txt_info, result_data, connectionCtx);
@@ -698,14 +798,27 @@ export async function getWideAllParamsFn(connectionCtx: ConnectionContextType) {
 
   // Send Commands
   let WS_Packet = messageCameraWideGetAllParams();
+  let WS_Packet1;
+  if (connectionCtx.typeIdDwarf == 1) WS_Packet1 = messageCameraWideGetGain(); // need as messageCameraWideGetAllParams doen't give correct value for gain
   let txtInfoCommand = "getWideAllParamsFn";
 
-  webSocketHandler.prepare(
-    WS_Packet,
-    txtInfoCommand,
-    [Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS],
-    customMessageHandler
-  );
+  if (connectionCtx.typeIdDwarf == 1)
+    webSocketHandler.prepare(
+      [WS_Packet, WS_Packet1],
+      txtInfoCommand,
+      [
+        Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS,
+        Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_GAIN,
+      ],
+      customMessageHandler
+    );
+  else
+    webSocketHandler.prepare(
+      WS_Packet,
+      txtInfoCommand,
+      [Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS],
+      customMessageHandler
+    );
 
   if (!webSocketHandler.run()) {
     console.error(" Can't launch Web Socket Run Action!");
@@ -731,13 +844,29 @@ export async function setWideAllParamsFn(
     return;
   }
 
+  let bDoneGain = false;
   const customMessageHandler = (txt_info, result_data) => {
     if (
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        update_data_camera_wide_settings(connectionCtx, result_data);
+        update_data_camera_wide_settings(connectionCtx, result_data, bDoneGain);
         logger(txt_info, result_data, connectionCtx);
+        return;
+      } else {
+        logger(txt_info, result_data, connectionCtx);
+        return;
+      }
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_GAIN
+    ) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        connectionCtx.cameraWideSettings.gain_index = getWideGainIndexByName(
+          result_data.data.value,
+          connectionCtx.typeIdDwarf
+        );
+        logger(txt_info, result_data, connectionCtx);
+        bDoneGain = true;
         return;
       } else {
         logger(txt_info, result_data, connectionCtx);
@@ -768,6 +897,12 @@ export async function setWideAllParamsFn(
   let WS_Packet10 = messageCameraWideSetSharpness(sharpness);
 
   let txtInfoCommand = "setWideAllParamsFn";
+  let WS_PacketListen = [Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS];
+  if (connectionCtx.typeIdDwarf == 1)
+    WS_PacketListen = [
+      Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS,
+      Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_GAIN,
+    ];
 
   webSocketHandler.prepare(
     [
@@ -783,7 +918,7 @@ export async function setWideAllParamsFn(
       WS_Packet10,
     ],
     txtInfoCommand,
-    [Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_ALL_PARAMS],
+    WS_PacketListen,
     customMessageHandler
   );
 

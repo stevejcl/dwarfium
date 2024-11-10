@@ -6,6 +6,8 @@ import {
   messageCameraTelePhotograph,
   messageCameraTeleStartRecord,
   messageCameraTeleStopRecord,
+  messageCameraWideStartRecord,
+  messageCameraWideStopRecord,
   messageCameraTeleSetFeatureParams,
   messagePanoramaStartGrid,
   messagePanoramaStop,
@@ -195,6 +197,40 @@ export async function startVideo(
           callback("Stopping Video");
         }
       }
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_START_RECORD
+    ) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setErrorTxt("Start Video Success");
+        if (callback) {
+          callback("Start Video Success");
+        }
+      } else get_error(result_data, setErrorTxt);
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_RECORD_TIME
+    ) {
+      const errorText = `Record Time: ${result_data.data.recordTime}`;
+      setErrorTxt(errorText);
+      if (callback) {
+        callback("Time Photograph");
+      }
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_FUNCTION_STATE
+    ) {
+      if (result_data.data.functionId == 4 && result_data.data.state == 1) {
+        setErrorTxt("Starting Video");
+        if (callback) {
+          callback("Starting Video");
+        }
+      } else if (
+        result_data.data.functionId == 4 &&
+        result_data.data.state == 0
+      ) {
+        setErrorTxt("Stopping Video");
+        if (callback) {
+          callback("Stopping Video");
+        }
+      }
     } else {
       logger("", result_data, connectionCtx);
       return;
@@ -222,8 +258,8 @@ export async function startVideo(
     WS_Packet = messageCameraTeleStartRecord();
     txtInfoCommand = "TELE_start_Video";
   } else {
-    setErrorTxt("Function not available for Wide angle");
-    return;
+    WS_Packet = messageCameraWideStartRecord();
+    txtInfoCommand = "WIDE_start_Video";
   }
 
   webSocketHandler.prepare(
@@ -233,6 +269,9 @@ export async function startVideo(
       Dwarfii_Api.DwarfCMD.CMD_CAMERA_TELE_START_RECORD,
       Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_RECORD_TIME,
       Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_FUNCTION_STATE,
+      Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_START_RECORD,
+      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_RECORD_TIME,
+      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_FUNCTION_STATE,
     ],
     customMessageHandler
   );
@@ -282,6 +321,37 @@ export async function stopVideo(
           callback("Stopping Video");
         }
       }
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_STOP_RECORD
+    ) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setErrorTxt("Stop Recording Video Success");
+      } else get_error(result_data, setErrorTxt);
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_RECORD_TIME
+    ) {
+      const errorText = `Record Time: ${result_data.data.recordTime}`;
+      setErrorTxt(errorText);
+      if (callback) {
+        callback("Stop Recording Video Success");
+      }
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_FUNCTION_STATE
+    ) {
+      if (result_data.data.functionId == 4 && result_data.data.state == 1) {
+        setErrorTxt("Starting Video");
+        if (callback) {
+          callback("Starting Video");
+        }
+      } else if (
+        result_data.data.functionId == 4 &&
+        result_data.data.state == 0
+      ) {
+        setErrorTxt("Stopping Video");
+        if (callback) {
+          callback("Stopping Video");
+        }
+      }
     } else {
       logger("", result_data, connectionCtx);
       return;
@@ -309,8 +379,8 @@ export async function stopVideo(
     WS_Packet = messageCameraTeleStopRecord();
     txtInfoCommand = "TELE_stop_Video";
   } else {
-    setErrorTxt("Function not available for Wide angle");
-    return;
+    WS_Packet = messageCameraWideStopRecord();
+    txtInfoCommand = "WIDE_stop_Video";
   }
 
   webSocketHandler.prepare(
@@ -321,6 +391,9 @@ export async function stopVideo(
       Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_RECORD_TIME,
       Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TELE_FUNCTION_STATE,
       Dwarfii_Api.DwarfCMD.CMD_NOTIFY_NEW_MEDIA_CREATED,
+      Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_STOP_RECORD,
+      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_RECORD_TIME,
+      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WIDE_FUNCTION_STATE,
     ],
     customMessageHandler
   );

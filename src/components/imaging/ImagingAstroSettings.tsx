@@ -10,6 +10,8 @@ import { AstroSettings } from "@/types";
 import AstroSettingsInfo from "@/components/imaging/AstroSettingsInfo";
 import { calculateImagingTime } from "@/lib/date_utils";
 import {
+  telephotoCamera,
+  wideangleCamera,
   updateTelescopeISPSetting,
   getAllTelescopeISPSetting,
 } from "@/lib/dwarf_utils";
@@ -20,6 +22,8 @@ import {
   getExposureValueByIndex,
   allowedIRs,
 } from "@/lib/data_utils";
+import { getWideExposureDefault } from "@/lib/data_wide_utils";
+import { allowedWideExposures, allowedWideGains } from "@/lib/data_wide_utils";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import i18n from "@/i18n";
@@ -55,6 +59,9 @@ export default function TakeAstroPhoto(props: PropTypes) {
       if (settingName === "exposure") {
         delete prev["exposureMode"];
       }
+      if (settingName === "wideExposure") {
+        delete prev["wideExposureMode"];
+      }
       return { ...prev };
     });
     saveAstroSettingsDb(settingName, undefined);
@@ -63,6 +70,9 @@ export default function TakeAstroPhoto(props: PropTypes) {
     }
     if (settingName === "exposure") {
       saveAstroSettingsDb("exposureMode", undefined);
+    }
+    if (settingName === "wideExposure") {
+      saveAstroSettingsDb("wideExposureMode", undefined);
     }
   }
 
@@ -272,6 +282,65 @@ export default function TakeAstroPhoto(props: PropTypes) {
     }
   }
 
+  function changeWideGainHandler(e: ChangeEvent<HTMLSelectElement>) {
+    let targetValue = e.target.value;
+    if (targetValue === "default") {
+      defaultValueHandler("wideGain");
+      return;
+    }
+
+    let value = Number(targetValue);
+
+    setTimeout(() => {
+      connectionCtx.setAstroSettings((prev) => {
+        prev["wideGain"] = value;
+        return { ...prev };
+      });
+      saveAstroSettingsDb("wideGain", targetValue);
+      updateTelescopeISPSetting("wideGain", value, connectionCtx);
+    }, 1000);
+  }
+
+  function changeWideExposureHandler(e: ChangeEvent<HTMLSelectElement>) {
+    let targetValue = e.target.value;
+    if (targetValue === "default") {
+      defaultValueHandler("wideExposure");
+      return;
+    }
+
+    let value: number;
+    let modeValue: number;
+
+    if (targetValue === "auto") {
+      modeValue = modeAuto;
+      value = Number(getWideExposureDefault(connectionCtx.typeIdDwarf));
+    } else {
+      modeValue = modeManual;
+      value = Number(targetValue);
+    }
+
+    connectionCtx.setAstroSettings((prev) => {
+      prev["wideExposureMode"] = modeValue;
+      return { ...prev };
+    });
+    saveAstroSettingsDb("wideExposureMode", modeValue.toString());
+    updateTelescopeISPSetting("wideExposureMode", modeValue, connectionCtx);
+
+    setTimeout(() => {
+      connectionCtx.setAstroSettings((prev) => {
+        if (targetValue === "auto") {
+          prev["wideExposure"] = targetValue;
+        } else {
+          prev["wideExposure"] = value;
+        }
+        return { ...prev };
+      });
+      saveAstroSettingsDb("wideExposure", targetValue);
+      if (targetValue != "auto")
+        updateTelescopeISPSetting("wideExposure", value, connectionCtx);
+    }, 500);
+  }
+
   function toggleShowSettingsInfo() {
     setShowSettingsInfo(!showSettingsInfo);
   }
@@ -309,6 +378,31 @@ export default function TakeAstroPhoto(props: PropTypes) {
   };
   const allowedIROptions = generateIROptions(connectionCtx.typeIdDwarf); //DwarfModelId
 
+  // Function to generate options for a specific Dwarf model
+  const generateWideExposureOptions = (DwarfModelId = 1) => {
+    const exposures = allowedWideExposures[DwarfModelId];
+    return exposures.values.map(({ index, name }) => (
+      <option key={index} value={index}>
+        {name}
+      </option>
+    ));
+  };
+  const allowedWideExposuresOptions = generateWideExposureOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
+
+  const generateWideGainOptions = (DwarfModelId = 1) => {
+    const gains = allowedWideGains[DwarfModelId];
+    return gains.values.map(({ index, name }) => (
+      <option key={index} value={index}>
+        {name}
+      </option>
+    ));
+  };
+  const allowedWideGainsOptions = generateWideGainOptions(
+    connectionCtx.typeIdDwarf
+  ); //DwarfModelId
+
   if (showSettingsInfo) {
     return <AstroSettingsInfo onClick={toggleShowSettingsInfo} />;
   }
@@ -330,6 +424,9 @@ export default function TakeAstroPhoto(props: PropTypes) {
           AiEnhance: connectionCtx.astroSettings.AiEnhance,
           target: connectionCtx.astroSettings.target,
           status: connectionCtx.astroSettings.status,
+          wideGain: connectionCtx.astroSettings.wideGain,
+          wideExposureMode: connectionCtx.astroSettings.wideExposureMode,
+          wideExposure: connectionCtx.astroSettings.wideExposure,
         }}
         validate={(values) => {
           let errors = validateAstroSettings(values);
@@ -344,102 +441,184 @@ export default function TakeAstroPhoto(props: PropTypes) {
       >
         {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <div className="row mb-md-2 mb-sm-1">
-              <div className="fs-5 mb-2">
-                {t("cAstroSettings")}{" "}
-                <i
-                  className="bi bi-info-circle"
-                  role="button"
-                  onClick={toggleShowSettingsInfo}
-                ></i>
+            {connectionCtx.currentAstroCamera == telephotoCamera && (
+              <div className="row mb-md-2 mb-sm-1">
+                <div className="fs-5 mb-2">
+                  {t("cAstroSettings")}{" "}
+                  <i
+                    className="bi bi-info-circle"
+                    role="button"
+                    onClick={toggleShowSettingsInfo}
+                  ></i>
+                </div>
               </div>
-
-              <div className="col-4">
-                <label htmlFor="gain" className="form-label">
-                  {t("cAstroSettingsGain")}{" "}
-                </label>
+            )}
+            {connectionCtx.currentAstroCamera == wideangleCamera && (
+              <div className="row mb-md-2 mb-sm-1">
+                <div className="fs-5 mb-2">
+                  {t("cAstroSettingsWide")}{" "}
+                  <i
+                    className="bi bi-info-circle"
+                    role="button"
+                    onClick={toggleShowSettingsInfo}
+                  ></i>
+                </div>
               </div>
-              <div className="col-8">
-                <select
-                  name="gain"
-                  onChange={(e) => {
-                    handleChange(e);
-                    changeGainHandler(e);
-                  }}
-                  onBlur={handleBlur}
-                  value={values.gain}
-                >
-                  <option value="default">{t("cAstroSettingsSelect")}</option>
-                  {allowedGainsOptions}
-                </select>
+            )}
+            {connectionCtx.currentAstroCamera == telephotoCamera && (
+              <div>
+                <div className="row mb-md-2 mb-sm-1">
+                  <div className="col-4">
+                    <label htmlFor="gain" className="form-label">
+                      {t("cAstroSettingsGain")}{" "}
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <select
+                      name="gain"
+                      onChange={(e) => {
+                        handleChange(e);
+                        changeGainHandler(e);
+                      }}
+                      onBlur={handleBlur}
+                      value={values.gain}
+                    >
+                      <option value="default">
+                        {t("cAstroSettingsSelect")}
+                      </option>
+                      {allowedGainsOptions}
+                    </select>
+                  </div>
+                </div>
+                <div className="row mb-md-2 mb-sm-1">
+                  <div className="col-4">
+                    <label htmlFor="exposure" className="form-label">
+                      {t("cAstroSettingsExposure")}{" "}
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <select
+                      name="exposure"
+                      onChange={(e) => {
+                        handleChange(e);
+                        changeExposureHandler(e);
+                      }}
+                      onBlur={handleBlur}
+                      value={
+                        values.exposureMode == modeAuto
+                          ? "auto"
+                          : values.exposure
+                      }
+                    >
+                      <option value="default">
+                        {t("cAstroSettingsSelect")}
+                      </option>
+                      <option value="auto">Auto</option>
+                      {allowedExposuresOptions}
+                    </select>
+                  </div>
+                </div>
+                <div className="row mb-md-2 mb-sm-1">
+                  <div className="col-4">
+                    <label htmlFor="ir" className="form-label">
+                      {t("cAstroSettingsIR")}{" "}
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <select
+                      name="IR"
+                      onChange={(e) => {
+                        handleChange(e);
+                        changeIRHandler(e);
+                      }}
+                      onBlur={handleBlur}
+                      value={values.IR}
+                    >
+                      {allowedIROptions}
+                    </select>
+                  </div>
+                </div>
+                <div className="row mb-md-2 mb-sm-1">
+                  <div className="col-4">
+                    <label htmlFor="binning" className="form-label">
+                      {t("cAstroSettingsBinning")}{" "}
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <select
+                      name="binning"
+                      onChange={(e) => {
+                        handleChange(e);
+                        changeBinningHandler(e);
+                      }}
+                      onBlur={handleBlur}
+                      value={values.binning}
+                    >
+                      <option value="default">
+                        {t("cAstroSettingsSelect")}
+                      </option>
+                      <option value="0">4k</option>
+                      <option value="1">2k</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="row mb-md-2 mb-sm-1">
-              <div className="col-4">
-                <label htmlFor="exposure" className="form-label">
-                  {t("cAstroSettingsExposure")}{" "}
-                </label>
+            )}
+            {connectionCtx.currentAstroCamera == wideangleCamera && (
+              <div>
+                <div className="row mb-md-2 mb-sm-1">
+                  <div className="col-4">
+                    <label htmlFor="gain" className="form-label">
+                      {t("cAstroSettingsWideGain")}{" "}
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <select
+                      name="wideGain"
+                      onChange={(e) => {
+                        handleChange(e);
+                        changeWideGainHandler(e);
+                      }}
+                      onBlur={handleBlur}
+                      value={values.wideGain}
+                    >
+                      <option value="default">
+                        {t("cAstroSettingsSelect")}
+                      </option>
+                      {allowedWideGainsOptions}
+                    </select>
+                  </div>
+                </div>
+                <div className="row mb-md-2 mb-sm-1">
+                  <div className="col-4">
+                    <label htmlFor="wideExposure" className="form-label">
+                      {t("cAstroSettingsWideExposure")}{" "}
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <select
+                      name="wideExposure"
+                      onChange={(e) => {
+                        handleChange(e);
+                        changeWideExposureHandler(e);
+                      }}
+                      onBlur={handleBlur}
+                      value={
+                        values.wideExposureMode == modeAuto
+                          ? "auto"
+                          : values.wideExposure
+                      }
+                    >
+                      <option value="default">
+                        {t("cAstroSettingsSelect")}
+                      </option>
+                      <option value="auto">Auto</option>
+                      {allowedWideExposuresOptions}
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div className="col-8">
-                <select
-                  name="exposure"
-                  onChange={(e) => {
-                    handleChange(e);
-                    changeExposureHandler(e);
-                  }}
-                  onBlur={handleBlur}
-                  value={
-                    values.exposureMode == modeAuto ? "auto" : values.exposure
-                  }
-                >
-                  <option value="default">{t("cAstroSettingsSelect")}</option>
-                  <option value="auto">Auto</option>
-                  {allowedExposuresOptions}
-                </select>
-              </div>
-            </div>
-            <div className="row mb-md-2 mb-sm-1">
-              <div className="col-4">
-                <label htmlFor="ir" className="form-label">
-                  {t("cAstroSettingsIR")}{" "}
-                </label>
-              </div>
-              <div className="col-8">
-                <select
-                  name="IR"
-                  onChange={(e) => {
-                    handleChange(e);
-                    changeIRHandler(e);
-                  }}
-                  onBlur={handleBlur}
-                  value={values.IR}
-                >
-                  {allowedIROptions}
-                </select>
-              </div>
-            </div>
-            <div className="row mb-md-2 mb-sm-1">
-              <div className="col-4">
-                <label htmlFor="binning" className="form-label">
-                  {t("cAstroSettingsBinning")}{" "}
-                </label>
-              </div>
-              <div className="col-8">
-                <select
-                  name="binning"
-                  onChange={(e) => {
-                    handleChange(e);
-                    changeBinningHandler(e);
-                  }}
-                  onBlur={handleBlur}
-                  value={values.binning}
-                >
-                  <option value="default">{t("cAstroSettingsSelect")}</option>
-                  <option value="0">4k</option>
-                  <option value="1">2k</option>
-                </select>
-              </div>
-            </div>
+            )}
             <div className="row mb-md-2 mb-sm-1">
               <div className="col-4">
                 <label htmlFor="fileFormat" className="form-label">

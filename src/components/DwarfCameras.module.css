@@ -1,12 +1,20 @@
 .telephoto {
   width: 100%;
-  z-index : 50;
+  height: auto; /* Ensures proportional resizing */
+  overflow: hidden;
+  z-index : 200;
 }
 
 .telephoto iframe {
   width: 100%;
   height: auto; /* Ensures proportional resizing */
+  display: block;
+  z-index : 250;
+}
+
+.telephoto img {
   display: block; /* Removes unwanted spaces between elements */
+  z-index : 250;
 }
 
 .wideangle {
@@ -15,12 +23,13 @@
   position: absolute;
   top: 0;
   border: 1px solid white;
-  z-index : 60;
+  z-index : 300;
 }
 
 .wideangle iframe {
   width: 100%;
-  height: 100%;
+  height: auto;
+  overflow: hidden;
   border: none;
   display: block; /* Removes unwanted spaces between elements */
 }

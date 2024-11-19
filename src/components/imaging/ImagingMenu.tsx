@@ -10,8 +10,8 @@ import {
   Dwarfii_Api,
   messageAstroStartCaptureRawLiveStacking,
   messageAstroStopCaptureRawLiveStacking,
-  messageAstroStartCaptureRawWideLiveStacking,
-  messageAstroStopCaptureRawWideLiveStacking,
+  messageAstroStartWideCaptureLiveStacking,
+  messageAstroStopWideCaptureLiveStacking,
   messageAstroGoLive,
   messageFocusStartAstroAutoFocus,
   messageFocusStopAstroAutoFocus,
@@ -256,11 +256,11 @@ export default function ImagingMenu(props: PropType) {
         ? connectionCtx.socketIPDwarf
         : new WebSocketHandler(connectionCtx.IPDwarf);
 
-      // Send Command : messageAstroStartCaptureRawLiveStacking or messageAstroStartCaptureRawWideLiveStacking
+      // Send Command : messageAstroStartCaptureRawLiveStacking or messageAstroStartWideCaptureLiveStacking
       let WS_Packet;
       if (connectionCtx.currentAstroCamera != wideangleCamera)
         WS_Packet = messageAstroStartCaptureRawLiveStacking();
-      else WS_Packet = messageAstroStartCaptureRawWideLiveStacking();
+      else WS_Packet = messageAstroStartWideCaptureLiveStacking();
       let txtInfoCommand = "takeAstroPhoto";
 
       webSocketHandler.prepare(
@@ -286,12 +286,12 @@ export default function ImagingMenu(props: PropType) {
 
     const customMessageHandler = (txt_info, result_data) => {
       // CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING -> Stop Capture
-      // CMD_ASTRO_STOP_CAPTURE_WIDE_RAW_LIVE_STACKING -> Stop Capture Wide angle
+      // CMD_ASTRO_STOP_WIDE_CAPTURE_LIVE_STACKING -> Stop Capture Wide angle
       if (
         result_data.cmd ==
           Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING ||
         result_data.cmd ==
-          Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_WIDE_RAW_LIVE_STACKING
+          Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_WIDE_CAPTURE_LIVE_STACKING
       ) {
         if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
           console.debug("Stop Capture error", {}, connectionCtx);
@@ -310,11 +310,11 @@ export default function ImagingMenu(props: PropType) {
       ? connectionCtx.socketIPDwarf
       : new WebSocketHandler(connectionCtx.IPDwarf);
 
-    // Send Command : messageAstroStopCaptureRawLiveStacking or messageAstroStopCaptureRawWideLiveStacking
+    // Send Command : messageAstroStopCaptureRawLiveStacking or messageAstroStopWideCaptureLiveStacking
     let WS_Packet;
     if (connectionCtx.currentAstroCamera != wideangleCamera)
       WS_Packet = messageAstroStopCaptureRawLiveStacking();
-    else WS_Packet = messageAstroStopCaptureRawWideLiveStacking();
+    else WS_Packet = messageAstroStopWideCaptureLiveStacking();
     let txtInfoCommand = "stopAstroPhoto";
 
     webSocketHandler.prepare(
@@ -322,7 +322,7 @@ export default function ImagingMenu(props: PropType) {
       txtInfoCommand,
       [
         Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_RAW_LIVE_STACKING,
-        Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_CAPTURE_WIDE_RAW_LIVE_STACKING,
+        Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_WIDE_CAPTURE_LIVE_STACKING,
       ],
       customMessageHandler
     );

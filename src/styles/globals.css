@@ -41,6 +41,10 @@ body {
     margin: -31px 0px 1px 233px;
 }
 
+.temperature-info {
+    margin-left:120px;
+}
+
 .container-battery {
     display: flex;
     margin-left: 0px;

@@ -411,14 +411,26 @@ export async function getAllTelescopeISPSetting(
             AiEnhance = resultObject3.index;
           }
 
-          connectionCtx.astroSettings.binning = binning;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            binning: binning, // Update the binning property
+          }));
           saveAstroSettingsDb("binning", binning.toString());
-          connectionCtx.astroSettings.fileFormat = fileFormat;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            fileFormat: fileFormat, // Update the fileFormat property
+          }));
           saveAstroSettingsDb("fileFormat", fileFormat.toString());
-          connectionCtx.astroSettings.count = count;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            count: count, // Update the count property
+          }));
           saveAstroSettingsDb("count", count.toString());
           if (AiEnhance) {
-            connectionCtx.astroSettings.AiEnhance = AiEnhance;
+            connectionCtx.setAstroSettings((prev) => ({
+              ...prev, // Spread the previous state
+              AiEnhance: AiEnhance, // Update the count property
+            }));
             saveAstroSettingsDb("AiEnhance", AiEnhance.toString());
           }
         }
@@ -471,18 +483,36 @@ export async function getAllTelescopeISPSetting(
             );
             previewQuality = resultObject4.continueValue;
           }
-          connectionCtx.astroSettings.gain = gain;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            gain: gain, // Update the gain property
+          }));
           saveAstroSettingsDb("gain", gain.toString());
-          connectionCtx.astroSettings.gainMode = modeManual;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            gainMode: modeManual, // Update the gainMode property
+          }));
           saveAstroSettingsDb("gainMode", modeManual.toString());
-          connectionCtx.astroSettings.exposure = exposure;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            exposure: exposure, // Update the exposure property
+          }));
           saveAstroSettingsDb("exposure", exposure.toString());
-          connectionCtx.astroSettings.exposureMode = exposureMode;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            exposureMode: exposureMode, // Update the exposureMode property
+          }));
           saveAstroSettingsDb("exposureMode", exposureMode.toString());
-          connectionCtx.astroSettings.IR = val_IRCut;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            IR: val_IRCut, // Update the IR property
+          }));
           saveAstroSettingsDb("IR", val_IRCut.toString());
           if (previewQuality) {
-            connectionCtx.astroSettings.quality = previewQuality;
+            connectionCtx.setAstroSettings((prev) => ({
+              ...prev, // Spread the previous state
+              quality: previewQuality, // Update the quality property
+            }));
             saveAstroSettingsDb("quality", previewQuality.toString());
           }
         }
@@ -518,11 +548,20 @@ export async function getAllTelescopeISPSetting(
           console.log("allParams-resultObjectW1:", resultObjectW1);
           let wideGain = 0;
           if (resultObjectW1.index) wideGain = resultObjectW1.index;
-          connectionCtx.astroSettings.wideGain = wideGain;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            wideGain: wideGain, // Update the wideGain property
+          }));
           saveAstroSettingsDb("wideGain", wideGain.toString());
-          connectionCtx.astroSettings.wideExposure = wideExposure;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            wideExposure: wideExposure, // Update the wideExposure property
+          }));
           saveAstroSettingsDb("wideExposure", wideExposure.toString());
-          connectionCtx.astroSettings.wideExposureMode = wideExposureMode;
+          connectionCtx.setAstroSettings((prev) => ({
+            ...prev, // Spread the previous state
+            wideExposureMode: wideExposureMode, // Update the wideExposureMode property
+          }));
           saveAstroSettingsDb("wideExposureMode", wideExposureMode.toString());
         }
       }
@@ -665,16 +704,47 @@ function update_data_camera_wide_settings(
     sharpness = Math.round(((sharpness - 1) * 100) / 6.0);
 
     // Save Settings
-    connectionCtx.cameraWideSettings.exp_index = exp_index;
-    connectionCtx.cameraWideSettings.exp_mode = exp_mode;
-    if (!bDoneGain) connectionCtx.cameraWideSettings.gain_index = gain_index;
-    connectionCtx.cameraWideSettings.wb_mode = wb_mode;
-    connectionCtx.cameraWideSettings.wb_index = wb_index;
-    connectionCtx.cameraWideSettings.brightness = brightness;
-    connectionCtx.cameraWideSettings.contrast = contrast;
-    connectionCtx.cameraWideSettings.hue = hue;
-    connectionCtx.cameraWideSettings.saturation = saturation;
-    connectionCtx.cameraWideSettings.sharpness = sharpness;
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      exp_index: exp_index, // Update the exp_index property
+    }));
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      exp_mode: exp_mode, // Update the exp_mode property
+    }));
+    if (!bDoneGain)
+      connectionCtx.setCameraWideSettings((prev) => ({
+        ...prev, // Spread the previous state
+        gain_index: gain_index, // Update the gain_index property
+      }));
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      wb_mode: wb_mode, // Update the wb_mode property
+    }));
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      wb_index: wb_index, // Update the wb_index property
+    }));
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      brightness: brightness, // Update the brightness property
+    }));
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      contrast: contrast, // Update the contrast property
+    }));
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      hue: hue, // Update the hue property
+    }));
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      saturation: saturation, // Update the saturation property
+    }));
+    connectionCtx.setCameraWideSettings((prev) => ({
+      ...prev, // Spread the previous state
+      sharpness: sharpness, // Update the sharpness property
+    }));
   }
 }
 
@@ -747,14 +817,38 @@ function update_data_camera_tele_settings(connectionCtx, result_data) {
     else sharpness = 0;
 
     // Save Settings
-    connectionCtx.cameraTeleSettings.wb_mode = wb_mode;
-    connectionCtx.cameraTeleSettings.wb_index_mode = wb_index_mode;
-    connectionCtx.cameraTeleSettings.wb_index = wb_index;
-    connectionCtx.cameraTeleSettings.brightness = brightness;
-    connectionCtx.cameraTeleSettings.contrast = contrast;
-    connectionCtx.cameraTeleSettings.hue = hue;
-    connectionCtx.cameraTeleSettings.saturation = saturation;
-    connectionCtx.cameraTeleSettings.sharpness = sharpness;
+    connectionCtx.setCameraTeleSettings((prev) => ({
+      ...prev, // Spread the previous state
+      wb_mode: wb_mode, // Update the wb_mode property
+    }));
+    connectionCtx.setCameraTeleSettings((prev) => ({
+      ...prev, // Spread the previous state
+      wb_index_mode: wb_index_mode, // Update the wb_index_mode property
+    }));
+    connectionCtx.setCameraTeleSettings((prev) => ({
+      ...prev, // Spread the previous state
+      wb_index: wb_index, // Update the wb_index property
+    }));
+    connectionCtx.setCameraTeleSettings((prev) => ({
+      ...prev, // Spread the previous state
+      brightness: brightness, // Update the brightness property
+    }));
+    connectionCtx.setCameraTeleSettings((prev) => ({
+      ...prev, // Spread the previous state
+      contrast: contrast, // Update the contrast property
+    }));
+    connectionCtx.setCameraTeleSettings((prev) => ({
+      ...prev, // Spread the previous state
+      hue: hue, // Update the hue property
+    }));
+    connectionCtx.setCameraTeleSettings((prev) => ({
+      ...prev, // Spread the previous state
+      saturation: saturation, // Update the saturation property
+    }));
+    connectionCtx.setCameraTeleSettings((prev) => ({
+      ...prev, // Spread the previous state
+      sharpness: sharpness, // Update the sharpness property
+    }));
   }
 }
 
@@ -861,10 +955,13 @@ export async function setWideAllParamsFn(
       result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_CAMERA_WIDE_GET_GAIN
     ) {
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
-        connectionCtx.cameraWideSettings.gain_index = getWideGainIndexByName(
-          result_data.data.value,
-          connectionCtx.typeIdDwarf
-        );
+        connectionCtx.setCameraWideSettings((prev) => ({
+          ...prev, // Spread the previous state
+          gain_index: getWideGainIndexByName(
+            result_data.data.value,
+            connectionCtx.typeIdDwarf
+          ),
+        }));
         logger(txt_info, result_data, connectionCtx);
         bDoneGain = true;
         return;
@@ -1055,4 +1152,39 @@ export function calculateSessionTime(connectionCtx: ConnectionContextType) {
       data.seconds
     )}`;
   }
+}
+
+export function get_error(
+  errorMessage: string,
+  result_data: any,
+  setErrorTxt: Function
+) {
+  if (
+    result_data.data.errorPlainTxt &&
+    (typeof result_data.data.errorPlainTxt === "string" ||
+      Object.keys(result_data.data.errorPlainTxt).length > 0)
+  )
+    setErrorTxt(
+      (prevError) =>
+        (prevError ?? "") + errorMessage + " " + result_data.data.errorPlainTxt
+    );
+  else if (
+    result_data.data.errorTxt &&
+    (typeof result_data.data.errorPlainTxt === "string" ||
+      Object.keys(result_data.data.errorTxt).length > 0)
+  )
+    setErrorTxt(
+      (prevError) =>
+        (prevError ?? "") + errorMessage + " " + result_data.data.errorTxt
+    );
+  else if (result_data.data.code)
+    setErrorTxt(
+      (prevError) =>
+        (prevError ?? "") +
+        errorMessage +
+        " " +
+        "Error: " +
+        result_data.data.code
+    );
+  else setErrorTxt((prevError) => (prevError ?? "") + " " + "Error");
 }

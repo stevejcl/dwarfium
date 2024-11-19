@@ -144,7 +144,7 @@ export default function Nav() {
                   className="nav-link active"
                   aria-current="page"
                   href="/polar-alignment"
-                  style={{ display: devState ? "block" : "none" }}
+                  style={{ display: devState ? "block" : "block" }}
                 >
                   {t("cNavPolarAlignment")}
                 </Link>

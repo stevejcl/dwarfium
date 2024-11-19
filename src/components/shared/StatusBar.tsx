@@ -109,6 +109,16 @@ export default function StatusBar() {
               {connectionCtx.typeNameDwarf}: {connection}
             </span>
             <span className="con">Stellarium: {connectionStellarium}</span>
+            <div className="temperature-info">
+              {connectionCtx.connectionStatus &&
+                connectionCtx.statusTemperatureDwarf !== undefined && (
+                  <span>
+                    <i className="bi bi-thermometer"></i>
+                    {connectionCtx.statusTemperatureDwarf}°C -{" "}
+                    {connectionCtx.statusTemperatureDwarf / 5 + 32}°F
+                  </span>
+                )}
+            </div>
           </div>
           <div className="container-battery">
             {connectionCtx.connectionStatus &&

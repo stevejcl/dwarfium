@@ -47,7 +47,7 @@ export default function CameraAddOn(props: PropTypes) {
   let connectionCtx = useContext(ConnectionContext);
 
   const { showModal, setShowModal } = props;
-  const [imgSrc] = useState<string>("/public/images/photo-camera-white.png");
+  const [imgSrc] = useState<string>("/images/photo-camera-white.png");
   const [errorTxt, setErrorTxt] = useState("");
   const [oldErrorTxt, setOldErrorTxt] = useState<string>("");
   const [isVisible, setIsVisible] = useState(true);
@@ -312,10 +312,10 @@ export default function CameraAddOn(props: PropTypes) {
   function changeColorButton(ImgID, Force = false) {
     const imgElementButton = document.getElementById(ImgID) as HTMLImageElement;
     if (imgElementButton) {
-      if (Force) imgElementButton.src = "/public/images/photo-camera-red.png";
+      if (Force) imgElementButton.src = "/images/photo-camera-red.png";
       else if (imgElementButton.src.includes("photo-camera-white"))
-        imgElementButton.src = "/public/images/photo-camera-red.png";
-      else imgElementButton.src = "/public/images/photo-camera-white.png";
+        imgElementButton.src = "/images/photo-camera-red.png";
+      else imgElementButton.src = "/images/photo-camera-white.png";
     }
   }
 
@@ -330,12 +330,12 @@ export default function CameraAddOn(props: PropTypes) {
     // Change the image source using the ID
     const imgElement = document.getElementById("TakePhoto") as HTMLImageElement;
     if (imgElement) {
-      imgElement.src = "/public/images/photo-camera-red.png";
+      imgElement.src = "/images/photo-camera-red.png";
     }
     // Reset the image source back to its original source after a delay
     setTimeout(() => {
       if (imgElement) {
-        imgElement.src = "/public/images/photo-camera-white.png";
+        imgElement.src = "/images/photo-camera-white.png";
       }
     }, 2000);
     // Reset the active action after the photo is taken
@@ -1321,7 +1321,7 @@ export default function CameraAddOn(props: PropTypes) {
                 )}
                 <div className="separator"></div>
                 <img
-                  src="/public/images/settings-white.png"
+                  src="/images/settings-white.png"
                   className="cameraAddon-image"
                   alt="Settings"
                   style={{ cursor: "pointer" }}

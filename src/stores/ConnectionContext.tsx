@@ -7,6 +7,7 @@ import {
   ConnectionContextType,
   AstroSettings,
   AstroSavePosition,
+  AstroEQSolvingResult,
   ImagingSession,
   CameraWideSettings,
   CameraTeleSettings,
@@ -49,6 +50,15 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     any | undefined
   >();
   const [statusRingLightsDwarf, setStatusRingLightsDwarf] = useState<
+    any | undefined
+  >();
+  const [statusTemperatureDwarf, setStatusTemperatureDwarf] = useState<
+    any | undefined
+  >();
+  const [streamTypeTeleDwarf, setStreamTypeTeleDwarf] = useState<
+    any | undefined
+  >();
+  const [streamTypeWideDwarf, setStreamTypeWideDwarf] = useState<
     any | undefined
   >();
 
@@ -94,10 +104,14 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
 
   const [currentAstroCamera, setCurrentAstroCamera] =
     useState<number>(telephotoCamera);
+  const [isFullScreenCameraTele, setIsFullScreenCameraTele] =
+    useState<boolean>(true);
 
   const [astroSavePosition, setAstroSavePosition] = useState<AstroSavePosition>(
     {} as AstroSavePosition
   );
+  const [astroEQSolvingResult, setAstroEQSolvingResult] =
+    useState<AstroEQSolvingResult>({} as AstroEQSolvingResult);
   const [imagingSession, setImagingSession] = useState<ImagingSession>(
     {} as ImagingSession
   );
@@ -154,6 +168,12 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setStatusPowerLightsDwarf,
     statusRingLightsDwarf,
     setStatusRingLightsDwarf,
+    streamTypeTeleDwarf,
+    setStreamTypeTeleDwarf,
+    streamTypeWideDwarf,
+    setStreamTypeWideDwarf,
+    statusTemperatureDwarf,
+    setStatusTemperatureDwarf,
     connectionStatusStellarium,
     setConnectionStatusStellarium,
     IPStellarium,
@@ -198,12 +218,16 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setAstroSettings,
     currentAstroCamera,
     setCurrentAstroCamera,
+    isFullScreenCameraTele,
+    setIsFullScreenCameraTele,
     cameraWideSettings,
     setCameraWideSettings,
     cameraTeleSettings,
     setCameraTeleSettings,
     astroSavePosition,
     setAstroSavePosition,
+    astroEQSolvingResult,
+    setAstroEQSolvingResult,
     imagingSession,
     setImagingSession,
     timerGlobal,

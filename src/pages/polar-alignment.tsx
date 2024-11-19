@@ -52,8 +52,8 @@ export default function WitSensorData() {
             </main>
           </div>
         </Grid2>
-        <Grid2 md={4} xs={12} sm={12} className="altitude-description-wit">
-          <div className="camera-witmotion-content">
+        <Grid2 md={12} xs={12} sm={12} className="altitude-description-wit">
+          <div className="camera-witmotion-content  ms-4">
             <p>{t("cWitmotionPolaris1")}</p>
             <p>{t("cWitmotionPolaris2")}</p>
           </div>

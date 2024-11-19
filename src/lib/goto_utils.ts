@@ -20,9 +20,12 @@ import {
   messageRgbPowerPowerIndON,
   messageStepMotorReset,
   messageStepMotorMotionTo,
+  messageAstroStopEqSolving,
+  messageAstroStartEqSolving,
   //  messageCameraTeleGetAllFeatureParams,
   WebSocketHandler,
 } from "dwarfii_api";
+import { get_error } from "@/lib/dwarf_utils";
 import eventBus from "@/lib/event_bus";
 import { logger } from "@/lib/logger";
 import {
@@ -74,8 +77,14 @@ export async function calibrationHandler(
   if (lon === undefined) return;
   let calibration_status = false;
 
-  connectionCtx.astroSettings.target = undefined;
-  connectionCtx.astroSettings.status = undefined;
+  connectionCtx.setAstroSettings((prev) => ({
+    ...prev, // Spread the previous state
+    target: undefined, // Update the target property
+  }));
+  connectionCtx.setAstroSettings((prev) => ({
+    ...prev, // Spread the previous state
+    status: undefined, // Update the status property
+  }));
 
   const customMessageHandler = (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_SYSTEM_SET_TIME) {
@@ -286,11 +295,7 @@ export async function startGotoHandler(
     ) {
       if (result_data.data.code != Dwarfii_Api.DwarfErrorCode.OK) {
         setGotoSuccess("");
-        if (result_data.data.errorPlainTxt)
-          setGotoErrors("Error GOTO : " + result_data.data.errorPlainTxt);
-        else if (result_data.data.errorTxt)
-          setGotoErrors("Error GOTO : " + result_data.data.errorTxt);
-        else setGotoErrors("Error GOTO : " + result_data.data.code);
+        get_error("Error GOTO: ", result_data, setGotoErrors);
         if (
           result_data.data.code ==
             Dwarfii_Api.DwarfErrorCode.CODE_ASTRO_GOTO_FAILED ||
@@ -298,7 +303,10 @@ export async function startGotoHandler(
             Dwarfii_Api.DwarfErrorCode.CODE_ASTRO_FUNCTION_BUSY
         )
           goto_status = true;
-        connectionCtx.astroSettings.status = -1; // Error
+        connectionCtx.setAstroSettings((prev) => ({
+          ...prev, // Spread the previous state
+          status: -1, // Update the status property // Error
+        }));
 
         if (callback) {
           callback("Error GoTo");
@@ -325,7 +333,10 @@ export async function startGotoHandler(
         result_data.data.targetName == targetName
       ) {
         goto_status = true;
-        connectionCtx.astroSettings.status = 1; // OK
+        connectionCtx.setAstroSettings((prev) => ({
+          ...prev, // Spread the previous state
+          status: 1, // Update the status property // OK
+        }));
         setGotoSuccess("Start Tracking");
         setGotoErrors("");
         if (callback) {
@@ -357,15 +368,29 @@ export async function startGotoHandler(
     ? convertDMSToDecimalDegrees(declination!)
     : 0;
 
-  connectionCtx.astroSettings.rightAscension = RA!;
-  connectionCtx.astroSettings.declination = declination!;
+  connectionCtx.setAstroSettings((prev) => ({
+    ...prev, // Spread the previous state
+    rightAscension: RA!, // Update the rightAscension property
+  }));
+  connectionCtx.setAstroSettings((prev) => ({
+    ...prev, // Spread the previous state
+    declination: declination!, // Update the declination property
+  }));
 
   if (!connectionCtx.isSavedPosition && RA_number && declination_number) {
     let today = new Date();
-    connectionCtx.astroSavePosition.rightAscension = RA_number;
-    connectionCtx.astroSavePosition.declination = declination_number;
-    connectionCtx.astroSavePosition.strLocalTime =
-      toIsoStringInLocalTime(today);
+    connectionCtx.setAstroSavePosition((prev) => ({
+      ...prev, // Spread the previous state
+      rightAscension: RA_number, // Update the rightAscension property
+    }));
+    connectionCtx.setAstroSavePosition((prev) => ({
+      ...prev, // Spread the previous state
+      declination: declination_number, // Update the declination property
+    }));
+    connectionCtx.setAstroSavePosition((prev) => ({
+      ...prev, // Spread the previous state
+      strLocalTime: toIsoStringInLocalTime(today), // Update the strLocalTime property
+    }));
     connectionCtx.setSavePositionStatus(true); // OK
   }
   console.log("Object Name :  " + objectName);
@@ -405,8 +430,14 @@ export async function startGotoHandler(
       targetName
     );
   }
-  connectionCtx.astroSettings.target = targetName!;
-  connectionCtx.astroSettings.status = 0; // in progress
+  connectionCtx.setAstroSettings((prev) => ({
+    ...prev, // Spread the previous state
+    target: targetName!, // Update the target property
+  }));
+  connectionCtx.setAstroSettings((prev) => ({
+    ...prev, // Spread the previous state
+    status: 0, // Update the status property // in progress
+  }));
 
   console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
   const webSocketHandler = connectionCtx.socketIPDwarf
@@ -497,9 +528,18 @@ export function savePositionHandler(
     );
 
     if (results) {
-      connectionCtx.astroSavePosition.altitude = results.alt!;
-      connectionCtx.astroSavePosition.azimuth = results.az!;
-      connectionCtx.astroSavePosition.lst = results.lst!;
+      connectionCtx.setAstroSavePosition((prev) => ({
+        ...prev, // Spread the previous state
+        altitude: results.alt!, // Update the altitude property
+      }));
+      connectionCtx.setAstroSettings((prev) => ({
+        ...prev, // Spread the previous state
+        azimuth: results.az!, // Update the azimuth property
+      }));
+      connectionCtx.setAstroSettings((prev) => ({
+        ...prev, // Spread the previous state
+        lst: results.lst!, // Update the lst property
+      }));
 
       connectionCtx.setIsSavedPosition(true);
       setPosition(
@@ -594,8 +634,14 @@ export async function stopGotoHandler(
       if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
         setGotoSuccess("Stopping Goto");
         setGotoErrors("");
-        connectionCtx.astroSettings.target = undefined;
-        connectionCtx.astroSettings.status = undefined;
+        connectionCtx.setAstroSettings((prev) => ({
+          ...prev, // Spread the previous state
+          target: undefined!, // Update the target property
+        }));
+        connectionCtx.setAstroSettings((prev) => ({
+          ...prev, // Spread the previous state
+          status: undefined, // Update the status property
+        }));
         if (callback) {
           callback("Stopping Goto");
         }
@@ -844,11 +890,7 @@ export async function dwarfResetMotorHandlerFn(
     }
     logger(txt_info, result_data, connectionCtx);
     if (find_error) {
-      if (result_data.data.errorPlainTxt)
-        setGotoErrors("Error: " + result_data.data.errorPlainTxt);
-      else if (result_data.data.errorTxt)
-        setGotoErrors("Error: " + result_data.data.errorTxt);
-      else setGotoErrors("Error: " + result_data.data.code);
+      get_error("Error: ", result_data, setGotoErrors);
     }
   };
 
@@ -966,11 +1008,7 @@ export async function polarAlignHandlerFn(
     }
     logger(txt_info, result_data, connectionCtx);
     if (find_error) {
-      if (result_data.data.errorPlainTxt)
-        setGotoErrors("Error: " + result_data.data.errorPlainTxt);
-      else if (result_data.data.errorTxt)
-        setGotoErrors("Error: " + result_data.data.errorTxt);
-      else setGotoErrors("Error: " + result_data.data.code);
+      get_error("Error: ", result_data, setGotoErrors);
     }
   };
 
@@ -1054,11 +1092,7 @@ export async function polarAlignPositionHandlerFn(
     }
     logger(txt_info, result_data, connectionCtx);
     if (find_error) {
-      if (result_data.data.errorPlainTxt)
-        setGotoErrors("Error: " + result_data.data.errorPlainTxt);
-      else if (result_data.data.errorTxt)
-        setGotoErrors("Error: " + result_data.data.errorTxt);
-      else setGotoErrors("Error: " + result_data.data.code);
+      get_error("Error: ", result_data, setGotoErrors);
     }
   };
 
@@ -1086,6 +1120,199 @@ export async function polarAlignPositionHandlerFn(
     customMessageHandler
   );
 
+  if (!webSocketHandler.run()) {
+    console.error(" Can't launch Web Socket Run Action!");
+  }
+}
+
+export async function EQSolvingHandlerFn(
+  connectionCtx: ConnectionContextType,
+  setErrors: Dispatch<SetStateAction<string | undefined>>,
+  setSuccess: Dispatch<SetStateAction<string | undefined>>,
+  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+) {
+  if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+
+  let lat = 0;
+  if (connectionCtx.latitude) lat = connectionCtx.latitude;
+  /////////////////////////////////////////
+  // Reverse the Longitude for the dwarf : positive for WEST
+  /////////////////////////////////////////
+  let lon = 0;
+  if (connectionCtx.longitude) lon = -connectionCtx.longitude;
+  if (lat === undefined || lon === undefined) {
+    setErrors("Longitude or Lattitude are not defined");
+    return;
+  }
+
+  setErrors(undefined);
+  setSuccess("Start EQ Solving Process");
+  eventBus.dispatch("clearErrors", { message: "clear errors" });
+
+  const customMessageHandler = (txt_info, result_data) => {
+    let find_error = false;
+    if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_EQ_SOLVING) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setErrors("");
+        setSuccess("EQ Solving Result");
+        connectionCtx.setAstroEQSolvingResult((prev) => ({
+          ...prev, // Spread the previous state
+          azimuth_err: result_data.data.azi_err, // Update the azimuth_err property
+        }));
+        connectionCtx.setAstroEQSolvingResult((prev) => ({
+          ...prev, // Spread the previous state
+          altitude_err: result_data.data.alt_err, // Update the altitude_err property
+        }));
+        setSuccess(
+          " azi_err = " +
+            result_data.data.azi_err +
+            " , alt_err = " +
+            result_data.data.alt_err
+        );
+        if (callback) {
+          callback(
+            txt_info +
+              " Result: azi_err = " +
+              result_data.data.azi_err +
+              " , alt_err = " +
+              result_data.data.alt_err
+          );
+        }
+      } else find_error = true;
+    } else if (
+      result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_EQ_SOLVING_STATE
+    ) {
+      console.log("Notification CMD_NOTIFY_EQ_SOLVING_STATE");
+      setSuccess("EQ Solving State");
+      setErrors("");
+      if (callback) {
+        callback("EQ Solving State");
+      }
+
+      setErrors("");
+      setSuccess(
+        txt_info +
+          " Phase #" +
+          result_data.data.step +
+          " " +
+          result_data.data.statePlainTxt
+      );
+      if (callback) {
+        callback(
+          txt_info +
+            " Phase #" +
+            result_data.data.step +
+            " " +
+            result_data.data.statePlainTxt
+        );
+      }
+    } else {
+      logger("", result_data, connectionCtx);
+      return;
+    }
+    if (callback) {
+      callback(result_data);
+    }
+    logger(txt_info, result_data, connectionCtx);
+    if (find_error) {
+      get_error("Error: ", result_data, setErrors);
+    }
+  };
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  if (connectionCtx.socketIPDwarf) {
+    console.log("OK KEEP SOCKET");
+  } else {
+    console.log("NO NEW SOCKET");
+  }
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  // Send Command : messageAstroStartEqSolving
+  let WS_Packet = messageAstroStartEqSolving(lon, lat);
+  let txtInfoCommand = "EQ Solving";
+
+  // Init Errors values
+  connectionCtx.setAstroEQSolvingResult((prev) => ({
+    ...prev, // Spread the previous state
+    azimuth_err: undefined, // Update the azimuth_err property
+  }));
+  connectionCtx.setAstroEQSolvingResult((prev) => ({
+    ...prev, // Spread the previous state
+    altitude_err: undefined, // Update the altitude_err property
+  }));
+
+  webSocketHandler.prepare(
+    WS_Packet,
+    txtInfoCommand,
+    [
+      Dwarfii_Api.DwarfCMD.CMD_ASTRO_START_EQ_SOLVING,
+      Dwarfii_Api.DwarfCMD.CMD_NOTIFY_EQ_SOLVING_STATE,
+    ],
+    customMessageHandler
+  );
+
+  if (!webSocketHandler.run()) {
+    console.error(" Can't launch Web Socket Run Action!");
+  }
+}
+
+export async function stopEQSolvingHandler(
+  connectionCtx: ConnectionContextType,
+  setGotoErrors: Dispatch<SetStateAction<string | undefined>>,
+  setGotoSuccess: Dispatch<SetStateAction<string | undefined>>,
+  callback?: (options: any) => void // eslint-disable-line no-unused-vars
+) {
+  if (connectionCtx.IPDwarf === undefined) {
+    return;
+  }
+
+  setGotoErrors(undefined);
+  setGotoSuccess(undefined);
+  eventBus.dispatch("clearErrors", { message: "clear errors" });
+
+  const customMessageHandler = (txt_info, result_data) => {
+    if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_EQ_SOLVING) {
+      if (result_data.data.code == Dwarfii_Api.DwarfErrorCode.OK) {
+        setGotoSuccess("Stopping EQ Align");
+        setGotoErrors("");
+        if (callback) {
+          callback("Stopping EQ Align");
+        }
+      }
+    } else {
+      logger("", result_data, connectionCtx);
+      return;
+    }
+    if (callback) {
+      callback(result_data);
+    }
+    logger(txt_info, result_data, connectionCtx);
+  };
+
+  console.log("socketIPDwarf: ", connectionCtx.socketIPDwarf); // Create WebSocketHandler if need
+  if (connectionCtx.socketIPDwarf) {
+    console.log("OK KEEP SOCKET");
+  } else {
+    console.log("NO NEW SOCKET");
+  }
+  const webSocketHandler = connectionCtx.socketIPDwarf
+    ? connectionCtx.socketIPDwarf
+    : new WebSocketHandler(connectionCtx.IPDwarf);
+
+  // Send Command : messageAstroStopEqSolving
+  let WS_Packet = messageAstroStopEqSolving();
+  let txtInfoCommand = "Stop EQ Mode";
+
+  webSocketHandler.prepare(
+    WS_Packet,
+    txtInfoCommand,
+    [Dwarfii_Api.DwarfCMD.CMD_ASTRO_STOP_EQ_SOLVING],
+    customMessageHandler
+  );
   if (!webSocketHandler.run()) {
     console.error(" Can't launch Web Socket Run Action!");
   }

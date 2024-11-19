@@ -9,6 +9,7 @@ import { dataFlowRestriction } from "@/lib/witmotion/DataFlowRestriction";
 import MenuSettings from "./MenuSettings";
 import ConnectDwarfII from "@/components/setup/ConnectDwarfII";
 import PolarAlign from "@/components/shared/PolarAlign";
+import EQSolving from "@/components/shared/EQSolving";
 export const Inner: React.FC = () => {
   const inputDataInit = {
     axc: { x: [], y: [], z: [] },
@@ -62,8 +63,9 @@ export const Inner: React.FC = () => {
       </Grid2>
 
       <Grid2 xs={6}>
-        <div className="mnu-polar">
+        <div className="mnu-polar ms-5">
           <PolarAlign />
+          <EQSolving />
           <div className="graph-wit">
             {!disabled && <Graphs inputData={inputData} />}
           </div>

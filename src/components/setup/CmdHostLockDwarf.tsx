@@ -3,7 +3,7 @@ import i18n from "@/i18n";
 import React, { useEffect, useContext, useState } from "react";
 import {
   Dwarfii_Api,
-  messageSystemSetHostSlaveMode,
+  messageSystemSetMasterLock,
   WebSocketHandler,
 } from "dwarfii_api";
 import { saveIPConnectDB } from "@/db/db_utils";
@@ -29,9 +29,7 @@ export default function CmdHostLockDwarf() {
       : new WebSocketHandler(connectionCtx.socketIPDwarf);
 
     const customMessageHandler = (txt_info, result_data) => {
-      if (
-        result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE
-      ) {
+      if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_SYSTEM_SET_MASTERLOCK) {
         if (result_data.data.mode != currentMode) {
           console.log("Command setHostSlaveMod OK");
         } else {
@@ -44,13 +42,13 @@ export default function CmdHostLockDwarf() {
     };
 
     // Send Commands : cmdSystemSetHostSlaveMode
-    let WS_Packet = messageSystemSetHostSlaveMode(currentMode ? 0 : 1);
+    let WS_Packet = messageSystemSetMasterLock(!currentMode);
     let txtInfoCommand = "SetHostSlaveMode";
 
     webSocketHandler.prepare(
       WS_Packet,
       txtInfoCommand,
-      [Dwarfii_Api.DwarfCMD.CMD_NOTIFY_WS_HOST_SLAVE_MODE],
+      [Dwarfii_Api.DwarfCMD.CMD_SYSTEM_SET_MASTERLOCK],
       customMessageHandler
     );
 

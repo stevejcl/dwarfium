@@ -36,6 +36,12 @@ export type ConnectionContextType = {
   setStatusPowerLightsDwarf: Dispatch<SetStateAction<boolean | undefined>>;
   statusRingLightsDwarf: boolean | undefined;
   setStatusRingLightsDwarf: Dispatch<SetStateAction<boolean | undefined>>;
+  statusTemperatureDwarf: number | undefined;
+  setStatusTemperatureDwarf: Dispatch<SetStateAction<number | undefined>>;
+  streamTypeTeleDwarf: number | undefined;
+  setStreamTypeTeleDwarf: Dispatch<SetStateAction<number | undefined>>;
+  streamTypeWideDwarf: number | undefined;
+  setStreamTypeWideDwarf: Dispatch<SetStateAction<number | undefined>>;
 
   connectionStatusStellarium: boolean | undefined;
   setConnectionStatusStellarium: Dispatch<SetStateAction<boolean | undefined>>;
@@ -80,11 +86,15 @@ export type ConnectionContextType = {
 
   currentAstroCamera: number;
   setCurrentAstroCamera: Dispatch<SetStateAction<number>>;
+  isFullScreenCameraTele: boolean | true;
+  setIsFullScreenCameraTele: Dispatch<SetStateAction<boolean>>;
 
   astroSettings: AstroSettings;
   setAstroSettings: Dispatch<SetStateAction<AstroSettings>>;
   astroSavePosition: AstroSavePosition;
   setAstroSavePosition: Dispatch<SetStateAction<AstroSavePosition>>;
+  astroEQSolvingResult: AstroEQSolvingResult;
+  setAstroEQSolvingResult: Dispatch<SetStateAction<AstroEQSolvingResult>>;
 
   imagingSession: ImagingSession;
   setImagingSession: Dispatch<SetStateAction<ImagingSession>>;
@@ -297,6 +307,11 @@ export type AstroSavePosition = {
   azimuth: number;
   lst: number;
   strLocalTime: string;
+};
+
+export type AstroEQSolvingResult = {
+  azimuth_err: number | undefined;
+  altitude_err: number | undefined;
 };
 
 export type CameraWideSettings = {

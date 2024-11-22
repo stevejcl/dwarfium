@@ -1159,25 +1159,25 @@ export async function EQSolvingHandlerFn(
         setSuccess("EQ Solving Result");
         connectionCtx.setAstroEQSolvingResult((prev) => ({
           ...prev, // Spread the previous state
-          azimuth_err: result_data.data.azi_err, // Update the azimuth_err property
+          azimuth_err: result_data.data.aziErr, // Update the azimuth_err property
         }));
         connectionCtx.setAstroEQSolvingResult((prev) => ({
           ...prev, // Spread the previous state
-          altitude_err: result_data.data.alt_err, // Update the altitude_err property
+          altitude_err: result_data.data.altErr, // Update the altitude_err property
         }));
         setSuccess(
           " azi_err = " +
-            result_data.data.azi_err +
+            result_data.data.aziErr +
             " , alt_err = " +
-            result_data.data.alt_err
+            result_data.data.altErr
         );
         if (callback) {
           callback(
             txt_info +
               " Result: azi_err = " +
-              result_data.data.azi_err +
+              result_data.data.aziErr +
               " , alt_err = " +
-              result_data.data.alt_err
+              result_data.data.altErr
           );
         }
       } else find_error = true;

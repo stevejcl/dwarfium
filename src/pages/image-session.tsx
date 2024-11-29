@@ -8,9 +8,9 @@ import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 
 export default function AstroPhoto() {
+  const connectionCtx = useContext(ConnectionContext);
   useSetupConnection();
   useLoadIntialValues();
-  const connectionCtx = useContext(ConnectionContext);
   let thumbnailUrl = "";
   const [notification] = useState<string | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
@@ -23,9 +23,15 @@ export default function AstroPhoto() {
 
   const fetchThumbnailExists = async (sessionName: string) => {
     if (connectionCtx.typeNameDwarf == "Dwarf II") {
-      thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+      const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+      thumbnailUrl = `${
+        process.env.NEXT_PUBLIC_URL_PROXY_CORS
+      }?target=${encodeURIComponent(url)}`;
     } else {
-      thumbnailUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+      const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+      thumbnailUrl = `${
+        process.env.NEXT_PUBLIC_URL_PROXY_CORS
+      }?target=${encodeURIComponent(url)}`;
     }
     try {
       const response = await fetch(thumbnailUrl);
@@ -75,13 +81,17 @@ export default function AstroPhoto() {
     try {
       let response;
       if (connectionCtx.typeNameDwarf == "Dwarf II") {
-        response = await fetch(
-          `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/`
-        );
+        const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/`;
+        const proxyUrl = `${
+          process.env.NEXT_PUBLIC_URL_PROXY_CORS
+        }?target=${encodeURIComponent(url)}`;
+        response = await fetch(proxyUrl);
       } else {
-        response = await fetch(
-          `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/`
-        );
+        const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/`;
+        const proxyUrl = `${
+          process.env.NEXT_PUBLIC_URL_PROXY_CORS
+        }?target=${encodeURIComponent(url)}`;
+        response = await fetch(proxyUrl);
       }
       const data = await response.text();
       const folderRegex =
@@ -94,13 +104,17 @@ export default function AstroPhoto() {
         if (!/dwarf_dark|solving_failed/i.test(folderName)) {
           try {
             if (connectionCtx.typeNameDwarf == "Dwarf II") {
-              await fetch(
-                `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`
-              );
+              const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`;
+              const proxyUrl = `${
+                process.env.NEXT_PUBLIC_URL_PROXY_CORS
+              }?target=${encodeURIComponent(url)}`;
+              await fetch(proxyUrl);
             } else {
-              await fetch(
-                `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${folderName}/shotsInfo.json`
-              );
+              const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${folderName}/shotsInfo.json`;
+              const proxyUrl = `${
+                process.env.NEXT_PUBLIC_URL_PROXY_CORS
+              }?target=${encodeURIComponent(url)}`;
+              await fetch(proxyUrl);
             }
             sessionList.push({ name: folderName, date: folderDate });
           } catch (error) {
@@ -127,13 +141,17 @@ export default function AstroPhoto() {
     try {
       let response;
       if (connectionCtx.typeNameDwarf == "Dwarf II") {
-        response = await fetch(
-          `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/shotsInfo.json`
-        );
+        const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/shotsInfo.json`;
+        const proxyUrl = `${
+          process.env.NEXT_PUBLIC_URL_PROXY_CORS
+        }?target=${encodeURIComponent(url)}`;
+        response = await fetch(proxyUrl);
       } else {
-        response = await fetch(
-          `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/shotsInfo.json`
-        );
+        const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/shotsInfo.json`;
+        const proxyUrl = `${
+          process.env.NEXT_PUBLIC_URL_PROXY_CORS
+        }?target=${encodeURIComponent(url)}`;
+        response = await fetch(proxyUrl);
       }
       if (!response.ok) {
         throw new Error(`Failed to fetch session info: ${response.statusText}`);
@@ -178,13 +196,17 @@ export default function AstroPhoto() {
         );
         let folderResponse;
         if (connectionCtx.typeNameDwarf == "Dwarf II") {
-          folderResponse = await fetch(
-            `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}`
-          );
+          const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}`;
+          const proxyUrl = `${
+            process.env.NEXT_PUBLIC_URL_PROXY_CORS
+          }?target=${encodeURIComponent(url)}`;
+          folderResponse = await fetch(proxyUrl);
         } else {
-          folderResponse = await fetch(
-            `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}`
-          );
+          const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}`;
+          const proxyUrl = `${
+            process.env.NEXT_PUBLIC_URL_PROXY_CORS
+          }?target=${encodeURIComponent(url)}`;
+          folderResponse = await fetch(proxyUrl);
         }
         const folderData = await folderResponse.text();
         if (folderData !== null) {
@@ -200,21 +222,25 @@ export default function AstroPhoto() {
             for (const fitsFile of fitsFiles) {
               let fileResponse;
               if (connectionCtx.typeNameDwarf == "Dwarf II") {
-                fileResponse = await fetch(
-                  `http://${
-                    connectionCtx.IPDwarf
-                  }/sdcard/DWARF_II/Astronomy/${sessionName}/${encodeURIComponent(
-                    fitsFile
-                  )}`
-                );
+                const url = `http://${
+                  connectionCtx.IPDwarf
+                }/sdcard/DWARF_II/Astronomy/${sessionName}/${encodeURIComponent(
+                  fitsFile
+                )}`;
+                const proxyUrl = `${
+                  process.env.NEXT_PUBLIC_URL_PROXY_CORS
+                }?target=${encodeURIComponent(url)}`;
+                fileResponse = await fetch(proxyUrl);
               } else {
-                fileResponse = await fetch(
-                  `http://${
-                    connectionCtx.IPDwarf
-                  }/DWARF3/Astronomy/${sessionName}/${encodeURIComponent(
-                    fitsFile
-                  )}`
-                );
+                const url = `http://${
+                  connectionCtx.IPDwarf
+                }/DWARF3/Astronomy/${sessionName}/${encodeURIComponent(
+                  fitsFile
+                )}`;
+                const proxyUrl = `${
+                  process.env.NEXT_PUBLIC_URL_PROXY_CORS
+                }?target=${encodeURIComponent(url)}`;
+                fileResponse = await fetch(proxyUrl);
               }
               const fileBlob = await fileResponse.blob();
               const fileHandle = await sessionFolderHandle.getFileHandle(

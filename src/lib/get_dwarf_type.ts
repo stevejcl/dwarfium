@@ -1,17 +1,18 @@
 import { getDefaultParamsConfig, deviceInfo } from "dwarfii_api";
-
+import { proxyRequest } from "@/lib/proxyClient";
 // several function to get Dwarf DeviceId
 /////////////////////////////////////////
 
 export async function findDeviceInfo(
   IPDwarf: string | undefined
 ): Promise<number | undefined> {
-  let deviceId = await getConfigData(IPDwarf);
+  let deviceId = await getDeviceInfo(IPDwarf);
+
+  //if (!deviceId) deviceId = await getDeviceInfo(IPDwarf);
+
+  if (!deviceId) deviceId = await getConfigData(IPDwarf);
 
   if (!deviceId) deviceId = await getDwarfType(IPDwarf);
-
-  // not Working CORS origin
-  //if (!deviceId) deviceId = await getDeviceInfo(IPDwarf);
 
   return deviceId;
 }
@@ -25,30 +26,17 @@ const getDeviceInfo = async (IPDwarf: string | undefined) => {
       requestAddr = deviceInfo(IPDwarf);
     }
 
-    fetch(requestAddr, {
-      signal: AbortSignal.timeout(5000),
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Specify content type
-        Referer: "http://127.0.0.1:3000",
-      },
-    })
-      .then((response) => {
-        console.log(`getDeviceInfo: ${JSON.stringify(response, null, 2)}`);
-      })
-      .catch((err) => {
-        console.log(`getDeviceInfo: ${JSON.stringify(err, null, 2)}`);
-      });
-
-    if (!requestAddr) {
-      const response = await fetch(requestAddr, {
+    if (requestAddr) {
+      const proxyUrl = `${
+        process.env.NEXT_PUBLIC_URL_PROXY_CORS
+      }?target=${encodeURIComponent(requestAddr)}`;
+      const response = await fetch(proxyUrl, {
         method: "POST",
-        mode: "no-cors",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // Use 'application/json' for JSON
         },
+        redirect: "follow",
       });
-      console.log(`getDeviceInfo: ${response}`);
 
       // Check if the response has data
       if (response.ok) {
@@ -58,10 +46,10 @@ const getDeviceInfo = async (IPDwarf: string | undefined) => {
         const result = await response.json();
 
         if (result && result.data) {
-          const deviceID = result.data.deviceID;
+          const id = result.data.deviceId;
 
-          if (deviceID) {
-            return deviceID;
+          if (id) {
+            return id;
           } else {
             console.error("getDeviceInfo : No data found in the response.");
             return undefined;
@@ -88,6 +76,47 @@ const getDeviceInfo = async (IPDwarf: string | undefined) => {
   }
 };
 
+// eslint-disable-next-line no-unused-vars
+const getDeviceInfoProxyRequest = async (IPDwarf: string | undefined) => {
+  try {
+    // Make the HTTP POST request to the specified URL
+    let requestAddr;
+    if (IPDwarf) {
+      requestAddr = deviceInfo(IPDwarf);
+    }
+
+    if (requestAddr) {
+      const response = await proxyRequest(requestAddr, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Use 'application/json' for JSON
+        },
+        redirect: "follow",
+      });
+
+      console.debug("Response from proxy:", response);
+      const id = response.data.deviceId;
+
+      if (id) {
+        return id;
+      } else {
+        console.error("getDeviceInfo : No data found in the response.");
+        return undefined;
+      }
+    } else {
+      console.error("Invalid request for getDeviceInfo.");
+      return undefined;
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error getDeviceInfo:", error.message);
+    } else {
+      console.error("Error getDeviceInfo:", error);
+    }
+    return undefined;
+  }
+};
+
 const getConfigData = async (IPDwarf: string | undefined) => {
   try {
     // Make the HTTP GET request to the specified URL
@@ -97,7 +126,16 @@ const getConfigData = async (IPDwarf: string | undefined) => {
     }
 
     if (requestAddr) {
-      const response = await fetch(requestAddr);
+      const proxyUrl = `${
+        process.env.NEXT_PUBLIC_URL_PROXY_CORS
+      }?target=${encodeURIComponent(requestAddr)}`;
+      const response = await fetch(proxyUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow",
+      });
 
       // Check if the response has data
       if (response.ok) {
@@ -120,7 +158,7 @@ const getConfigData = async (IPDwarf: string | undefined) => {
           return undefined;
         }
       } else {
-        console.error("getConfigData : Error durin the request.");
+        console.error("getConfigData : Error during the request.");
         return undefined;
       }
     } else {
@@ -144,7 +182,16 @@ const getDwarfType = async (IPDwarf: string | undefined) => {
 
   try {
     // First attempt to fetch Dwarf II
-    folderResponse = await fetch(dwarfIIUrl);
+    let proxyUrl = `${
+      process.env.NEXT_PUBLIC_URL_PROXY_CORS
+    }?target=${encodeURIComponent(dwarfIIUrl)}`;
+    folderResponse = await fetch(proxyUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+    });
 
     if (folderResponse.ok) {
       // Dwarf II found
@@ -152,7 +199,17 @@ const getDwarfType = async (IPDwarf: string | undefined) => {
       return 1;
     } else {
       // If not OK, try Dwarf 3
-      folderResponse = await fetch(dwarf3Url);
+      proxyUrl = `${
+        process.env.NEXT_PUBLIC_URL_PROXY_CORS
+      }?target=${encodeURIComponent(dwarf3Url)}`;
+      folderResponse = await fetch(proxyUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow",
+      });
+
       if (folderResponse.ok) {
         // Dwarf 3 found
         console.log("Detected device type: Dwarf 3");
@@ -192,16 +249,30 @@ async function verifyMediaMtxStreamUrls(inputIP: string | undefined) {
   const url2 = `http://localhost:9997/v3/config/paths/get/dwarf_tele`;
 
   try {
-    const response1 = await fetch(url1, {
+    const proxyUrl1 = `${
+      process.env.NEXT_PUBLIC_URL_PROXY_CORS
+    }?target=${encodeURIComponent(url1)}`;
+    const response1 = await fetch(proxyUrl1, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
     });
 
     if (!response1.ok) {
       throw new Error(`HTTP error! Status: ${response1.status}`);
     }
 
-    const response2 = await fetch(url2, {
+    const proxyUrl2 = `${
+      process.env.NEXT_PUBLIC_URL_PROXY_CORS
+    }?target=${encodeURIComponent(url2)}`;
+    const response2 = await fetch(proxyUrl2, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
     });
 
     if (!response2.ok) {
@@ -269,7 +340,10 @@ const editMediaMtxStreamD3 = async (
     };
   }
   try {
-    const response = await fetch(url, {
+    const proxyUrl = `${
+      process.env.NEXT_PUBLIC_URL_PROXY_CORS
+    }?target=${encodeURIComponent(url)}`;
+    const response = await fetch(proxyUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

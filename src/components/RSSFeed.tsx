@@ -1,41 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Parser, { Item } from "rss-parser";
-import { fetchWithCorsProxy } from "@/lib/cors_proxy";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 
 const RSSFeed = () => {
   const [feedItems, setFeedItems] = useState<Item[]>([]);
+  let connectionCtx = useContext(ConnectionContext);
 
   useEffect(() => {
     const parser = new Parser();
-    const rssUrl = "https://in-the-sky.org/rss.php?feed=deepsky";
-
+    let lat_long_info = "";
+    if (connectionCtx.latitude && connectionCtx.longitude) {
+      lat_long_info = `&Latitude=${connectionCtx.latitude}&Longitude=${connectionCtx.longitude}`;
+    }
+    const rssUrl =
+      "https://in-the-sky.org/rss.php?feed=deepsky" + lat_long_info;
+    console.log(`RSSFeed: rssUrl ${rssUrl}`);
     const fetchFeed = async () => {
       try {
-        const xmlData = await fetchWithCorsProxy(rssUrl);
-        const feed = await parser.parseString(xmlData);
-        const validItems = feed.items.filter((item) => item.isoDate);
-        validItems.sort(
-          (a, b) =>
-            new Date(a.isoDate!).getTime() - new Date(b.isoDate!).getTime()
+        const response = await fetch(
+          `${
+            process.env.NEXT_PUBLIC_URL_PROXY_CORS
+          }?target=${encodeURIComponent(rssUrl)}`
         );
-        const currentDate = new Date();
-        const filteredItems = validItems.filter(
-          (item) => new Date(item.isoDate!).getTime() >= currentDate.getTime()
-        );
-        const sanitizedItems = filteredItems.map((item) => ({
-          ...item,
-          title: item.title
-            ? item.title.replace(/\(\d+ days? .+\)/, "").trim()
-            : "",
-        }));
-        setFeedItems(sanitizedItems);
+
+        // Check if the response has data
+        if (response.ok) {
+          console.log(`RSSFeed: status ${response.status}`);
+        }
+        if (response.ok && response.status === 200) {
+          const xmlData = await response.text();
+
+          const feed = await parser.parseString(xmlData);
+          const validItems = feed.items.filter((item) => item.isoDate);
+          validItems.sort(
+            (a, b) =>
+              new Date(a.isoDate!).getTime() - new Date(b.isoDate!).getTime()
+          );
+          const currentDate = new Date();
+          const filteredItems = validItems.filter(
+            (item) => new Date(item.isoDate!).getTime() >= currentDate.getTime()
+          );
+          const sanitizedItems = filteredItems.map((item) => ({
+            ...item,
+            title: item.title
+              ? item.title.replace(/\(\d+ days? .+\)/, "").trim()
+              : "",
+          }));
+          setFeedItems(sanitizedItems);
+        } else {
+          console.error("RSS feed : Error during the request.");
+          return undefined;
+        }
       } catch (error) {
         console.error("Error fetching RSS feed:", error);
       }
     };
 
     fetchFeed();
-  }, []);
+  }, [connectionCtx.latitude, connectionCtx.longitude]);
 
   return (
     <div>

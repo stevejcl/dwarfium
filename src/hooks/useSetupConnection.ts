@@ -132,7 +132,11 @@ export function useSetupConnection() {
 
     console.debug("Check Dwarf connection timer", connectionCtx.IPDwarf);
     // if we can't connect to camera in 2 seconds, reset connection data
-    fetch(firmwareVersion(connectionCtx.IPDwarf), {
+    const url = firmwareVersion(connectionCtx.IPDwarf);
+    const proxyUrl = `${
+      process.env.NEXT_PUBLIC_URL_PROXY_CORS
+    }?target=${encodeURIComponent(url)}`;
+    fetch(proxyUrl, {
       signal: AbortSignal.timeout(5000),
       mode: "no-cors",
       method: "POST",

@@ -24,9 +24,9 @@ export default function AstroPhoto() {
     }
   }, []);
 
+  let connectionCtx = useContext(ConnectionContext);
   useSetupConnection();
   useLoadIntialValues();
-  let connectionCtx = useContext(ConnectionContext);
 
   const [exchangeCamerasStatus, setExchangeCamerasStatus] = useState(false);
   const [showWideangle, setShowWideangle] = useState(false);

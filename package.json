@@ -1,11 +1,12 @@
 {
   "name": "dwarfium",
-  "version": "2.4.7",
+  "version": "2.4.8",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint",
     "format": "prettier --check \"src/**/*.{ts,tsx,js,jsx}\"",
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",

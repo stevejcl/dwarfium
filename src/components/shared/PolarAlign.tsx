@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 
 import {
-  polarAlignHandlerFn,
+  dwarfResetMotorHandlerFn,
   polarAlignPositionHandlerFn,
 } from "@/lib/goto_utils";
 
@@ -59,7 +59,8 @@ export default function PolarAlignDwarf() {
 
   function polarAlignFn() {
     setModule(t("cPolarAlignProcess"));
-    polarAlignHandlerFn(connectionCtx, setErrors, setSuccess);
+    let polarAlign = true;
+    dwarfResetMotorHandlerFn(polarAlign, connectionCtx, setErrors, setSuccess);
   }
 
   function polarAlignMode90Fn() {

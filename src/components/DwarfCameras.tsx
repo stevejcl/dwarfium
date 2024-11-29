@@ -869,7 +869,10 @@ export default function DwarfCameras(props: PropType) {
     setTelephotoCameraStatus("off");
 
     connectionCtx.setIsFullScreenCameraTele((prev) => !prev);
-    console.debug("exchange IsFullScreen:", connectionCtx.isFullScreenCameraTele);
+    console.debug(
+      "exchange IsFullScreen:",
+      connectionCtx.isFullScreenCameraTele
+    );
 
     let currentMainMediaScreenStreamType = mainMediaScreenStreamType;
     setMainMediaScreenStreamType(smallMediaScreenStreamType);

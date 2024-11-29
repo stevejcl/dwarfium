@@ -6,8 +6,8 @@ import { deleteLogMessagesDb, saveLoggerStatusDb } from "@/db/db_utils";
 import DebugMessageItem from "./LogMessageItem";
 
 export default function DebugMessages() {
-  useLoadIntialValues();
   let connectionCtx = useContext(ConnectionContext);
+  useLoadIntialValues();
   let [messages, setMessages] = useState(connectionCtx.logger);
 
   // React context cannot update state between different browser tabs.

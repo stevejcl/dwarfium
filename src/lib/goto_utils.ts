@@ -1034,10 +1034,12 @@ export async function polarAlignHandlerFn(
   };
   // Send Command : messageStepMotorReset
   let WS_Packet = new Array();
-  WS_Packet[0] = messageStepMotorMotionTo(1, 160, 10, 100, 3);
   if (connectionCtx.typeNameDwarf == "Dwarf II")
-    WS_Packet[1] = messageStepMotorMotionTo(2, 146.5, 10, 100, 3);
-  else WS_Packet[1] = messageStepMotorMotionTo(2, 166.5, 10, 100, 3);
+    WS_Packet[0] = messageStepMotorMotionTo(1, 158.6, 10, 100, 3);
+  else WS_Packet[0] = messageStepMotorMotionTo(2, 158, 10, 100, 3);
+  if (connectionCtx.typeNameDwarf == "Dwarf II")
+    WS_Packet[1] = messageStepMotorMotionTo(2, 150.5, 10, 100, 3);
+  else WS_Packet[1] = messageStepMotorMotionTo(2, 169, 10, 100, 3);
   let txtInfoCommand = "Polar align Goto";
 
   if (!webSocketHandler.run()) {
@@ -1107,8 +1109,14 @@ export async function polarAlignPositionHandlerFn(
     : new WebSocketHandler(connectionCtx.IPDwarf);
 
   let WS_Packet;
-  if (mode == 1) WS_Packet = messageStepMotorMotionTo(1, 69, 10, 100, 3);
-  else if (mode == 0) WS_Packet = messageStepMotorMotionTo(1, 160, 10, 100, 3);
+  if (mode == 1)
+    if (connectionCtx.typeNameDwarf == "Dwarf II")
+      WS_Packet = messageStepMotorMotionTo(1, 67.6, 10, 100, 3);
+    else WS_Packet = messageStepMotorMotionTo(1, 67.6 + 0.5, 10, 100, 3);
+  else if (mode == 0)
+    if (connectionCtx.typeNameDwarf == "Dwarf II")
+      WS_Packet = messageStepMotorMotionTo(1, 158.6, 10, 100, 3);
+    else WS_Packet = messageStepMotorMotionTo(1, 158, 10, 100, 3);
   else if (mode == 2) WS_Packet = messageStepMotorMotionTo(2, 317, 10, 100, 2);
 
   let txtInfoCommand = "Polar align Position";

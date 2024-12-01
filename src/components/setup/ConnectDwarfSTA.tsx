@@ -36,6 +36,8 @@ export default function ConnectDwarfSTA() {
   let deviceDwarfName;
   let characteristicDwarf;
   let BluetoothPWD;
+  let Wifi_SSID;
+  let Wifi_PWD;
 
   async function checkConnection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,6 +46,12 @@ export default function ConnectDwarfSTA() {
     const formData = new FormData(e.currentTarget);
     const formBluetoothPWD = formData.get("pwd");
     BluetoothPWD = formBluetoothPWD?.toString();
+    console.debug("Get BluetoothPWD:", BluetoothPWD);
+    const formWifi_SSID = formData.get("ssid");
+    Wifi_SSID = formWifi_SSID?.toString();
+    console.debug("Get Wifi_SSID:", Wifi_SSID);
+    const formWifi_PWD = formData.get("wifipwd");
+    Wifi_PWD = formWifi_PWD?.toString();
     console.debug("Get BluetoothPWD:", BluetoothPWD);
     console.debug("saved DB BluetoothSTA_SSID:", connectionCtx.BleSTASSIDDwarf);
     console.debug("saved DB BluetoothSTA_PWD:", connectionCtx.BleSTAPWDDwarf);
@@ -187,16 +195,16 @@ export default function ConnectDwarfSTA() {
           actionDisconnect();
         } else if (
           result_data.state == 0 &&
-          connectionCtx.BleSTASSIDDwarf &&
-          connectionCtx.BleSTAPWDDwarf
+          Wifi_SSID &&
+          Wifi_PWD
         ) {
           setErrorTxt("Load WiFi configuration...");
           IsFirstStepOK = true;
           let bufferSetWifiSta = messageWifiSTA(
             1,
             BluetoothPWD,
-            connectionCtx.BleSTASSIDDwarf,
-            connectionCtx.BleSTAPWDDwarf
+            Wifi_SSID,
+            Wifi_PWD
           );
           await characteristicDwarf.writeValue(bufferSetWifiSta);
         } else if (result_data.state != 2) {
@@ -216,16 +224,16 @@ export default function ConnectDwarfSTA() {
         } else if (
           (result_data.ip == "192.168.88.1" ||
             result_data.ssid.startsWith("DWARF3_")) &&
-          connectionCtx.BleSTASSIDDwarf &&
-          connectionCtx.BleSTAPWDDwarf
+          Wifi_SSID &&
+          Wifi_PWD
         ) {
           setErrorTxt("Load WiFi configuration...");
           IsFirstStepOK = true;
           let bufferSetWifiSta = messageWifiSTA(
             0,
             BluetoothPWD,
-            connectionCtx.BleSTASSIDDwarf,
-            connectionCtx.BleSTAPWDDwarf
+            Wifi_SSID,
+            Wifi_PWD
           );
           await characteristicDwarf.writeValue(bufferSetWifiSta);
         } else if (
@@ -409,7 +417,7 @@ export default function ConnectDwarfSTA() {
         <form onSubmit={checkConnection} className="mb-3">
           <div className="row mb-3">
             <div className="row mb-3">
-              <div className="col-md-2">
+              <div className="col-md-2 text-end">
                 <label htmlFor="pwd" className="form-label">
                   {t("pBluetoothPWD")}
                 </label>
@@ -422,6 +430,37 @@ export default function ConnectDwarfSTA() {
                   placeholder="DWARF_12345678"
                   required
                   defaultValue={connectionCtx.BlePWDDwarf}
+                />
+              </div>
+              <div className="col-md-2 text-end">
+                <label htmlFor="pwd" className="form-label">
+                  {t("pSTA_SSID_Wifi")}
+                </label>
+              </div>
+              <div className="col-lg-2 col-md-10">
+                <input
+                  className="form-control"
+                  id="ssid"
+                  name="ssid"
+                  placeholder=""
+                  required
+                  defaultValue={connectionCtx.BleSTASSIDDwarf}
+                />
+              </div>
+              <div className="col-md-2 text-end">
+                <label htmlFor="pwd" className="form-label">
+                  {t("pSTA_PWD_Wifi")}
+                </label>
+              </div>
+              <div className="col-lg-2 col-md-10">
+                <input
+                  className="form-control"
+                  id="wifipwd"
+                  name="wifipwd"
+                  type="password"
+                  placeholder=""
+                  required
+                  defaultValue={connectionCtx.BleSTAPWDDwarf}
                 />
               </div>
             </div>

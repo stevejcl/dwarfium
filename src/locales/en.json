@@ -53,6 +53,8 @@
   "pEnableSTAContent2": "Then, for the next starts of the Dwarf, you can connect directly to it via Bluetooth, without using the mobile application.",
   "pEnableSTAContent3": "Click Connect. This site will try to connect via Bluetooth to {{DwarfType}}.",
   "pBluetoothPWD": "Bluetooth PASSWORD",
+  "pSTA_SSID_Wifi": "Home Wifi SSID",
+  "pSTA_PWD_Wifi": "Wifi PASSWORD",
   "pDisconnect": "Disconnect",
   "pConnect": "Connect",
   "pConnectDwarfII": "Connect to {{DwarfType}}",

@@ -1,5 +1,3 @@
-const isTauri = process.env.NEXT_PUBLIC_IS_TAURI === "true";
-
 export async function proxyRequest(
   target: string,
   {
@@ -14,32 +12,30 @@ export async function proxyRequest(
     redirect?: "follow" | "manual" | "error" | undefined;
   }
 ): Promise<any> {
-  if (isTauri) {
-    // Use Tauri's Rust backend
-    //try {
-    //  const response = await invoke("proxy_request", {
-    //    target,
-    //    method,
-    //    headers,
-    //    body,
-    //  });
-    //  return response;
-    //} catch (error) {
-    //  console.error("Tauri Proxy error:", error);
-    //  throw error;
-    //}
-  } else {
+  {
     // Use Next.js API proxy
     try {
-      const proxyUrl = `${
-        process.env.NEXT_PUBLIC_URL_PROXY_CORS
-      }?target=${encodeURIComponent(target)}`;
-      console.log("Proxy URL:", proxyUrl);
+      let proxyUrl;
+      if (process.env.NEXT_PUBLIC_URL_PROXY_CORS) {
+        if (process.env.NEXT_PUBLIC_URL_PROXY_CORS.startsWith("/")) {
+          proxyUrl = `${
+            process.env.NEXT_PUBLIC_URL_PROXY_CORS
+          }?target=${encodeURIComponent(target)}`;
+          console.log("Proxy URL:", proxyUrl);
+        } else {
+          proxyUrl = `${
+            process.env.NEXT_PUBLIC_URL_PROXY_CORS
+          }?target=${encodeURIComponent(target)}`;
+          console.log("Proxy URL:", proxyUrl);
+        }
+      } else { // direct access
+        proxyUrl = `${target}`;
+        console.log("Proxy URL:", proxyUrl);
+      }
       const response = await fetch(proxyUrl, {
         method,
         headers,
         body: body && typeof body === "object" ? JSON.stringify(body) : body,
-        credentials: "include", // Use credentials if required
         redirect,
       });
 

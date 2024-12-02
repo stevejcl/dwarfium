@@ -205,3 +205,4 @@ src-tauri/target/
 /.vs
 .vscode/
 package-lock.json
+certificates

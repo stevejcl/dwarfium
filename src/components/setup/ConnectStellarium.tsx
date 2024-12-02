@@ -29,7 +29,7 @@ export default function ConnectStellarium(props: PropType) {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const formIP = formData.get("ip");
+    const formIP = formData.get("stellarium_ip");
     const formPort = formData.get("port");
 
     if (formIP && formPort) {
@@ -119,15 +119,15 @@ export default function ConnectStellarium(props: PropType) {
       <form onSubmit={checkConnection}>
         <div className="row mb-3">
           <div className="col-md-1">
-            <label htmlFor="ip" className="form-label">
+            <label htmlFor="stellarium_ip" className="form-label">
               {t("pIPAdress")}
             </label>
           </div>
           <div className="col-lg-2 col-md-10">
             <input
               className="form-control"
-              id="ip"
-              name="ip"
+              id="stellarium_ip"
+              name="stellarium_ip"
               placeholder="127.00.00.00"
               required
               defaultValue={connectionCtx.IPStellarium}

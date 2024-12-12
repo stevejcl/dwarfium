@@ -11,6 +11,7 @@ COPY dist ./dist
 COPY public ./public
 COPY install/linux ./install/linux
 COPY install/config ./install/config
+COPY scripts/start.sh ./
 
 # Step 4: Install production dependencies
 RUN npm install --omit=dev
@@ -23,7 +24,6 @@ EXPOSE 3000
 EXPOSE 8888
 
 # Step 7: Start both processes using a script
-COPY scripts/start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
 # Use the script to start MediaMTX and the Next.js app

@@ -8,4 +8,5 @@ chmod +x ./mediamtx
 
 # Start the Next.js app
 cd /app
+
 npm run start:api

@@ -68,7 +68,12 @@ npm run dev
 4. Create a production-ready build.
 
 ```bash
-npm run build
+npm run build:api
+```
+   Start it with :
+
+```bash
+npm run start:api
 ```
 
 5. Build the desktop app for your operating system.
@@ -87,16 +92,27 @@ If you just want to get the site up and running on your machine, follow these st
 
 2. For the web browser version:
 
-   2.1. Unzip the file. A `DwarfStellariumGoto` directory will be created. The website is a static HTML site (HTML, JavaScript, and CSS), so it should work on any OS that can run a browser and a web server.
+   2.1. There are two versions, one for Windows (Dwarfium-Win) and one for Linux
 
-   2.2. Start a server inside the `DwarfStellariumGoto` directory. I recommend using Python's web server, but any web server will work.
+   2.2. Unzip the file. A `Dwarfium` directory will be created. The website is a static HTML site (HTML, JavaScript, and CSS), so it should work on any OS that can run a browser and a web server.
+
+   2.3. There is a script inside the `Dwarfium` directory that launch a Python's web server and necessary tools.
+
+   On Linux
 
    ```bash
-   cd DwarfStellariumGoto
-   python -m http.server
+   cd Dwarfium
+   ./launch-tools
    ```
 
-   2.3. Visit the site in a browser. If you're using Python's server, visit [localhost:8000](http://localhost:8000/).
+   On Windows
+
+   ```cmd
+   cd Dwarfium
+   ./launch-tools.bat
+   ```
+
+   2.4. Visit the site in a browser. If you're using the script, visit [localhost:8000](http://localhost:8000/).
 
 ## Technical Details
 

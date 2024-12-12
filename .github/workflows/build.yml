@@ -34,8 +34,8 @@ jobs:
 
       - name: Get version number from package.json
         id: get_version
-        run: echo "::set-output name=version::$(node -e 'console.log(require("./package.json").version)')"
-        
+        run: |
+             echo "VERSION=$(node -e 'console.log(require(\"./package.json\").version)')" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
@@ -48,17 +48,27 @@ jobs:
              npm list @tauri-apps/cli
 
       - name: Build
-        if: matrix.platform == 'ubuntu-20.04'
+        if: matrix.platform == 'ubuntu-20.04' || matrix.platform == 'windows-latest'
         run: |
             npm run build
             npm run prepare:dist
-            zip -r Dwarfium.zip Dwarfium       
+            if [ "${{ matrix.platform }}" == "windows-latest" ]; then
+                powershell Compress-Archive -Path Dwarfium -DestinationPath Dwarfium.zip
+            else
+                zip -r Dwarfium.zip Dwarfium
+            fi
 
       - name: Create artifact Dwarfium
         if: matrix.platform == 'ubuntu-20.04'
         uses: actions/upload-artifact@v4
         with:
-          name: Dwarfium-${{ steps.get_version.outputs.VERSION }}
+          name: Dwarfium-${{ env.VERSION }}
+          path: Dwarfium.zip
+
+        if: matrix.platform == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Dwarfium-Win-${{ env.VERSION }}
           path: Dwarfium.zip
 
       - name: install frontend dependencies
@@ -72,8 +82,8 @@ jobs:
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
           CI: false
         with:
-          tagName: app-v${{ steps.get_version.outputs.VERSION }} 
-          releaseName: 'v${{ steps.get_version.outputs.VERSION }}-DesktopAPP'
+          tagName: app-v${{ env.VERSION }} 
+          releaseName: 'v${{ env.VERSION }}-DesktopAPP'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: false
           prerelease: false
@@ -89,7 +99,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
           skipIfReleaseExists: true
-          tag: v${{ steps.get_version.outputs.VERSION }}
+          tag: v${{ env.VERSION }}
 
   update-gist:
     runs-on: ubuntu-latest

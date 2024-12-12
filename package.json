@@ -11,22 +11,29 @@
     ]
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0",
+    "dev:tauri": "next dev",
     "build": "next build",
-    "build:api": "NEXT_PUBLIC_URL_PROXY_CORS=/api/proxy next build",
-    "start:api": "NEXT_PUBLIC_URL_PROXY_CORS=/api/proxy next start",
+    "build:api": "cross-env NEXT_PUBLIC_URL_PROXY_CORS=/api/proxy next build",
+    "start:api": "cross-env NEXT_PUBLIC_URL_PROXY_CORS=/api/proxy next start",
+    "start:windows": "concurrently \"cd ./install/windows && mediamtx.exe ..\\config\\mediamtx.yml\" \"npm run start:api\"",
+    "start:linux": "concurrently \"cd ./install/linux && ./mediamtx ../config/mediamtx.yml\" \"npm run start:api\"",
+    "start:macos": "concurrently \"cd ./install/macos && ./mediamtx ../config/mediamtx.yml\" \"npm run start:api\"",
+    "build:server": "npx tsx ./server/build-server.ts",
+    "package:server": "node ./scripts/package-server.js",
+    "copy:tools": "node ./scripts/copy-tools.js",
+    "postbuild": "npm run build:server && npm run package:server && npm run copy:tools",
+    "tauri": "tauri",
+    "zipsite": "npm run build && npm run prepare:dist && tar -czvf Dwarfium.tar.gz Dwarfium && rm -rf Dwarfium",
+    "zipsite:wsl": "cross-env NEXT_PUBLIC_URL_PROXY_CORS=http://$(hostname -I):8001,NEXT_PUBLIC_IP_MEDIAMTX=$(hostname -I) npm run build && npm run prepare:dist && tar -czvf Dwarfium.tar.gz Dwarfium && rm -rf Dwarfium",
+    "prepare:dist": "node scripts/prepareDist.js",
     "lint": "next lint",
     "format": "prettier --check \"src/**/*.{ts,tsx,js,jsx}\"",
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",
     "typecheck": "tsc --noEmit",
     "CI": "npm run lint && npm run format && npm run typecheck && npm run test",
     "test": "jest",
-    "test:watch": "jest . --watch",
-    "build:server": "npx tsx ./server/build-server.ts",
-    "package:server-win": "npm run build:server && pkg server/server.js --targets node*-win-x64 -o ./install/windows/DwarfiumProxy.exe",
-    "package:server-linux": "npm run build:server && pkg server/server.js --targets node*-linux-x64 -o ./install/linux/DwarfiumProxy",
-    "tauri": "tauri",
-    "zipsite": "npm run build && cp -r dist DwarfStellariumGoto && tar -czvf DwarfStellariumGoto.tar.gz DwarfStellariumGoto && rm -rf DwarfStellariumGoto"
+    "test:watch": "jest . --watch"
   },
   "dependencies": {
     "@amcharts/amcharts5": "^5.9.2",
@@ -66,8 +73,9 @@
     "joystick-controller": "1.0.15",
     "lunarphase-js": "^2.0.3",
     "modules": "^0.4.0",
-    "next": "^13.5.7",
+    "next": "^15.0.3",
     "next-redux-wrapper": "^8.1.0",
+    "node-fetch": "^3.3.2",
     "papaparse": "^5.4.1",
     "path": "^0.12.7",
     "pkg-config": "^1.1.1",
@@ -97,13 +105,14 @@
     "ws": "^8.16.0"
   },
   "devDependencies": {
-    "@tauri-apps/api": "^2.1.1",
-    "@tauri-apps/cli": "^1.5.11",
+    "@tauri-apps/api": "^1.6.0",
+    "@tauri-apps/cli": "^1.6.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/papaparse": "^5.3.7",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
+    "cross-env": "^7.0.3",
     "eslint": "^8.40.0",
     "eslint-plugin-testing-library": "^5.11.0",
     "jest": "^29.5.0",
@@ -114,5 +123,9 @@
   "main": "next.config.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "overrides": {
+    "glob": "10.4.2",
+    "rimraf": "5.0.7"
+  }
 }

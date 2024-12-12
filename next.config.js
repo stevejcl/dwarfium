@@ -10,7 +10,7 @@ const nextConfig = {
   trailingSlash: true,
 };
 
-if (process.env.NEXT_PUBLIC_URL_PROXY_CORS.startsWith("http")) {
+if (process.env.NEXT_PUBLIC_URL_PROXY_CORS && process.env.NEXT_PUBLIC_URL_PROXY_CORS.startsWith("http")) {
   nextConfig.output = 'export';
 }
 module.exports = nextConfig;

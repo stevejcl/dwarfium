@@ -35,6 +35,10 @@ export default async function handler(
       return res.status(400).json({ error: "Target URL is required" });
     }
 
+    // Extract the last target from the query string if it's recursive
+    const lastTarget = new URL(target).searchParams.get("target") || target;
+    console.debug("target: ", lastTarget);
+
     // Prepare headers, removing problematic ones
     const filteredHeaders = Object.fromEntries(
       Object.entries(req.headers).filter(
@@ -73,7 +77,7 @@ export default async function handler(
 
     // Prepare the fetchOptions
     const fetchOptions: FetchOptions = {
-      signal: AbortSignal.timeout(2000),
+      signal: AbortSignal.timeout(30000),
       method: req.method ?? "GET", // Fallback to "GET" if req.method is undefined
       headers: sanitizedHeaders,
     };
@@ -87,7 +91,7 @@ export default async function handler(
     }
 
     // Make the fetch request with timeout signal
-    const response = await fetch(target, fetchOptions);
+    const response = await fetch(lastTarget, fetchOptions);
     //console.debug("response:", response);
 
     // Handle the response and return it to the client

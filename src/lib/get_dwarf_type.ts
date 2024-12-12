@@ -245,8 +245,8 @@ export async function checkMediaMtxStreamWithUpdate(
 }
 
 async function verifyMediaMtxStreamUrls(inputIP: string | undefined) {
-  const url1 = `http://localhost:9997/v3/config/paths/get/dwarf_wide`;
-  const url2 = `http://localhost:9997/v3/config/paths/get/dwarf_tele`;
+  const url1 = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:9997/v3/config/paths/get/dwarf_wide`;
+  const url2 = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:9997/v3/config/paths/get/dwarf_tele`;
 
   try {
     const proxyUrl1 = `${
@@ -321,7 +321,7 @@ const editMediaMtxStreamD3 = async (
   IPDwarf: string | undefined,
   name: string | undefined
 ) => {
-  const url = `http://localhost:9997/v3/config/paths/replace/${name}`;
+  const url = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:9997/v3/config/paths/replace/${name}`;
   let data;
   if (name == "dwarf_wide") {
     data = {

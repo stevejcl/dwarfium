@@ -111,7 +111,7 @@ export default function EQSolvingDwarf() {
                   className="d-inline-flex align-items-center justify-content-center bg-light border rounded-circle p-2"
                   style={{ width: "25px", height: "25px" }}
                 >
-                  {displayedResults.azimuth_err < 0 ? (
+                  {displayedResults.azimuth_err > 0 ? (
                     <i className="bi bi-arrow-clockwise text-success"></i>
                   ) : (
                     <i className="bi bi-arrow-counterclockwise text-danger"></i>

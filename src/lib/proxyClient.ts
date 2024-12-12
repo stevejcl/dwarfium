@@ -28,7 +28,8 @@ export async function proxyRequest(
           }?target=${encodeURIComponent(target)}`;
           console.log("Proxy URL:", proxyUrl);
         }
-      } else { // direct access
+      } else {
+        // direct access
         proxyUrl = `${target}`;
         console.log("Proxy URL:", proxyUrl);
       }

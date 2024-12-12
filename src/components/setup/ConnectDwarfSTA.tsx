@@ -193,11 +193,7 @@ export default function ConnectDwarfSTA() {
           setConnecting(false);
           setConnectionStatus(false);
           actionDisconnect();
-        } else if (
-          result_data.state == 0 &&
-          Wifi_SSID &&
-          Wifi_PWD
-        ) {
+        } else if (result_data.state == 0 && Wifi_SSID && Wifi_PWD) {
           setErrorTxt("Load WiFi configuration...");
           IsFirstStepOK = true;
           let bufferSetWifiSta = messageWifiSTA(

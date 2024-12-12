@@ -980,13 +980,13 @@ export async function setWideAllParamsFn(
 
   // Send Commands
   let WS_Packet1 = messageCameraWideSetExpMode(exp_mode);
-  let WS_Packet2 = new Uint8Array([]);
+  let WS_Packet2;
   if (exp_mode == modeManual) WS_Packet2 = messageCameraWideSetExp(exp_index);
   let WS_Packet3 = messageCameraWideSetGain(gain_index);
   let WS_Packet4 = messageCameraWideSetWBMode(wb_mode);
-  let WS_Packet5 = new Uint8Array([]);
+  let WS_Packet5;
   if (wb_mode == modeManual)
-    WS_Packet5 = messageCameraWideSetWBColorTemp(wb_index);
+    WS_Packet5 = messageCameraWideSetWBColorTemp(wb_index) as Uint8Array;
   let WS_Packet6 = messageCameraWideSetBrightness(brightness);
   let WS_Packet7 = messageCameraWideSetContrast(contrast);
   let WS_Packet8 = messageCameraWideSetSaturation(saturation);
@@ -1104,11 +1104,11 @@ export async function setTeleAllParamsFn(
 
   // Send Commands
   let WS_Packet1 = messageCameraTeleSetWBMode(wb_mode);
-  let WS_Packet2 = new Uint8Array([]);
+  let WS_Packet2;
   if (wb_mode == modeManual && wb_index_mode == modeAuto)
-    WS_Packet2 = messageCameraTeleSetWBColorTemp(wb_index);
+    WS_Packet2 = messageCameraTeleSetWBColorTemp(wb_index) as Uint8Array;
   if (wb_mode == modeManual && wb_index_mode == modeManual)
-    WS_Packet2 = messageCameraTeleSetWBScene(wb_index);
+    WS_Packet2 = messageCameraTeleSetWBScene(wb_index) as Uint8Array;
   let WS_Packet3 = messageCameraTeleSetBrightness(brightness);
   let WS_Packet4 = messageCameraTeleSetContrast(contrast);
   let WS_Packet5 = messageCameraTeleSetSaturation(saturation);

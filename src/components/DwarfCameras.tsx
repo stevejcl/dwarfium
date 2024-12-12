@@ -52,8 +52,8 @@ export default function DwarfCameras(props: PropType) {
 
   //  const wideangleURL_D3 = "http://localhost:8083/static/wide_angle_stream.html";
   //  const telePhotoURL_D3 = "http://localhost:8083/static/tele_stream.html";
-  const wideangleURL_D3 = "http://127.0.0.1:8888/dwarf_wide";
-  const telePhotoURL_D3 = "http://127.0.0.1:8888/dwarf_tele/";
+  const wideangleURL_D3 = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:8888/dwarf_wide`;
+  const telePhotoURL_D3 = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:8888/dwarf_tele`;
   const defaultTeleCameraSrc: StaticImageData = imgTeleCameraSrc;
   const defaultWideCameraSrc: StaticImageData = imgWideCameraSrc;
   const [errorTxt, setErrorTxt] = useState("");

@@ -12,7 +12,19 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "all": true,
+      "shell": {
+        "sidecar": true,
+        "scope": [
+          { "name": "../dist/DwarfiumProxy", "sidecar": true },
+          { "name": "../dist/mediamtx", 
+            "sidecar": true,
+            "args": [
+              "_up_/dist/mediamtx.yml"
+            ]
+          }
+        ]
+      }
     },
     "bundle": {
       "active": true,
@@ -21,7 +33,10 @@
       "deb": {
         "depends": []
       },
-      "externalBin": [],
+      "externalBin": [
+         "../dist/DwarfiumProxy",
+         "../dist/mediamtx"
+      ],
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -38,7 +53,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": ["../dist/mediamtx.yml"],
       "shortDescription": "",
       "targets": "all",
       "windows": {

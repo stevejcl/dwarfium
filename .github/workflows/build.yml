@@ -42,6 +42,11 @@ jobs:
              npm install
              npm install -g pkg
 
+      - name: Verify @tauri-apps/api and cli version
+        run: |
+             npm list @tauri-apps/api
+             npm list @tauri-apps/cli
+
       - name: Build
         if: matrix.platform == 'ubuntu-20.04'
         run: |

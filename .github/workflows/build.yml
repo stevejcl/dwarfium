@@ -48,15 +48,18 @@ jobs:
              npm list @tauri-apps/cli
 
       - name: Build
-        if: matrix.platform == 'ubuntu-20.04' || matrix.platform == 'windows-latest'
+        if: matrix.platform == 'ubuntu-20.04'
         run: |
             npm run build
             npm run prepare:dist
-            if [ "${{ matrix.platform }}" == "windows-latest" ]; then
-                powershell Compress-Archive -Path Dwarfium -DestinationPath Dwarfium.zip
-            else
-                zip -r Dwarfium.zip Dwarfium
-            fi
+            zip -r Dwarfium.zip Dwarfium
+
+      - name: Build Windows
+        if: matrix.platform == 'windows-latest'
+        run: |
+            npm run build
+            npm run prepare:dist
+            powershell Compress-Archive -Path Dwarfium -DestinationPath Dwarfium.zip
 
       - name: Create artifact Dwarfium
         if: matrix.platform == 'ubuntu-20.04'

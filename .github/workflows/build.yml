@@ -40,21 +40,11 @@ jobs:
       - name: Install dependencies
         run: npm install
   
-      - name: Copy required files to dist
-        if: matrix.platform == 'windows-latest'
-        run: |
-          mkdir .\dist\
-          cp .\install\windows\Dwarfium.bat .\dist\
-          cp .\install\windows\mediamtx.exe .\dist\
-          cp .\install\windows\mediamtx.yml .\dist\
-          cp .\install\windows\Start_Dwarfium.exe .\dist\
-
       - name: Build
         if: matrix.platform == 'ubuntu-20.04'
         run: |
             npm run build
-            cp -r dist Dwarfium
-            echo "python3 -m http.server" > Dwarfium/start_server.bat
+            npm run prepare:dist
             zip -r Dwarfium.zip Dwarfium       
 
       - name: Create artifact Dwarfium

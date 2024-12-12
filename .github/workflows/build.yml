@@ -65,6 +65,7 @@ jobs:
           name: Dwarfium-${{ env.VERSION }}
           path: Dwarfium.zip
 
+      - name: Create artifact Dwarfium Win
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:

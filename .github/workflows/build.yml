@@ -113,22 +113,32 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const fs = require('fs');
-            const artifactPath = 'Dwarfium-Win.zip';
-            const releaseTag = `v${process.env.VERSION}`;
+            const releaseTag = `v${env.VERSION}`;
+            const artifactPath = './Dwarfium-Win.zip';
+      
+            // Get the release by tag
             const { data: release } = await github.rest.repos.getReleaseByTag({
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag: releaseTag
             });
-            const artifactContent = fs.readFileSync(artifactPath);
-            await github.repos.uploadReleaseAsset({
+            
+            // Upload release asset
+            const fs = require('fs');
+            const artifactContent = fs.readFileSync(artifactPath); // Ensure the file path is correct
+            const artifactStats = fs.statSync(artifactPath);
+
+            await github.rest.repos.uploadReleaseAsset({
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: release.id,
               name: 'Dwarfium-Win.zip',
-              data: artifactContent
-            });
+              data: artifactContent.toString('binary'), // Convert content to binary string
+              headers: {
+               'content-length': artifactStats.size,
+               'content-type': 'application/zip',
+             },
+           });
 
   update-gist:
     runs-on: ubuntu-latest

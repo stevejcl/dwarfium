@@ -1,0 +1,53 @@
+name: 'test-artifacts'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-artifacts:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+      - name: Get version number from package.json
+        id: get_version
+        run: |
+             echo "VERSION=2.5.0" >> $GITHUB_ENV
+        shell: bash
+
+      # Add Windows artifacts to the existing release
+      - name: Add Windows Artifacts
+        if: matrix.platform == 'windows-latest'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const releaseTag = `v${env.VERSION}`;
+            const artifactPath = './Dwarfium-Win.zip';
+      
+            // Get the release by tag
+            const { data: release } = await github.rest.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: releaseTag
+            });
+            
+            // Upload release asset
+            const fs = require('fs');
+            const artifactContent = fs.readFileSync(artifactPath); // Ensure the file path is correct
+            const artifactStats = fs.statSync(artifactPath);
+
+            await github.rest.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.id,
+              name: 'Dwarfium-Win.zip',
+              data: artifactContent.toString('binary'), // Convert content to binary string
+              headers: {
+               'content-length': artifactStats.size,
+               'content-type': 'application/zip',
+             },
+           });

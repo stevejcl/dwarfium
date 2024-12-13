@@ -23,12 +23,32 @@ export default function ConnectDwarf() {
   const [randomDwarfClientID, setRandomDwarfClientID] = useState("");
   const originalDwarfClientID = useRef(DwarfClientID_original);
 
-  const [ipAuto, setIpAuto] = useState(true); // Connection state
+  const [ipAuto, setIpAuto] = useState(false); // Connection state
   const [ipValue, setIpValue] = useState("");
   const [connecting, setConnecting] = useState(false);
   const [slavemode, setSlavemode] = useState(false);
   const [goLive, setGoLive] = useState(false);
   const [errorTxt, setErrorTxt] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState(""); // Debounced value
+
+  // Debouncing logic
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(ipValue); // Update debounced value after delay
+    }, 1500); 
+
+    return () => {
+      clearTimeout(handler); // Clear timeout on cleanup
+    };
+  }, [ipValue]);
+
+  // Trigger logic when the debounced value changes
+  useEffect(() => {
+    if (debouncedValue !== "") {
+      connectionCtx.setIPDwarf(debouncedValue);
+      saveIPDwarfDB(debouncedValue);
+    }
+  }, [debouncedValue]);
 
   useEffect(() => {
     console.log("originalDwarfClientID:" + originalDwarfClientID.current);
@@ -80,9 +100,8 @@ export default function ConnectDwarf() {
   function ipHandler(e: ChangeEvent<HTMLInputElement>) {
     let value = e.target.value.trim();
     if (value === "") return;
-
-    saveIPDwarfDB(value);
-    connectionCtx.setIPDwarf(value);
+    console.log("ipHandler");
+    setIpValue(value);
   }
 
   function renderConnectionStatus() {

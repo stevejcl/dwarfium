@@ -107,16 +107,28 @@ jobs:
           skipIfReleaseExists: true
           tag: v${{ env.VERSION }}
 
-      - name: Release Win with ncipollo/release-action
+      # Add Windows artifacts to the existing release
+      - name: Add Windows Artifacts
         if: matrix.platform == 'windows-latest'
-        id: release_windows
-        uses: ncipollo/release-action@v1
+        uses: actions/github-script@v6
         with:
-          artifacts: Dwarfium-Win.zip
-          token: ${{ secrets.GITHUB_TOKEN }}
-          generateReleaseNotes: true
-          skipIfReleaseExists: true
-          tag: v${{ env.VERSION }}
+          script: |
+            const fs = require('fs');
+            const artifactPath = 'Dwarfium-Win.zip';
+            const releaseTag = `v${process.env.VERSION}`;
+            const { data: release } = await github.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: releaseTag
+            });
+            const artifactContent = fs.readFileSync(artifactPath);
+            await github.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.id,
+              name: 'Dwarfium-Win.zip',
+              data: artifactContent
+            });
 
   update-gist:
     runs-on: ubuntu-latest

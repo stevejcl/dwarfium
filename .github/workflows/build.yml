@@ -79,6 +79,7 @@ jobs:
 
       # Download the artifact for subsequent use
       - name: Download artifact Dwarfium Windows
+        if: matrix.platform == 'windows-latest'
         uses: actions/download-artifact@v4
         with:
           name: Dwarfium-Win-${{ env.VERSION }}
@@ -121,6 +122,7 @@ jobs:
         with:
           script: |
             const releaseTag = `v${process.env.VERSION}`;
+            const path = require('path');
             const artifactPath = path.join('./artifacts', 'Dwarfium-Win.zip');
       
             // Get the release by tag

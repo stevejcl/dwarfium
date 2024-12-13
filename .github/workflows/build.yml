@@ -116,7 +116,7 @@ jobs:
             const fs = require('fs');
             const artifactPath = 'Dwarfium-Win.zip';
             const releaseTag = `v${process.env.VERSION}`;
-            const { data: release } = await github.repos.getReleaseByTag({
+            const { data: release } = await github.rest.repos.getReleaseByTag({
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag: releaseTag

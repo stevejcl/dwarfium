@@ -77,6 +77,14 @@ jobs:
           name: Dwarfium-Win-${{ env.VERSION }}
           path: Dwarfium-Win.zip
 
+      # Download artifact to use in GitHub Script
+      - name: Download Dwarfium Windows Artifact
+        if: matrix.platform == 'windows-latest'
+        uses: actions/download-artifact@v3
+        with:
+          name: Dwarfium-Win-${{ env.VERSION }}
+          path: .
+
       - name: install frontend dependencies
         run: npm install
 

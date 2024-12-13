@@ -134,19 +134,13 @@ jobs:
             
             // Upload release asset
             const fs = require('fs');
-            const artifactContent = fs.readFileSync(artifactPath); // Ensure the file path is correct
-            const artifactStats = fs.statSync(artifactPath);
 
             await github.rest.repos.uploadReleaseAsset({
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: release.id,
               name: 'Dwarfium-Win.zip',
-              data: artifactContent.toString('binary'), // Convert content to binary string
-              headers: {
-               'content-length': artifactStats.size,
-               'content-type': 'application/zip',
-             },
+              data:  await fs.readFileSync(artifactPath),
             });
 
   update-gist:

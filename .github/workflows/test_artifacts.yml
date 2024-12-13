@@ -26,7 +26,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const releaseTag = `v${env.VERSION}`;
+            const releaseTag = `v${process.env.VERSION}`;
             const artifactPath = './Dwarfium-Win.zip';
       
             // Get the release by tag

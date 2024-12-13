@@ -51,4 +51,4 @@ jobs:
                'content-length': artifactStats.size,
                'content-type': 'application/zip',
              },
-           });
+            });

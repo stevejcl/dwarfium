@@ -13,6 +13,7 @@ jobs:
         platform: [windows-latest]
 
     runs-on: ${{ matrix.platform }}
+    steps:
       - name: Get version number from package.json
         id: get_version
         run: |

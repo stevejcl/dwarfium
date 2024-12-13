@@ -109,7 +109,7 @@ jobs:
 
       - name: Release Win with ncipollo/release-action
         if: matrix.platform == 'windows-latest'
-        id: release
+        id: release_windows
         uses: ncipollo/release-action@v1
         with:
           artifacts: Dwarfium-Win.zip

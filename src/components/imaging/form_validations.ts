@@ -9,7 +9,6 @@ type Fields = {
   binning: FieldValues;
   fileFormat: FieldValues;
   count: FieldValues;
-  quality: FieldValues;
   AiEnhance: FieldValues;
 };
 
@@ -24,7 +23,6 @@ export function validateAstroSettings(values: Fields) {
     "binning",
     "fileFormat",
     "count",
-    "quality",
     "AiEnhance",
   ].forEach((item) => {
     if (

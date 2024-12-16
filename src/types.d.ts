@@ -18,6 +18,8 @@ export type ConnectionContextType = {
   setTypeIdDwarf: Dispatch<SetStateAction<number | undefined>>;
   typeNameDwarf: string | undefined;
   setTypeNameDwarf: Dispatch<SetStateAction<string>>;
+  typeUidDwarf: string | undefined;
+  setTypeUidDwarf: Dispatch<SetStateAction<string>>;
   BlePWDDwarf: string | undefined;
   setBlePWDDwarf: Dispatch<SetStateAction<string | undefined>>;
   BleSTASSIDDwarf: string | undefined;

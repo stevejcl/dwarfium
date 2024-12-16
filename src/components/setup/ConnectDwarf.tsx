@@ -35,7 +35,7 @@ export default function ConnectDwarf() {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(ipValue); // Update debounced value after delay
-    }, 1500); 
+    }, 1500);
 
     return () => {
       clearTimeout(handler); // Clear timeout on cleanup

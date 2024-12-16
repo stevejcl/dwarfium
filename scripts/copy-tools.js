@@ -9,11 +9,11 @@ const filesToCopy = {
   win32: [
     {
       source: "./install/windows/DwarfiumProxy.exe",
-      destination: `./dist/DwarfiumProxy-x86_64-pc-windows-msvc.exe`
+      destination: `./src-tauri/bin/DwarfiumProxy-x86_64-pc-windows-msvc.exe`
     },
     {
       source: "./install/windows/mediamtx.exe",
-      destination: `./dist/mediamtx-x86_64-pc-windows-msvc.exe`
+      destination: `./src-tauri/bin/mediamtx-x86_64-pc-windows-msvc.exe`
     }
   ],
   linux: [
@@ -21,33 +21,33 @@ const filesToCopy = {
       ? [
           {
             source: "./install/linux/DwarfiumProxy",
-            destination: `./dist/DwarfiumProxy-x86_64-unknown-linux-gnu`
+            destination: `./src-tauri/bin/DwarfiumProxy-x86_64-unknown-linux-gnu`
           },
           {
             source: "./install/linux/mediamtx",
-            destination: `./dist/mediamtx-x86_64-unknown-linux-gnu`
+            destination: `./src-tauri/bin/mediamtx-x86_64-unknown-linux-gnu`
           }
         ]
       : arch === "arm64"
       ? [
           {
             source: "./install/linux/DwarfiumProxy",
-            destination: `./dist/DwarfiumProxy-aarch64-unknown-linux-gnu`
+            destination: `./src-tauri/bin/DwarfiumProxy-aarch64-unknown-linux-gnu`
           },
           {
             source: "./install/linux/mediamtx",
-            destination: `./dist/mediamtx-aarch64-unknown-linux-gnu`
+            destination: `./src-tauri/bin/mediamtx-aarch64-unknown-linux-gnu`
           }
         ]
       : arch === "arm"
       ? [
           {
             source: "./install/linux/DwarfiumProxy",
-            destination: `./dist/DwarfiumProxy-armv7-unknown-linux-gnueabihf`
+            destination: `./src-tauri/bin/DwarfiumProxy-armv7-unknown-linux-gnueabihf`
           },
           {
             source: "./install/linux/mediamtx",
-            destination: `./dist/mediamtx-armv7-unknown-linux-gnueabihf`
+            destination: `./src-tauri/bin/mediamtx-armv7-unknown-linux-gnueabihf`
           }
         ]
       : [])
@@ -57,22 +57,22 @@ const filesToCopy = {
       ? [
           {
             source: "./install/macos/DwarfiumProxy",
-            destination: `./dist/DwarfiumProxy-x86_64-apple-darwin`
+            destination: `./src-tauri/bin/DwarfiumProxy-x86_64-apple-darwin`
           },
           {
             source: "./install/macos/mediamtx",
-            destination: `./dist/mediamtx-x86_64-apple-darwin`
+            destination: `./src-tauri/bin/mediamtx-x86_64-apple-darwin`
           }
         ]
       : arch === "arm64"
       ? [
           {
             source: "./install/macos/DwarfiumProxy",
-            destination: `./dist/DwarfiumProxy-aarch64-apple-darwin`
+            destination: `./src-tauri/bin/DwarfiumProxy-aarch64-apple-darwin`
           },
           {
             source: "./install/macos/mediamtx",
-            destination: `./dist/mediamtx-aarch64-apple-darwin`
+            destination: `./src-tauri/bin/mediamtx-aarch64-apple-darwin`
           }
         ]
       : [])
@@ -90,9 +90,19 @@ if (!files || files.length === 0) {
 async function copyFiles() {
   for (const { source, destination } of files) {
     try {
+      const destinationDir = "./src-tauri/bin";
+      // Ensure the destination directory exists
+      console.log(`Ensuring directory exists: ${destinationDir}`);
+      await fs.mkdir(destinationDir, { recursive: true });
+
       console.log(`Copying ${source} to ${destination}`);
       await fs.copyFile(source, destination);
       console.log(`Successfully copied ${source} to ${destination}`);
+
+      // Add executable rights
+      console.log(`Adding executable rights to ${destination}`);
+      await fs.chmod(destination, 0o755); // Set file permissions to rwxr-xr-x
+      console.log(`Executable rights added to ${destination}`);
     } catch (err) {
       console.error(`Failed to copy ${source} to ${destination}: ${err.message}`);
     }
@@ -113,8 +123,23 @@ async function copyConfigFile() {
   }
 }
 
+// Function to copy the config file
+async function copyConfigFileTauri() {
+  const source = "./install/config/mediamtx.yml";
+  const destination = `./src-tauri/mediamtx.yml`;
+
+  try {
+    // Copy the file
+    console.log(`Copying ${source} to ${destination}`);
+    await fs.copyFile(source, destination);
+    console.log(`Successfully copied ${source} to ${destination}`);
+  } catch (err) {
+    console.error(`Failed to copy ${source} to ${destination}: ${err.message}`);
+  }}
+
 // Start copying
 copyFiles();
 
 // Copy config file
 copyConfigFile();
+copyConfigFileTauri();

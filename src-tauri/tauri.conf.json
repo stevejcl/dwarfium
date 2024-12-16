@@ -16,14 +16,12 @@
       "shell": {
         "sidecar": true,
         "scope": [
-          { "name": "../dist/DwarfiumProxy", "sidecar": true },
-          { "name": "../dist/mediamtx", 
-            "sidecar": true,
-            "args": [
-              "_up_/dist/mediamtx.yml"
-            ]
-          }
+          { "name": "bin/DwarfiumProxy", "sidecar": true },
+          { "name": "bin/mediamtx", "sidecar": true }
         ]
+      },
+     "fs": {
+        "scope": ["$RESOURCE/mediamtx.yml"]
       }
     },
     "bundle": {
@@ -34,8 +32,8 @@
         "depends": []
       },
       "externalBin": [
-         "../dist/DwarfiumProxy",
-         "../dist/mediamtx"
+         "bin/DwarfiumProxy",
+         "bin/mediamtx"
       ],
       "icon": [
         "icons/32x32.png",
@@ -53,7 +51,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": ["../dist/mediamtx.yml"],
+      "resources": ["mediamtx.yml"],
       "shortDescription": "",
       "targets": "all",
       "windows": {

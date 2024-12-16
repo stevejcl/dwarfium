@@ -97,14 +97,15 @@ export async function connectionHandler(
           )
         ) {
           // need to update typeIdDwarf
-          await findDeviceInfo(IPDwarf).then((deviceId) => {
+          await findDeviceInfo(IPDwarf).then(([deviceId, deviceUid]) => {
             if (deviceId) {
               connectionCtx.setTypeIdDwarf(deviceId);
               connectionCtx.setTypeNameDwarf(getDeviceName(deviceId));
+              if (deviceUid) connectionCtx.setTypeUidDwarf(deviceUid);
               console.log(
                 `Result Dwarf Data: ID=${deviceId}, Name=${getDeviceName(
                   deviceId
-                )}`
+                )}, UID=${deviceUid}`
               );
 
               // Update it for the next frames to be sent

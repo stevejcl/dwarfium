@@ -38,11 +38,11 @@ body {
     flex-direction: row;
     margin-left: 16px;
     width: 180px;
-    margin: -31px 0px 1px 233px;
+    margin: -31px 0px 1px 430px;
 }
 
 .temperature-info {
-    margin-left:120px;
+    margin-left:0px;
 }
 
 .container-battery {
@@ -85,6 +85,18 @@ body {
     color: #ff533f;
     font-size: 1em;
     font-weight: bold;
+}
+
+.no_temp_uid {
+  margin-left: -220px;
+}
+
+.no_temp {
+  margin-left: -135px;
+}
+
+.no_uid {
+  margin-left: -80px;
 }
 
 .lightning-bolt {

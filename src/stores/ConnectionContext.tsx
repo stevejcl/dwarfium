@@ -37,6 +37,7 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [socketIPDwarf, setSocketIPDwarf] = useState<any | undefined>();
   const [typeIdDwarf, setTypeIdDwarf] = useState<number | undefined>();
   const [typeNameDwarf, setTypeNameDwarf] = useState<string>("Dwarf");
+  const [typeUidDwarf, setTypeUidDwarf] = useState<string>("");
   const [BlePWDDwarf, setBlePWDDwarf] = useState<string | undefined>();
   const [BleSTASSIDDwarf, setBleSTASSIDDwarf] = useState<string | undefined>();
   const [BleSTAPWDDwarf, setBleSTAPWDDwarf] = useState<string | undefined>();
@@ -150,6 +151,8 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setTypeIdDwarf,
     typeNameDwarf,
     setTypeNameDwarf,
+    typeUidDwarf,
+    setTypeUidDwarf,
     BlePWDDwarf,
     setBlePWDDwarf,
     BleSTASSIDDwarf,

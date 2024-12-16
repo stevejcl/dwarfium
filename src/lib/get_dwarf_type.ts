@@ -5,16 +5,15 @@ import { proxyRequest } from "@/lib/proxyClient";
 
 export async function findDeviceInfo(
   IPDwarf: string | undefined
-): Promise<number | undefined> {
-  let deviceId = await getDeviceInfo(IPDwarf);
-
-  //if (!deviceId) deviceId = await getDeviceInfo(IPDwarf);
+): Promise<[number | undefined, string | undefined]> {
+  let [deviceId = undefined, deviceUid = undefined] =
+    (await getDeviceInfo(IPDwarf)) || [];
 
   if (!deviceId) deviceId = await getConfigData(IPDwarf);
 
   if (!deviceId) deviceId = await getDwarfType(IPDwarf);
 
-  return deviceId;
+  return [deviceId, deviceUid];
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -47,9 +46,12 @@ const getDeviceInfo = async (IPDwarf: string | undefined) => {
 
         if (result && result.data) {
           const id = result.data.deviceId;
+          const uid = result.data.deviceName
+            .replace("DWARF3_", "")
+            .replace("DWARF_", "");
 
           if (id) {
-            return id;
+            return [id, uid];
           } else {
             console.error("getDeviceInfo : No data found in the response.");
             return undefined;

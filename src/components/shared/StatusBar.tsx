@@ -106,7 +106,11 @@ export default function StatusBar() {
         <div className="col-sm align-center">
           <div className="container-connection">
             <span className="con">
-              {connectionCtx.typeNameDwarf}: {connection}
+              {connectionCtx.typeNameDwarf}
+              {connectionCtx.typeUidDwarf
+                ? ` [${connectionCtx.typeUidDwarf}]`
+                : ""}
+              : {connection}
             </span>
             <span className="con">Stellarium: {connectionStellarium}</span>
             <div className="temperature-info">
@@ -120,7 +124,27 @@ export default function StatusBar() {
                 )}
             </div>
           </div>
-          <div className="container-battery">
+          <div
+            className={`container-battery 
+            ${
+              connectionCtx.statusTemperatureDwarf === undefined &&
+              connectionCtx.typeUidDwarf === ""
+                ? "no_temp_uid"
+                : ""
+            }
+            ${
+              connectionCtx.typeUidDwarf === "" &&
+              !(connectionCtx.statusTemperatureDwarf === undefined)
+                ? "no_uid"
+                : ""
+            }
+            ${
+              connectionCtx.statusTemperatureDwarf === undefined &&
+              !(connectionCtx.typeUidDwarf === "")
+                ? "no_temp"
+                : ""
+            }`}
+          >
             {connectionCtx.connectionStatus &&
               connectionCtx.BatteryLevelDwarf !== undefined && (
                 <BatteryMeter

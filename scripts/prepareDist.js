@@ -35,16 +35,16 @@ copyFilesRecursively(DIST_DIR, DEPLOY_DIR);
 const platform = process.platform; // 'win32', 'linux', 'darwin'
 const tools = {
   win32: [
-    { src: "./dist/DwarfiumProxy-x86_64-pc-windows-msvc.exe", dest: "DwarfiumProxy.exe" },
-    { src: "./dist/mediamtx-x86_64-pc-windows-msvc.exe", dest: "mediamtx.exe" }
+    { src: "./src-tauri/bin/DwarfiumProxy-x86_64-pc-windows-msvc.exe", dest: "DwarfiumProxy.exe" },
+    { src: "./src-tauri/bin/mediamtx-x86_64-pc-windows-msvc.exe", dest: "mediamtx.exe" }
   ],
   linux: [
-    { src: "./dist/DwarfiumProxy-x86_64-unknown-linux-gnu", dest: "DwarfiumProxy" },
-    { src: "./dist/mediamtx-x86_64-unknown-linux-gnu", dest: "mediamtx" }
+    { src: "./src-tauri/bin/DwarfiumProxy-x86_64-unknown-linux-gnu", dest: "DwarfiumProxy" },
+    { src: "./src-tauri/bin/mediamtx-x86_64-unknown-linux-gnu", dest: "mediamtx" }
   ],
   darwin: [
-    { src: "./dist/DwarfiumProxy-x86_64-apple-darwin", dest: "DwarfiumProxy" },
-    { src: "./dist/mediamtx-x86_64-apple-darwin", dest: "mediamtx" }
+    { src: "./src-tauri/bin/DwarfiumProxy-x86_64-apple-darwin", dest: "DwarfiumProxy" },
+    { src: "./src-tauri/bin/mediamtx-x86_64-apple-darwin", dest: "mediamtx" }
   ]
 }[platform] || [];
 

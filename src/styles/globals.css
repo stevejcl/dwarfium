@@ -38,16 +38,16 @@ body {
     flex-direction: row;
     margin-left: 16px;
     width: 180px;
-    margin: -31px 0px 1px 430px;
+    margin: -31px 0px 1px 435px;
 }
 
 .temperature-info {
-    margin-left:0px;
+    margin-left:2px;
 }
 
 .container-battery {
     display: flex;
-    margin-left: 0px;
+    margin-left: 25px;
     margin-top: -10px;
     height: auto;
 }
@@ -1381,8 +1381,11 @@ img {
     text-transform: capitalize;
     background: #00AE83;
 }
-.construct{
-    margin-left:10px;
+.construct {
+    display: inline-block; /* Ensures it stays on the same line */
+    margin-left: 8px; /* Add some space between the texts */
+    font-style: italic; /* Optional: style to differentiate the text */
+    color: #ff9900; /* Optional: highlight the "Onder Construction" text */
 }
 .font-size-options {
     display: flex;

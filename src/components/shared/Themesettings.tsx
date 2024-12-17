@@ -244,7 +244,7 @@ const Modal: React.FC = () => {
                   onClick={() => handleThemeChange("dark")}
                 >
                   {t("cThemeSettingsAstroTheme")}
-                <br /><div className="construct">({t("cThemeSettingsUnderconstruction")})</div>
+                <span className="construct">({t("cThemeSettingsUnderconstruction")})</span>
                 </button>
               </div>
             </div>

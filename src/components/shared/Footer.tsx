@@ -1,7 +1,7 @@
 ﻿import React, { useState } from "react";
 
 export default function Footer() {
-  const versionNumber = "2.5.0";
+  const versionNumber = "2.5.1";
   const [theme] = useState<"light" | "dark">("light");
 
   return (

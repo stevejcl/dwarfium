@@ -34,22 +34,38 @@ export default function App({ Component, pageProps }: AppProps) {
     const isTauri = "__TAURI__" in window;
 
     if (isTauri) {
-      const setSidecarName = async () => {
+      let proxyCommand, mediaMtxCommand;
+      const startSidecars = async () => {
         try {
           const { Command } = await import("@tauri-apps/api/shell"); // Dynamic import for `Command`
-          const command1 = Command.sidecar("bin/DwarfiumProxy");
-          await command1.execute();
-          const command2 = Command.sidecar("bin/mediamtx", [
-            "config/mediamtx.yml",
-          ]);
-          await command2.execute();
+          const { path } = await import("@tauri-apps/api");
+
+          // Build the full path to the configuration file
+
+          const configFile = await path.join(
+            await path.resourceDir(),
+            "mediamtx.yml"
+          );
+
+          // Start the first sidecar
+          proxyCommand = Command.sidecar("bin/DwarfiumProxy");
+          await proxyCommand.spawn(); // Spawn the first sidecar
+          console.log("DwarfiumProxy started successfully.");
+
+          // Start the second sidecar with the config file as an argument
+          mediaMtxCommand = Command.sidecar("bin/mediamtx", [configFile]);
+          await mediaMtxCommand.spawn(); // Spawn the second sidecar
+          console.log(
+            "mediamtx started successfully with config file:",
+            configFile
+          );
         } catch (error) {
-          console.error("Error:", error);
+          console.error("Failed to start sidecars:", error);
         }
       };
 
       // Call the async function
-      setSidecarName();
+      startSidecars();
     }
   }, []);
 

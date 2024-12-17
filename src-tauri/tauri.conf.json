@@ -17,7 +17,14 @@
         "sidecar": true,
         "scope": [
           { "name": "bin/DwarfiumProxy", "sidecar": true },
-          { "name": "bin/mediamtx", "sidecar": true }
+          { "name": "bin/mediamtx", 
+            "sidecar": true,
+            "args": [
+              {
+                "validator": "\\S+"
+              }
+            ]
+          }
         ]
       },
      "fs": {

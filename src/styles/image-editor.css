@@ -102,9 +102,7 @@ button {
     transition: background-color 0.3s;
 }
 
-    button:hover {
-        background-color: #777;
-    }
+   
 
 .upper-canvas {
     position: absolute !important;

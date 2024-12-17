@@ -175,7 +175,7 @@ const Clouds = () => {
   return (
     <>
       {isClient && (
-        <section className="daily-horp d-inline-block w-100">
+        <section className="d-inline-block w-100">
           <div className="container">
             <br />
             <br />

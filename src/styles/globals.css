@@ -47,7 +47,7 @@ body {
 
 .container-battery {
     display: flex;
-    margin-left: 25px;
+    margin-left: 20px;
     margin-top: -10px;
     height: auto;
 }
@@ -431,7 +431,20 @@ select {
     font-size: 20px;
     font-weight: bold;
 }
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+    .text-success-connect {
+        font-size: 18px; /* Slightly smaller font size for tablets and smaller devices */
+        margin-top: 8px; /* Reduce top margin */
+    }
+}
 
+@media (max-width: 480px) {
+    .text-success-connect {
+        font-size: 16px; /* Smaller font size for mobile devices */
+        margin-top: 5px; /* Reduce top margin further for tighter layouts */
+    }
+}
 .text-warning-connect {
     color: #C57721 !important;
     margin-top: 10px;
@@ -1539,6 +1552,6 @@ img {
     position: fixed;
     top: 0;
     right: 0;
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
 }

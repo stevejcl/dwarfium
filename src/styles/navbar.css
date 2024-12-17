@@ -32,7 +32,7 @@ img {
     color: #fff;
 }
 .navbar-toggler {
-    color: #000 !important;
+    /*color: #000 !important;*/
     font-size: 24px;
 }
 .navbar-toggler-icon {
@@ -44,6 +44,7 @@ img {
     background-position: center;
     background-size: 100%;
     background-color: white;
+    margin-left: -30%;
 }
 ul {
     padding: 0;
@@ -219,7 +220,7 @@ ul {
         display: block;
         color: #fff;
         text-decoration: none;
-        padding: 17px;
+        padding: 5px;
         font-size: 18px;
     }
 

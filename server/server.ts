@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////
+// use same value as NEXT_PUBLIC_PORT_PROXY_CORS in env.production file
+////////////////////////////////////////////////////////////////////////
+const NEXT_PUBLIC_PORT_PROXY_CORS = 8860
+
 import express from "express";
 const WebSocket = require("ws");
 const { WebSocketServer } = require("ws");
@@ -19,7 +24,6 @@ function isJSONString(body) {
 }
 
 const app = express();
-const PORT = process.env.NEXT_PUBLIC_PORT_PROXY_CORS || "8001";
 
 app.use(express.json());
 app.use(cors({ origin: "*", methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS" }));
@@ -172,7 +176,7 @@ app.all("*", async (req, res) => {
     }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Proxy server is running on http://localhost:${PORT}`);
+app.listen(NEXT_PUBLIC_PORT_PROXY_CORS, '0.0.0.0', () => {
+    console.log(`Proxy server is running on http://localhost:${NEXT_PUBLIC_PORT_PROXY_CORS}`);
 });
 

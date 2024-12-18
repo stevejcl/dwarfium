@@ -1,6 +1,6 @@
 {
   "name": "dwarfium",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "private": true,
   "pkg": {
     "scripts": [
@@ -23,9 +23,10 @@
     "package:server": "node ./scripts/package-server.js",
     "copy:tools": "node ./scripts/copy-tools.js",
     "postbuild": "npm run build:server && npm run package:server && npm run copy:tools",
-    "tauri": "tauri",
+    "tauri": "node scripts/set-version.js && tauri",
     "zipsite": "npm run build && npm run prepare:dist && tar -czvf Dwarfium.tar.gz Dwarfium && rm -rf Dwarfium",
-    "zipsite:wsl": "cross-env NEXT_PUBLIC_URL_PROXY_CORS=http://$(hostname -I):8001,NEXT_PUBLIC_IP_MEDIAMTX=$(hostname -I) npm run build && npm run prepare:dist && tar -czvf Dwarfium.tar.gz Dwarfium && rm -rf Dwarfium",
+    "zipsite:win": "npm run build && npm run prepare:dist && powershell -Command \"Compress-Archive -Path Dwarfium -DestinationPath Dwarfium.zip; Remove-Item -Recurse -Force Dwarfium\"",
+    "zipsite:wsl": "cross-env NEXT_PUBLIC_URL_PROXY_CORS=http://$(hostname -I):8860,NEXT_PUBLIC_IP_MEDIAMTX=$(hostname -I) npm run build && npm run prepare:dist && tar -czvf Dwarfium.tar.gz Dwarfium && rm -rf Dwarfium",
     "prepare:dist": "node scripts/prepareDist.js",
     "lint": "next lint",
     "format": "prettier --check \"src/**/*.{ts,tsx,js,jsx}\"",

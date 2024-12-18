@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Dwarfium",
-    "version": "2.5.1"
+    "version": "2.5.2"
   },
   "tauri": {
     "allowlist": {
@@ -16,8 +16,12 @@
       "shell": {
         "sidecar": true,
         "scope": [
-          { "name": "bin/DwarfiumProxy", "sidecar": true },
-          { "name": "bin/mediamtx", 
+          {
+            "name": "bin/DwarfiumProxy",
+            "sidecar": true
+          },
+          {
+            "name": "bin/mediamtx",
             "sidecar": true,
             "args": [
               {
@@ -27,8 +31,10 @@
           }
         ]
       },
-     "fs": {
-        "scope": ["$RESOURCE/mediamtx.yml"]
+      "fs": {
+        "scope": [
+          "$RESOURCE/mediamtx.yml"
+        ]
       }
     },
     "bundle": {
@@ -39,8 +45,8 @@
         "depends": []
       },
       "externalBin": [
-         "bin/DwarfiumProxy",
-         "bin/mediamtx"
+        "bin/DwarfiumProxy",
+        "bin/mediamtx"
       ],
       "icon": [
         "icons/32x32.png",
@@ -58,7 +64,9 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": ["mediamtx.yml"],
+      "resources": [
+        "mediamtx.yml"
+      ],
       "shortDescription": "",
       "targets": "all",
       "windows": {
@@ -67,10 +75,10 @@
         "timestampUrl": ""
       }
     },
-    "security": {  
+    "security": {
       "csp": null,
       "dangerousUseHttpScheme": true
-    },    
+    },
     "updater": {
       "active": true,
       "endpoints": [

@@ -217,41 +217,38 @@ const Modal: React.FC = () => {
                 <i className="fas fa-sync-alt"></i>
               </button>
             </div>
-            
-                      <h2 className="theme-header">{t("cThemeSettingsColorTheme")}</h2><br />
+
+            <h2 className="theme-header">{t("cThemeSettingsColorTheme")}</h2>
+            <br />
             <div className="theme-con">
               <div className="theme-options">
                 <button
-                  className={`btn-theme ${
-                    theme === "light" ? "active" : ""
-                  }`}
+                  className={`btn-theme ${theme === "light" ? "active" : ""}`}
                   onClick={() => handleThemeChange("light")}
                 >
                   {t("cThemeSettingsLightTheme")}
                 </button>
                 <button
-                  className={`btn-theme ${
-                    theme === "dark" ? "active" : ""
-                  }`}
+                  className={`btn-theme ${theme === "dark" ? "active" : ""}`}
                   onClick={() => handleThemeChange("dark")}
                 >
                   {t("cThemeSettingsDarkTheme")}
                 </button>
                 <button
-                  className={`btn-theme ${
-                    theme === "dark" ? "active" : ""
-                  }`}
+                  className={`btn-theme ${theme === "dark" ? "active" : ""}`}
                   onClick={() => handleThemeChange("dark")}
                 >
                   {t("cThemeSettingsAstroTheme")}
-                <span className="construct">({t("cThemeSettingsUnderconstruction")})</span>
+                  <span className="construct">
+                    ({t("cThemeSettingsUnderconstruction")})
+                  </span>
                 </button>
               </div>
             </div>
-            
 
-                      <div className="language-options">
-              <h2 className="theme-header">{t("cThemeSettingsLanguage")}</h2><br />
+            <div className="language-options">
+              <h2 className="theme-header">{t("cThemeSettingsLanguage")}</h2>
+              <br />
 
               <select
                 className="language-select"

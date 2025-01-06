@@ -1,0 +1,211 @@
+
+.containerMosaic {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    /* padding: 5px; */
+    box-sizing: border-box;
+    /* background-color: #00B380; */
+    margin-top: 110px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.containerMosaicSec {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    /* padding: 5px; */
+    box-sizing: border-box;
+    /* background-color: #00B380; */
+    margin-top: -20px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.form-group {
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+}
+.input-small,
+.input-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.input-small {
+    max-width: 80px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover {
+        background-color: #008000;
+    }
+
+    button img {
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+    }
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+    .icon-button img {
+        width: 20px;
+        height: 20px;
+    }
+
+.primary-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #19631b; /* Example button color */
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+    .primary-button:hover {
+        background-color: #008000; /* Darker shade on hover */
+    }
+
+
+
+/*.all_div {
+    visibility: hidden;
+}*/
+
+/* Additional customization for small details */
+label {
+    font-size: 14px;
+    color: #fff;
+    align-content: center;
+}
+
+.input-small {
+    width: 50px; /* Adjust the width of the input boxes */
+}
+
+input::placeholder {
+    font-size: 14px;
+    color: #aaa;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Vertically center the checkbox */
+    justify-content: center; /* Horizontally center the checkbox */
+    height: 100%; /* Ensure it fills the height of the parent */
+}
+
+input[type="checkbox"] {
+    transform: scale(2.0);
+    margin-top: 10px;
+}
+
+.catalogDiv {
+    margin-top: 0px;
+    padding: 8px;
+    /* font-size: 14px; */
+    border: 1px solid #0a0a0a96;
+    /* border-radius: 4px; */
+    background-color: #fff;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+#DivLoadPanels {
+    display: flex;
+    flex-wrap: nowrap; /* Keep all divs in a single row */
+    gap: 10px; /* Space between columns */
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column; /* Stack elements inside each column */
+    gap: 10px;
+}
+
+#aladin-div, #day-div, #year-div {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.aladin-imageCanvas, .aladin-catalogCanvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -9999 !important;
+    
+}
+.aladin-logo-small {
+    padding: 100% 0 0;
+    background: url(data:image/gif;base64,R0lGODlhIAAgAJEAAJIsLdEwJAdMmP///yH5BAkAAAMALAAAAAAgACAAAAjMAAcIHEiwoMGDCBMqXMiwocOHECMaFCCxYkKKAAoK2MiRo0UBAEKKFOkxYUaCIEMSHBlyo0OQCke6HHDyJEWBKgcG2MlzoEyFMAXyHNqTZsubNFGeHLDT4FCcLREGZUqwaFGRUk82FfqUaQCoSH0OCLqVqlCuX42u9Kl1a1qzXnGGVaozLdG6cpMWxOrVblm4AOYOTNn2L1efYZdu5Eu0cV6cE0fW7QqV4WK+CAMLPnhZMtvAEDmy/CkWMtCOHVFaXC2VtevXsGPLZhgQADs=);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    z-index: -9999 !important;
+}
+/* Responsiveness */
+
+@media (max-width: 768px) {
+    #DivLoadPanels {
+        flex-direction: column; /* Stack elements vertically in mobile view */
+    }
+
+    .row {
+        flex-direction: column; /* Ensure all rows stack vertically */
+    }
+
+    .col {
+        flex-direction: column; /* Ensure all columns stack vertically */
+    }
+}
+    @media (max-width: 600px) {
+        .container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-group {
+            max-width: 100%;
+        }
+    }

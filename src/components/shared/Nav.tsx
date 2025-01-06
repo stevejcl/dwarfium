@@ -99,6 +99,13 @@ export default function Nav() {
                   >
                     {t("cNavSessionData")}
                   </Link>
+                  <Link
+                    className="nav-link active drop"
+                    aria-current="page"
+                    href="/mosaicplanner"
+                  >
+                    Mosaic Planner
+                  </Link>
                 </div>
               </div>
 

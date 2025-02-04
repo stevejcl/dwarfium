@@ -1,8 +1,10 @@
 export function getProxyUrl() {
-  // don't change if using /api/proxy
+  // don't change if using /api/proxy or Tauri
+  const isTauri = typeof window !== "undefined" && "__TAURI__" in window;
   if (
-    process.env.NEXT_PUBLIC_URL_PROXY_CORS &&
-    process.env.NEXT_PUBLIC_URL_PROXY_CORS.includes("api")
+    isTauri ||
+    (process.env.NEXT_PUBLIC_URL_PROXY_CORS &&
+      process.env.NEXT_PUBLIC_URL_PROXY_CORS.includes("api"))
   )
     return process.env.NEXT_PUBLIC_URL_PROXY_CORS;
   else if (typeof window !== "undefined") {
@@ -18,7 +20,10 @@ export function getProxyUrl() {
 }
 
 export function getMediaMTXUrl() {
-  if (typeof window !== "undefined") {
+  const isTauri = typeof window !== "undefined" && "__TAURI__" in window;
+  if (isTauri) {
+    return process.env.NEXT_PUBLIC_IP_MEDIAMTX;
+  } else if (typeof window !== "undefined") {
     return (
       `${window.location.hostname}` ||
       process.env.NEXT_PUBLIC_IP_MEDIAMTX ||
@@ -26,4 +31,11 @@ export function getMediaMTXUrl() {
     );
   }
   return process.env.NEXT_PUBLIC_IP_MEDIAMTX || "localhost"; // Default for server-side
+}
+
+export function getIpServerMTX() {
+  if (typeof window !== "undefined" && "__TAURI__" in window) {
+    return process.env.NEXT_PUBLIC_IP_MEDIAMTX;
+  }
+  return "0.0.0.0";
 }

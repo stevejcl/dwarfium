@@ -1,9 +1,8 @@
 import { getDefaultParamsConfig, deviceInfo } from "dwarfii_api";
 import { proxyRequest } from "@/lib/proxyClient";
-import { getProxyUrl } from "@/lib/get_proxy_url";
+import { getProxyUrl, getIpServerMTX } from "@/lib/get_proxy_url";
 // several function to get Dwarf DeviceId
 /////////////////////////////////////////
-
 export async function findDeviceInfo(
   IPDwarf: string | undefined
 ): Promise<[number | undefined, string | undefined]> {
@@ -244,9 +243,8 @@ export async function checkMediaMtxStreamWithUpdate(
 }
 
 async function verifyMediaMtxStreamUrls(inputIP: string | undefined) {
-  const ipServerMTX = "0.0.0.0";
-  const url1 = `http://${ipServerMTX}:9997/v3/config/paths/get/dwarf_wide`;
-  const url2 = `http://${ipServerMTX}:9997/v3/config/paths/get/dwarf_tele`;
+  const url1 = `http://${getIpServerMTX()}:9997/v3/config/paths/get/dwarf_wide`;
+  const url2 = `http://${getIpServerMTX()}:9997/v3/config/paths/get/dwarf_tele`;
 
   try {
     const proxyUrl1 = `${getProxyUrl()}?target=${encodeURIComponent(url1)}`;
@@ -317,8 +315,7 @@ const editMediaMtxStreamD3 = async (
   IPDwarf: string | undefined,
   name: string | undefined
 ) => {
-  const ipServerMTX = "0.0.0.0";
-  const url = `http://${ipServerMTX}:9997/v3/config/paths/replace/${name}`;
+  const url = `http://${getIpServerMTX()}:9997/v3/config/paths/replace/${name}`;
   let data;
   if (name == "dwarf_wide") {
     data = {

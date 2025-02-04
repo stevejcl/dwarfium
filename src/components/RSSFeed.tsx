@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Parser, { Item } from "rss-parser";
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { getProxyUrl } from "@/lib/get_proxy_url";
 
 const RSSFeed = () => {
   const [feedItems, setFeedItems] = useState<Item[]>([]);
@@ -18,9 +19,7 @@ const RSSFeed = () => {
     const fetchFeed = async () => {
       try {
         const response = await fetch(
-          `${
-            process.env.NEXT_PUBLIC_URL_PROXY_CORS
-          }?target=${encodeURIComponent(rssUrl)}`
+          `${getProxyUrl()}?target=${encodeURIComponent(rssUrl)}`
         );
 
         // Check if the response has data

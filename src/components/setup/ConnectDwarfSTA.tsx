@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 import { useEffect, useContext, useState } from "react";
 import type { FormEvent } from "react";
+import { getProxyUrl } from "@/lib/get_proxy_url";
 
 import {
   Dwarfii_Api,
@@ -28,6 +29,26 @@ export default function ConnectDwarfSTA() {
     undefined
   );
   const [errorTxt, setErrorTxt] = useState("");
+  const [BluetoothPWD, setBluetoothPWD] = useState<string>(
+    connectionCtx.BlePWDDwarf || "DWARF_12345678"
+  );
+  const [Wifi_SSID, setWifi_SSID] = useState<string>(
+    connectionCtx.BleSTASSIDDwarf || ""
+  );
+  const [Wifi_PWD, setWifi_PWD] = useState<string>(
+    connectionCtx.BleSTAPWDDwarf || ""
+  );
+  const [useDirectBluetooth, setUseDirectBluetooth] = useState(false);
+
+  const handleInputPWDChange = (event) => {
+    setBluetoothPWD(event.target.value);
+  };
+  const handleInputSSIDChange = (event) => {
+    setWifi_SSID(event.target.value);
+  };
+  const handleInputWifiPWDChange = (event) => {
+    setWifi_PWD(event.target.value);
+  };
 
   let IsFirstStepOK = false;
   let configValue;
@@ -35,24 +56,14 @@ export default function ConnectDwarfSTA() {
   let deviceDwarfID;
   let deviceDwarfName;
   let characteristicDwarf;
-  let BluetoothPWD;
-  let Wifi_SSID;
-  let Wifi_PWD;
 
   async function checkConnection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     IsFirstStepOK = false;
-    const formData = new FormData(e.currentTarget);
-    const formBluetoothPWD = formData.get("pwd");
-    BluetoothPWD = formBluetoothPWD?.toString();
     console.debug("Get BluetoothPWD:", BluetoothPWD);
-    const formWifi_SSID = formData.get("ssid");
-    Wifi_SSID = formWifi_SSID?.toString();
     console.debug("Get Wifi_SSID:", Wifi_SSID);
-    const formWifi_PWD = formData.get("wifipwd");
-    Wifi_PWD = formWifi_PWD?.toString();
-    console.debug("Get BluetoothPWD:", BluetoothPWD);
+    console.debug("Get Wifi_PWD:", Wifi_PWD);
     console.debug("saved DB BluetoothSTA_SSID:", connectionCtx.BleSTASSIDDwarf);
     console.debug("saved DB BluetoothSTA_PWD:", connectionCtx.BleSTAPWDDwarf);
     connectionCtx.setTypeIdDwarf(undefined);
@@ -383,12 +394,85 @@ export default function ConnectDwarfSTA() {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   useEffect(() => {
+    const isTauri = "__TAURI__" in window;
+
+    if (!isTauri) {
+      setUseDirectBluetooth(true);
+    }
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
       i18n.changeLanguage(storedLanguage);
     }
+    setBluetoothPWD(connectionCtx.BlePWDDwarf || "DWARF_12345678");
+    setWifi_SSID(connectionCtx.BleSTASSIDDwarf || "");
+    setWifi_PWD(connectionCtx.BleSTAPWDDwarf || "");
   }, []);
+
+  const runExecutable = async () => {
+    // Get the Bluetooth password from the input field
+    const pwd_data = encodeURIComponent(BluetoothPWD);
+    const ssid_data = encodeURIComponent(Wifi_SSID);
+    const wifipwd_data = encodeURIComponent(Wifi_PWD);
+
+    const requestAddr = `http://localhost:8000/run-exe?ble_psd=${pwd_data}&ble_STA_ssid=${ssid_data}&ble_STA_pwd=${wifipwd_data}`;
+    const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
+      requestAddr
+    )}`;
+    const response = await fetch(proxyUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json", // Use 'application/json' for JSON
+      },
+      signal: AbortSignal.timeout(120000),
+      redirect: "follow",
+    });
+
+    // Check if the response has data
+    if (response.ok) {
+      console.log(`runExecutable: status ${response.status}`);
+      if (response.ok && response.status === 200) {
+        console.log(`runExecutable: waitdata`);
+        const result = await response.json();
+        console.log(`runExecutable: getdata ${JSON.stringify(result)}`);
+
+        if (result.error) console.error(`runExecutable: ${result.error}`);
+
+        if (result && result.dwarfIp) {
+          console.log(`runExecutable: data ${result.dwarfId}`);
+          if (result.dwarfIp && result.dwarfIp != "None") {
+            if (result.dwarfId == "1") {
+              deviceDwarfID = result.dwarfId;
+              deviceDwarfName = "Dwarf II";
+            } else if (result.dwarfId == "2") {
+              deviceDwarfID = 2;
+              deviceDwarfName = "Dwarf3";
+            }
+            console.log("Connected with IP: ", result.dwarfIp);
+            setErrorTxt(" IP: " + result.dwarfIp);
+
+            if (connectionCtx.IPDwarf != result.dwarfIp) {
+              if (connectionCtx.socketIPDwarf) {
+                connectionCtx.socketIPDwarf.close();
+              }
+            }
+            connectionCtx.setIPDwarf(result.dwarfIp);
+            saveIPDwarfDB(result.dwarfIp);
+            connectionCtx.setBlePWDDwarf(BluetoothPWD);
+            saveBlePWDDwarfDB(BluetoothPWD);
+            connectionCtx.setBleSTASSIDDwarf(Wifi_SSID);
+            saveBleSTASSIDDwarfDB(Wifi_SSID);
+            connectionCtx.setBleSTAPWDDwarf(Wifi_PWD);
+            saveBleSTAPWDDwarfDB(Wifi_PWD);
+            connectionCtx.setTypeIdDwarf(deviceDwarfID);
+            connectionCtx.setTypeNameDwarf(deviceDwarfName);
+            setConnecting(false);
+            setConnectionStatus(true);
+          }
+        }
+      }
+    } else console.error(`runExecutable: ${JSON.stringify(response)}`);
+  };
 
   return (
     <div>
@@ -426,6 +510,8 @@ export default function ConnectDwarfSTA() {
                   placeholder="DWARF_12345678"
                   required
                   defaultValue={connectionCtx.BlePWDDwarf}
+                  value={BluetoothPWD}
+                  onChange={handleInputPWDChange}
                 />
               </div>
               <div className="col-md-2 text-end">
@@ -441,6 +527,8 @@ export default function ConnectDwarfSTA() {
                   placeholder=""
                   required
                   defaultValue={connectionCtx.BleSTASSIDDwarf}
+                  value={Wifi_SSID}
+                  onChange={handleInputSSIDChange}
                 />
               </div>
               <div className="col-md-2 text-end">
@@ -457,13 +545,27 @@ export default function ConnectDwarfSTA() {
                   placeholder=""
                   required
                   defaultValue={connectionCtx.BleSTAPWDDwarf}
+                  value={Wifi_PWD}
+                  onChange={handleInputWifiPWDChange}
                 />
               </div>
             </div>
           </div>
           <button type="submit" className="btn btn-more02 me-3">
-            <i className="icon-bluetooth" /> {t("pConnect")}
-          </button>{" "}
+            <i className="icon-bluetooth" /> {t("pConnectWeb")}
+          </button>
+          {useDirectBluetooth == true && (
+            <button
+              className="btn btn-more02 me-6"
+              onClick={(e) => {
+                runExecutable();
+                e.preventDefault(); // Prevents any unintended form submission
+              }}
+            >
+              <i className="icon-bluetooth" />
+              {t("pDirectBluetooth")}
+            </button>
+          )}{" "}
           {renderConnectionStatus()}
         </form>
       </ol>

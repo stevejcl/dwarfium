@@ -9,6 +9,7 @@ import {
 } from "react-zoom-pan-pinch";
 import Link from "next/link";
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { getMediaMTXUrl } from "@/lib/get_proxy_url";
 import {
   Dwarfii_Api,
   DwarfIP,
@@ -52,8 +53,8 @@ export default function DwarfCameras(props: PropType) {
 
   //  const wideangleURL_D3 = "http://localhost:8083/static/wide_angle_stream.html";
   //  const telePhotoURL_D3 = "http://localhost:8083/static/tele_stream.html";
-  const wideangleURL_D3 = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:8888/dwarf_wide`;
-  const telePhotoURL_D3 = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:8888/dwarf_tele`;
+  const wideangleURL_D3 = `http://${getMediaMTXUrl()}:8888/dwarf_wide`;
+  const telePhotoURL_D3 = `http://${getMediaMTXUrl()}:8888/dwarf_tele`;
   const defaultTeleCameraSrc: StaticImageData = imgTeleCameraSrc;
   const defaultWideCameraSrc: StaticImageData = imgWideCameraSrc;
   const [errorTxt, setErrorTxt] = useState("");

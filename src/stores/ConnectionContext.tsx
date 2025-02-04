@@ -62,6 +62,7 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [streamTypeWideDwarf, setStreamTypeWideDwarf] = useState<
     any | undefined
   >();
+  const [valueFocusDwarf, setValueFocusDwarf] = useState<any | undefined>();
 
   const [connectionStatusStellarium, setConnectionStatusStellarium] = useState<
     boolean | undefined
@@ -177,6 +178,8 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setStreamTypeWideDwarf,
     statusTemperatureDwarf,
     setStatusTemperatureDwarf,
+    valueFocusDwarf,
+    setValueFocusDwarf,
     connectionStatusStellarium,
     setConnectionStatusStellarium,
     IPStellarium,

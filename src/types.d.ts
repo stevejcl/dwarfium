@@ -44,6 +44,8 @@ export type ConnectionContextType = {
   setStreamTypeTeleDwarf: Dispatch<SetStateAction<number | undefined>>;
   streamTypeWideDwarf: number | undefined;
   setStreamTypeWideDwarf: Dispatch<SetStateAction<number | undefined>>;
+  valueFocusDwarf: number | undefined;
+  setValueFocusDwarf: Dispatch<SetStateAction<number | undefined>>;
 
   connectionStatusStellarium: boolean | undefined;
   setConnectionStatusStellarium: Dispatch<SetStateAction<boolean | undefined>>;

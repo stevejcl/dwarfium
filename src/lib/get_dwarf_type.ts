@@ -1,5 +1,6 @@
 import { getDefaultParamsConfig, deviceInfo } from "dwarfii_api";
 import { proxyRequest } from "@/lib/proxyClient";
+import { getProxyUrl } from "@/lib/get_proxy_url";
 // several function to get Dwarf DeviceId
 /////////////////////////////////////////
 
@@ -26,9 +27,9 @@ const getDeviceInfo = async (IPDwarf: string | undefined) => {
     }
 
     if (requestAddr) {
-      const proxyUrl = `${
-        process.env.NEXT_PUBLIC_URL_PROXY_CORS
-      }?target=${encodeURIComponent(requestAddr)}`;
+      const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
+        requestAddr
+      )}`;
       const response = await fetch(proxyUrl, {
         method: "POST",
         headers: {
@@ -128,9 +129,9 @@ const getConfigData = async (IPDwarf: string | undefined) => {
     }
 
     if (requestAddr) {
-      const proxyUrl = `${
-        process.env.NEXT_PUBLIC_URL_PROXY_CORS
-      }?target=${encodeURIComponent(requestAddr)}`;
+      const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
+        requestAddr
+      )}`;
       const response = await fetch(proxyUrl, {
         method: "GET",
         headers: {
@@ -184,9 +185,7 @@ const getDwarfType = async (IPDwarf: string | undefined) => {
 
   try {
     // First attempt to fetch Dwarf II
-    let proxyUrl = `${
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS
-    }?target=${encodeURIComponent(dwarfIIUrl)}`;
+    let proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(dwarfIIUrl)}`;
     folderResponse = await fetch(proxyUrl, {
       method: "GET",
       headers: {
@@ -201,9 +200,7 @@ const getDwarfType = async (IPDwarf: string | undefined) => {
       return 1;
     } else {
       // If not OK, try Dwarf 3
-      proxyUrl = `${
-        process.env.NEXT_PUBLIC_URL_PROXY_CORS
-      }?target=${encodeURIComponent(dwarf3Url)}`;
+      proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(dwarf3Url)}`;
       folderResponse = await fetch(proxyUrl, {
         method: "GET",
         headers: {
@@ -247,13 +244,12 @@ export async function checkMediaMtxStreamWithUpdate(
 }
 
 async function verifyMediaMtxStreamUrls(inputIP: string | undefined) {
-  const url1 = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:9997/v3/config/paths/get/dwarf_wide`;
-  const url2 = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:9997/v3/config/paths/get/dwarf_tele`;
+  const ipServerMTX = "0.0.0.0";
+  const url1 = `http://${ipServerMTX}:9997/v3/config/paths/get/dwarf_wide`;
+  const url2 = `http://${ipServerMTX}:9997/v3/config/paths/get/dwarf_tele`;
 
   try {
-    const proxyUrl1 = `${
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS
-    }?target=${encodeURIComponent(url1)}`;
+    const proxyUrl1 = `${getProxyUrl()}?target=${encodeURIComponent(url1)}`;
     const response1 = await fetch(proxyUrl1, {
       method: "GET",
       headers: {
@@ -266,9 +262,7 @@ async function verifyMediaMtxStreamUrls(inputIP: string | undefined) {
       throw new Error(`HTTP error! Status: ${response1.status}`);
     }
 
-    const proxyUrl2 = `${
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS
-    }?target=${encodeURIComponent(url2)}`;
+    const proxyUrl2 = `${getProxyUrl()}?target=${encodeURIComponent(url2)}`;
     const response2 = await fetch(proxyUrl2, {
       method: "GET",
       headers: {
@@ -323,7 +317,8 @@ const editMediaMtxStreamD3 = async (
   IPDwarf: string | undefined,
   name: string | undefined
 ) => {
-  const url = `http://${process.env.NEXT_PUBLIC_IP_MEDIAMTX}:9997/v3/config/paths/replace/${name}`;
+  const ipServerMTX = "0.0.0.0";
+  const url = `http://${ipServerMTX}:9997/v3/config/paths/replace/${name}`;
   let data;
   if (name == "dwarf_wide") {
     data = {
@@ -342,9 +337,7 @@ const editMediaMtxStreamD3 = async (
     };
   }
   try {
-    const proxyUrl = `${
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS
-    }?target=${encodeURIComponent(url)}`;
+    const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
     const response = await fetch(proxyUrl, {
       method: "POST",
       headers: {

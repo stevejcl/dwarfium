@@ -54,6 +54,8 @@
   "pDisconnect": "Déconnecter",
   "pConnect": "Connecter",
   "pConnectDwarfII": "Connectez-vous à {{DwarfType}}",
+  "pConnectWeb": "Connecter via Web",
+  "pDirectBluetooth" : "Connexion directe",
   "pConnectDwarfIIContent": "Pour que ce site se connecte au {{DwarfType}}, le {{DwarfType}} et le site Web doivent utiliser le même réseau wifi.",
   "pConnectDwarfIIContent1": "Après le redémarrage, vous devez d'abord vous connecter au {{DwarfType}} via Bluetooth.",
   "pConnectDwarfIIContent2": "Connectez-vous ensuite à celui-ci grâce au bouton de connexion wifi. Alors pas besoin d'utiliser l'application pour calibrer, créer Goto et Imaging Session à partir de ce site Web.",

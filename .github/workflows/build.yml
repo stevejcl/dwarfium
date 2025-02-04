@@ -103,6 +103,7 @@ jobs:
           prerelease: false
           includeUpdaterJson: true
           updaterJsonKeepUniversal: false
+          updaterJsonPreferNsis: true
 
       - name: Release with ncipollo/release-action
         if: matrix.platform == 'ubuntu-20.04'

@@ -247,6 +247,14 @@ export const data_dwarf3_config = {
                   index: 162,
                   name: "60",
                 },
+                {
+                  index: 163,
+                  name: "90",
+                },
+                {
+                  index: 165,
+                  name: "120",
+                },
               ],
             },
             hasAuto: true,
@@ -1611,6 +1619,10 @@ export const data_dwarf3_config = {
           values: [
             {
               index: 0,
+              name: "0.5 s",
+            },
+            {
+              index: 1,
               name: "1 s",
             },
             {

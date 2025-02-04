@@ -293,6 +293,8 @@ export async function connectionHandler(
       }
     } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TEMPERATURE) {
       connectionCtx.setStatusTemperatureDwarf(result_data.data.temperature);
+    } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_FOCUS) {
+      connectionCtx.setValueFocusDwarf(result_data.data.focus);
     } else if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_RGB_STATE) {
       connectionCtx.setStatusRingLightsDwarf(result_data.data.state == 1);
     } else if (
@@ -381,6 +383,7 @@ export async function connectionHandler(
         Dwarfii_Api.DwarfCMD.CMD_NOTIFY_PROGRASS_WIDE_CAPTURE_RAW_LIVE_STACKING,
         Dwarfii_Api.DwarfCMD.CMD_NOTIFY_TEMPERATURE,
         Dwarfii_Api.DwarfCMD.CMD_NOTIFY_STREAM_TYPE,
+        Dwarfii_Api.DwarfCMD.CMD_NOTIFY_FOCUS,
       ],
       customMessageHandler,
       customStateHandler,

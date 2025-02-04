@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const unzipper = require("unzipper");
 
 const DIST_DIR = path.resolve("dist");
 const DEPLOY_DIR = path.resolve("Dwarfium");
@@ -31,28 +32,61 @@ const copyFilesRecursively = (src, dest) => {
 
 copyFilesRecursively(DIST_DIR, DEPLOY_DIR);
 
+// Function to create a directory inside DEPLOY_DIR
+function createDir(baseDir, dirName) {
+  const dirPath = path.join(baseDir, dirName);
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true }); // recursive: true allows nested directories
+    console.log(`Directory created: ${dirPath}`);
+  } else {
+    console.log(`Directory already exists: ${dirPath}`);
+  }
+}
+
+createDir(DEPLOY_DIR, "extern")
+
 // Copy tools to the deployment directory
 const platform = process.platform; // 'win32', 'linux', 'darwin'
 const tools = {
   win32: [
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-pc-windows-msvc.exe", dest: "DwarfiumProxy.exe" },
-    { src: "./src-tauri/bin/mediamtx-x86_64-pc-windows-msvc.exe", dest: "mediamtx.exe" }
+    { src: "./src-tauri/bin/mediamtx-x86_64-pc-windows-msvc.exe", dest: "mediamtx.exe" },
+    { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
+    { src: "./install/windows/extern/extern.zip", dest: "./extern" },
+    { src: "./install/extern/config.ini", dest: "./extern/config.ini" },
+    { src: "./install/extern/config.py", dest: "./extern/config.py" }
   ],
   linux: [
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-unknown-linux-gnu", dest: "DwarfiumProxy" },
-    { src: "./src-tauri/bin/mediamtx-x86_64-unknown-linux-gnu", dest: "mediamtx" }
+    { src: "./src-tauri/bin/mediamtx-x86_64-unknown-linux-gnu", dest: "mediamtx" },
+    { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
+    { src: "./install/extern/config.ini", dest: "./extern/config.ini" },
+    { src: "./install/extern/config.py", dest: "./extern/config.py" }
   ],
   darwin: [
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-apple-darwin", dest: "DwarfiumProxy" },
-    { src: "./src-tauri/bin/mediamtx-x86_64-apple-darwin", dest: "mediamtx" }
+    { src: "./src-tauri/bin/mediamtx-x86_64-apple-darwin", dest: "mediamtx" },
+    { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
+    { src: "./install/extern/config.ini", dest: "./extern/config.ini" },
+    { src: "./install/extern/config.py", dest: "./extern/config.py" }
   ]
 }[platform] || [];
 
 console.log("Copying tools...");
 tools.forEach(({ src, dest }) => {
   const destPath = path.join(DEPLOY_DIR, dest);
-  fs.copyFileSync(src, destPath);
-  fs.chmodSync(destPath, 0o755); // Ensure executable permissions
+  // Check if the file is a ZIP file
+  if (src.endsWith(".zip")) {
+    // Unzip the file to the destination path
+    fs.createReadStream(src)
+      .pipe(unzipper.Extract({ path: destPath }))
+      .on("close", () => {
+        console.log(`Unzipped ${src} to ${destPath}`);
+      });
+  } else {  
+    fs.copyFileSync(src, destPath);
+    fs.chmodSync(destPath, 0o755); // Ensure executable permissions
+  }
 });
 
 // Copy configuration file
@@ -60,10 +94,10 @@ console.log("Copying configuration...");
 const launcherScriptWindows = `
 @echo off
 rem Start MediaMTX minimized
-start /Min mediamtx.exe mediamtx.yml
+start "" /Min mediamtx.exe mediamtx.yml
 
 rem Start DwarfiumProxy minimized
-start /Min DwarfiumProxy.exe
+start "" /Min DwarfiumProxy.exe
 
 rem Check if Python is installed
 where python >nul 2>&1
@@ -74,7 +108,7 @@ if errorlevel 1 (
 )
 
 rem Start Python HTTP server minimized
-start /Min python -m http.server 8000 --bind 127.0.0.1
+start "" /Min python start_dwarfium.py
 
 echo All tools and server have been started.
 pause
@@ -82,6 +116,9 @@ pause
 
 const launcherScriptLinuxMac = `
 #!/bin/bash
+
+# Ensure script exits on error
+set -e
 
 # Start MediaMTX
 nohup ./mediamtx mediamtx.yml > mediamtx.log 2>&1 &
@@ -96,7 +133,7 @@ if ! command -v python3 &> /dev/null; then
 fi
 
 # Start Python HTTP server
-nohup python3 -m http.server 8000 --bind 0.0.0.0 > httpserver.log 2>&1 &
+nohup python3 start_dwarfium.py > server.log 2>&1 &
 
 echo "All tools and server have been started."
 `;

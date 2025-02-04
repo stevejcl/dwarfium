@@ -58,6 +58,8 @@
   "pDisconnect": "Disconnect",
   "pConnect": "Connect",
   "pConnectDwarfII": "Connect to {{DwarfType}}",
+  "pConnectWeb": "Connect via Web",
+  "pDirectBluetooth" : "Direct connection",
   "pResetDwarfType": "If your model is not correctly detected click here and reconnect",
   "pConnectPrivateID": "If you use another Dwarfium or our automatic sessions tools, to avoid conflics check this, last connected one will have control disabled",
   "pConnectDwarfIIContent": "In order for this site to connect to the {{DwarfType}}, both the {{DwarfType}} and the website must use the same wifi network.",

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { getProxyUrl } from "@/lib/get_proxy_url";
 import {
   saveConnectionStatusDB,
   saveInitialConnectionTimeDB,
@@ -133,9 +134,7 @@ export function useSetupConnection() {
     console.debug("Check Dwarf connection timer", connectionCtx.IPDwarf);
     // if we can't connect to camera in 2 seconds, reset connection data
     const url = firmwareVersion(connectionCtx.IPDwarf);
-    const proxyUrl = `${
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS
-    }?target=${encodeURIComponent(url)}`;
+    const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
     fetch(proxyUrl, {
       signal: AbortSignal.timeout(5000),
       mode: "no-cors",

@@ -495,11 +495,11 @@ export default function ImagingMenu(props: PropType) {
   }
 
   function focusMinus() {
-    focusAction(false, false, false, 0);
+    focusAction(false, false, false, 1);
   }
 
   function focusMinusLong() {
-    focusAction(false, true, false, 0);
+    focusAction(false, true, false, 1);
   }
 
   function focusLongStop() {
@@ -507,11 +507,11 @@ export default function ImagingMenu(props: PropType) {
   }
 
   function focusPlus() {
-    focusAction(false, false, false, 1);
+    focusAction(false, false, false, 0);
   }
 
   function focusPlusLong() {
-    focusAction(false, true, false, 1);
+    focusAction(false, true, false, 0);
   }
 
   function focusAutoAstro() {
@@ -933,7 +933,7 @@ export default function ImagingMenu(props: PropType) {
                 href="#"
                 className=""
                 onClick={focusAutoAstro}
-                title="Astro Auto Focus"
+                title="Astro Infinite Focus, Right Click Auto Focus"
               >
                 <i
                   className="icon-bullseye"
@@ -943,26 +943,38 @@ export default function ImagingMenu(props: PropType) {
                 ></i>
               </Link>
             </li>
+            {connectionCtx.valueFocusDwarf !== undefined && (
+              <span style={{ display: "block", textAlign: "center" }}>
+                {connectionCtx.valueFocusDwarf}
+              </span>
+            )}
           </div>
         )}
       {!connectionCtx.imagingSession.isRecording &&
         !connectionCtx.imagingSession.endRecording &&
         astroFocus && (
-          <li className={`nav-item ${styles.box}`}>
-            <Link
-              href="#"
-              className=""
-              onClick={focusAutoAstroStop}
-              title="Astro Focus Stop"
-            >
-              <i
-                className="icon-bullseye"
-                style={{
-                  fontSize: "2rem",
-                }}
-              ></i>
-            </Link>
-          </li>
+          <div>
+            <li className={`nav-item ${styles.box}`}>
+              <Link
+                href="#"
+                className=""
+                onClick={focusAutoAstroStop}
+                title="Astro Focus Stop"
+              >
+                <i
+                  className="icon-bullseye"
+                  style={{
+                    fontSize: "2rem",
+                  }}
+                ></i>
+              </Link>
+            </li>
+            {connectionCtx.valueFocusDwarf !== undefined && (
+              <span style={{ display: "block", textAlign: "center" }}>
+                {connectionCtx.valueFocusDwarf}
+              </span>
+            )}
+          </div>
         )}
       <hr />
       {!connectionCtx.imagingSession.isRecording &&

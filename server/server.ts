@@ -134,10 +134,12 @@ app.all("*", async (req, res) => {
         }
 
         const fetchOptions: FetchOptions = {
-            signal: AbortSignal.timeout(30000),
+            signal: req.signal ?? AbortSignal.timeout(90000),
             method: req.method ?? "GET", // Fallback to "GET" if req.method is undefined
             headers: sanitizedHeaders,
         };
+        console.log(fetchOptions.signal);
+        console.log(fetchOptions);
 
         // Include the body only if valid
         if (isBodyValid) {
@@ -146,10 +148,11 @@ app.all("*", async (req, res) => {
               : JSON.stringify(req.body);
             fetchOptions.body = finalBody;
         }
-        //console.log(fetchOptions);
         const response = await fetch(lastTarget, fetchOptions);
+        console.log(response);
 
         const contentType = response.headers.get("content-type");
+        console.log(contentType);
         const isJSON = contentType?.includes("application/json");
         const isBinary = contentType?.includes("application/octet-stream") || response.body;
         const data = isJSON
@@ -157,6 +160,7 @@ app.all("*", async (req, res) => {
             : isBinary
             ? Buffer.from(await response.arrayBuffer()) // Convert ArrayBuffer to Buffer
             : await response.text();
+        console.log(data);
 
         res.status(response.status);
         if (isBinary) {

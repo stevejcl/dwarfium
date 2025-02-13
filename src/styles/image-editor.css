@@ -1,112 +1,252 @@
-
-.image-editor-container {
-    display: flex;
-    height: 80vh;
-    background-color: #2d2d2d;
-    color: #d0d0d0;
-    padding: 8px;
-    margin-top: 90px;
-    border-radius: 5px;
-}
-
-.sidebar {
-    width: 300px;
-    padding: 10px;
-    background-color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.dropzone {
-    border: 2px dashed #777;
-    background-color: #444;
-    color: #bbb;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 20px;
+.photo-editor-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-}
-
-.controls {
-    margin-top: 20px;
-    width: 100%;
-}
-
-    .controls label {
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .controls input[type="range"] {
-        width: 100%;
-    }
-
-.histogram {
-    margin-top: 20px;
-    width: 100%;
-    color: #fff;
-}
-
-    .histogram h3 {
-        text-align: center;
-    }
-
-.histogram-container {
-    display: flex;
-    justify-content: space-around;
-}
-
-.histogram-channel {
-    width: 30px;
-    background-color: rgba(255, 255, 255, 0.2);
-    display: flex;
-    flex-direction: column-reverse;
-}
-
-.histogram-bar {
-    background-color: #888;
-    width: 100%;
-}
-
-.histogram-channel-0 .histogram-bar {
-    background-color: #ff5555;
-}
-
-.histogram-channel-1 .histogram-bar {
-    background-color: #55ff55;
-}
-
-.histogram-channel-2 .histogram-bar {
-    background-color: #5555ff;
-}
-
-.canvas-container {
-    flex: 1;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #222;
-    padding: 10px;
-    position: relative;
+    z-index: 1000;
 }
 
-button {
-    background-color: #555;
+.photo-editor-modal {
+    background: #222;
     color: #fff;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 0px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 80vw; /* Of een vaste waarde zoals 600px */
+    height: 100vh;
+    overflow: hidden; /* Voorkomt dat de modal zich vergroot */
+    max-width: 900px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }
 
-   
+.photo-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
 
-.upper-canvas {
-    position: absolute !important;
+    .photo-editor-header h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+.photo-editor-close-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.photo-editor-body {
+    display: flex;
+    margin-top: 15px;
+    gap: 20px;
+}
+
+/* Afbeeldingssectie */
+.photo-editor-content {
+    flex: 2;
+    text-align: center;
+}
+
+.photo-editor-thumbnail {
+    width: 100% !important;
+    max-height: 100px !important;
+    object-fit: contain !important;
+    border-radius: 8px !important;
+    background: #333 !important;
+    padding: 5px !important;
+    margin-bottom: 10px !important;
+}
+.photo-editor-fullimage {
+    width: 100% !important;
+    max-height: max-content !important;
+    object-fit: contain !important;
+    border-radius: 8px !important;
+    background: #333 !important;
+    padding: 5px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Zijpaneel */
+.photo-editor-sidebar {
+    flex: 1;
+    background: #333;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+    .photo-editor-sidebar h3 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+        border-bottom: 1px solid #555;
+        padding-bottom: 5px;
+    }
+
+    .photo-editor-sidebar label {
+        font-size: 14px;
+        margin-bottom: 5px;
+        color: #bbb;
+    }
+
+    .photo-editor-sidebar input[type="range"] {
+        width: 100%;
+        cursor: pointer;
+        appearance: none;
+        height: 5px;
+        background: #555;
+        border-radius: 5px;
+    }
+
+    .photo-editor-sidebar button {
+        background: #444;
+        color: white;
+        border: none;
+        padding: 0px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.2s;
+    }
+
+        .photo-editor-sidebar button:hover {
+            background: #666;
+        }
+
+/* Footer met opslaan-knop */
+.photo-editor-footer {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.photo-editor-save-btn {
+    background: green;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+    .photo-editor-save-btn:hover {
+        background: #2d8a2d;
+    }
+/* Copyright tekst invoerveld */
+.photo-editor-copyright {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
+
+    .photo-editor-copyright label {
+        margin-bottom: 5px;
+    }
+
+    .photo-editor-copyright input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #444;
+        background-color: #222;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s ease-in-out;
+    }
+
+        .photo-editor-copyright input:focus {
+            border-color: #0078D7; /* Blauw accent bij focus */
+        }
+
+/* Container voor copyright + opslaan-knop */
+.photo-editor-footer-container {
+    display: flex;
+    align-items: center; /* Horizontaal uitlijnen */
+    justify-content: space-between; /* Ruimte tussen de elementen */
+    gap: 10px; /* Ruimte tussen copyright en knop */
+    margin-top: 15px;
+}
+
+/* Zorg dat de copyright input en knop netjes blijven */
+.photo-editor-copyright input {
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.photo-editor-save-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+    .photo-editor-save-btn:hover {
+        background-color: #005a9e;
+    }
+
+.crop-overlay {
+    position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+}
+
+.crop-selection {
+    position: absolute;
+    border: 2px dashed #ff0000;
+    background: rgba(255, 0, 0, 0.2);
     pointer-events: none;
 }
+.photo-editor-share-btn {
+    background-color: #1877F2; /* Facebook blauw */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+    .photo-editor-share-btn:hover {
+        background-color: #166FE5; /* Donkerder blauw bij hover */
+        transform: scale(1.05); /* Subtiele vergroting */
+    }
+
+    .photo-editor-share-btn:active {
+        background-color: #0E5AC3; /* Nog donkerder blauw bij klikken */
+        transform: scale(0.98);
+    }
+
+    .photo-editor-share-btn img {
+        width: 20px; /* Grootte van het Facebook-logo */
+        height: 20px;
+    }

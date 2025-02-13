@@ -1555,3 +1555,20 @@ img {
     width: 40px;
     height: 40px;
 }
+.shooting-info {
+    display: flex;
+    flex-direction: column; /* Zet de elementen onder elkaar */
+    gap: 5px; /* Ruimte tussen de regels */
+    font-size: 14px;
+}
+
+.no-info {
+    font-style: italic;
+    color: gray;
+}
+.button-container {
+    display: flex;
+    flex-direction: column; /* Zet de knoppen onder elkaar */
+    gap: 10px; /* Ruimte tussen de knoppen */
+    align-items: center; /* Optioneel, centreren in de container */
+}

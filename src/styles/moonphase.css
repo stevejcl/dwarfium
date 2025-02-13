@@ -1,82 +1,272 @@
-.city-input{
-    padding:10px;
-    margin-top:100px;
+﻿/* Algemene variabelen voor kleuren en afmetingen */
+:root {
+    --primary-color: #1e1e2e;
+    --secondary-color: #2d2d44;
+    --text-color: #ffffff;
+    --accent-color: #ffcc00;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --border-radius: 8px;
 }
 
-.month-input {
-    margin: 120px 0px 0px 666px;
+/* Verwijder alle standaard marges en paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+/* Extra ruimte bovenaan voor de maandinput */
+.city-input {
+    padding: 10px;
+    margin-top: 80px; /* Vergroot de afstand van de bovenkant */
+    text-align: center;
+}
+/* De kalendercontainer vult het hele scherm */
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 150px); /* Zorgt dat de kalender binnen de viewport past */
+    padding-bottom: 100px; /* Extra ruimte zodat de footer de kalender niet bedekt */
+}
+
+/* Kalender vult de hele breedte en hoogte */
 .calendar {
-    border: #00b280;
-    border-style: solid;
-    border-width: .1px;
-    border-radius: 0px;
-    height: fit-content;
-    width: fit-content;
-    background-color: #000;
+    width: 100%; /* Kalender neemt de volledige breedte in */
+    max-width: 1200px; /* Beperkt de maximale breedte */
+    height: auto; /* Laat de hoogte flexibel blijven */
+
+    padding-bottom: 60px;
 }
 
-thead {
-    display: table-header-group;
-    vertical-align: middle;
-    text-transform: uppercase;
-    font-size: 1.0em;
-    font-weight: bold;
-    border: none;
-    background-color: #00b280;
-}
-tbody, td, tfoot, th, thead, tr {
-    border-color: inherit;
-    border-style: solid;
-    border-width: 0;
-    width: 600px;
-}
-.moon-phase {
-    float: none;
-    height: fit-content;
-    color: #fff;
-}
-
-.moonimg {
-    border-radius: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-}
+/* Tabel vult de volledige breedte en hoogte */
 table {
-    
+    width: 100%;
+    height: 100%;
     border-collapse: collapse;
     font-family: Georgia, Times, serif;
 }
 
-th {
+/* Tabel kop (dagen van de week) */
+thead {
     text-transform: uppercase;
-    font-size: 1.2em;
+    font-size: 1rem;
     font-weight: bold;
-    border: none;
-    grid-auto-rows: 50px;
-    align-items: center;
-    text-align: center;
+    background-color: #00b280;
     color: #fff;
 }
 
-td {
+/* Tabel rijen en cellen */
+th, td {
     border: 1px solid #00b280;
-    height: 5em;
-    width: 5em;
+    text-align: center;
+    width: 14.28%; /* Verdeelt de week gelijk */
+    height: 9vh; /* Past zich aan de hoogte van het scherm aan */
+}
+
+/* Maanfasen-styling */
+.moon-cell {
+    background: var(--secondary-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 4px 6px var(--shadow-color);
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+    /* Hover effect */
+    .moon-cell:hover {
+        background: var(--primary-color);
+        transform: translateY(-5px);
+    }
+
+.moonphase-search {
+    padding: 8px 12px;
+    margin-left: 10px;
+    background: #00b280;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .moonphase-search:hover {
+        background: #008060;
+    }
+/* Maanfase tekst */
+.moon-phase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+    /* Datumstijl */
+    .moon-phase strong {
+        font-size: 1.4rem;
+        color: var(--accent-color);
+    }
+
+/* Maanopkomst & maanondergang stijl */
+.moon-times {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Verticale centrering */
+    width: 100%;
+    height: 100%; /* Zorgt dat de inhoud de hele cel vult */
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 5px;
     padding: 5px;
-    /*vertical-align: top;*/
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: inset 0px 0px 5px var(--shadow-color);
 }
 
-.prosA{
-   color:#fff;
+    .moon-times div {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Horizontale centrering */
+        gap: 8px; /* Ruimte tussen het icoon en de tekst */
+        width: 100%;
+        padding: 0px;
+    }
 
-}
-.prosP {
-    color: #00b280;
+    /* Maaniconen */
+    .moon-times span {
+        font-size: 1.2rem; /* Iets groter maken voor duidelijkheid */
+    }
+
+.moonimg {
+    border-radius: 50%; /* Zorgt ervoor dat de afbeelding rond wordt */
+    display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 80px; /* Pas de grootte aan naar wens */
+    height: 80px; /* Houdt de afbeelding vierkant */
+    object-fit: cover; /* Zorgt ervoor dat de afbeelding correct wordt bijgesneden */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Optioneel: subtiele rand */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Optioneel: mooie schaduw */
 }
 
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
 
+.month-input,
+.city-input {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    /* padding: 10px; */
+    border-radius: 5px;
+    /* background: rgba(255, 255, 255, 0.1); */
+    margin-top: 80px;
+}
+
+    .month-input label,
+    .city-input label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+    }
+
+    .month-input input,
+    .city-input input {
+        padding: 8px;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        background: #1e1e2e;
+        color: white;
+        font-size: 1rem;
+    }
+
+
+.city-search-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+    .city-search-box input {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 200px;
+        text-align: center;
+    }
+
+    .city-search-box button {
+        padding: 10px 15px;
+        font-size: 1rem;
+        background-color: #00b280;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .city-search-box button:hover {
+            background-color: #008a66;
+        }
+
+.prosA {
+    font-size: 1.5rem; /* Grotere tekstgrootte */
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+.prosP {
+    font-size: 1.2rem; /* Nog groter voor de maanfase tekst */
+    font-weight: bold;
+    color: #FFFF; /* Gele kleur voor extra accent */
+}
+
+/* Responsiviteit voor tablets */
+@media (max-width: 768px) {
+    th, td {
+        font-size: 0.9rem;
+        height: 10vh;
+    }
+
+    .moon-phase strong {
+        font-size: 1.2rem;
+    }
+
+    .moon-times {
+        font-size: 0.8rem;
+    }
+}
+
+/* Responsiviteit voor mobiele apparaten */
+@media (max-width: 480px) {
+    th, td {
+        font-size: 0.8rem;
+        height: 8vh;
+    }
+
+    .moon-cell {
+        font-size: 0.8rem;
+        padding: 5px;
+    }
+
+    .moon-phase strong {
+        font-size: 1rem;
+    }
+
+    .moon-times {
+        font-size: 0.7rem;
+        padding: 3px;
+    }
+}

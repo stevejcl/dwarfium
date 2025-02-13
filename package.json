@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
     "dev:tauri": "next dev",
+    "dev:windows": "concurrently \"cd ./install/windows && mediamtx.exe ..\\config\\mediamtx.yml\" \"npm run dev",
     "build": "next build",
     "build:api": "cross-env NEXT_PUBLIC_URL_PROXY_CORS=/api/proxy next build",
     "start:api": "cross-env NEXT_PUBLIC_URL_PROXY_CORS=/api/proxy next start",

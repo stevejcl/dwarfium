@@ -304,10 +304,11 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({ thumbnailUrl, onClose, fullIm
                     <button
                         onClick={() => {
                             const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(editedImageUrl)}`;
+                            window.open(facebookShareUrl, "_blank");
                         }}
                         className="photo-editor-share-btn"
                     >
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" />
+                        <img src="/images/facebook-icon.svg" alt="Facebook" />
                         Delen op Facebook
                     </button>
 

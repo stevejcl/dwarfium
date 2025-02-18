@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import * as tf from "@tensorflow/tfjs";
 
 interface PhotoEditorProps {
@@ -27,6 +27,12 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
   const [cropEnd, setCropEnd] = useState<{ x: number; y: number } | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [editedImageUrl, setEditedImageUrl] = useState(fullImageUrl);
+
+  useEffect(() => {
+    if (imageRef.current) {
+      imageRef.current.crossOrigin = "anonymous"; // Set CORS for cross-origin images
+    }
+  }, []);
 
   /**  AI Denoise functie */
   const denoiseWithAI = async () => {
@@ -240,6 +246,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
             <div style={{ position: "relative", display: "inline-block" }}>
               <img
                 ref={imageRef}
+                crossOrigin="anonymous"
                 src={fullImageUrl}
                 alt="Volledige Afbeelding"
                 className="photo-editor-fullimage"

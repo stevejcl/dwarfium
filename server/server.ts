@@ -153,21 +153,21 @@ app.all("*", async (req, res) => {
 
         const contentType = response.headers.get("content-type");
         console.log(contentType);
-        const isJSON = contentType?.includes("application/json");
-        const isBinary = contentType?.includes("application/octet-stream") || response.body;
-        const data = isJSON
-            ? await response.json()
-            : isBinary
-            ? Buffer.from(await response.arrayBuffer()) // Convert ArrayBuffer to Buffer
-            : await response.text();
-        console.log(data);
 
-        res.status(response.status);
-        if (isBinary) {
-            res. set("Content-Type", contentType);
-            res.send(data);
-        } else {
-            res.send(data);
+        res.setHeader("Content-Type", contentType || "application/octet-stream");
+
+        if (contentType?.includes("image") || contentType?.includes("octet-stream")) {
+            const buffer = Buffer.from(await response.arrayBuffer()); // ? Convert response to Buffer
+            return res.status(response.status).send(buffer); // ? Send binary data
+        }
+        else {
+            const isJSON = contentType?.includes("application/json");
+            const data = isJSON
+                ? await response.json()
+                : await response.text();
+            //console.log(data);
+
+            res.status(response.status).send(data);
         }
 
     } catch (error) {

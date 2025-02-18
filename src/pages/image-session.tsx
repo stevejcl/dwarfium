@@ -24,30 +24,44 @@ export default function AstroPhoto() {
   const [isPhotoEditorOpen, setIsPhotoEditorOpen] = useState<boolean>(false);
 
   const openPhotoEditor = (sessionName: string, index: number) => {
-        let thumbnailUrl = "";
-        let fullImageUrl = "";
+    let thumbnailUrl = "";
+    let fullImageUrl = "";
 
-        if (thumbnailExists[index]) {
-            if (connectionCtx.typeNameDwarf === "Dwarf II") {
-                thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-                fullImageUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked.jpg`;
-            } else {
-                thumbnailUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-                fullImageUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked.jpg`;
-            }
-        } else {
-            // Fallback als de thumbnail niet bestaat
-            thumbnailUrl = "/images/404.jpg";
-            fullImageUrl = "/images/404.jpg";
-        }
+    if (thumbnailExists[index]) {
+      if (connectionCtx.typeNameDwarf === "Dwarf II") {
+        thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+        thumbnailUrl = `${getProxyUrl()}?target=${encodeURIComponent(
+          thumbnailUrl
+        )}`;
+        fullImageUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked.jpg`;
+        fullImageUrl = `${getProxyUrl()}?target=${encodeURIComponent(
+          fullImageUrl
+        )}`;
+      } else {
+        thumbnailUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
+        thumbnailUrl = `${getProxyUrl()}?target=${encodeURIComponent(
+          thumbnailUrl
+        )}`;
+        fullImageUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked.jpg`;
+        fullImageUrl = `${getProxyUrl()}?target=${encodeURIComponent(
+          fullImageUrl
+        )}`;
+      }
+    } else {
+      // Fallback als de thumbnail niet bestaat
+      thumbnailUrl = "/images/404.jpg";
+      fullImageUrl = "/images/404.jpg";
+    }
 
-        setSelectedPhoto({ thumbnailUrl, fullImageUrl });
-        setIsPhotoEditorOpen(true);
+    setSelectedPhoto({ thumbnailUrl, fullImageUrl });
+    setIsPhotoEditorOpen(true);
   };
-  const [selectedPhoto, setSelectedPhoto] = useState<SelectedPhoto | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<SelectedPhoto | null>(
+    null
+  );
   const closePhotoEditor = () => {
-        setIsPhotoEditorOpen(false);
-        setSelectedPhoto(null);
+    setIsPhotoEditorOpen(false);
+    setSelectedPhoto(null);
   };
   const fetchThumbnailExists = async (sessionName: string) => {
     if (connectionCtx.typeNameDwarf == "Dwarf II") {
@@ -121,7 +135,7 @@ export default function AstroPhoto() {
       while ((matches = folderRegex.exec(data)) !== null) {
         const folderName = matches[1];
         const folderDate = matches[3];
-        if (!/dwarf_dark|solving_failed/i.test(folderName)) {
+        if (!/dwarf_dark|solving_failed|cali_frame/i.test(folderName)) {
           try {
             if (connectionCtx.typeNameDwarf == "Dwarf II") {
               const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`;
@@ -298,16 +312,20 @@ export default function AstroPhoto() {
   };
 
   const getShootingInfo = (sessionName: string) => {
-        return sessionInfo[sessionName] ? (
-            <div className="shooting-info">
-                <span>{t("pImageSessionShotsStacked")}: {sessionInfo[sessionName].shotsStacked}</span>
-                <span>{t("pImageSessionShotsTaken")}: {sessionInfo[sessionName].shotsTaken}</span>
-            </div>
-        ) : (
-            <span className="no-info">{t("pImageSessionNoShootingInfo")}</span>
-        );
+    return sessionInfo[sessionName] ? (
+      <div className="shooting-info">
+        <span>
+          {t("pImageSessionShotsStacked")}:{" "}
+          {sessionInfo[sessionName].shotsStacked}
+        </span>
+        <span>
+          {t("pImageSessionShotsTaken")}: {sessionInfo[sessionName].shotsTaken}
+        </span>
+      </div>
+    ) : (
+      <span className="no-info">{t("pImageSessionNoShootingInfo")}</span>
+    );
   };
-
 
   const getAdditionalInfo = (sessionName: string) => {
     return sessionInfo[sessionName] ? (
@@ -347,132 +365,134 @@ export default function AstroPhoto() {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
-    return (
-        <>
-            <section className="d-inline-block w-100">
-                <div className="container">
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <Head>
-                        <title>{t("pImageSessionData")}</title>
-                    </Head>
-                    <StatusBar />
-                    <hr></hr>
-                    <div className="container-image-session">
-                        {notification && <div className="notification">{notification}</div>}
-                        <p>{t("pImageSessionSortTable")} </p>
-                        <div className="table-responsive">
-                            <table className="styled-table">
-                                <thead>
-                                    <tr>
-                                        <th>{t("pImageSessionPreview")}</th>
-                                        <th onClick={() => sortByProperty("name")}>
-                                            {t("pImageSessionTarget")}{" "}
-                                            {sortBy === "name" && (
-                                                <span className="sorting">
-                                                    {sortOrder === "asc" ? "▲" : "▼"}
-                                                </span>
-                                            )}
-                                        </th>
-                                        <th onClick={() => sortByProperty("date")}>
-                                            {t("pImageSessionDate")}{" "}
-                                            {sortBy === "date" && (
-                                                <span className="sorting">
-                                                    {sortOrder === "asc" ? "▲" : "▼"}
-                                                </span>
-                                            )}
-                                        </th>
-                                        <th>{t("pImageSessionShootingInfo")}</th>
-                                        <th>{t("pImageSessionAdditionalInfo")}</th>
-                                        <th>{t("pImageSessionAction")}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {sessions.map((session, index) => (
-                                        <tr className="active-row" key={index}>
-                                            <td>
-                                                {thumbnailExists[index] === true &&
-                                                    connectionCtx.typeNameDwarf == "Dwarf II" ? (
-                                                    <img
-                                                        className="thumblarge"
-                                                        src={`http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`}
-                                                        alt="Thumbnail"
-                                                    />
-                                                ) : thumbnailExists[index] === true ? (
-                                                    <img
-                                                        className="thumblarge"
-                                                        src={`http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${session.name}/stacked_thumbnail.jpg`}
-                                                        alt="Thumbnail"
-                                                    />
-                                                ) : thumbnailExists[index] === false ||
-                                                    thumbnailExists[index] === undefined ? (
-                                                    <img
-                                                        className="thumblarge"
-                                                        src="/images/404.jpg"
-                                                        alt="Thumbnail Not Available"
-                                                    />
-                                                ) : (
-                                                    <div>{t("pImageSessionLoading")}</div>
-                                                )}
-                                            </td>
-                                            <td className="session-name">{getTarget(session.name)}</td>
-                                            <td>{session.date}</td>
-                                            <td>{getShootingInfo(session.name)}</td>
-                                            <td>{getAdditionalInfo(session.name)}</td>
-                                            <td colSpan={2} className="centered-cell">
-                                                <div className="button-container">
-                                                    <button
-                                                        className="btn btn-more02"
-                                                        onClick={() => getSessionData(session.name)}
-                                                        disabled={downloadClicked}
-                                                    >
-                                                        {t("pImageSessionDownload")}
-                                                    </button>
-
-                                                    <button
-                                                        className="btn btn-more02"
-                                                        onClick={() => openPhotoEditor(session.name, index)}
-                                                    >
-                                                        {t("pImageSessionEdit")}
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                        {downloadClicked && (
-                            <div className="progress-overlay">
-                                <div
-                                    className="progress-bar"
-                                    style={{ width: `${progress}%` }}
-                                ></div>
-                                <span className="progress-text">{progress}%</span>
-                            </div>
+  return (
+    <>
+      <section className="d-inline-block w-100">
+        <div className="container">
+          <br />
+          <br />
+          <br />
+          <br />
+          <Head>
+            <title>{t("pImageSessionData")}</title>
+          </Head>
+          <StatusBar />
+          <hr></hr>
+          <div className="container-image-session">
+            {notification && <div className="notification">{notification}</div>}
+            <p>{t("pImageSessionSortTable")} </p>
+            <div className="table-responsive">
+              <table className="styled-table">
+                <thead>
+                  <tr>
+                    <th>{t("pImageSessionPreview")}</th>
+                    <th onClick={() => sortByProperty("name")}>
+                      {t("pImageSessionTarget")}{" "}
+                      {sortBy === "name" && (
+                        <span className="sorting">
+                          {sortOrder === "asc" ? "▲" : "▼"}
+                        </span>
+                      )}
+                    </th>
+                    <th onClick={() => sortByProperty("date")}>
+                      {t("pImageSessionDate")}{" "}
+                      {sortBy === "date" && (
+                        <span className="sorting">
+                          {sortOrder === "asc" ? "▲" : "▼"}
+                        </span>
+                      )}
+                    </th>
+                    <th>{t("pImageSessionShootingInfo")}</th>
+                    <th>{t("pImageSessionAdditionalInfo")}</th>
+                    <th>{t("pImageSessionAction")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sessions.map((session, index) => (
+                    <tr className="active-row" key={index}>
+                      <td>
+                        {thumbnailExists[index] === true &&
+                        connectionCtx.typeNameDwarf == "Dwarf II" ? (
+                          <img
+                            className="thumblarge"
+                            src={`http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`}
+                            alt="Thumbnail"
+                          />
+                        ) : thumbnailExists[index] === true ? (
+                          <img
+                            className="thumblarge"
+                            src={`http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${session.name}/stacked_thumbnail.jpg`}
+                            alt="Thumbnail"
+                          />
+                        ) : thumbnailExists[index] === false ||
+                          thumbnailExists[index] === undefined ? (
+                          <img
+                            className="thumblarge"
+                            src="/images/404.jpg"
+                            alt="Thumbnail Not Available"
+                          />
+                        ) : (
+                          <div>{t("pImageSessionLoading")}</div>
                         )}
-                    </div>
-                </div>
-            </section>
-            {isPhotoEditorOpen && selectedPhoto && (
-                <PhotoEditor
-                    thumbnailUrl={selectedPhoto.thumbnailUrl}
-                    fullImageUrl={selectedPhoto.fullImageUrl}
-                    onClose={closePhotoEditor}
-                />
+                      </td>
+                      <td className="session-name">
+                        {getTarget(session.name)}
+                      </td>
+                      <td>{session.date}</td>
+                      <td>{getShootingInfo(session.name)}</td>
+                      <td>{getAdditionalInfo(session.name)}</td>
+                      <td colSpan={2} className="centered-cell">
+                        <div className="button-container">
+                          <button
+                            className="btn btn-more02"
+                            onClick={() => getSessionData(session.name)}
+                            disabled={downloadClicked}
+                          >
+                            {t("pImageSessionDownload")}
+                          </button>
+
+                          <button
+                            className="btn btn-more02"
+                            onClick={() => openPhotoEditor(session.name, index)}
+                          >
+                            {t("pImageSessionEdit")}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {downloadClicked && (
+              <div className="progress-overlay">
+                <div
+                  className="progress-bar"
+                  style={{ width: `${progress}%` }}
+                ></div>
+                <span className="progress-text">{progress}%</span>
+              </div>
             )}
-        </>
-    );
+          </div>
+        </div>
+      </section>
+      {isPhotoEditorOpen && selectedPhoto && (
+        <PhotoEditor
+          thumbnailUrl={selectedPhoto.thumbnailUrl}
+          fullImageUrl={selectedPhoto.fullImageUrl}
+          onClose={closePhotoEditor}
+        />
+      )}
+    </>
+  );
 }
 
 interface Session {
-    name: string;
-    date: string;
+  name: string;
+  date: string;
 }
 
 interface SelectedPhoto {
-    thumbnailUrl: string;
-    fullImageUrl: string;
+  thumbnailUrl: string;
+  fullImageUrl: string;
 }

@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { Readable } from "stream";
 
 // Type for the response from the proxy
 type ProxyResponse = {
@@ -97,10 +98,24 @@ export default async function handler(
     // Handle the response and return it to the client
     const contentType = response.headers.get("content-type");
     console.debug("contentType:", contentType);
-    const isJSON = contentType?.includes("application/json");
-    const data = isJSON ? await response.json() : await response.text();
+    res.setHeader("Content-Type", contentType || "application/octet-stream");
 
-    res.status(response.status).send(data);
+    if (contentType?.includes("image")) {
+      if (!response.body) {
+        return res.status(500).json({ error: "Failed to fetch image data" });
+      }
+
+      // Convert the ReadableStream to a Node.js stream
+      const stream = Readable.fromWeb(response.body as any);
+
+      // Pipe the image stream to the response
+      stream.pipe(res);
+    } else {
+      const data = contentType?.includes("application/json")
+        ? await response.json()
+        : await response.text();
+      res.status(response.status).send(data);
+    }
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";

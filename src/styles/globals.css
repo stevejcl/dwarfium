@@ -749,6 +749,11 @@ img {
         color: #fff !important
     }
 
+.button-loading {
+    cursor: progress;
+    pointer-events: none; /* Optional: Prevent further clicks while loading */
+}
+
 .button-cent {
     padding: 0px 15px;
     background-color: #0a051d;

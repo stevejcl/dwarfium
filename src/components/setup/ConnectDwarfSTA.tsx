@@ -57,7 +57,26 @@ export default function ConnectDwarfSTA() {
   let deviceDwarfName;
   let characteristicDwarf;
 
+  function button_progress() {
+    document.body.style.cursor = "progress";
+    const button1 = document.getElementById("btnWeb");
+    if (button1) button1.classList.add("button-loading");
+
+    const button2 = document.getElementById("btnDirect");
+    if (button2) button2.classList.add("button-loading");
+  }
+
+  function button_default() {
+    document.body.style.cursor = "default";
+    const button1 = document.getElementById("btnWeb");
+    if (button1) button1.classList.remove("button-loading");
+
+    const button2 = document.getElementById("btnDirect");
+    if (button2) button2.classList.remove("button-loading");
+  }
+
   async function checkConnection(e: FormEvent<HTMLFormElement>) {
+    button_progress();
     e.preventDefault();
 
     IsFirstStepOK = false;
@@ -162,6 +181,8 @@ export default function ConnectDwarfSTA() {
       console.error(error);
       setConnecting(false);
       setConnectionStatus(false);
+    } finally {
+      button_default();
     }
   }
 
@@ -321,12 +342,15 @@ export default function ConnectDwarfSTA() {
       setConnecting(false);
       setConnectionStatus(false);
       actionDisconnect();
+    } finally {
+      button_default();
     }
   }
 
   function onDisconnected() {
     console.log("> Bluetooth Device disconnected");
     setConnectionStatus(false);
+    button_default();
   }
 
   async function actionDisconnect() {
@@ -348,6 +372,8 @@ export default function ConnectDwarfSTA() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      button_default();
     }
   }
 
@@ -410,15 +436,25 @@ export default function ConnectDwarfSTA() {
   }, []);
 
   const runExecutable = async () => {
+    button_progress();
     // Get the Bluetooth password from the input field
     const pwd_data = encodeURIComponent(BluetoothPWD);
     const ssid_data = encodeURIComponent(Wifi_SSID);
     const wifipwd_data = encodeURIComponent(Wifi_PWD);
 
-    const requestAddr = `http://localhost:8000/run-exe?ble_psd=${pwd_data}&ble_STA_ssid=${ssid_data}&ble_STA_pwd=${wifipwd_data}`;
-    const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-      requestAddr
-    )}`;
+    const requestCmd = `/run-exe?ble_psd=${pwd_data}&ble_STA_ssid=${ssid_data}&ble_STA_pwd=${wifipwd_data}`;
+    let proxyUrl = "";
+
+    if (
+      process.env.NEXT_PUBLIC_URL_PROXY_CORS &&
+      process.env.NEXT_PUBLIC_URL_PROXY_CORS.includes("api")
+    ) {
+      proxyUrl = "/api" + requestCmd;
+    } else {
+      const requestAddr = "http://localhost:8000" + requestCmd;
+      proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(requestAddr)}`;
+    }
+
     const response = await fetch(proxyUrl, {
       method: "GET",
       headers: {
@@ -472,6 +508,7 @@ export default function ConnectDwarfSTA() {
         }
       }
     } else console.error(`runExecutable: ${JSON.stringify(response)}`);
+    button_default();
   };
 
   return (
@@ -551,11 +588,12 @@ export default function ConnectDwarfSTA() {
               </div>
             </div>
           </div>
-          <button type="submit" className="btn btn-more02 me-3">
+          <button id="btnWeb" type="submit" className="btn btn-more02 me-3">
             <i className="icon-bluetooth" /> {t("pConnectWeb")}
           </button>
           {useDirectBluetooth == true && (
             <button
+              id="btnDirect"
               className="btn btn-more02 me-6"
               onClick={(e) => {
                 runExecutable();

@@ -62,7 +62,9 @@ npm install
 3. Start the server.
 
 ```bash
-npm run dev
+npm run dev:windows
+or
+npm run dev:linux
 ```
 
 4. Create a production-ready build.
@@ -73,7 +75,9 @@ npm run build:api
    Start it with :
 
 ```bash
-npm run start:api
+npm run start:windows
+or
+npm run start:linux
 ```
 
 5. Build the desktop app for your operating system.

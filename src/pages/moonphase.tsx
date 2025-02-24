@@ -22,7 +22,7 @@ export default function Moonphase() {
 
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
-  const [timezoneOffset, setTimezoneOffset] = useState();
+  const [timezoneOffset, setTimezoneOffset] = useState(0);
 
   useEffect(() => {
     if (apiKey && city) {
@@ -50,7 +50,8 @@ export default function Moonphase() {
     }
   };
 
-  const handleCityInput = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCityInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const newCityValue = cityInputRef.current?.value || "";
     setCity(newCityValue);
   };

@@ -363,4 +363,23 @@
   "pWeatherLoading": "Chargement...",
   "cPolarAlignTurnDownLens": "L'objectif baisse",
   "cGoToAsteroidConnectStellarium": "Vous devez vous connecter à Stellarium pour que Goto fonctionne."
+  "cImageEditorPhotoEdit": "Édition Photo",
+  "cImageEditorThumbnail": "Vignette",
+  "cImageEditorFilters": "Filtres",
+  "cImageEditorReset": "Réinitialiser",
+  "cImageEditorSave": "Enregistrer",
+  "cImageEditorEdit": "Modifier",
+  "cImageEditorClose": "Fermer",
+  "cImageEditorDenoise": "Réduction du bruit (IA)",
+  "cImageEditorCrop": "Rogner",
+  "cImageEditorBrightness": "Luminosité",
+  "cImageEditorContrast": "Contraste",
+  "cImageEditorSharpness": "Netteté",
+  "cImageEditorSaturation": "Saturation",
+  "cImageEditorColorTemperature": "Température des couleurs",
+  "cImageEditorBlackandWhite": "Noir et Blanc",
+  "cImageEditorSepia": "Sépia",
+  "cImageEditorCopyright": "Entrer le copyright...",
+  "cImageEditorFullImage": "Image complète",
+  "cImageEditorShareFacebook": "Partager sur Facebook"
 }

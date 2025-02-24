@@ -91,6 +91,8 @@ export default function ConnectStellarium(props: PropType) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   useEffect(() => {
+    if (showInfoTxt !== undefined && !showInfoTxt) setShowInfoTxtData(false);
+
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
@@ -99,37 +101,39 @@ export default function ConnectStellarium(props: PropType) {
   }, []);
 
   function renderDetails() {
-    return (
-      <div>
-        <div
-          title={showHelp ? t("pHideHelp") : t("pShowHelp")}
-          className={`help-msg nav-link me-2`}
-          onClick={() => setShowHelp((prev) => !prev)}
-        >
-          <i className="bi bi-info-square"></i>
+    if (showInfoTxtData)
+      return (
+        <div>
+          <div
+            title={showHelp ? t("pHideHelp") : t("pShowHelp")}
+            className={`help-msg nav-link me-2`}
+            onClick={() => setShowHelp((prev) => !prev)}
+          >
+            <i className="bi bi-info-square"></i>
+          </div>
+          {showHelp && (
+            <ol>
+              <li className="mb-2">{t("pConnectStellariumContent1")}</li>
+              <li className="mb-2">
+                {t("pConnectStellariumContent2")}{" "}
+                <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
+                  Youtube video
+                </Link>{" "}
+                {t("pConnectStellariumContent2_1")}
+              </li>
+              <li className="mb-2">{t("pConnectStellariumContent3")}</li>
+            </ol>
+          )}
         </div>
-        {showHelp && (
-          <ol>
-            <li className="mb-2">{t("pConnectStellariumContent1")}</li>
-            <li className="mb-2">
-              {t("pConnectStellariumContent2")}{" "}
-              <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
-                Youtube video
-              </Link>{" "}
-              {t("pConnectStellariumContent2_1")}
-            </li>
-            <li className="mb-2">{t("pConnectStellariumContent3")}</li>
-          </ol>
-        )}
-      </div>
-    );
+      );
+    else return <ol></ol>;
   }
 
   return (
     <div>
       <h2>{t("pConnectStellarium")}</h2>
 
-      <p>{t("pConnectStellariumContent")}</p>
+      <p>{showInfoTxtData && t("pConnectStellariumContent")}</p>
       {renderDetails()}
       <br />
       <form onSubmit={checkConnection}>

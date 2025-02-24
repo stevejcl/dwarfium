@@ -13,11 +13,29 @@ from flask import Flask, request, jsonify, send_from_directory
 # Create a Flask app, serving static files from the current directory
 app = Flask(__name__, static_folder=os.getcwd())
 
-# Serve static files (index.html + other assets)
-@app.route('/')
-@app.route('/<path:path>')
-def serve_static(path="index.html"):
-    return send_from_directory(app.static_folder, path)
+# API endpoint to check if running
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "Proxy is running"}), 200
+
+# API endpoint to check if a program is here
+@app.route('/run-exe-health', methods=['GET'])
+def run_exe_health():
+    # Define the base name of the executable (without extension)
+    extern_path = os.path.abspath(os.path.join(".", "extern"))
+    exe_name = "connect_bluetooth"
+
+    # Determine the correct file extension
+    if sys.platform == "win32":
+        exe_path = os.path.join(extern_path, exe_name + ".exe")
+    else:
+        exe_path = os.path.join(extern_path, exe_name)  # No .exe on Linux/macOS
+
+    # Check if both the directory and the executable file exist
+    if os.path.exists(extern_path) and os.path.exists(exe_path):
+        return jsonify({"status": "Executable found"}), 200
+
+    return jsonify({"error": "Executable not found"}), 404
 
 # API endpoint to execute a program with parameters
 @app.route('/run-exe', methods=['GET'])
@@ -69,6 +87,27 @@ def run_exe():
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+# Serve static files and redirect unknown routes to index.html (for frontend routing
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve_static(path):
+    #  If the requested path is an API route, return 404 instead of redirecting
+    if path == "run-exe" or path == "health":
+        return jsonify({"error": "Not Found"}), 404
+
+    full_path = os.path.join(app.static_folder, path)
+
+    # If the path is a directory, serve the index.html inside it
+    if os.path.isdir(full_path):
+        return send_from_directory(full_path, "index.html")
+
+    # If the file exists, serve it normally
+    if os.path.exists(full_path):
+        return send_from_directory(app.static_folder, path)
+
+    # Otherwise, redirect to index.html for frontend routing (SPA)
+    return send_from_directory(app.static_folder, "index.html")
 
 # Start the Flask server on port 8000
 if __name__ == '__main__':

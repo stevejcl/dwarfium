@@ -1,23 +1,29 @@
+import { ConnectionContextType } from "@/types";
+
 import { getDefaultParamsConfig, deviceInfo } from "dwarfii_api";
 import { proxyRequest } from "@/lib/proxyClient";
 import { getProxyUrl, getIpServerMTX } from "@/lib/get_proxy_url";
 // several function to get Dwarf DeviceId
 /////////////////////////////////////////
 export async function findDeviceInfo(
-  IPDwarf: string | undefined
+  IPDwarf: string | undefined,
+  connectionCtx: ConnectionContextType
 ): Promise<[number | undefined, string | undefined]> {
   let [deviceId = undefined, deviceUid = undefined] =
-    (await getDeviceInfo(IPDwarf)) || [];
+    (await getDeviceInfo(IPDwarf, connectionCtx)) || [];
 
-  if (!deviceId) deviceId = await getConfigData(IPDwarf);
+  if (!deviceId) deviceId = await getConfigData(IPDwarf, connectionCtx);
 
-  if (!deviceId) deviceId = await getDwarfType(IPDwarf);
+  if (!deviceId) deviceId = await getDwarfType(IPDwarf, connectionCtx);
 
   return [deviceId, deviceUid];
 }
 
 // eslint-disable-next-line no-unused-vars
-const getDeviceInfo = async (IPDwarf: string | undefined) => {
+const getDeviceInfo = async (
+  IPDwarf: string | undefined,
+  connectionCtx: ConnectionContextType
+) => {
   try {
     // Make the HTTP POST request to the specified URL
     let requestAddr;
@@ -26,9 +32,9 @@ const getDeviceInfo = async (IPDwarf: string | undefined) => {
     }
 
     if (requestAddr) {
-      const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-        requestAddr
-      )}`;
+      const proxyUrl = `${getProxyUrl(
+        connectionCtx
+      )}?target=${encodeURIComponent(requestAddr)}`;
       const response = await fetch(proxyUrl, {
         method: "POST",
         headers: {
@@ -119,7 +125,10 @@ const getDeviceInfoProxyRequest = async (IPDwarf: string | undefined) => {
   }
 };
 
-const getConfigData = async (IPDwarf: string | undefined) => {
+const getConfigData = async (
+  IPDwarf: string | undefined,
+  connectionCtx: ConnectionContextType
+) => {
   try {
     // Make the HTTP GET request to the specified URL
     let requestAddr;
@@ -128,9 +137,9 @@ const getConfigData = async (IPDwarf: string | undefined) => {
     }
 
     if (requestAddr) {
-      const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-        requestAddr
-      )}`;
+      const proxyUrl = `${getProxyUrl(
+        connectionCtx
+      )}?target=${encodeURIComponent(requestAddr)}`;
       const response = await fetch(proxyUrl, {
         method: "GET",
         headers: {
@@ -177,14 +186,19 @@ const getConfigData = async (IPDwarf: string | undefined) => {
   }
 };
 
-const getDwarfType = async (IPDwarf: string | undefined) => {
+const getDwarfType = async (
+  IPDwarf: string | undefined,
+  connectionCtx: ConnectionContextType
+) => {
   let folderResponse;
   const dwarfIIUrl = `http://${IPDwarf}/sdcard/DWARF_II/Astronomy/`;
   const dwarf3Url = `http://${IPDwarf}/DWARF3/Astronomy/`;
 
   try {
     // First attempt to fetch Dwarf II
-    let proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(dwarfIIUrl)}`;
+    let proxyUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+      dwarfIIUrl
+    )}`;
     folderResponse = await fetch(proxyUrl, {
       method: "GET",
       headers: {
@@ -199,7 +213,9 @@ const getDwarfType = async (IPDwarf: string | undefined) => {
       return 1;
     } else {
       // If not OK, try Dwarf 3
-      proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(dwarf3Url)}`;
+      proxyUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+        dwarf3Url
+      )}`;
       folderResponse = await fetch(proxyUrl, {
         method: "GET",
         headers: {
@@ -230,11 +246,13 @@ const getDwarfType = async (IPDwarf: string | undefined) => {
 };
 
 export async function checkMediaMtxStreamWithUpdate(
-  IPDwarf: string | undefined
+  IPDwarf: string | undefined,
+  connectionCtx: ConnectionContextType
 ) {
-  if ((await verifyMediaMtxStreamUrls(IPDwarf)) === false) {
-    if (await editMediaMtxStreamD3(IPDwarf, "dwarf_wide"))
-      if (await editMediaMtxStreamD3(IPDwarf, "dwarf_tele")) return true;
+  if ((await verifyMediaMtxStreamUrls(IPDwarf, connectionCtx)) === false) {
+    if (await editMediaMtxStreamD3(IPDwarf, "dwarf_wide", connectionCtx))
+      if (await editMediaMtxStreamD3(IPDwarf, "dwarf_tele", connectionCtx))
+        return true;
       else return false;
     else return false;
   } else {
@@ -242,12 +260,17 @@ export async function checkMediaMtxStreamWithUpdate(
   }
 }
 
-async function verifyMediaMtxStreamUrls(inputIP: string | undefined) {
+async function verifyMediaMtxStreamUrls(
+  inputIP: string | undefined,
+  connectionCtx: ConnectionContextType
+) {
   const url1 = `http://${getIpServerMTX()}:9997/v3/config/paths/get/dwarf_wide`;
   const url2 = `http://${getIpServerMTX()}:9997/v3/config/paths/get/dwarf_tele`;
 
   try {
-    const proxyUrl1 = `${getProxyUrl()}?target=${encodeURIComponent(url1)}`;
+    const proxyUrl1 = `${getProxyUrl(
+      connectionCtx
+    )}?target=${encodeURIComponent(url1)}`;
     const response1 = await fetch(proxyUrl1, {
       method: "GET",
       headers: {
@@ -260,7 +283,9 @@ async function verifyMediaMtxStreamUrls(inputIP: string | undefined) {
       throw new Error(`HTTP error! Status: ${response1.status}`);
     }
 
-    const proxyUrl2 = `${getProxyUrl()}?target=${encodeURIComponent(url2)}`;
+    const proxyUrl2 = `${getProxyUrl(
+      connectionCtx
+    )}?target=${encodeURIComponent(url2)}`;
     const response2 = await fetch(proxyUrl2, {
       method: "GET",
       headers: {
@@ -313,7 +338,8 @@ async function verifyMediaMtxStreamUrls(inputIP: string | undefined) {
 
 const editMediaMtxStreamD3 = async (
   IPDwarf: string | undefined,
-  name: string | undefined
+  name: string | undefined,
+  connectionCtx: ConnectionContextType
 ) => {
   const url = `http://${getIpServerMTX()}:9997/v3/config/paths/replace/${name}`;
   let data;
@@ -334,7 +360,9 @@ const editMediaMtxStreamD3 = async (
     };
   }
   try {
-    const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+    const proxyUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+      url
+    )}`;
     const response = await fetch(proxyUrl, {
       method: "POST",
       headers: {

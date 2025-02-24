@@ -65,6 +65,50 @@ export function fetchInitialConnectionTimeDB(): number | undefined {
   }
 }
 
+export function saveUseWSProxyDB(active: boolean) {
+  localStorage.setItem("useWSProxy", active ? "true" : "false");
+}
+
+export function fetchUseWSProxyDB(): boolean | undefined {
+  let data = localStorage.getItem("useWSProxy");
+  if (data) {
+    return data === "true" ? true : false;
+  } else false;
+}
+
+export function saveProxyIPDB(ip: string) {
+  localStorage.setItem("proxyIP", ip);
+}
+
+export function fetchProxyIPDB(): string | undefined {
+  let data = localStorage.getItem("proxyIP");
+  if (data) {
+    return data;
+  }
+}
+
+export function saveProxyLocalIPDB(ip: string) {
+  localStorage.setItem("proxyLocalIP", ip);
+}
+
+export function fetchProxyLocalIPDB(): string | undefined {
+  let data = localStorage.getItem("proxyLocalIP");
+  if (data) {
+    return data;
+  }
+}
+
+export function saveUseDirectBluetoothServerDB(active: boolean) {
+  localStorage.setItem("useDirectBluetoothServer", active ? "true" : "false");
+}
+
+export function fetchUseDirectBluetoothServerDB(): boolean | undefined {
+  let data = localStorage.getItem("useDirectBluetoothServer");
+  if (data) {
+    return data === "true" ? true : false;
+  } else false;
+}
+
 export function saveIPDwarfDB(ip: string) {
   localStorage.setItem("IPDwarf", ip);
 }

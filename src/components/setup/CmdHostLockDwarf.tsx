@@ -26,7 +26,7 @@ export default function CmdHostLockDwarf() {
 
     const webSocketHandler = connectionCtx.socketIPDwarf
       ? connectionCtx.socketIPDwarf
-      : new WebSocketHandler(connectionCtx.socketIPDwarf);
+      : new WebSocketHandler(connectionCtx.IPDwarf);
 
     const customMessageHandler = (txt_info, result_data) => {
       if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_SYSTEM_SET_MASTERLOCK) {
@@ -66,7 +66,7 @@ export default function CmdHostLockDwarf() {
 
     const webSocketHandler = connectionCtx.socketIPDwarf
       ? connectionCtx.socketIPDwarf
-      : new WebSocketHandler(connectionCtx.socketIPDwarf);
+      : new WebSocketHandler(connectionCtx.IPDwarf);
 
     // send command to Force Disconnect
     webSocketHandler.cleanup(true);

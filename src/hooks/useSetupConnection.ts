@@ -134,7 +134,9 @@ export function useSetupConnection() {
     console.debug("Check Dwarf connection timer", connectionCtx.IPDwarf);
     // if we can't connect to camera in 2 seconds, reset connection data
     const url = firmwareVersion(connectionCtx.IPDwarf);
-    const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+    const proxyUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+      url
+    )}`;
     fetch(proxyUrl, {
       signal: AbortSignal.timeout(5000),
       mode: "no-cors",
@@ -230,6 +232,12 @@ export function useSetupConnection() {
 
     // if we can't connect to camera in 2 seconds, reset connection data
     let url = `http://${connectionCtx.IPStellarium}:${connectionCtx.portStellarium}`;
+    if (connectionCtx.proxyIP && getProxyUrl(connectionCtx)) {
+      const targetUrl = new URL(url);
+      url = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+        targetUrl.href
+      )}`;
+    }
     fetch(url, {
       signal: AbortSignal.timeout(2000),
     })

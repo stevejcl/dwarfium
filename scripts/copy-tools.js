@@ -110,20 +110,6 @@ async function copyFiles() {
 }
 
 // Function to copy the config file
-async function copyConfigFile() {
-  const source = "./install/config/mediamtx.yml";
-  const destination = "./dist/mediamtx.yml";
-
-  try {
-    console.log(`Copying ${source} to ${destination}`);
-    await fs.copyFile(source, destination);
-    console.log(`Successfully copied ${source} to ${destination}`);
-  } catch (err) {
-    console.error(`Failed to copy ${source} to ${destination}: ${err.message}`);
-  }
-}
-
-// Function to copy the config file
 async function copyConfigFileTauri() {
   const source = "./install/config/mediamtx.yml";
   const destination = `./src-tauri/mediamtx.yml`;
@@ -141,5 +127,4 @@ async function copyConfigFileTauri() {
 copyFiles();
 
 // Copy config file
-copyConfigFile();
 copyConfigFileTauri();

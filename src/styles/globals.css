@@ -1577,3 +1577,7 @@ img {
     gap: 10px; /* Ruimte tussen de knoppen */
     align-items: center; /* Optioneel, centreren in de container */
 }
+
+.help-msg {
+  margin-top: -3rem;
+}

@@ -66,7 +66,7 @@
     "pConnectStellariumContent2": "Het begin van deze",
     "pConnectStellariumContent2_1": " demonstreert het instellen van Stellarium's Remote Control-plug-in (0 tot 1:40); sla het gedeelte over NINA over. Klik op ' CORS inschakelen voor de volgende herkomst ' en typ ' * '.",
     "pConnectStellariumContent3": "Voer het IP-adres en de poort in voor de Remote Control-plug-in en klik op ' Verbinden '. Deze site zal proberen verbinding te maken met Stellarium.",
-    "pIPAdress": "Ip-Adres",
+    "pIPAddress": "Ip-Adres",
     "pPort": "Poort",
     "pMoonphaseSelectCity": "Stad",
     "pMoonphaseSearch": "Zoek...",

@@ -2,8 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const unzipper = require("unzipper");
 
-const DIST_DIR = path.resolve("dist");
-const DEPLOY_DIR = path.resolve("Dwarfium");
+const DEPLOY_DIR = path.resolve("DwarfiumProxy");
 
 // Clean up any previous deployment directory
 if (fs.existsSync(DEPLOY_DIR)) {
@@ -13,24 +12,6 @@ if (fs.existsSync(DEPLOY_DIR)) {
 // Copy application build to the deployment directory (cross-platform)
 console.log("Copying application build...");
 fs.mkdirSync(DEPLOY_DIR, { recursive: true });
-
-const copyFilesRecursively = (src, dest) => {
-  const entries = fs.readdirSync(src, { withFileTypes: true });
-
-  entries.forEach(entry => {
-    const srcPath = path.join(src, entry.name);
-    const destPath = path.join(dest, entry.name);
-
-    if (entry.isDirectory()) {
-      fs.mkdirSync(destPath, { recursive: true });
-      copyFilesRecursively(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-    }
-  });
-};
-
-copyFilesRecursively(DIST_DIR, DEPLOY_DIR);
 
 // Function to create a directory inside DEPLOY_DIR
 function createDir(baseDir, dirName) {
@@ -52,7 +33,6 @@ const tools = {
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-pc-windows-msvc.exe", dest: "DwarfiumProxy.exe" },
     { src: "./src-tauri/bin/mediamtx-x86_64-pc-windows-msvc.exe", dest: "mediamtx.exe" },
     { src: "./install/config/mediamtx.yml", dest: "mediamtx.yml" },
-    { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
     { src: "./install/windows/extern/extern.zip", dest: "./extern" },
     { src: "./install/extern/config.ini", dest: "./extern/config.ini" },
     { src: "./install/extern/config.py", dest: "./extern/config.py" }
@@ -61,7 +41,6 @@ const tools = {
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-unknown-linux-gnu", dest: "DwarfiumProxy" },
     { src: "./src-tauri/bin/mediamtx-x86_64-unknown-linux-gnu", dest: "mediamtx" },
     { src: "./install/config/mediamtx.yml", dest: "mediamtx.yml" },
-    { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
     { src: "./install/extern/config.ini", dest: "./extern/config.ini" },
     { src: "./install/extern/config.py", dest: "./extern/config.py" }
   ],
@@ -69,7 +48,6 @@ const tools = {
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-apple-darwin", dest: "DwarfiumProxy" },
     { src: "./src-tauri/bin/mediamtx-x86_64-apple-darwin", dest: "mediamtx" },
     { src: "./install/config/mediamtx.yml", dest: "mediamtx.yml" },
-    { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
     { src: "./install/extern/config.ini", dest: "./extern/config.ini" },
     { src: "./install/extern/config.py", dest: "./extern/config.py" }
   ]
@@ -102,18 +80,7 @@ start "" /Min mediamtx.exe mediamtx.yml
 rem Start DwarfiumProxy minimized
 start "" /Min DwarfiumProxy.exe
 
-rem Check if Python is installed
-where python >nul 2>&1
-if errorlevel 1 (
-    echo Python is not installed. Please install Python to run the HTTP server.
-    pause
-    exit /b
-)
-
-rem Start Python HTTP server minimized
-start "" /Min python start_dwarfium.py
-
-echo All tools and server have been started.
+echo All tools have been started.
 pause
 `;
 
@@ -129,19 +96,10 @@ nohup ./mediamtx mediamtx.yml > mediamtx.log 2>&1 &
 # Start DwarfiumProxy
 nohup ./DwarfiumProxy > DwarfiumProxy.log 2>&1 &
 
-# Check if Python is installed
-if ! command -v python3 &> /dev/null; then
-    echo "Python3 is not installed. Please install Python3 to run the HTTP server."
-    exit 1
-fi
-
-# Start Python HTTP server
-nohup python3 start_dwarfium.py > server.log 2>&1 &
-
-echo "All tools and server have been started."
+echo "All tools have been started."
 `;
 
 if (platform == "win32")
-    fs.writeFileSync(path.join(DEPLOY_DIR, "launch-server&tools.bat"), launcherScriptWindows, { mode: 0o755 });
+    fs.writeFileSync(path.join(DEPLOY_DIR, "launch-tools.bat"), launcherScriptWindows, { mode: 0o755 });
 else
-    fs.writeFileSync(path.join(DEPLOY_DIR, "launch-server&tools.sh"), launcherScriptLinuxMac, { mode: 0o755 });
+    fs.writeFileSync(path.join(DEPLOY_DIR, "launch-tools.sh"), launcherScriptLinuxMac, { mode: 0o755 });

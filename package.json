@@ -1,6 +1,6 @@
 {
   "name": "dwarfium",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "private": true,
   "pkg": {
     "scripts": [
@@ -29,7 +29,11 @@
     "zipsite": "npm run build && npm run prepare:dist && tar -czvf Dwarfium.tar.gz Dwarfium && rm -rf Dwarfium",
     "zipsite:win": "npm run build && npm run prepare:dist && powershell -Command \"Compress-Archive -Path Dwarfium -DestinationPath Dwarfium.zip; Remove-Item -Recurse -Force Dwarfium\"",
     "zipsite:wsl": "cross-env NEXT_PUBLIC_URL_PROXY_CORS=http://$(hostname -I):8860,NEXT_PUBLIC_IP_MEDIAMTX=$(hostname -I) npm run build && npm run prepare:dist && tar -czvf Dwarfium.tar.gz Dwarfium && rm -rf Dwarfium",
+    "ziptools:win": "npm run postbuild && npm run prepare:tools && powershell -Command \"Compress-Archive -Path DwarfiumProxy -DestinationPath DwarfiumProxy.zip; Remove-Item -Recurse -Force DwarfiumProxy\"",
+    "zipserver:win": "npm run build && npm run prepare:server && powershell -Command \"Compress-Archive -Path DwarfiumServer -DestinationPath DwarfiumServer.zip; Remove-Item -Recurse -Force DwarfiumServer\"",
     "prepare:dist": "node scripts/prepareDist.js",
+    "prepare:tools": "node scripts/prepareProxy.js",
+    "prepare:server": "node scripts/prepareServer.js",
     "lint": "next lint",
     "format": "prettier --check \"src/**/*.{ts,tsx,js,jsx}\"",
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",

@@ -66,7 +66,7 @@
   "pConnectStellariumContent2": "El comienzo de este",
   "pConnectStellariumContent2_1": " demuestra la configuración del complemento de control remoto de Stellarium (0 a 1:40); Sáltate la parte sobre NINA. Haga clic en 'Habilitar CORS para el siguiente origen' e ingrese ' * '.",
   "pConnectStellariumContent3": "Ingrese la IP y el puerto para el complemento de control remoto y haga clic en 'Conectar'. Este sitio intentará conectarse a Stellarium.",
-  "pIPAdress": "dirección IP",
+  "pIPAddress": "dirección IP",
   "pPort": "Puerto",
   "cUnlockHost": "Desbloquear modo anfitrión",
   "cLockHost": "Bloquear modo de host",

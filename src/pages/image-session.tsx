@@ -30,22 +30,22 @@ export default function AstroPhoto() {
     if (thumbnailExists[index]) {
       if (connectionCtx.typeNameDwarf === "Dwarf II") {
         thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-        thumbnailUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-          thumbnailUrl
-        )}`;
+        thumbnailUrl = `${getProxyUrl(
+          connectionCtx
+        )}?target=${encodeURIComponent(thumbnailUrl)}`;
         fullImageUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked.jpg`;
-        fullImageUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-          fullImageUrl
-        )}`;
+        fullImageUrl = `${getProxyUrl(
+          connectionCtx
+        )}?target=${encodeURIComponent(fullImageUrl)}`;
       } else {
         thumbnailUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-        thumbnailUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-          thumbnailUrl
-        )}`;
+        thumbnailUrl = `${getProxyUrl(
+          connectionCtx
+        )}?target=${encodeURIComponent(thumbnailUrl)}`;
         fullImageUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked.jpg`;
-        fullImageUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-          fullImageUrl
-        )}`;
+        fullImageUrl = `${getProxyUrl(
+          connectionCtx
+        )}?target=${encodeURIComponent(fullImageUrl)}`;
       }
     } else {
       // Fallback als de thumbnail niet bestaat
@@ -66,10 +66,14 @@ export default function AstroPhoto() {
   const fetchThumbnailExists = async (sessionName: string) => {
     if (connectionCtx.typeNameDwarf == "Dwarf II") {
       const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-      thumbnailUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+      thumbnailUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+        url
+      )}`;
     } else {
       const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-      thumbnailUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+      thumbnailUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+        url
+      )}`;
     }
     try {
       const response = await fetch(thumbnailUrl);
@@ -120,11 +124,15 @@ export default function AstroPhoto() {
       let response;
       if (connectionCtx.typeNameDwarf == "Dwarf II") {
         const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/`;
-        const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+        const proxyUrl = `${getProxyUrl(
+          connectionCtx
+        )}?target=${encodeURIComponent(url)}`;
         response = await fetch(proxyUrl);
       } else {
         const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/`;
-        const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+        const proxyUrl = `${getProxyUrl(
+          connectionCtx
+        )}?target=${encodeURIComponent(url)}`;
         response = await fetch(proxyUrl);
       }
       const data = await response.text();
@@ -139,15 +147,15 @@ export default function AstroPhoto() {
           try {
             if (connectionCtx.typeNameDwarf == "Dwarf II") {
               const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`;
-              const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-                url
-              )}`;
+              const proxyUrl = `${getProxyUrl(
+                connectionCtx
+              )}?target=${encodeURIComponent(url)}`;
               await fetch(proxyUrl);
             } else {
               const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${folderName}/shotsInfo.json`;
-              const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-                url
-              )}`;
+              const proxyUrl = `${getProxyUrl(
+                connectionCtx
+              )}?target=${encodeURIComponent(url)}`;
               await fetch(proxyUrl);
             }
             sessionList.push({ name: folderName, date: folderDate });
@@ -176,11 +184,15 @@ export default function AstroPhoto() {
       let response;
       if (connectionCtx.typeNameDwarf == "Dwarf II") {
         const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/shotsInfo.json`;
-        const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+        const proxyUrl = `${getProxyUrl(
+          connectionCtx
+        )}?target=${encodeURIComponent(url)}`;
         response = await fetch(proxyUrl);
       } else {
         const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/shotsInfo.json`;
-        const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+        const proxyUrl = `${getProxyUrl(
+          connectionCtx
+        )}?target=${encodeURIComponent(url)}`;
         response = await fetch(proxyUrl);
       }
       if (!response.ok) {
@@ -227,11 +239,15 @@ export default function AstroPhoto() {
         let folderResponse;
         if (connectionCtx.typeNameDwarf == "Dwarf II") {
           const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}`;
-          const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+          const proxyUrl = `${getProxyUrl(
+            connectionCtx
+          )}?target=${encodeURIComponent(url)}`;
           folderResponse = await fetch(proxyUrl);
         } else {
           const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}`;
-          const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(url)}`;
+          const proxyUrl = `${getProxyUrl(
+            connectionCtx
+          )}?target=${encodeURIComponent(url)}`;
           folderResponse = await fetch(proxyUrl);
         }
         const folderData = await folderResponse.text();
@@ -253,9 +269,9 @@ export default function AstroPhoto() {
                 }/sdcard/DWARF_II/Astronomy/${sessionName}/${encodeURIComponent(
                   fitsFile
                 )}`;
-                const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-                  url
-                )}`;
+                const proxyUrl = `${getProxyUrl(
+                  connectionCtx
+                )}?target=${encodeURIComponent(url)}`;
                 fileResponse = await fetch(proxyUrl);
               } else {
                 const url = `http://${
@@ -263,9 +279,9 @@ export default function AstroPhoto() {
                 }/DWARF3/Astronomy/${sessionName}/${encodeURIComponent(
                   fitsFile
                 )}`;
-                const proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(
-                  url
-                )}`;
+                const proxyUrl = `${getProxyUrl(
+                  connectionCtx
+                )}?target=${encodeURIComponent(url)}`;
                 fileResponse = await fetch(proxyUrl);
               }
               const fileBlob = await fileResponse.blob();

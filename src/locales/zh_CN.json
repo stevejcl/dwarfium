@@ -268,7 +268,7 @@
   "pEnableSTAContent3": "单击“连接”。\n该站点将尝试通过蓝牙连接到 {{DwarfType}}。",
   "pFirstSteps": "第一步",
   "pFirstStepsContent": "使用 Dwarf Labs 的 DWARFLAB 移动应用程序拍摄暗帧、聚焦范围并校准转到",
-  "pIPAdress": "IP地址",
+  "pIPAddress": "IP地址",
   "pImageSessionAction": "行动",
   "pImageSessionAdditionalInfo": "附加信息",
   "pImageSessionData": "会话数据",

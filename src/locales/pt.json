@@ -268,7 +268,7 @@
   "pEnableSTAContent3": "Clique em Conectar. \nEste site tentará se conectar via Bluetooth ao {{DwarfType}}.",
   "pFirstSteps": "Primeiros passos",
   "pFirstStepsContent": "Use o aplicativo móvel DWARFLAB da Dwarf Labs para tirar fotos escuras, focar o escopo e calibrar goto",
-  "pIPAdress": "Endereço de IP",
+  "pIPAddress": "Endereço de IP",
   "pImageSessionAction": "Ação",
   "pImageSessionAdditionalInfo": "Informação adicional",
   "pImageSessionData": "Dados da sessão",

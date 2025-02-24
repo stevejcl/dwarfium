@@ -8,6 +8,9 @@ import {
   fetchPortStellariumDB,
   fetchUrlStellariumDB,
   fetchConnectionStatusStellariumDB,
+  fetchUseWSProxyDB,
+  fetchProxyIPDB,
+  fetchProxyLocalIPDB,
   fetchIPDwarfDB,
   fetchBlePWDDwarfDB,
   fetchBleSTASSIDDwarfDB,
@@ -56,6 +59,20 @@ export function useLoadIntialValues() {
     if (connectionCtx.initialConnectionTime === undefined) {
       let data = fetchInitialConnectionTimeDB();
       if (data !== undefined) connectionCtx.setInitialConnectionTime(data);
+    }
+    if (connectionCtx.useWSProxy === undefined) {
+      let data = fetchUseWSProxyDB();
+      if (data !== undefined) connectionCtx.setUseWSProxy(data);
+    }
+    if (connectionCtx.proxyIP === undefined) {
+      let data = fetchProxyIPDB();
+      if (data !== undefined) connectionCtx.setProxyIP(data);
+      else connectionCtx.setProxyIP(undefined);
+    }
+    if (connectionCtx.proxyLocalIP === undefined) {
+      let data = fetchProxyLocalIPDB();
+      if (data !== undefined) connectionCtx.setProxyLocalIP(data);
+      else connectionCtx.setProxyLocalIP(undefined);
     }
     if (connectionCtx.IPDwarf === undefined) {
       let data = fetchIPDwarfDB();

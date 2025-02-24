@@ -46,7 +46,7 @@ export default function Home() {
             <li>{t("pIndexFeature6")}</li>
           </ul>
           <br />
-          <p>{t("pIndexClaimer")}</p>
+          <p dangerouslySetInnerHTML={{ __html: t("pIndexClaimer") }}></p>
           <br />
           <b>{t("pIndexBugsHeader")}</b>
           <ul>

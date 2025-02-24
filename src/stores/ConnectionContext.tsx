@@ -33,6 +33,13 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [initialConnectionTime, setInitialConnectionTime] = useState<
     number | undefined
   >();
+  const [useHttps, setUseHttps] = useState<boolean>(false);
+  const [useWSProxy, setUseWSProxy] = useState<boolean | undefined>();
+  const [proxyIP, setProxyIP] = useState<string | undefined>();
+  const [proxyLocalIP, setProxyLocalIP] = useState<string | undefined>();
+  const [useDirectBluetoothServer, setUseDirectBluetoothServer] = useState<
+    boolean | undefined
+  >();
   const [IPDwarf, setIPDwarf] = useState<string | undefined>();
   const [socketIPDwarf, setSocketIPDwarf] = useState<any | undefined>();
   const [typeIdDwarf, setTypeIdDwarf] = useState<number | undefined>();
@@ -144,6 +151,16 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setConnectionStatusSlave,
     initialConnectionTime,
     setInitialConnectionTime,
+    useHttps,
+    setUseHttps,
+    useWSProxy,
+    setUseWSProxy,
+    proxyIP,
+    setProxyIP,
+    proxyLocalIP,
+    setProxyLocalIP,
+    useDirectBluetoothServer,
+    setUseDirectBluetoothServer,
     IPDwarf,
     setIPDwarf,
     socketIPDwarf,

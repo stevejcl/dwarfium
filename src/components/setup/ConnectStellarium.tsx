@@ -4,6 +4,7 @@ import i18n from "@/i18n";
 import { useEffect, useContext, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
+import { getProxyUrl } from "@/lib/get_proxy_url";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
@@ -23,6 +24,7 @@ export default function ConnectStellarium(props: PropType) {
   let connectionCtx = useContext(ConnectionContext);
 
   const [connecting, setConnecting] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const [showInfoTxtData, setShowInfoTxtData] = useState(true);
 
   function checkConnection(e: FormEvent<HTMLFormElement>) {
@@ -44,6 +46,12 @@ export default function ConnectStellarium(props: PropType) {
       savePortStellariumDB(Number(formPort));
       saveUrlStellariumDB(url);
 
+      if (connectionCtx.proxyIP && getProxyUrl(connectionCtx)) {
+        const targetUrl = new URL(url);
+        url = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+          targetUrl.href
+        )}`;
+      }
       fetch(url, { signal: AbortSignal.timeout(2000) })
         .then(() => {
           setConnecting(false);
@@ -83,8 +91,6 @@ export default function ConnectStellarium(props: PropType) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   useEffect(() => {
-    if (showInfoTxt !== undefined && !showInfoTxt) setShowInfoTxtData(false);
-
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
@@ -93,34 +99,44 @@ export default function ConnectStellarium(props: PropType) {
   }, []);
 
   function renderDetails() {
-    if (showInfoTxtData)
-      return (
-        <ol>
-          <li className="mb-2">{t("pConnectStellariumContent1")}</li>
-          <li className="mb-2">
-            {t("pConnectStellariumContent2")}{" "}
-            <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
-              Youtube video
-            </Link>{" "}
-            {t("pConnectStellariumContent2_1")}
-          </li>
-          <li className="mb-2">{t("pConnectStellariumContent3")}</li>
-        </ol>
-      );
-    else return <ol></ol>;
+    return (
+      <div>
+        <div
+          title={showHelp ? t("pHideHelp") : t("pShowHelp")}
+          className={`help-msg nav-link me-2`}
+          onClick={() => setShowHelp((prev) => !prev)}
+        >
+          <i className="bi bi-info-square"></i>
+        </div>
+        {showHelp && (
+          <ol>
+            <li className="mb-2">{t("pConnectStellariumContent1")}</li>
+            <li className="mb-2">
+              {t("pConnectStellariumContent2")}{" "}
+              <Link href="https://www.youtube.com/watch?v=v2gROUlPRhw">
+                Youtube video
+              </Link>{" "}
+              {t("pConnectStellariumContent2_1")}
+            </li>
+            <li className="mb-2">{t("pConnectStellariumContent3")}</li>
+          </ol>
+        )}
+      </div>
+    );
   }
 
   return (
     <div>
       <h2>{t("pConnectStellarium")}</h2>
 
-      <p>{showInfoTxtData && t("pConnectStellariumContent")}</p>
+      <p>{t("pConnectStellariumContent")}</p>
       {renderDetails()}
+      <br />
       <form onSubmit={checkConnection}>
         <div className="row mb-3">
           <div className="col-md-1">
             <label htmlFor="stellarium_ip" className="form-label">
-              {t("pIPAdress")}
+              {t("pIPAddress")}
             </label>
           </div>
           <div className="col-lg-2 col-md-10">

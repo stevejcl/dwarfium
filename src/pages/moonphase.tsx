@@ -1,10 +1,8 @@
-﻿import React, { useState } from "react";
+﻿import React, { useState, useRef, useEffect } from "react";
 import MoonPhaseCalculator from "../components/MoonPhaseCalculator";
 import { useTranslation } from "react-i18next";
 //import i18n from "@/i18n";
 import SunCalc from "suncalc";
-
-const API_KEY = ""; // Vervang dit met je eigen API-key
 
 export default function Moonphase() {
   const currentDate = new Date();
@@ -14,37 +12,52 @@ export default function Moonphase() {
     `${currentYear}-${currentMonth}`
   );
   const { t } = useTranslation();
+  const [apiKey] = useState(
+    typeof window !== "undefined" ? localStorage.getItem("apiKey") || "" : ""
+  );
+  const [city, setCity] = useState(
+    typeof window !== "undefined" ? localStorage.getItem("city") || "" : ""
+  );
+  const cityInputRef = useRef<HTMLInputElement>(null);
 
-  // Standaardinstellingen voor locatie
-  const [city, setCity] = useState("Brussel");
-  const [latitude, setLatitude] = useState(50.85045);
-  const [longitude, setLongitude] = useState(4.34878);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [timezoneOffset, setTimezoneOffset] = useState();
+
+  useEffect(() => {
+    if (apiKey && city) {
+      fetchCoordinates(city);
+    }
+  }, []); // Empty dependency array means this runs once on mount
 
   // Haal coördinaten op van OpenWeatherMap API
   const fetchCoordinates = async (cityName: string) => {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`
       );
       const data = await response.json();
       if (data.coord) {
         setLatitude(data.coord.lat);
         setLongitude(data.coord.lon);
+        setTimezoneOffset(data.timezone);
+        setCity(data.name), localStorage.setItem("city", data.name);
       } else {
-        alert("Stad niet gevonden. Probeer een andere naam.");
+        alert(t("cCloudsCityNotFound"));
       }
     } catch (error) {
-      console.error("Fout bij ophalen van coördinaten:", error);
+      console.error("Error retrieving coordinates:", error);
     }
   };
 
-  // Bij veranderen van de stad in het invoerveld
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCity(event.target.value);
+  const handleCityInput = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const newCityValue = cityInputRef.current?.value || "";
+    setCity(newCityValue);
   };
 
   // Zoek stad en update coördinaten
-  const handleSearch = () => {
+  const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     fetchCoordinates(city);
   };
 
@@ -73,17 +86,47 @@ export default function Moonphase() {
 
           // Maanopgang en ondergang berekenen
           const moonTimes = SunCalc.getMoonTimes(date, latitude, longitude);
-          const toLocalTime = (date: Date | null): string => {
+          const adjustMoonTimesToLocal = (
+            moonTimes: { rise: Date | null; set: Date | null },
+            timezoneOffset: number
+          ): { rise: Date | null; set: Date | null } => {
+            if (!moonTimes.rise || !moonTimes.set)
+              return { rise: null, set: null };
+            const date = new Date(); // Current date and time
+            const localTimezoneOffset = date.getTimezoneOffset() * 60; // negative for GMT + X
+            // Apply the timezone offset to the moon rise and set times (in seconds)
+            const adjustedMoonTimes = {
+              rise: moonTimes.rise
+                ? new Date(
+                    moonTimes.rise.getTime() +
+                      (timezoneOffset + localTimezoneOffset) * 1000
+                  )
+                : null,
+              set: moonTimes.set
+                ? new Date(
+                    moonTimes.set.getTime() +
+                      (timezoneOffset + localTimezoneOffset) * 1000
+                  )
+                : null,
+            };
+            return adjustedMoonTimes;
+          };
+          // Function to format the date as a string
+          const formatDate = (date: Date | null): string => {
             if (!date) return "-";
-            return new Intl.DateTimeFormat("nl-NL", {
+
+            return new Intl.DateTimeFormat(undefined, {
               hour: "2-digit",
               minute: "2-digit",
-              timeZone: "Europe/Amsterdam",
             }).format(date);
           };
+          const localMoonTimes = adjustMoonTimesToLocal(
+            moonTimes,
+            timezoneOffset
+          );
 
-          const moonrise = toLocalTime(moonTimes.rise);
-          const moonset = toLocalTime(moonTimes.set);
+          const moonrise = formatDate(localMoonTimes.rise);
+          const moonset = formatDate(localMoonTimes.set);
 
           // Maanzichtbaarheid en afstand tot aarde
           const moonIllumination =
@@ -152,9 +195,10 @@ export default function Moonphase() {
                 <input
                   type="text"
                   id="city"
-                  value={city}
-                  onChange={handleCityChange}
-                  placeholder="Voer een stad in..."
+                  defaultValue={city}
+                  ref={cityInputRef}
+                  placeholder={t("cCloudsCityInput")}
+                  onChange={handleCityInput}
                 />
                 <button onClick={handleSearch}>{t("pMoonphaseSearch")}</button>
               </div>
@@ -179,16 +223,16 @@ export default function Moonphase() {
             <table>
               <thead>
                 <tr>
-                  <th>Sun</th>
-                  <th>Mon</th>
-                  <th>Tue</th>
-                  <th>Wed</th>
-                  <th>Thu</th>
-                  <th>Fri</th>
-                  <th>Sat</th>
+                  <th>{t("cMoonDaySun")}</th>
+                  <th>{t("cMoonDayMon")}</th>
+                  <th>{t("cMoonDayTue")}</th>
+                  <th>{t("cMoonDayWed")}</th>
+                  <th>{t("cMoonDayThu")}</th>
+                  <th>{t("cMoonDayFri")}</th>
+                  <th>{t("cMoonDaySat")}</th>
                 </tr>
               </thead>
-              <tbody>{renderMoonPhasesTable()}</tbody>
+              <tbody>{latitude && longitude && renderMoonPhasesTable()}</tbody>
             </table>
           </div>
         </div>

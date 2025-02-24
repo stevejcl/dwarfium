@@ -65,7 +65,7 @@
   "pConnectStellariumContent2": "Der Anfang davon",
   "pConnectStellariumContent2_1": " demonstriert die Einrichtung des Remote Control-Plugins von Stellarium (0 bis 1:40); Überspringen Sie den Teil über NINA. Klicken Sie auf „ CORS für folgenden Ursprung aktivieren “ und geben Sie „ * “ ein.",
   "pConnectStellariumContent3": "Geben Sie IP und Port für das Remote Control-Plugin ein und klicken Sie auf „Verbinden“. Diese Seite wird versuchen, eine Verbindung zu Stellarium herzustellen.",
-  "pIPAdress": "IP Adresse",
+  "pIPAddress": "IP Adresse",
   "pPort": "Port",
   "cUnlockHost": "Schalten Sie den Host-Modus frei",
   "cLockHost": "Hostmodus sperren",

@@ -2,9 +2,16 @@
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 import { useEffect, useContext, useState } from "react";
+import type { ChangeEvent } from "react";
 import type { FormEvent } from "react";
-import { getProxyUrl } from "@/lib/get_proxy_url";
-
+import {
+  getProxyUrl,
+  getServerUrl,
+  checkHealth,
+  isModeHttps,
+  checkMediaMtxStreamUrls,
+} from "@/lib/get_proxy_url";
+import axios from "axios";
 import {
   Dwarfii_Api,
   messageGetconfig,
@@ -17,11 +24,19 @@ import {
   saveBlePWDDwarfDB,
   saveBleSTASSIDDwarfDB,
   saveBleSTAPWDDwarfDB,
+  saveProxyIPDB,
+  saveProxyLocalIPDB,
 } from "@/db/db_utils";
 
 export default function ConnectDwarfSTA() {
   let connectionCtx = useContext(ConnectionContext);
 
+  const [showHelp, setShowHelp] = useState(false);
+  const [onTauri, setOnTauri] = useState(false);
+  const [savedProxyUrl, setSavedProxyUrl] = useState<string | undefined>("");
+  const [proxyIpValue, setProxyIpValue] = useState("");
+  const [proxyLocalIpValue, setProxyLocalIpValue] = useState("");
+  const [proxyLocalIPs, setProxyLocalIPs] = useState<string[]>([]);
   const [connecting, setConnecting] = useState(false);
   const [findDwarfBluetooth, setFindDwarfBluetooth] = useState(false);
   const [etatBluetooth, setEtatBluetooth] = useState(false);
@@ -39,6 +54,11 @@ export default function ConnectDwarfSTA() {
     connectionCtx.BleSTAPWDDwarf || ""
   );
   const [useDirectBluetooth, setUseDirectBluetooth] = useState(false);
+  const [stateProxy, setStateProxy] = useState(false);
+  const [stateBluetoothProxy, setStateBluetoothProxy] = useState(false);
+  const [stateBluetoothServer, setStateBluetoothServer] = useState(false);
+  const [stateMediaMtx, setStateMediaMtx] = useState(false);
+  const [isProxyOnServer, setIsProxyOnServer] = useState(false);
 
   const handleInputPWDChange = (event) => {
     setBluetoothPWD(event.target.value);
@@ -420,11 +440,6 @@ export default function ConnectDwarfSTA() {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   useEffect(() => {
-    const isTauri = "__TAURI__" in window;
-
-    if (!isTauri) {
-      setUseDirectBluetooth(true);
-    }
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
@@ -435,15 +450,137 @@ export default function ConnectDwarfSTA() {
     setWifi_PWD(connectionCtx.BleSTAPWDDwarf || "");
   }, []);
 
+  function compareURLsIgnoringPort(url1, url2) {
+    try {
+      const hostname1 = new URL(url1).hostname;
+      const hostname2 = new URL(url2).hostname;
+      return hostname1 === hostname2;
+    } catch (error) {
+      console.error("Invalid URL:", error);
+      return false;
+    }
+  }
+  useEffect(() => {
+    const isTauri = "__TAURI__" in window;
+
+    if (isTauri) {
+      setOnTauri(true);
+    } else {
+      // Test Proxy
+      const checkProxyStatus = async () => {
+        let proxyUrl = getProxyUrl(connectionCtx);
+        setSavedProxyUrl(proxyUrl);
+        let serverUrl = getServerUrl();
+        let isHttps = isModeHttps();
+        connectionCtx.setUseHttps(isHttps);
+
+        setStateMediaMtx(await checkMediaMtxStreamUrls(connectionCtx));
+        if (connectionCtx.proxyIP) setProxyIpValue(connectionCtx.proxyIP);
+
+        if (proxyUrl && proxyUrl.includes("api")) {
+          setIsProxyOnServer(true);
+          let statusProxy = await checkHealth("/api/health");
+          setStateProxy(statusProxy);
+          let statusBluetoothServer = await checkHealth("/api/run-exe-health");
+          if (statusProxy && statusBluetoothServer) {
+            setStateBluetoothProxy(true);
+            setStateBluetoothServer(true);
+            setUseDirectBluetooth(true);
+            connectionCtx.setUseDirectBluetoothServer(true);
+          }
+        } else {
+          let sameProxyServer = compareURLsIgnoringPort(proxyUrl, serverUrl);
+          setIsProxyOnServer(sameProxyServer);
+          let statusProxy = await checkHealth(proxyUrl + "/health");
+          setStateProxy(statusProxy);
+          if (statusProxy) {
+            // Fetch local IPs from the backend
+            axios
+              .get(proxyUrl + "/getLocalIP")
+              .then((response) => {
+                const ipList = response.data.ips;
+                setProxyLocalIPs(ipList);
+                // If there's a saved IP in context, use it (if it's in the list)
+                if (
+                  connectionCtx?.proxyLocalIP &&
+                  ipList.includes(connectionCtx.proxyLocalIP)
+                ) {
+                  setProxyLocalIpValue(connectionCtx.proxyLocalIP);
+                } else {
+                  setProxyLocalIpValue(ipList[0]); // Default to first available IP
+                }
+              })
+              .catch((error) =>
+                console.error("Error fetching local IPs:", error)
+              );
+          }
+          let statusBluetoothProxy = await checkHealth(
+            proxyUrl + "/run-exe-health"
+          );
+          let statusBluetoothServer = await checkHealth(
+            serverUrl + "/run-exe-health"
+          );
+          if (statusProxy && statusBluetoothProxy) {
+            setStateBluetoothProxy(true);
+            setUseDirectBluetooth(true);
+          }
+          if (statusBluetoothServer) {
+            setStateBluetoothServer(true);
+            setUseDirectBluetooth(true);
+          }
+          if (sameProxyServer)
+            connectionCtx.setUseDirectBluetoothServer(statusBluetoothServer);
+          else
+            connectionCtx.setUseDirectBluetoothServer(
+              statusBluetoothServer && !setStateBluetoothProxy
+            );
+        }
+      };
+
+      checkProxyStatus();
+    }
+    return () => {};
+  }, [connectionCtx.proxyIP]);
+
+  // Handle checkbox change
+  const handleCheckboxBleServerChange = (event) => {
+    const isChecked = event.target.checked;
+    connectionCtx.setUseDirectBluetoothServer(isChecked);
+  };
+
+  function ipHandler(e: ChangeEvent<HTMLInputElement>) {
+    let value = e.target.value.trim();
+    if (value === "") return;
+    console.log("ipHandler");
+    setProxyIpValue(value);
+  }
+
+  function ChangeProxy() {
+    connectionCtx.setProxyIP(proxyIpValue);
+    connectionCtx.setProxyLocalIP(proxyLocalIpValue);
+    saveProxyIPDB(proxyIpValue);
+    saveProxyLocalIPDB(proxyLocalIpValue);
+  }
+
+  function ResetProxy() {
+    setProxyIpValue("");
+    connectionCtx.setProxyIP("");
+    saveProxyIPDB(proxyIpValue);
+    setProxyLocalIpValue("");
+    connectionCtx.setProxyLocalIP("");
+    saveProxyIPDB(proxyLocalIpValue);
+  }
+
   const runExecutable = async () => {
     button_progress();
     // Get the Bluetooth password from the input field
     const pwd_data = encodeURIComponent(BluetoothPWD);
     const ssid_data = encodeURIComponent(Wifi_SSID);
     const wifipwd_data = encodeURIComponent(Wifi_PWD);
-
     const requestCmd = `/run-exe?ble_psd=${pwd_data}&ble_STA_ssid=${ssid_data}&ble_STA_pwd=${wifipwd_data}`;
-    let proxyUrl = "";
+    let proxyUrl = savedProxyUrl; //`${getProxyUrl(connectionCtx)}`;
+    let directProxyUrl = "";
+    console.log("proxyUrl:", proxyUrl);
 
     if (
       process.env.NEXT_PUBLIC_URL_PROXY_CORS &&
@@ -451,8 +588,15 @@ export default function ConnectDwarfSTA() {
     ) {
       proxyUrl = "/api" + requestCmd;
     } else {
-      const requestAddr = "http://localhost:8000" + requestCmd;
-      proxyUrl = `${getProxyUrl()}?target=${encodeURIComponent(requestAddr)}`;
+      const requestAddr = getServerUrl() + requestCmd;
+      proxyUrl = `${savedProxyUrl}?target=${encodeURIComponent(requestAddr)}`;
+      console.log("proxyUrl:", proxyUrl);
+      //direct proxy request
+      directProxyUrl = `${savedProxyUrl}${requestCmd}`;
+      console.log("directProxyUrl:", directProxyUrl);
+
+      if (!connectionCtx.useDirectBluetoothServer) proxyUrl = directProxyUrl;
+      console.log("Call Bluetooth Url:", proxyUrl);
     }
 
     const response = await fetch(proxyUrl, {
@@ -513,100 +657,360 @@ export default function ConnectDwarfSTA() {
 
   return (
     <div>
+      {!onTauri && (
+        <>
+          <h2>{t("pServerStatus")}</h2>
+
+          <p>{t("pServerStatusContent")}</p>
+          <p>
+            {t("pServerStatusContent1")}
+            <br />
+            {t("pServerStatusContent2")}
+          </p>
+          <div className="row mb-3">
+            {stateProxy == true && (
+              <div className="col-lg-10 col-md-10">
+                <i
+                  className="bi bi-check-circle"
+                  style={{ color: "green" }}
+                ></i>
+                {savedProxyUrl && savedProxyUrl.includes("api") && (
+                  <span> {t("pProxyRunningLocally")}</span>
+                )}
+                {isProxyOnServer &&
+                  savedProxyUrl &&
+                  !savedProxyUrl.includes("api") && (
+                    <span>
+                      {" "}
+                      {t("pProxyRunningOnServer")} {savedProxyUrl}
+                    </span>
+                  )}
+                {!isProxyOnServer &&
+                  savedProxyUrl &&
+                  !savedProxyUrl.includes("api") && (
+                    <span>
+                      {" "}
+                      {t("pProxyRunning")} {savedProxyUrl}
+                    </span>
+                  )}
+              </div>
+            )}
+            {stateProxy == false && (
+              <div className="col-lg-10 col-md-10">
+                <i className="bi bi-x-circle" style={{ color: "red" }}></i>
+                <span>
+                  {" "}
+                  {t("pProxyNotRunning")} {savedProxyUrl}
+                </span>
+              </div>
+            )}
+            {stateMediaMtx == true && (
+              <div className="row mb-3">
+                <div className="col-lg-6 col-md-6">
+                  <i
+                    className="bi bi-check-circle"
+                    style={{ color: "green" }}
+                  ></i>
+                  <span> {t("pMediaMtxRunning")}</span>
+                </div>
+              </div>
+            )}
+            {stateMediaMtx == false && (
+              <div className="row mb-3">
+                <div className="col-lg-6 col-md-6">
+                  <i className="bi bi-x-circle" style={{ color: "red" }}></i>
+                  <span> {t("pMediaMtxNotRunning")}</span>
+                </div>
+              </div>
+            )}
+            {!isProxyOnServer && stateBluetoothProxy == true && (
+              <div className="row mb-3">
+                <div className="col-lg-6 col-md-6">
+                  <i
+                    className="bi bi-check-circle"
+                    style={{ color: "green" }}
+                  ></i>
+                  <span> {t("pDirecBluetoothProxyAvailable")}</span>
+                </div>
+              </div>
+            )}
+            {!isProxyOnServer && stateBluetoothProxy == false && (
+              <div className="row mb-3">
+                <div className="col-lg-6 col-md-6">
+                  <i className="bi bi-x-circle" style={{ color: "red" }}></i>
+                  <span>{t("pDirecBluetoothProxyNotAvailable")}</span>
+                </div>
+              </div>
+            )}
+            {!isProxyOnServer && stateBluetoothServer == true && (
+              <div className="row mb-3">
+                <div className="col-lg-6 col-md-6">
+                  <i
+                    className="bi bi-check-circle"
+                    style={{ color: "green" }}
+                  ></i>
+                  <span> {t("pDirecBluetoothServerAvailable")}</span>
+                </div>
+              </div>
+            )}
+            {!isProxyOnServer && stateBluetoothServer == false && (
+              <div className="row mb-3">
+                <div className="col-lg-6 col-md-6">
+                  <i className="bi bi-x-circle" style={{ color: "red" }}></i>
+                  <span> {t("pDirecBluetoothServerNotAvailable")}</span>
+                </div>
+              </div>
+            )}
+            {isProxyOnServer &&
+              (stateBluetoothProxy || stateBluetoothServer) && (
+                <div className="row mb-3">
+                  <div className="col-lg-6 col-md-6">
+                    <i
+                      className="bi bi-check-circle"
+                      style={{ color: "green" }}
+                    ></i>
+                    <span> {t("pDirecBluetoothServerAvailable")}</span>
+                  </div>
+                </div>
+              )}
+            {isProxyOnServer &&
+              stateBluetoothProxy == false &&
+              stateBluetoothServer == false && (
+                <div className="row mb-3">
+                  <div className="col-lg-6 col-md-6">
+                    <i className="bi bi-x-circle" style={{ color: "red" }}></i>
+                    <span> {t("pDirecBluetoothServerNotAvailable")}</span>
+                  </div>
+                </div>
+              )}
+            {savedProxyUrl && !savedProxyUrl.includes("api") && (
+              <>
+                <p>{t("pServerStatusContent3")}</p>
+                <div className="row mb-3">
+                  {/* Proxy IP Label */}
+                  <div className="col-md-2 text-end">
+                    <label htmlFor="proxyIp" className="form-label">
+                      {t("pProxyIP")}
+                    </label>
+                  </div>
+
+                  {/* Proxy IP Input */}
+                  <div className="col-lg-2 col-md-10">
+                    <input
+                      className="form-control"
+                      id="proxyIp"
+                      name="proxyIp"
+                      placeholder="127.0.0.1"
+                      value={proxyIpValue}
+                      onChange={(e) => ipHandler(e)}
+                    />
+                  </div>
+
+                  {/* Proxy IP Status Icon */}
+                  <div className="col-auto">
+                    {proxyIpValue === connectionCtx.proxyIP ? (
+                      <i
+                        className="bi bi-check-circle text-success"
+                        title="IP is saved in context"
+                      ></i>
+                    ) : (
+                      <i
+                        className="bi bi-exclamation-triangle text-warning"
+                        title="IP is not saved in context"
+                      ></i>
+                    )}
+                  </div>
+
+                  {/* Local IP Label */}
+                  <div className="col-md-2 text-end">
+                    <label htmlFor="proxyLocalIp">{t("pProxyLocalIP")}</label>
+                  </div>
+
+                  {/* Local IP Dropdown */}
+                  <div className="col-lg-2 col-md-10">
+                    <select
+                      className="form-control"
+                      id="proxyLocalIp"
+                      name="proxyLocalIp"
+                      value={proxyLocalIpValue}
+                      onChange={(e) => setProxyLocalIpValue(e.target.value)}
+                    >
+                      {proxyLocalIPs.map((ip) => (
+                        <option key={ip} value={ip}>
+                          {ip}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Local IP Status Icon */}
+                  <div className="col-auto">
+                    {proxyLocalIpValue === connectionCtx.proxyLocalIP ? (
+                      <i
+                        className="bi bi-check-circle text-success"
+                        title="IP is saved in context"
+                      ></i>
+                    ) : (
+                      <i
+                        className="bi bi-exclamation-triangle text-warning"
+                        title="IP is not saved in context"
+                      ></i>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          {savedProxyUrl && !savedProxyUrl.includes("api") && (
+            <div>
+              <button
+                id="btnChangeProxy"
+                className="btn btn-more02 me-3"
+                onClick={(e) => {
+                  ChangeProxy();
+                  e.preventDefault(); // Prevents any unintended form submission
+                }}
+              >
+                {t("pValidChangeProxy")}
+              </button>
+              <button
+                id="btnResetProxy"
+                className="btn btn-more02 me-6"
+                onClick={(e) => {
+                  ResetProxy();
+                  e.preventDefault(); // Prevents any unintended form submission
+                }}
+              >
+                {t("pValidResetProxy")}
+              </button>
+            </div>
+          )}
+          <hr />
+        </>
+      )}
       <h2>{t("pEnableSTA", { DwarfType: connectionCtx.typeNameDwarf })}</h2>
 
       <p>
         {t("pEnableSTAContent", { DwarfType: connectionCtx.typeNameDwarf })}
       </p>
 
-      <ol>
-        <li className="mb-2">
-          {t("pEnableSTAContent1", { DwarfType: connectionCtx.typeNameDwarf })}
-          <br />
-        </li>
-        <li>
-          {t("pEnableSTAContent2", { DwarfType: connectionCtx.typeNameDwarf })}
-        </li>
-        <li className="mb-2">
-          {t("pEnableSTAContent3", { DwarfType: connectionCtx.typeNameDwarf })}
-        </li>
-        <br />
-        <form onSubmit={checkConnection} className="mb-3">
-          <div className="row mb-3">
+      <div
+        title={showHelp ? t("pHideHelp") : t("pShowHelp")}
+        className={`help-msg nav-link me-2`}
+        onClick={() => setShowHelp((prev) => !prev)}
+      >
+        <i className="bi bi-info-square"></i>
+      </div>
+      {showHelp && (
+        <ol>
+          <li className="mb-2">
+            {t("pEnableSTAContent1", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+            <br />
+          </li>
+          <li>
+            {t("pEnableSTAContent2", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </li>
+          <li className="mb-2">
+            {t("pEnableSTAContent3", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </li>
+        </ol>
+      )}
+      <br />
+      <form onSubmit={checkConnection} className="mb-3">
+        <div className="row mb-3">
+          <div className="col-md-2 text-end">
+            <label htmlFor="pwd" className="form-label">
+              {t("pBluetoothPWD")}
+            </label>
+          </div>
+          <div className="col-lg-2 col-md-10">
+            <input
+              className="form-control"
+              id="pwd"
+              name="pwd"
+              placeholder="DWARF_12345678"
+              required
+              value={BluetoothPWD}
+              onChange={handleInputPWDChange}
+            />
+          </div>
+          <div className="col-md-2 text-end">
+            <label htmlFor="ssid" className="form-label">
+              {t("pSTA_SSID_Wifi")}
+            </label>
+          </div>
+          <div className="col-lg-2 col-md-10">
+            <input
+              className="form-control"
+              id="ssid"
+              name="ssid"
+              placeholder=""
+              required
+              value={Wifi_SSID}
+              onChange={handleInputSSIDChange}
+            />
+          </div>
+          <div className="col-md-2 text-end">
+            <label htmlFor="wifipwd" className="form-label">
+              {t("pSTA_PWD_Wifi")}
+            </label>
+          </div>
+          <div className="col-lg-2 col-md-10">
+            <input
+              className="form-control"
+              id="wifipwd"
+              name="wifipwd"
+              type="password"
+              placeholder=""
+              required
+              value={Wifi_PWD}
+              onChange={handleInputWifiPWDChange}
+            />
+          </div>
+        </div>
+        {useDirectBluetooth == true &&
+          !isProxyOnServer &&
+          stateBluetoothProxy &&
+          stateBluetoothServer && (
             <div className="row mb-3">
-              <div className="col-md-2 text-end">
-                <label htmlFor="pwd" className="form-label">
-                  {t("pBluetoothPWD")}
-                </label>
-              </div>
               <div className="col-lg-2 col-md-10">
-                <input
-                  className="form-control"
-                  id="pwd"
-                  name="pwd"
-                  placeholder="DWARF_12345678"
-                  required
-                  defaultValue={connectionCtx.BlePWDDwarf}
-                  value={BluetoothPWD}
-                  onChange={handleInputPWDChange}
-                />
-              </div>
-              <div className="col-md-2 text-end">
-                <label htmlFor="pwd" className="form-label">
-                  {t("pSTA_SSID_Wifi")}
-                </label>
-              </div>
-              <div className="col-lg-2 col-md-10">
-                <input
-                  className="form-control"
-                  id="ssid"
-                  name="ssid"
-                  placeholder=""
-                  required
-                  defaultValue={connectionCtx.BleSTASSIDDwarf}
-                  value={Wifi_SSID}
-                  onChange={handleInputSSIDChange}
-                />
-              </div>
-              <div className="col-md-2 text-end">
-                <label htmlFor="pwd" className="form-label">
-                  {t("pSTA_PWD_Wifi")}
-                </label>
-              </div>
-              <div className="col-lg-2 col-md-10">
-                <input
-                  className="form-control"
-                  id="wifipwd"
-                  name="wifipwd"
-                  type="password"
-                  placeholder=""
-                  required
-                  defaultValue={connectionCtx.BleSTAPWDDwarf}
-                  value={Wifi_PWD}
-                  onChange={handleInputWifiPWDChange}
-                />
+                <div>
+                  <input
+                    type="checkbox"
+                    id="server"
+                    name="server"
+                    checked={connectionCtx.useDirectBluetoothServer}
+                    onChange={(e) => handleCheckboxBleServerChange(e)}
+                  />{" "}
+                  {t("pDirecBluetoothOnServer")}
+                </div>
               </div>
             </div>
-          </div>
-          <button id="btnWeb" type="submit" className="btn btn-more02 me-3">
-            <i className="icon-bluetooth" /> {t("pConnectWeb")}
+          )}
+        <button id="btnWeb" type="submit" className="btn btn-more02 me-3">
+          <i className="icon-bluetooth" /> {t("pConnectWeb")}
+        </button>
+        {useDirectBluetooth == true && (
+          <button
+            id="btnDirect"
+            className="btn btn-more02 me-6"
+            onClick={(e) => {
+              runExecutable();
+              e.preventDefault(); // Prevents any unintended form submission
+            }}
+          >
+            <i className="icon-bluetooth" />
+            {t("pDirectBluetooth")}
           </button>
-          {useDirectBluetooth == true && (
-            <button
-              id="btnDirect"
-              className="btn btn-more02 me-6"
-              onClick={(e) => {
-                runExecutable();
-                e.preventDefault(); // Prevents any unintended form submission
-              }}
-            >
-              <i className="icon-bluetooth" />
-              {t("pDirectBluetooth")}
-            </button>
-          )}{" "}
-          {renderConnectionStatus()}
-        </form>
-      </ol>
+        )}{" "}
+        {renderConnectionStatus()}
+      </form>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import type { Dispatch, SetStateAction } from "react";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { statusPath, parseStellariumData } from "@/lib/stellarium_utils";
 import { AstroObject, ParsedStellariumData } from "@/types";
+import { getProxyUrl } from "@/lib/get_proxy_url";
 import {
   centerHandler,
   startGotoHandler,
@@ -97,7 +98,14 @@ export const Asteroid: React.FC<AsteroidProps> = ({
     console.log("start fetchStellariumData...");
     let url = connectionCtx.urlStellarium;
     if (url) {
-      fetch(`${url}${statusPath}`, {
+      let fetchUrl = `${url}${statusPath}`;
+      if (connectionCtx.proxyIP && getProxyUrl(connectionCtx)) {
+        const targetUrl = new URL(fetchUrl);
+        fetchUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
+          targetUrl.href
+        )}`;
+      }
+      fetch(fetchUrl, {
         signal: AbortSignal.timeout(2000),
       })
         .then((response) => {

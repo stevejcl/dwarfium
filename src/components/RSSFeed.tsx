@@ -19,7 +19,7 @@ const RSSFeed = () => {
     const fetchFeed = async () => {
       try {
         const response = await fetch(
-          `${getProxyUrl()}?target=${encodeURIComponent(rssUrl)}`
+          `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(rssUrl)}`
         );
 
         // Check if the response has data

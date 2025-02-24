@@ -73,7 +73,15 @@ export async function connectionHandler(
   connectionCtx.setSocketIPDwarf(webSocketHandler);
 
   // Force IP
-  if (forceIP) await webSocketHandler.setNewIpDwarf(IPDwarf);
+  if (forceIP) {
+    if (connectionCtx.proxyIP) {
+      await webSocketHandler.setProxyUrl(
+        `${connectionCtx.proxyIP}:${process.env.NEXT_PUBLIC_PORT_PROXY_CORS}`
+      );
+    }
+    await webSocketHandler.setHttpsMode(connectionCtx.useHttps);
+    await webSocketHandler.setNewIpDwarf(IPDwarf);
+  }
 
   const customMessageHandler = async (txt_info, result_data) => {
     if (result_data.cmd == Dwarfii_Api.DwarfCMD.CMD_NOTIFY_SDCARD_INFO) {
@@ -97,30 +105,33 @@ export async function connectionHandler(
           )
         ) {
           // need to update typeIdDwarf
-          await findDeviceInfo(IPDwarf).then(([deviceId, deviceUid]) => {
-            if (deviceId) {
-              connectionCtx.setTypeIdDwarf(deviceId);
-              connectionCtx.setTypeNameDwarf(getDeviceName(deviceId));
-              if (deviceUid) connectionCtx.setTypeUidDwarf(deviceUid);
-              console.log(
-                `Result Dwarf Data: ID=${deviceId}, Name=${getDeviceName(
-                  deviceId
-                )}, UID=${deviceUid}`
-              );
-
-              // Update it for the next frames to be sent
-              if (webSocketHandler.setDeviceIdDwarf(deviceId)) {
+          await findDeviceInfo(IPDwarf, connectionCtx).then(
+            ([deviceId, deviceUid]) => {
+              if (deviceId) {
+                connectionCtx.setTypeIdDwarf(deviceId);
+                connectionCtx.setTypeNameDwarf(getDeviceName(deviceId));
+                if (deviceUid) connectionCtx.setTypeUidDwarf(deviceUid);
                 console.log(
-                  "The device id has been updated for the next frames to be sent"
+                  `Result Dwarf Data: ID=${deviceId}, Name=${getDeviceName(
+                    deviceId
+                  )}, UID=${deviceUid}`
                 );
-              } else {
-                console.error("Error during update of the device id");
-              }
-              if (deviceId == 2) checkMediaMtxStreamWithUpdate(IPDwarf);
 
-              initDwarfId = deviceId;
+                // Update it for the next frames to be sent
+                if (webSocketHandler.setDeviceIdDwarf(deviceId)) {
+                  console.log(
+                    "The device id has been updated for the next frames to be sent"
+                  );
+                } else {
+                  console.error("Error during update of the device id");
+                }
+                if (deviceId == 2)
+                  checkMediaMtxStreamWithUpdate(IPDwarf, connectionCtx);
+
+                initDwarfId = deviceId;
+              }
             }
-          });
+          );
         }
         if (getInfoCamera && connectionCtx.typeIdDwarf) {
           getAllTelescopeISPSetting(connectionCtx, webSocketHandler);
@@ -344,7 +355,7 @@ export async function connectionHandler(
     setConnecting(false);
     connectionCtx.setConnectionStatus(false);
     saveConnectionStatusDB(false);
-  }, 5000);
+  }, 10000);
 
   // function for connection and reconnection
   const customReconnectHandler = () => {

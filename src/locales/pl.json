@@ -267,7 +267,7 @@
   "pEnableSTAContent3": "Kliknij Połącz. \nTa strona spróbuje połączyć się przez Bluetooth z {{DwarfType}}.",
   "pFirstSteps": "Pierwsze kroki",
   "pFirstStepsContent": "Użyj aplikacji mobilnej DWARFLAB firmy Dwarf Labs, aby wykonać ciemne klatki, ustawić ostrość i skalibrować goto",
-  "pIPAdress": "Adres IP",
+  "pIPAddress": "Adres IP",
   "pImageSessionAction": "Działanie",
   "pImageSessionAdditionalInfo": "Dodatkowe informacje",
   "pImageSessionData": "Dane sesji",

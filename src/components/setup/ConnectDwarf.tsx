@@ -23,6 +23,7 @@ export default function ConnectDwarf() {
   const [randomDwarfClientID, setRandomDwarfClientID] = useState("");
   const originalDwarfClientID = useRef(DwarfClientID_original);
 
+  const [showHelp, setShowHelp] = useState(false);
   const [ipAuto, setIpAuto] = useState(false); // Connection state
   const [ipValue, setIpValue] = useState("");
   const [connecting, setConnecting] = useState(false);
@@ -153,7 +154,7 @@ export default function ConnectDwarf() {
 
     const webSocketHandler = connectionCtx.socketIPDwarf
       ? connectionCtx.socketIPDwarf
-      : new WebSocketHandler(connectionCtx.socketIPDwarf);
+      : new WebSocketHandler(connectionCtx.IPDwarf);
 
     // send command to Force Disconnect
     webSocketHandler.cleanup(true);
@@ -226,6 +227,7 @@ export default function ConnectDwarf() {
       i18n.changeLanguage(storedLanguage);
     }
   }, []);
+
   return (
     <div>
       <h2>
@@ -238,89 +240,99 @@ export default function ConnectDwarf() {
         })}
       </p>
 
-      <ol>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent1", {
-            DwarfType: connectionCtx.typeNameDwarf,
-          })}
-        </li>
-        <li className="mb-2">{t("pConnectDwarfIIContent2")}</li>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent3", {
-            DwarfType: connectionCtx.typeNameDwarf,
-          })}
-        </li>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent4", {
-            DwarfType: connectionCtx.typeNameDwarf,
-          })}
-        </li>
-        <li className="mb-2">
-          {t("pConnectDwarfIIContent5", {
-            DwarfType: connectionCtx.typeNameDwarf,
-          })}
-        </li>
-        <form onSubmit={checkConnection} className="mb-3">
-          <div className="row mb-3">
-            <div className="col-md-1">
-              <label htmlFor="notify" className="form-label">
-                {connectionCtx.typeNameDwarf}
-              </label>
-            </div>
-            <div className="col">
-              <button className="btn-refresh" onClick={handleReset}>
-                <i className="fa fa-refresh" aria-hidden="true"></i>
-              </button>{" "}
-              {t("pResetDwarfType")}
-            </div>
+      <div
+        title={showHelp ? t("pHideHelp") : t("pShowHelp")}
+        className={`help-msg nav-link me-2`}
+        onClick={() => setShowHelp((prev) => !prev)}
+      >
+        <i className="bi bi-info-square"></i>
+      </div>
+      {showHelp && (
+        <ol>
+          <li className="mb-2">
+            {t("pConnectDwarfIIContent1", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </li>
+          <li className="mb-2">{t("pConnectDwarfIIContent2")}</li>
+          <li className="mb-2">
+            {t("pConnectDwarfIIContent3", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </li>
+          <li className="mb-2">
+            {t("pConnectDwarfIIContent4", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </li>
+          <li className="mb-2">
+            {t("pConnectDwarfIIContent5", {
+              DwarfType: connectionCtx.typeNameDwarf,
+            })}
+          </li>
+          <li className="mb-4">{t("pConnectDwarfIIContent6")}</li>
+        </ol>
+      )}
+      <br />
+      <form onSubmit={checkConnection} className="mb-3">
+        <div className="row mb-3">
+          <div className="col-md-1">
+            <label htmlFor="notify" className="form-label">
+              {connectionCtx.typeNameDwarf}
+            </label>
           </div>
-          <div className="row mb-3">
-            <div className="col-md-1">
-              <label htmlFor="notify" className="form-label">
-                Specific ID
-              </label>
-            </div>
-            <div className="col">
-              <input
-                type="checkbox"
-                id="notify"
-                name="notify"
-                checked={isChecked}
-                onChange={(e) => handleCheckboxChange(e)}
-              />{" "}
-              <button className="btn-refresh" onClick={handleRefresh}>
-                <i className="fa fa-refresh" aria-hidden="true"></i>
-              </button>{" "}
-              {t("pConnectPrivateID")}
-            </div>
+          <div className="col">
+            <button className="btn-refresh" onClick={handleReset}>
+              <i className="fa fa-refresh" aria-hidden="true"></i>
+            </button>{" "}
+            {t("pResetDwarfType")}
           </div>
-          <div className="row mb-3">
-            <div className="col-md-1">
-              <label htmlFor="ip" className="form-label">
-                IP
-              </label>
-            </div>
-            <div className="col-lg-2 col-md-10">
-              <input
-                className="form-control"
-                id="ip"
-                name="ip"
-                placeholder="127.0.0.1"
-                required
-                value={ipValue}
-                onChange={(e) => ipHandler(e)}
-                disabled={ipAuto}
-              />
-            </div>
+        </div>
+        <div className="row mb-3">
+          <div className="col-md-1">
+            <label htmlFor="notify" className="form-label">
+              Specific ID
+            </label>
           </div>
-          <button type="submit" className="btn btn-more02 me-3">
-            <i className="icon-wifi" /> {t("pConnect")}
-          </button>{" "}
-          {renderConnectionStatus()}
-          {renderCmdHostLockDwarf()}
-        </form>
-        <li className="mb-4">{t("pConnectDwarfIIContent6")}</li>
-      </ol>
+          <div className="col">
+            <input
+              type="checkbox"
+              id="notify"
+              name="notify"
+              checked={isChecked}
+              onChange={(e) => handleCheckboxChange(e)}
+            />{" "}
+            <button className="btn-refresh" onClick={handleRefresh}>
+              <i className="fa fa-refresh" aria-hidden="true"></i>
+            </button>{" "}
+            {t("pConnectPrivateID")}
+          </div>
+        </div>
+        <div className="row mb-3">
+          <div className="col-md-1">
+            <label htmlFor="ip" className="form-label">
+              {t("pIPAddress")}
+            </label>
+          </div>
+          <div className="col-lg-2 col-md-10">
+            <input
+              className="form-control"
+              id="ip"
+              name="ip"
+              placeholder="127.0.0.1"
+              required
+              value={ipValue}
+              onChange={(e) => ipHandler(e)}
+              disabled={ipAuto}
+            />
+          </div>
+        </div>
+        <button type="submit" className="btn btn-more02 me-3">
+          <i className="icon-wifi" /> {t("pConnect")}
+        </button>{" "}
+        {renderConnectionStatus()}
+        {renderCmdHostLockDwarf()}
+      </form>
     </div>
   );
 }

@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as tf from "@tensorflow/tfjs";
 
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+
 interface PhotoEditorProps {
   fullImageUrl: string;
   thumbnailUrl: string;
@@ -19,7 +22,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
   const [sharpness, setSharpness] = useState(100);
   const [temperature, setTemperature] = useState(0);
   const [filter, setFilter] = useState("");
-  const [copyrightText, setCopyrightText] = useState(" \u00A9 2025 Jouw Naam");
+  const [copyrightText, setCopyrightText] = useState(" \u00A9 2025 Your Name");
   const [isCropping, setIsCropping] = useState(false);
   const [cropStart, setCropStart] = useState<{ x: number; y: number } | null>(
     null
@@ -220,14 +223,26 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
     setCropEnd(null);
   };
 
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <div className="photo-editor-overlay">
       <div className="photo-editor-modal">
         {/* Header */}
         <div className="photo-editor-header">
-          <h2>Bewerk Foto</h2>
+          <h2>{t("cImageEditorPhotoEdit")}</h2>
           <button className="photo-editor-close-btn" onClick={onClose}>
-            Sluiten
+            {t("cImageEditorClose")}
           </button>
         </div>
 
@@ -235,20 +250,20 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
         <div className="photo-editor-body">
           {/* Afbeeldingen */}
           <div className="photo-editor-content">
-            <h4>Thumbnail</h4>
+            <h4>{t("cImageEditorThumbnail")}</h4>
             <img
               src={thumbnailUrl}
-              alt="Thumbnail"
+              alt={t("cImageEditorThumbnail")}
               className="photo-editor-thumbnail"
             />
 
-            <h4>Volledige Afbeelding</h4>
+            <h4>{t("cImageEditorFullImage")}</h4>
             <div style={{ position: "relative", display: "inline-block" }}>
               <img
                 ref={imageRef}
                 crossOrigin="anonymous"
                 src={fullImageUrl}
-                alt="Volledige Afbeelding"
+                alt={t("cImageEditorFullImage")}
                 className="photo-editor-fullimage"
                 style={{
                   filter: `${filter} brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%) hue-rotate(${temperature}deg) drop-shadow(0px 0px ${
@@ -304,14 +319,14 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
 
           {/* Zijpaneel voor bewerking */}
           <div className="photo-editor-sidebar">
-            <h3>Foto Bewerken</h3>
+            <h3>{t("cImageEditorEdit")}</h3>
 
             <button onClick={applyCrop} disabled={!cropStart || !cropEnd}>
-              Bijsnijden
+              {t("cImageEditorCrop")}
             </button>
-            <button onClick={denoiseWithAI}>Ruis Verwijderen (AI)</button>
+            <button onClick={denoiseWithAI}>{t("cImageEditorDenoise")}</button>
             {/* Helderheid */}
-            <label>Helderheid</label>
+            <label>{t("cImageEditorBrightness")}</label>
             <input
               type="range"
               min="50"
@@ -321,7 +336,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
             />
 
             {/* Contrast */}
-            <label>Contrast</label>
+            <label>{t("cImageEditorContrast")}</label>
             <input
               type="range"
               min="50"
@@ -330,7 +345,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
               onChange={(e) => setContrast(parseInt(e.target.value))}
             />
             {/* Scherpte */}
-            <label>Scherpte</label>
+            <label>{t("cImageEditorSharpness")}</label>
             <input
               type="range"
               min="0"
@@ -339,7 +354,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
               onChange={(e) => setSharpness(parseInt(e.target.value))}
             />
             {/* Verzadiging */}
-            <label>Verzadiging</label>
+            <label>{t("cImageEditorSaturation")}</label>
             <input
               type="range"
               min="0"
@@ -349,7 +364,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
             />
 
             {/* Kleurtemperatuur */}
-            <label>Kleurtemperatuur</label>
+            <label>{t("cImageEditorColorTemperature")}</label>
             <input
               type="range"
               min="-50"
@@ -359,12 +374,14 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
             />
 
             {/* Filters */}
-            <h4>Filters</h4>
+            <h4> {t("cImageEditorFilters")}</h4>
             <button onClick={() => applyFilter("grayscale(100%)")}>
-              Zwart-Wit
+              {t("cImageEditorBlackandWhite")}
             </button>
-            <button onClick={() => applyFilter("sepia(100%)")}>Sepia</button>
-            <button onClick={resetAdjustments}>Reset</button>
+            <button onClick={() => applyFilter("sepia(100%)")}>
+              {t("cImageEditorSepia")}
+            </button>
+            <button onClick={resetAdjustments}>{t("cImageEditorReset")}</button>
           </div>
         </div>
         {/* Container voor copyright invoerveld en opslaan-knop */}
@@ -374,13 +391,13 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
               type="text"
               value={copyrightText}
               onChange={(e) => setCopyrightText(e.target.value)}
-              placeholder="Voer copyright in..."
+              placeholder={t("cImageEditorCopyright")}
             />
           </div>
 
           <div className="photo-editor-footer">
             <button onClick={saveImage} className="photo-editor-save-btn">
-              Opslaan
+              {t("cImageEditorSave")}
             </button>
           </div>
           <button
@@ -393,7 +410,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
             className="photo-editor-share-btn"
           >
             <img src="/images/facebook-icon.svg" alt="Facebook" />
-            Delen op Facebook
+            {t("cImageEditorShareFacebook")}
           </button>
         </div>
       </div>

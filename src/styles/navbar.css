@@ -67,6 +67,7 @@ ul {
     font-weight: 600;
     color: #fff;
     text-transform: uppercase;
+
 }
 
 .navbar .dropdown-toggle::after {
@@ -162,7 +163,8 @@ ul {
     -ms-transition: all .25s ease;
     -o-transition: all .25s ease;
     transition: all .25s ease;
-    display: block;
+    display: inline-block;
+    position: relative;
 }
 
 .right-menu ul .cusotme-ph {
@@ -200,6 +202,7 @@ ul {
     font-weight: 600;
     color: #fff;
     text-transform: uppercase;
+    display: inline-block;
 }
 
 .drobdown {
@@ -358,4 +361,22 @@ ul {
 }
 .navbar-light .navbar-nav .nav-link.active.drop, .navbar-light .navbar-nav .show > .nav-link {
     color: #808080;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.sub-menu {
+    position: absolute;
+    left: 100%;
+    top: 10px;
+    display: none;
+}
+
+.dropdown:hover .dropbtn {
+    background: none;
+    font-size: 1.3rem;
+    color: #d3a417;
 }

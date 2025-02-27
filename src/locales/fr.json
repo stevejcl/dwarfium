@@ -67,6 +67,8 @@
   "pDirecBluetoothProxyNotAvailable": "Détection Bluetooth directe sur le Proxy non disponible !",
   "pDirecBluetoothServerNotAvailable": "Détection Bluetooth directe sur le Serveur non disponible !",
   "pDirecBluetoothOnServer": "Utiliser la détection sur le Serveur pour une connexion directe",
+  "cProxyIPNotSaved": "L'IP n'est pas sauvegardée",
+  "cProxyIPSaved": "L'IP est sauvegardée",
   "pEnableSTA": "Activer le mode STA sur {{DwarfType}}",
   "pEnableSTAContent": "Pour que ce site puisse se connecter au {{DwarfType}}, le mode STA doit être configuré et activé sur {{DwarfType}}.",
   "pEnableSTAContent1": "Pour établir la connexion avec le Dwarf, Dwarfium doit d'abord se connecter via Bluetooth.",
@@ -94,6 +96,7 @@
   "pConnectStellariumContent1": "Démarrez l'application de bureau Stellarium.",
   "pConnectStellariumContent2": "Le début de ceci",
   "pConnectStellariumContent2_1": " montre la configuration du plugin Remote Control de Stellarium (0 à 1:40) ; sautez la partie sur NINA. Cliquez sur « Activer CORS pour l'origine suivante » et saisissez « * ».",
+  "pConnectStellariumContent2_2": "Vous pouvez également télécharger et lancer le programme suivant qui va configurer le plugin automatiquement, le port à utiliser sera 8090",
   "pConnectStellariumContent3": "Entrez dans IP et le port pour le plugin de télécommande et cliquez sur «Connexion». \nDwarfium essaiera de se connecter à Stellarium.",
   "pIPAddress": "adresse IP",
   "pPort": "Port",
@@ -391,5 +394,6 @@
   "cEQSolvingAzimuthResult": "Correction d'azimut",
   "cEQSolvingStopAction": "Arrêt de résolution d'égalisation",
   "pImageSessionEdit": "Modifier",
-  "pIndexBug2": ""
+  "pIndexBug2": "",
+  "pIndexBug3": ""
 }

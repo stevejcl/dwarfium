@@ -431,10 +431,12 @@ export default function DSOList(props: PropType) {
           ))}
         </ul>
         <hr />
-        <div className="row mb-3">
+        <div className="row">
           <div className="">
             <DSOSearch updateSearchText={updateSearchTextInContext} />
           </div>
+          <div className="d-block d-md-none w-100"><br/></div>
+          <div className="d-block d-md-none w-100"><br/></div>
           <div className="">
             <DSOVisibleSky
               updateVisibleSkyLimit={updateVisibleSkyLimitInContext}

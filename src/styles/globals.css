@@ -1083,9 +1083,21 @@ img {
     width: 650px;
 }
 .sky_object {
-    margin-left: 37%;
+    margin-left: 60%;
     margin-top: -55px;
 }
+
+@media (max-width: 992px) { 
+  .sky_object {
+    margin-top: -65px;
+  }
+}
+@media (max-width: 768px) { 
+  .sky_object {
+    margin-left: 0%; 
+  }
+}
+
 .search_object {
     margin-left: 0%; 
 }

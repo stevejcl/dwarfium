@@ -223,6 +223,73 @@ app.get("/run-exe", async (req, res) => {
     }
 });
 
+// Run Stellarium config Health Route
+app.get("/stellarium-config-health", async (req, res) => {
+
+  const INSTALL_DIR = path.resolve(".");
+  const EXE_NAME = "stellarium_auto_config";
+  const EXE_FULL_NAME =
+    process.platform === "win32" ? `${EXE_NAME}.exe` : `${EXE_NAME}`;
+
+  const exePath = path.join(INSTALL_DIR, EXE_FULL_NAME);
+
+  if (fs.existsSync(exePath)) {
+    const urlExe = "/stellarium-config-exe";
+    return res.status(200).json({ status: "Executable found", data: urlExe });
+  }
+
+  return res.status(404).json({ error: "Executable not found" });
+
+});
+
+// Run Stellarium config Exe Route
+app.get("/stellarium-config-exe", async (req, res) => {
+
+  const INSTALL_DIR = path.resolve(".");
+  const EXE_NAME = "stellarium_auto_config";
+  const EXE_FULL_NAME =
+    process.platform === "win32" ? `${EXE_NAME}.exe` : `${EXE_NAME}`;
+
+  const exePath = path.join(INSTALL_DIR, EXE_FULL_NAME);
+
+  if (!fs.existsSync(exePath)) {
+    return res.status(404).json({ error: "Executable not found" });
+  }
+
+  try {
+
+    const childProcess = spawn(exePath, [], {
+      cwd: INSTALL_DIR,
+      shell: process.platform !== "win32",
+    });
+
+    let stdoutData = "",
+      stderrData = "";
+
+    childProcess.stdout.on("data", (data: Buffer) => {
+      stdoutData += data.toString();
+    });
+
+    childProcess.stderr.on("data", (data: Buffer) => {
+      stderrData += data.toString();
+    });
+
+    childProcess.on("close", (code) => {
+      if (code === 0) {
+        console.log("Process exited successfully:", stdoutData);
+        return res.json({ message: "Process completed", output: stdoutData });
+      } else {
+        console.error("Process exited with error:", stderrData);
+        return res
+          .status(500)
+          .json({ error: "Process failed", details: stderrData });
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({ error: (error as Error).message });
+  }
+});
+
 app.get("/getLocalIP", async (req, res) => {
     res.json({ ips: getLocalIPAddress() });
 });

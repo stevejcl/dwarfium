@@ -88,12 +88,67 @@ def run_exe():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+# API endpoint to check if a program is here
+@app.route('/stellarium-config-health', methods=['GET'])
+def stellarium_config_health():
+    # Define the base name of the executable
+    extern_path = os.path.abspath(".")
+    exe_name = "stellarium_auto_config"
+    exe_full_name = exe_name + ".exe" if sys.platform == "win32" else exe_name
+
+    exe_path = os.path.join(extern_path, exe_full_name)
+
+    # Check if the executable file exist
+    if os.path.exists(exe_path):
+        urlExe = "/stellarium-config-exe"
+        return jsonify({"status": "Executable found", "data": urlExe}), 200
+
+    return jsonify({"error": "Executable not found"}), 404
+
+# API endpoint to execute a program with parameters
+@app.route('/stellarium-config-exe', methods=['GET'])
+def stellarium_config_exe():
+    try:
+
+        # Define the base name of the executable
+        install_path = os.path.abspath(".")
+        exe_name = "stellarium_auto_config"
+        exe_full_name = exe_name + ".exe" if sys.platform == "win32" else exe_name
+
+        exe_path = os.path.join(install_path, exe_full_name)
+
+
+        # Ensure correct execution format for Linux/macOS
+        if sys.platform != "win32":
+            exe_path = "./" + exe_path.replace("\\", "/")  # Convert Windows-style paths if needed
+
+        process = subprocess.Popen(
+            [exe_path], 
+            cwd=install_path,
+            shell=(sys.platform != "win32"),  # Use shell only on non-Windows platforms
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True  # Ensures the output is treated as text instead of bytes
+        )
+
+        stdout_data, stderr_data = process.communicate()
+
+        if process.returncode == 0:
+            print("Process exited successfully:", stdout_data)
+            return jsonify({"message": "Process completed", "output": stdout_data}), 200
+        else:
+            print("Process exited with error:", stderr_data)
+            return jsonify({"error": "Process failed", "details": stderr_data}), 500
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 # Serve static files and redirect unknown routes to index.html (for frontend routing
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_static(path):
     #  If the requested path is an API route, return 404 instead of redirecting
-    if path == "run-exe" or path == "health":
+    if path == "health" or path == "run-exe-health" or path == "run-exe" or path =="stellarium-config-heathl" or path =="stellarium-config-exe":
         return jsonify({"error": "Not Found"}), 404
 
     full_path = os.path.join(app.static_folder, path)

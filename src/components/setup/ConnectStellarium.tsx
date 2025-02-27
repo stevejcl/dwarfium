@@ -4,7 +4,12 @@ import i18n from "@/i18n";
 import { useEffect, useContext, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
-import { getProxyUrl } from "@/lib/get_proxy_url";
+import {
+  getProxyUrl,
+  getServerUrl,
+  checkHealth,
+  compareURLsIgnoringPort,
+} from "@/lib/get_proxy_url";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
@@ -26,6 +31,7 @@ export default function ConnectStellarium(props: PropType) {
   const [connecting, setConnecting] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [showInfoTxtData, setShowInfoTxtData] = useState(true);
+  const [url_plugin, setUrl_plugin] = useState("");
 
   function checkConnection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -93,6 +99,58 @@ export default function ConnectStellarium(props: PropType) {
   useEffect(() => {
     if (showInfoTxt !== undefined && !showInfoTxt) setShowInfoTxtData(false);
 
+    const isTauri = "__TAURI__" in window;
+
+    if (isTauri) {
+      setUrl_plugin("");
+    } else {
+      // Test Proxy
+      const getUrlStellariumConfig = async () => {
+        let serverUrl = getServerUrl();
+        let proxyUrl = getProxyUrl(connectionCtx);
+        let urlStellariumConfig = "";
+
+        if (proxyUrl && proxyUrl.includes("api")) {
+          urlStellariumConfig = await checkHealth(
+            "/api/stellarium-config-health"
+          );
+        } else {
+          let sameProxyServer = compareURLsIgnoringPort(proxyUrl, serverUrl);
+          if (sameProxyServer) {
+            // check on Server first
+            urlStellariumConfig = await checkHealth(
+              serverUrl + "/stellarium-config-health"
+            );
+            // check on Proxy if not found
+            if (!urlStellariumConfig) {
+              urlStellariumConfig = await checkHealth(
+                proxyUrl + "/stellarium-config-health"
+              );
+              if (urlStellariumConfig) {
+                urlStellariumConfig = proxyUrl + urlStellariumConfig;
+              }
+            }
+          } else {
+            // check on Proxy first
+            urlStellariumConfig = await checkHealth(
+              proxyUrl + "/stellarium-config-health"
+            );
+            if (urlStellariumConfig) {
+              urlStellariumConfig = proxyUrl + urlStellariumConfig;
+            }
+            // check on Server if not found
+            else {
+              urlStellariumConfig = await checkHealth(
+                serverUrl + "/stellarium-config-health"
+              );
+            }
+          }
+        }
+        if (urlStellariumConfig) setUrl_plugin(urlStellariumConfig);
+      };
+      getUrlStellariumConfig();
+    }
+
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
@@ -121,6 +179,19 @@ export default function ConnectStellarium(props: PropType) {
                 </Link>{" "}
                 {t("pConnectStellariumContent2_1")}
               </li>
+              {url_plugin && (
+                <li className="mb-2">
+                  {t("pConnectStellariumContent2_2")}{" "}
+                  <a
+                    href={`${url_plugin}`}
+                    target="_blank"
+                    rel="noopener
+                    noreferrer"
+                  >
+                    Stellarium_auto_config
+                  </a>{" "}
+                </li>
+              )}
               <li className="mb-2">{t("pConnectStellariumContent3")}</li>
             </ol>
           )}

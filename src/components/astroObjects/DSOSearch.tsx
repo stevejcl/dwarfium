@@ -26,12 +26,12 @@ export default function DSOSearch({ updateSearchText }) {
   return (
     <div className="search_object">
       <div className="row mb-3">
-        <div className="col-lg-1 col-md-2 col-12 mb-2 mb-md-0">
+        <div className="col-lg-1 col-md-2 col-4 mb-2 mb-md-0">
           <button className="btn btn-more02 w-100" onClick={searchHandler}>
             {t("cObjectsSearch")}
           </button>
         </div>
-        <div className="col-lg-3 col-md-5 col-12">
+        <div className="col-lg-3 col-md-4 col-6">
           <input
             pattern="^[\w\s]{0,255}$/i"
             className="form-control"

@@ -10,6 +10,7 @@ import {
   checkHealth,
   isModeHttps,
   checkMediaMtxStreamUrls,
+  compareURLsIgnoringPort,
 } from "@/lib/get_proxy_url";
 import axios from "axios";
 import {
@@ -450,16 +451,6 @@ export default function ConnectDwarfSTA() {
     setWifi_PWD(connectionCtx.BleSTAPWDDwarf || "");
   }, []);
 
-  function compareURLsIgnoringPort(url1, url2) {
-    try {
-      const hostname1 = new URL(url1).hostname;
-      const hostname2 = new URL(url2).hostname;
-      return hostname1 === hostname2;
-    } catch (error) {
-      console.error("Invalid URL:", error);
-      return false;
-    }
-  }
   useEffect(() => {
     const isTauri = "__TAURI__" in window;
 
@@ -578,14 +569,17 @@ export default function ConnectDwarfSTA() {
     const ssid_data = encodeURIComponent(Wifi_SSID);
     const wifipwd_data = encodeURIComponent(Wifi_PWD);
     const requestCmd = `/run-exe?ble_psd=${pwd_data}&ble_STA_ssid=${ssid_data}&ble_STA_pwd=${wifipwd_data}`;
-    let proxyUrl = savedProxyUrl; //`${getProxyUrl(connectionCtx)}`;
+    let proxyUrl = savedProxyUrl;
     let directProxyUrl = "";
-    console.log("proxyUrl:", proxyUrl);
+    console.log("savedProxyUrl:", proxyUrl);
 
-    if (
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS &&
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS.includes("api")
-    ) {
+    if (!proxyUrl) {
+      console.error("runExecutable proxyUrl empty");
+      button_default();
+      setConnecting(false);
+      setConnectionStatus(false);
+      return;
+    } else if (proxyUrl?.includes("api")) {
       proxyUrl = "/api" + requestCmd;
     } else {
       const requestAddr = getServerUrl() + requestCmd;
@@ -706,7 +700,7 @@ export default function ConnectDwarfSTA() {
             )}
             {stateMediaMtx == true && (
               <div className="row mb-3">
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-10 col-md-10">
                   <i
                     className="bi bi-check-circle"
                     style={{ color: "green" }}
@@ -717,7 +711,7 @@ export default function ConnectDwarfSTA() {
             )}
             {stateMediaMtx == false && (
               <div className="row mb-3">
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-10 col-md-10">
                   <i className="bi bi-x-circle" style={{ color: "red" }}></i>
                   <span> {t("pMediaMtxNotRunning")}</span>
                 </div>
@@ -725,7 +719,7 @@ export default function ConnectDwarfSTA() {
             )}
             {!isProxyOnServer && stateBluetoothProxy == true && (
               <div className="row mb-3">
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-10 col-md-10">
                   <i
                     className="bi bi-check-circle"
                     style={{ color: "green" }}
@@ -736,7 +730,7 @@ export default function ConnectDwarfSTA() {
             )}
             {!isProxyOnServer && stateBluetoothProxy == false && (
               <div className="row mb-3">
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-10 col-md-10">
                   <i className="bi bi-x-circle" style={{ color: "red" }}></i>
                   <span>{t("pDirecBluetoothProxyNotAvailable")}</span>
                 </div>
@@ -744,7 +738,7 @@ export default function ConnectDwarfSTA() {
             )}
             {!isProxyOnServer && stateBluetoothServer == true && (
               <div className="row mb-3">
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-10 col-md-10">
                   <i
                     className="bi bi-check-circle"
                     style={{ color: "green" }}
@@ -755,7 +749,7 @@ export default function ConnectDwarfSTA() {
             )}
             {!isProxyOnServer && stateBluetoothServer == false && (
               <div className="row mb-3">
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-10 col-md-10">
                   <i className="bi bi-x-circle" style={{ color: "red" }}></i>
                   <span> {t("pDirecBluetoothServerNotAvailable")}</span>
                 </div>
@@ -764,7 +758,7 @@ export default function ConnectDwarfSTA() {
             {isProxyOnServer &&
               (stateBluetoothProxy || stateBluetoothServer) && (
                 <div className="row mb-3">
-                  <div className="col-lg-6 col-md-6">
+                  <div className="col-lg-10 col-md-10">
                     <i
                       className="bi bi-check-circle"
                       style={{ color: "green" }}
@@ -777,7 +771,7 @@ export default function ConnectDwarfSTA() {
               stateBluetoothProxy == false &&
               stateBluetoothServer == false && (
                 <div className="row mb-3">
-                  <div className="col-lg-6 col-md-6">
+                  <div className="col-lg-10 col-md-10">
                     <i className="bi bi-x-circle" style={{ color: "red" }}></i>
                     <span> {t("pDirecBluetoothServerNotAvailable")}</span>
                   </div>
@@ -811,12 +805,12 @@ export default function ConnectDwarfSTA() {
                     {proxyIpValue === connectionCtx.proxyIP ? (
                       <i
                         className="bi bi-check-circle text-success"
-                        title="IP is saved in context"
+                        title={t("cProxyIPSaved")}
                       ></i>
                     ) : (
                       <i
                         className="bi bi-exclamation-triangle text-warning"
-                        title="IP is not saved in context"
+                        title={t("cProxyIPNotSaved")}
                       ></i>
                     )}
                   </div>

@@ -28,7 +28,8 @@ export async function checkHealth(url, timeout = 1000) {
 
     if (data.status) {
       console.log(`${url} Service is healthy!`);
-      return true;
+      if (data.data) return data.data;
+      else return true;
     } else {
       console.warn(`${url} Service is unhealthy:`, data);
     }
@@ -50,7 +51,7 @@ export function isModeHttps() {
     return false;
   } else if (typeof window !== "undefined") {
     const port = window.location.protocol;
-    return port.toLowerCase() === "https";
+    return port.toLowerCase() === "https:";
   }
   return false;
 }
@@ -97,7 +98,12 @@ export function getProxyUrl(connectionCtx: ConnectionContextType) {
     else hostname = window.location.hostname;
 
     if (hostname) {
-      const proxy_url = `${window.location.protocol}//${hostname}:${process.env.NEXT_PUBLIC_PORT_PROXY_CORS}`;
+      const protocol = window.location.protocol;
+      const port =
+        protocol.toLowerCase() === "https:"
+          ? process.env.NEXT_PUBLIC_PORT_PROXY_CORS_HTTPS
+          : process.env.NEXT_PUBLIC_PORT_PROXY_CORS;
+      const proxy_url = `${protocol}//${hostname}:${port}`;
       console.debug(`PROXY-2a is : ${proxy_url}`);
       return proxy_url;
     } else {
@@ -202,6 +208,17 @@ export async function checkMediaMtxStreamUrls(
     } else {
       console.error("Error verifying stream info:", error);
     }
+    return false;
+  }
+}
+
+export function compareURLsIgnoringPort(url1, url2) {
+  try {
+    const hostname1 = new URL(url1).hostname;
+    const hostname2 = new URL(url2).hostname;
+    return hostname1 === hostname2;
+  } catch (error) {
+    console.error("Invalid URL:", error);
     return false;
   }
 }

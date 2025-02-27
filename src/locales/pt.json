@@ -392,5 +392,8 @@
   "pServerStatusContent3": "Se você instalou o software proxy em uma máquina diferente do servidor, digite o IP proxy aqui e verifique seu status.",
   "pShowHelp": "Mostre ajuda",
   "pValidChangeProxy": "Salvar IP proxy",
-  "pValidResetProxy": "Redefinir IP proxy"
+  "pValidResetProxy": "Redefinir IP proxy",
+  "cProxyIPNotSaved": "IP não é salvo",
+  "cProxyIPSaved": "IP é salvo",
+  "pConnectStellariumContent2_2": "Você também pode baixar e executar o seguinte programa que configurará o plug -in automaticamente, a porta a ser usada será 8090"
 }

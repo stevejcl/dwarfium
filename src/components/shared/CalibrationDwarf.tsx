@@ -373,7 +373,7 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
       <br />
 
       <div className="row mb-3">
-        <div className="col-sm-1 nav nav-pills">
+        <div className="col-2  col-sm-2 col-lg-1 d-flex nav nav-pills" style={{ width: "55px" }}>
           <div
             title="Show Logs"
             className={`daily-horp nav nav-pills nav-item nav-link rounded-pill ${
@@ -393,7 +393,7 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
             <i className="bi bi-pip" aria-hidden="true"></i>
           </div>
         </div>
-        <div className="col-sm-2-cal">
+        <div className="col-auto">
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
@@ -406,14 +406,14 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-            } me-2 mt-3`}
+            } me-4 mt-3`}
             onClick={stopGotoFn}
             disabled={!connectionCtx.connectionStatus}
           >
             {t("cCalibrationDwarfStopGoto")}
           </button>
         </div>
-        <div className="col-sm-5">
+        <div className="col-12 col-sm-12 col-sd-10 col-lg-6 col-xl-5">
           <button
             className={`btn ${
               connectionCtx.connectionStatus && connectionCtx.savePositionStatus
@@ -455,7 +455,7 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
             {t("cCalibrationDwarfGoToPosition")}
           </button>
         </div>
-        <div className="col-sm-4-cal">
+        <div className="col-12 col-sm-10 col-sm-10 col-lg-8 col-xl-4">
           {showStatusRingLightsDwarf()}
           {showStatusPowerLightsDwarf()}
           <button
@@ -470,7 +470,7 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
           <button
             className={`btn ${
               connectionCtx.connectionStatus ? "btn-more03" : "btn-more03"
-            } me-2 mt-3`}
+            } mt-3`}
             onClick={rebootFn}
             disabled={!connectionCtx.connectionStatus}
           >
@@ -479,7 +479,7 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
         </div>
       </div>
       <div>
-        <div className="col-sm-8 mt-2">
+        <div className="col-sm-12 mt-2">
           &nbsp; {position && <span className="text-success">{position}</span>}
         </div>
         {showPolarAlign && (
@@ -523,7 +523,7 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
             <button
               className={`btn ${
                 connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-              } me-2 mt-5`}
+              } mt-5`}
               onClick={polarAlignTurnDownFn}
               disabled={!connectionCtx.connectionStatus}
             >

@@ -49,6 +49,7 @@ createDir(DEPLOY_DIR, "extern")
 const platform = process.platform; // 'win32', 'linux', 'darwin'
 const tools = {
   win32: [
+    { src: "./install/windows/stellarium_auto_config.exe", dest: "stellarium_auto_config.exe" },
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-pc-windows-msvc.exe", dest: "DwarfiumProxy.exe" },
     { src: "./src-tauri/bin/mediamtx-x86_64-pc-windows-msvc.exe", dest: "mediamtx.exe" },
     { src: "./install/config/mediamtx.yml", dest: "mediamtx.yml" },
@@ -58,6 +59,7 @@ const tools = {
     { src: "./install/extern/config.py", dest: "./extern/config.py" }
   ],
   linux: [
+    { src: "./install/linux/stellarium_auto_config", dest: "stellarium_auto_config" },
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-unknown-linux-gnu", dest: "DwarfiumProxy" },
     { src: "./src-tauri/bin/mediamtx-x86_64-unknown-linux-gnu", dest: "mediamtx" },
     { src: "./install/config/mediamtx.yml", dest: "mediamtx.yml" },
@@ -78,8 +80,11 @@ const tools = {
 console.log("Copying tools...");
 tools.forEach(({ src, dest }) => {
   const destPath = path.join(DEPLOY_DIR, dest);
+  if (!fs.existsSync(src)) {
+    console.log(`Source file {src} does not exist.`);
+  }
   // Check if the file is a ZIP file
-  if (src.endsWith(".zip")) {
+  else if (src.endsWith(".zip")) {
     // Unzip the file to the destination path
     fs.createReadStream(src)
       .pipe(unzipper.Extract({ path: destPath }))
@@ -89,6 +94,7 @@ tools.forEach(({ src, dest }) => {
   } else {  
     fs.copyFileSync(src, destPath);
     fs.chmodSync(destPath, 0o755); // Ensure executable permissions
+    console.log('File copied successfully.');
   }
 });
 

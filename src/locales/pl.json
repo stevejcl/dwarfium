@@ -392,5 +392,8 @@
   "pServerStatusContent3": "Jeśli zainstalowałeś oprogramowanie proxy na innym komputerze niż serwer, wprowadź tutaj IP proxy i sprawdź jego status.",
   "pShowHelp": "Pokaż pomoc",
   "pValidChangeProxy": "Zapisz proxy IP",
-  "pValidResetProxy": "Zresetuj IP proxy"
+  "pValidResetProxy": "Zresetuj IP proxy",
+  "cProxyIPNotSaved": "IP nie jest zapisywany",
+  "cProxyIPSaved": "IP jest zapisywany",
+  "pConnectStellariumContent2_2": "Możesz także pobrać i uruchomić następujący program, który automatycznie skonfiguruje wtyczkę, port do użycia wyniesie 8090"
 }

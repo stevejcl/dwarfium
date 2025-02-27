@@ -269,7 +269,7 @@ export default function DSOObject(props: AstronomyObjectPropType) {
           <br></br>
           {raDec}
         </div>
-        <div className="col-md-3">
+        <div className="col-md-4 col-8">
           <button
             className={`btn ${
               connectionCtx.connectionStatusStellarium

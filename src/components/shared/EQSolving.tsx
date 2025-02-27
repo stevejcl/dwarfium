@@ -82,67 +82,62 @@ export default function EQSolvingDwarf() {
 
   return (
     <div>
-      <div className="row align-items-center ms-5 mt-2">
-        <div className="col-sm-auto">
-          <button
-            className={`btn ${
-              connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-            } me-4 mt-3`}
-            onClick={EQSolvingFn}
-            disabled={!connectionCtx.connectionStatus}
-          >
-            {t("cEQSolvingAction")}
-          </button>
-          <button
-            className={`btn ${
-              connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-            } me-4 mt-3`}
-            onClick={stopEQSolving}
-            disabled={!connectionCtx.connectionStatus}
-          >
-            {t("cEQSolvingStopAction")}
-          </button>
-        </div>
-        <div className="col-sm">
-          <div className="EQ-result d-flex flex-wrap">
-            {displayedResults.azimuth_err !== undefined && (
-              <div className="result-item">
-                <span
-                  className="d-inline-flex align-items-center justify-content-center bg-light border rounded-circle p-2"
-                  style={{ width: "25px", height: "25px" }}
-                >
-                  {displayedResults.azimuth_err > 0 ? (
-                    <i className="bi bi-arrow-clockwise text-success"></i>
-                  ) : (
-                    <i className="bi bi-arrow-counterclockwise text-danger"></i>
-                  )}
-                </span>
-                <span className="value ms-1">
-                  {Math.abs(displayedResults.azimuth_err).toFixed(2)}°
-                </span>
-                <span> : {t("cEQSolvingAzimuthResult")}</span>
-              </div>
-            )}
-
-            {displayedResults.altitude_err !== undefined && (
-              <div className="result-item">
-                <span
-                  className="d-inline-flex align-items-center justify-content-center bg-light border rounded-circle p-2"
-                  style={{ width: "25px", height: "25px" }}
-                >
-                  {displayedResults.altitude_err > 0 ? (
-                    <i className="bi bi-arrow-up text-success"></i>
-                  ) : (
-                    <i className="bi bi-arrow-down text-danger"></i>
-                  )}
-                </span>
-                <span className="value ms-1">
-                  {Math.abs(displayedResults.altitude_err).toFixed(2)}°
-                </span>
-                <span> : {t("cEQSolvingAltitudeResult")}</span>
-              </div>
-            )}
-          </div>
+      <div className="d-flex flex-wrap justify-content-center overflow-auto gap-2 mt-3">
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+          } me-4 mt-3`}
+          onClick={EQSolvingFn}
+          disabled={!connectionCtx.connectionStatus}
+        >
+          {t("cEQSolvingAction")}
+        </button>
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+          } me-4 mt-3`}
+          onClick={stopEQSolving}
+          disabled={!connectionCtx.connectionStatus}
+        >
+          {t("cEQSolvingStopAction")}
+        </button>
+        <div className="EQ-result d-flex flex-wrap">
+          {displayedResults.azimuth_err !== undefined && (
+            <div className="result-item">
+              <span
+                className="d-inline-flex align-items-center justify-content-center bg-light border rounded-circle mt-2 p-2"
+                style={{ width: "25px", height: "25px" }}
+              >
+                {displayedResults?.azimuth_err > 0 ? (
+                  <i className="bi bi-arrow-clockwise text-success"></i>
+                ) : (
+                  <i className="bi bi-arrow-counterclockwise text-danger"></i>
+                )}
+              </span>
+              <span className="value ms-2">
+                {Math.abs(displayedResults.azimuth_err).toFixed(2)}°
+              </span>
+              <span> : {t("cEQSolvingAzimuthResult")}</span>
+            </div>
+          )}{" "}
+          {displayedResults.altitude_err !== undefined && (
+            <div className="result-item">
+              <span
+                className="d-inline-flex align-items-center justify-content-center bg-light border rounded-circle mt-2 p-2"
+                style={{ width: "25px", height: "25px" }}
+              >
+                {displayedResults.altitude_err > 0 ? (
+                  <i className="bi bi-arrow-up text-success"></i>
+                ) : (
+                  <i className="bi bi-arrow-down text-danger"></i>
+                )}
+              </span>
+              <span className="value ms-2">
+                {Math.abs(displayedResults.altitude_err).toFixed(2)}°
+              </span>
+              <span> : {t("cEQSolvingAltitudeResult")}</span>
+            </div>
+          )}
         </div>
       </div>
       {isVisible && (prevErrors || errors || prevSuccess || success) && (

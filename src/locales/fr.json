@@ -389,10 +389,10 @@
   "cAstroSettingsWideExposure": "Exposition",
   "cAstroSettingsWideGain": "Gagner",
   "cCloudsCityNotFound": "Ville introuvable. \nEssayez un autre nom",
-  "cEQSolvingAction": "Démarrage de la résolution de l'équation",
+  "cEQSolvingAction": "Alignement EQ",
   "cEQSolvingAltitudeResult": "Correction d'altitude",
   "cEQSolvingAzimuthResult": "Correction d'azimut",
-  "cEQSolvingStopAction": "Arrêt de résolution d'égalisation",
+  "cEQSolvingStopAction": "Arrêt EQ",
   "pImageSessionEdit": "Modifier",
   "pIndexBug2": "",
   "pIndexBug3": ""

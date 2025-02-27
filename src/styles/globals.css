@@ -198,13 +198,15 @@ body {
 
 .sethostmode-dwarf {
     display: flex;
-    justify-content: space-between;
-    width: 30rem;
+    justify-content: flex-end; /* Align button to the right */
+    /*justify-content: space-between;*/
+    width: 40rem;
     float: right !important;
     height: fit-content;
-    margin-right: 40%;
+    margin-right: 30%;
     margin-top: 0px;
 }
+
 
 .top-align {
     top: 0;
@@ -217,12 +219,27 @@ body {
     margin-right: 300px;
 }
 
+@media (max-width: 768px) {
+  .right-align2 {
+    display: block; /* This will push the button to the next line */
+    margin-right: 0; /* Reset margin on smaller screens */
+    margin-left: auto; /* Optionally, center it if needed */
+    margin-right: auto; /* Centers the button */
+  }
+}
+
 .float-right-align {
     display: flex;
     justify-content: space-between;
     float: right !important;
     margin-right: 25%;
     margin-top: -10px;
+}
+
+.full-width {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .con {
@@ -259,6 +276,9 @@ body {
 .camera-container {
   width: 100%;
   height: fit-content;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
 }
 
 .camera-container img {
@@ -975,33 +995,37 @@ img {
         margin-left: 10px; /* Adjust spacing between status and button */
     }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .connect-dwarf {
         flex-direction: column; /* Stack items vertically on smaller screens */
         align-items: flex-end;
+        margin-right: 5%;
+        margin-top: -75px;
     }
 
-        .connect-dwarf button {
-            margin-left: 0; /* Remove left margin for the button on smaller screens */
-            margin-top: 10px; /* Add spacing between status and button on smaller screens */
-        }
+    .connect-dwarf button {
+        margin-left: 0; /* Remove left margin for the button on smaller screens */
+        margin-top: 10px; /* Add spacing between status and button on smaller screens */
+    }
 }
 
-.sethostmode-dwarf {
-    display: flex;
-    justify-content: flex-end; /* Align button to the right */
+@media (max-width: 1400px) {
+    .sethostmode-dwarf {
+        justify-content: flex-end;
+        width: 30rem;
+        margin-right: 5%;
+    }
 }
 
 @media (max-width: 768px) {
     .sethostmode-dwarf {
         justify-content: center; /* Center button on smaller screens */
-        align-items: flex-end;
-        margin-right: 7%;
+        margin-right: 2%;
     }
 
-        .sethostmode-dwarf button {
-            margin-top: 0px; /* Add some spacing between button and other elements */
-        }
+    .sethostmode-dwarf button {
+        margin-top: 0px; /* Add some spacing between button and other elements */
+    }
 }
 
 @media (max-width: 768px) {
@@ -1017,15 +1041,6 @@ img {
     button {
         margin-top: 0.5rem;
         margin-right: 0.5rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    .sethostmode-dwarf {
-        margin-top: -48px;
-        display: flex;
-        justify-content: flex-end;
-        margin-right: 40%;
     }
 }
 

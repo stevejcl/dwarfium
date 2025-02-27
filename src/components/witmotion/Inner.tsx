@@ -61,19 +61,19 @@ export const Inner: React.FC = () => {
           <MenuSettings dis={disabled} />
         </ButtonGroup>
       </Grid2>
+      <Grid2 md={10} xs={8}>
+        <div className="mnu-polar-con">
+          <ConnectDwarfII />
+        </div>
+      </Grid2>
 
-      <Grid2 xs={6}>
+      <Grid2 md={12} xs={12} sx={{ mx: "auto" }}>
         <div className="mnu-polar ms-5">
           <PolarAlign />
           <EQSolving />
           <div className="graph-wit">
             {!disabled && <Graphs inputData={inputData} />}
           </div>
-        </div>
-      </Grid2>
-      <Grid2 xs={4}>
-        <div className="mnu-polar-con">
-          <ConnectDwarfII />
         </div>
       </Grid2>
     </>

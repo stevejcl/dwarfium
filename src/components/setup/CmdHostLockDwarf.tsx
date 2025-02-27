@@ -126,5 +126,12 @@ export default function CmdHostLockDwarf() {
     return null;
   }
 
-  return <div className="sethostmode-dwarf">{renderHostLock()}</div>;
+  return (
+    <>
+      <div className="sethostmode-dwarf">{renderHostLock()}</div>
+      <div className="d-block d-md-none w-100">
+        <br />{" "}
+      </div>
+    </>
+  );
 }

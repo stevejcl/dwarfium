@@ -39,7 +39,7 @@ export default function WitSensorData() {
         {""}
       </div>
       <Grid2 container spacing={3}>
-        <Grid2 md={6} xs={12} className="camera-container">
+        <Grid2 md={12} xs={12} className="camera-container">
           <div className="camera-witmotion">
             <main className="camera-con">
               <DwarfCameras

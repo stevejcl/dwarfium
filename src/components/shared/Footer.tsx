@@ -17,8 +17,8 @@ export default function Footer() {
                 : "var(--footer-color-dark)",
           }}
         >
-          <p>
-            Copyright Dwarfium &copy; 2024. All rights reserved. Made with{" "}
+          <p  className="whitespace-nowrap"  style={{ whiteSpace: 'nowrap !important', overflow: 'hidden' }}>
+            Copyright Dwarfium &copy; 2025. All rights reserved. Made with{" "}
             <span style={{ color: "red" }}>&#10084;</span> for the Dwarf Device.
           </p>
           <span className="version-text"> Version: {versionNumber}</span>

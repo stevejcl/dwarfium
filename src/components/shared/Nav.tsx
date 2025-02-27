@@ -99,13 +99,13 @@ export default function Nav() {
                           className="nav-link active drop"
                           href="/mozaikplanner"
                         >
-                          Mozaïekplanner
+                          {t("cNavMosaic")}
                         </Link>
                         <Link
                           className="nav-link active drop"
                           href="/observatieplanner"
                         >
-                          Observatieplanner
+                          {t("cNavObservation")}
                         </Link>
                       </div>
                     )}

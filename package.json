@@ -68,7 +68,7 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dwarfii_api": "github:stevejcl/dwarfii_api#apiV2",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "eslint-config-prettier": "^8.8.0",

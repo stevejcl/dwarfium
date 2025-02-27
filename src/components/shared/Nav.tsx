@@ -54,9 +54,9 @@ export default function Nav() {
             onClick={handleNavbarToggle}
             style={{
               position: "absolute", // Required for z-index to work
-              top: "20px", 
+              top: "20px",
               right: "20px",
-              zIndex: 20, 
+              zIndex: 20,
               pointerEvents: "auto", // Ensure it's interactive
             }}
           >

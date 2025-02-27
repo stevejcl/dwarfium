@@ -373,7 +373,10 @@ export default function CalibrationDwarf(props: CalibrationDwarfPropType) {
       <br />
 
       <div className="row mb-3">
-        <div className="col-2  col-sm-2 col-lg-1 d-flex nav nav-pills" style={{ width: "55px" }}>
+        <div
+          className="col-2  col-sm-2 col-lg-1 d-flex nav nav-pills"
+          style={{ width: "55px" }}
+        >
           <div
             title="Show Logs"
             className={`daily-horp nav nav-pills nav-item nav-link rounded-pill ${

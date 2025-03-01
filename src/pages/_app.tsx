@@ -16,7 +16,7 @@ import "@/styles/Calendar.css";
 import "@/styles/asteroids.css";
 import "@/styles/image-editor.css";
 import "@/styles/witsensordata.css";
-import "@/styles/image-editor.css";
+import "@/styles/mosaic.css";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "@/fontello/css/custom-focus.css";

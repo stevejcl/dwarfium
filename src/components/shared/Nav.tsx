@@ -97,7 +97,7 @@ export default function Nav() {
                       <div className="dropdown-content sub-menu">
                         <Link
                           className="nav-link active drop"
-                          href="/mozaikplanner"
+                          href="/mosaicplannner"
                         >
                           {t("cNavMosaic")}
                         </Link>

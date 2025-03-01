@@ -100,6 +100,7 @@
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.6",
     "react-dropzone": "^14.2.3",
+    "react-helmet": "^6.1.0",
     "react-i18next": "^14.1.1",
     "react-redux": "^9.1.0",
     "react-resizable": "^3.0.5",

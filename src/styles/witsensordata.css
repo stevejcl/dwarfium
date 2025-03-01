@@ -3,8 +3,10 @@
 
 .witsensor {
     text-align: center;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
+    margin-top: 95px;
 }
+
 .div-inner {
     margin-left: 105px;
     margin-top: 8px;
@@ -16,7 +18,9 @@
 .camera-witmotion {
     /*background-color: #f0f0f0;*/
     /*padding: 20px;*/
-    margin-left: 305px;
+    /*margin-left: 305px;*/
+    justify-content: center;
+    
     border-radius: 8px;
     display: flex;
     margin-top: -250px;
@@ -28,7 +32,8 @@
 
 .camera-witmotion-content {
     width: fit-content;
-    padding-left: 310px;
+    /*padding-left: 310px;*/
+    justify-content: center;
     margin-top: 20px;
     float: right;
 }
@@ -39,10 +44,6 @@
     margin-left: 0%;
 }
 
-.witsensor {
-    margin-top: 95px;
-}
-
 .witimage {
     /*text-align: right;*/
     margin-top: 20px;
@@ -50,10 +51,11 @@
 
 }
 
-    .witimage img {
-        width: 150px;
-        margin-left: 25px;
-    }
+.witimage img {
+    width: 150px;
+    margin-left: 25px;
+}
+
 .container-cam {
     margin-top: 50px;
 }
@@ -71,11 +73,22 @@
     display:flex;
 }
 .altitude-description-wit {
-    display: flex;
-    align-items: center;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
 }
 .graph-wit{
     margin-left: -490px;
     margin-top:250px;
     height: 20px;
+}
+
+.EQ-result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;   /* Vertically center the items in the container */
+  align-content: center; /* Center multiple lines of flex items (if they wrap) */
+  gap: 8px;
 }

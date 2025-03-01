@@ -75,36 +75,34 @@ export default function PolarAlignDwarf() {
 
   return (
     <div>
-      <div className="row  ms-5">
-        <div className="col-sm-auto">
-          <button
-            className={`btn ${
-              connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-            } me-4 mt-3`}
-            onClick={polarAlignFn}
-            disabled={!connectionCtx.connectionStatus}
-          >
-            {t("cPolarAlignAction")}
-          </button>
-          <button
-            className={`btn ${
-              connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-            } me-4 mt-3`}
-            onClick={polarAlignMode90Fn}
-            disabled={!connectionCtx.connectionStatus}
-          >
-            {t("cPolarAlignTo90")}
-          </button>
-          <button
-            className={`btn ${
-              connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
-            } me-2 mt-3`}
-            onClick={polarAlignMode0Fn}
-            disabled={!connectionCtx.connectionStatus}
-          >
-            {t("cPolarAlignInitial")}
-          </button>
-        </div>
+      <div className="d-flex flex-wrap justify-content-center overflow-auto gap-2 mt-3">
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+          } me-4 mt-3`}
+          onClick={polarAlignFn}
+          disabled={!connectionCtx.connectionStatus}
+        >
+          {t("cPolarAlignAction")}
+        </button>
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+          } me-4 mt-3`}
+          onClick={polarAlignMode90Fn}
+          disabled={!connectionCtx.connectionStatus}
+        >
+          {t("cPolarAlignTo90")}
+        </button>
+        <button
+          className={`btn ${
+            connectionCtx.connectionStatus ? "btn-more02" : "btn-more02"
+          } me-2 mt-3`}
+          onClick={polarAlignMode0Fn}
+          disabled={!connectionCtx.connectionStatus}
+        >
+          {t("cPolarAlignInitial")}
+        </button>
       </div>
       {isVisible && (prevErrors || errors || prevSuccess || success) && (
         <div

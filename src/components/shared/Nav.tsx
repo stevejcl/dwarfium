@@ -103,7 +103,7 @@ export default function Nav() {
                         </Link>
                         <Link
                           className="nav-link active drop"
-                          href="/observatieplanner"
+                          href="/scheduler"
                         >
                           {t("cNavObservation")}
                         </Link>

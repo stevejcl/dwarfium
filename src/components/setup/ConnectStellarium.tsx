@@ -236,7 +236,7 @@ export default function ConnectStellarium(props: PropType) {
               className="form-control"
               id="port"
               name="port"
-              placeholder="8000"
+              placeholder="8090"
               required
               defaultValue={connectionCtx.portStellarium}
             />

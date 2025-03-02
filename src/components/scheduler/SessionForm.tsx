@@ -1,4 +1,5 @@
-﻿// SessionForm.tsx
+﻿/* eslint-disable no-useless-escape */
+// SessionForm.tsx
 import React, { useState, useEffect } from "react";
 
 // Simuleer de beschikbare opties (normaal haal je deze uit een API of constants)

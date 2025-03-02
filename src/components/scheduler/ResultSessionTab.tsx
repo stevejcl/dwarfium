@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect } from "react";
+﻿/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 
 // Kolomdefinities, zoals in de oorspronkelijke code
 const columnsOK = [

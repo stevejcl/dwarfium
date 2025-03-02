@@ -340,7 +340,7 @@ const DwarfiumMosaicPlanner: React.FC = () => {
               onClick={() =>
                 (window as any).ViewImage && (window as any).ViewImage(0)
               }
-              className="btn-refresh"
+              className="btn-refresh-mosaic"
             >
               Refresh
             </button>

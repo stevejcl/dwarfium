@@ -98,7 +98,7 @@
     margin-top: 20px;
 }
 
-.btn-refresh {
+.btn-refresh-mosaic {
     background: #19631b;
     color: #fff;
     border: none;
@@ -109,7 +109,7 @@
 
 }
 
-    .btn-refresh:hover {
+    .btn-refresh-mosaic:hover {
         background: #008000;
     }
 .btn-download {
@@ -155,15 +155,10 @@
 .row {
     display: flex;
     width: 100%;
-    gap: 10px;
-}
-
-.col {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
     
 }
+
+
 
 /* Responsieve instellingen */
 
@@ -196,7 +191,7 @@
         font-size: 14px;
     }
 
-    .btn-refresh {
+    .btn-refresh-mosaic {
         padding: 8px 16px;
         font-size: 14px;
     }

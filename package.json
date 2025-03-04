@@ -85,6 +85,7 @@
     "next": "^15.0.3",
     "next-redux-wrapper": "^8.1.0",
     "node-fetch": "^3.3.2",
+    "obs-websocket-js": "^5.0.6",
     "papaparse": "^5.4.1",
     "path": "^0.12.7",
     "pkg-config": "^1.1.1",

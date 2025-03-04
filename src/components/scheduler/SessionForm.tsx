@@ -395,21 +395,23 @@ const SessionForm: React.FC = () => {
   return (
     <div className="session-form">
       <h2>Create Session</h2>
-      <div className="form-group">
-        <label>Description</label>
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label>Max Retries</label>
-        <input
-          type="number"
-          value={maxRetries}
-          onChange={(e) => setMaxRetries(e.target.value)}
-        />
+      <div className="form-container">
+        <div className="form-group">
+          <label>Description</label>
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Max Retries</label>
+          <input
+            type="number"
+            value={maxRetries}
+            onChange={(e) => setMaxRetries(e.target.value)}
+          />
+        </div>
       </div>
       <div className="form-group actions">
         <label className="form-title">ACTIONS</label>
@@ -448,21 +450,23 @@ const SessionForm: React.FC = () => {
           </label>
         </div>
       </div>
-      <div className="form-group">
-        <label>Wait Before (s)</label>
-        <input
-          type="number"
-          value={waitBefore}
-          onChange={(e) => setWaitBefore(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label>Wait After (s)</label>
-        <input
-          type="number"
-          value={waitAfter}
-          onChange={(e) => setWaitAfter(e.target.value)}
-        />
+      <div className="form-container">
+        <div className="form-group">
+          <label>Wait Before (s)</label>
+          <input
+            type="number"
+            value={waitBefore}
+            onChange={(e) => setWaitBefore(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Wait After (s)</label>
+          <input
+            type="number"
+            value={waitAfter}
+            onChange={(e) => setWaitAfter(e.target.value)}
+          />
+        </div>
       </div>
       <div className="form-group">
         <label>Target Type</label>
@@ -524,21 +528,23 @@ const SessionForm: React.FC = () => {
               onChange={(e) => setTarget(e.target.value)}
             />
           </div>
-          <div className="form-group">
-            <label>RA (dec or HH:mm:ss.s)</label>
-            <input
-              type="text"
-              value={raCoord}
-              onChange={(e) => setRaCoord(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>Dec (dec or ±DD:mm:ss.s)</label>
-            <input
-              type="text"
-              value={decCoord}
-              onChange={(e) => setDecCoord(e.target.value)}
-            />
+          <div className="form-container">
+            <div className="form-group">
+              <label>RA (dec or HH:mm:ss.s)</label>
+              <input
+                type="text"
+                value={raCoord}
+                onChange={(e) => setRaCoord(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Dec (dec or ±DD:mm:ss.s)</label>
+              <input
+                type="text"
+                value={decCoord}
+                onChange={(e) => setDecCoord(e.target.value)}
+              />
+            </div>
           </div>
         </>
       )}
@@ -551,7 +557,7 @@ const SessionForm: React.FC = () => {
         />
       </div>
       <div className="form-group">
-        <label>Imaging Count (0 Not Do)</label>
+        <label>Imaging Count (0)</label>
         <input
           type="number"
           value={count}
@@ -583,8 +589,6 @@ const SessionForm: React.FC = () => {
           onChange={(e) => setTime(e.target.value)}
         />
       </div>
-
-      {/* moet aparte kolom worden  */}
       <div className="form-group">
         <label>Device Type</label>
         <select
@@ -629,33 +633,34 @@ const SessionForm: React.FC = () => {
           ))}
         </select>
       </div>
-      {/* einde aparte kolom  */}
-
-      <div className="form-group">
-        <button className="primary-button" onClick={saveToJson}>
-          Save
-        </button>
-      </div>
-
-      <div className="form-group">
-        <label className="form-title">Import Telescopius Mosaic CSV</label>
-        <input
-          type="file"
-          accept=".csv"
-          className="file-input"
-          onChange={handleCsvImport}
-        />
-      </div>
-      {showPreview && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>JSON Preview</h3>
-            <pre>{JSON.stringify(jsonPreview, null, 2)}</pre>
-            <button onClick={confirmCsvImport}>Confirm</button>
-            <button onClick={() => setShowPreview(false)}>Cancel</button>
-          </div>
+      <div className="form-container">
+        <div className="form-group">
+          <label className="form-title">Save settings</label>
+          <button className="primary-button" onClick={saveToJson}>
+            Save
+          </button>
         </div>
-      )}
+
+        <div className="form-group">
+          <label className="form-title">Import Telescopius Mosaic CSV</label>
+          <input
+            type="file"
+            accept=".csv"
+            className="file-input"
+            onChange={handleCsvImport}
+          />
+        </div>
+        {showPreview && (
+          <div className="modal">
+            <div className="modal-content">
+              <h3>JSON Preview</h3>
+              <pre>{JSON.stringify(jsonPreview, null, 2)}</pre>
+              <button onClick={confirmCsvImport}>Confirm</button>
+              <button onClick={() => setShowPreview(false)}>Cancel</button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

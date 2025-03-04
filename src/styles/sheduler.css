@@ -306,35 +306,43 @@
 /* SessionForm.css */
 
 .session-form {
-    /* max-width: 800px; */
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    /* background: #fff; */
+    
     border-radius: 8px;
-    background-color: #1e1e2e;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    border: 1px solid #44475a;
-    /* color: #fff; */
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #f9f9f9;*/
+}
+
+h2 {
+    /*text-align: center;*/
+    color: #333;
+}
+
+.form-container {
+    display: flex;
+    align-items: center; /* Zorgt dat knoppen en inputvelden netjes op één lijn staan */
     gap: 20px;
 }
 
-    .session-form h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #fff;
-    }
-
 .form-group {
-    margin-bottom: 16px;
+    flex: 1 1 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
 }
+
     .form-group label {
-        margin-bottom: 5px;
         font-weight: bold;
-        color: #fff;
+        margin-bottom: 5px;
     }
+input, select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+}
 
     .form-group input[type="text"],
     .form-group input[type="number"],
@@ -391,25 +399,14 @@
 .checkbox-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
 }
 
 .checkbox-label {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.9rem;
-    
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    transition: background 0.3s;
+    gap: 5px;
 }
-
-    .checkbox-label:hover {
-        background: #eee;
-    }
 
 input[type="checkbox"] {
     width: 18px;
@@ -417,19 +414,18 @@ input[type="checkbox"] {
     accent-color: #007bff;
 }
 
-.primary-button {
-    background-color: #007bff;
+button.primary-button {
+    background: #007bff;
     color: white;
     border: none;
-    padding: 10px 16px;
-    border-radius: 6px;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
     transition: background 0.3s;
 }
 
-    .primary-button:hover {
-        background-color: #0056b3;
+    button.primary-button:hover {
+        background: #0056b3;
     }
 
 .file-input {
@@ -444,6 +440,35 @@ input[type="checkbox"] {
 
     .file-input:hover {
         border-color: #007bff;
+    }
+.form-container {
+    display: flex;
+    gap: 26px; /* Ruimte tussen de velden */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+    .form-group > div {
+        display: flex;
+        gap: 15px; /* Ruimte tussen de radio-buttons */
+    }
+
+    .form-group label {
+        /*display: inline-grid;*/
+        align-items: center;
+        gap: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
     }
 
 /* Modal styling */

@@ -40,6 +40,7 @@ export default function ConnectDwarfSTA() {
   const [proxyIpValue, setProxyIpValue] = useState("");
   const [proxyLocalIpValue, setProxyLocalIpValue] = useState("");
   const [proxyLocalIPs, setProxyLocalIPs] = useState<string[]>([]);
+  const [isCustomInput, setIsCustomInput] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [findDwarfBluetooth, setFindDwarfBluetooth] = useState(false);
   const [etatBluetooth, setEtatBluetooth] = useState(false);
@@ -489,11 +490,13 @@ export default function ConnectDwarfSTA() {
         const response = await axios.get(urlProxyRequest, { signal });
         const ipList = response.data.ips;
         setProxyLocalIPs(ipList);
-        // If there's a saved IP in context, use it (if it's in the list)
         if (
           connectionCtx?.proxyLocalIP &&
-          ipList.includes(connectionCtx.proxyLocalIP)
-        ) {
+          !ipList.includes(connectionCtx.proxyLocalIP)
+        )
+          ipList.push(connectionCtx.proxyLocalIP);
+        // If there's a saved IP in context, use it (even if it's not in the list)
+        if (connectionCtx?.proxyLocalIP) {
           setProxyLocalIpValue(connectionCtx.proxyLocalIP);
         } else {
           setProxyLocalIpValue(ipList[0]); // Default to first available IP
@@ -653,11 +656,13 @@ export default function ConnectDwarfSTA() {
         const ipList = response.data.ips;
         console.log("refreshProxyLocalIP", ipList);
         setProxyLocalIPs(ipList);
-        // If there's a saved IP in context, use it (if it's in the list)
         if (
           connectionCtx?.proxyLocalIP &&
-          ipList.includes(connectionCtx.proxyLocalIP)
-        ) {
+          !ipList.includes(connectionCtx.proxyLocalIP)
+        )
+          ipList.push(connectionCtx.proxyLocalIP);
+        // If there's a saved IP in context, use it (even if it's not in the list)
+        if (connectionCtx?.proxyLocalIP) {
           setProxyLocalIpValue(connectionCtx.proxyLocalIP);
         } else {
           setProxyLocalIpValue(ipList[0]); // Default to first available IP
@@ -713,6 +718,20 @@ export default function ConnectDwarfSTA() {
     connectionCtx.setProxyLocalIP("");
     saveProxyLocalIPDB(proxyLocalIpValue);
   }
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      // Add the custom IP to the list if it's not empty and doesn't already exist
+      if (
+        proxyLocalIpValue &&
+        isValidIP(proxyLocalIpValue) &&
+        !proxyLocalIPs.includes(proxyLocalIpValue)
+      ) {
+        setProxyLocalIPs([...proxyLocalIPs, proxyLocalIpValue]);
+      }
+      setIsCustomInput(false); // Close the input field when Enter is pressed
+    }
+  };
 
   const runExecutable = async () => {
     button_progress();
@@ -978,15 +997,33 @@ export default function ConnectDwarfSTA() {
                       className="form-control"
                       id="proxyLocalIp"
                       name="proxyLocalIp"
-                      value={proxyLocalIpValue}
-                      onChange={(e) => setProxyLocalIpValue(e.target.value)}
+                      value={isCustomInput ? "custom" : proxyLocalIpValue}
+                      onChange={(e) => {
+                        if (e.target.value === "custom") {
+                          setIsCustomInput(true);
+                          setProxyLocalIpValue(""); // Allow manual input
+                        } else {
+                          setIsCustomInput(false);
+                          setProxyLocalIpValue(e.target.value);
+                        }
+                      }}
                     >
                       {proxyLocalIPs.map((ip) => (
                         <option key={ip} value={ip}>
                           {ip}
                         </option>
                       ))}
+                      <option value="custom">Enter Manually</option>
                     </select>
+                    {isCustomInput && (
+                      <input
+                        className="form-control mt-2"
+                        type="text"
+                        placeholder="Enter custom IP"
+                        onChange={(e) => setProxyLocalIpValue(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                      />
+                    )}{" "}
                   </div>
 
                   {/* Local IP Status Icon */}

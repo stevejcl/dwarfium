@@ -34,9 +34,9 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     number | undefined
   >();
   const [useHttps, setUseHttps] = useState<boolean>(false);
-  const [useWSProxy, setUseWSProxy] = useState<boolean | undefined>();
   const [proxyIP, setProxyIP] = useState<string | undefined>();
   const [proxyLocalIP, setProxyLocalIP] = useState<string | undefined>();
+  const [proxyInLan, setProxyInLan] = useState<boolean | undefined>();
   const [useDirectBluetoothServer, setUseDirectBluetoothServer] = useState<
     boolean | undefined
   >();
@@ -153,8 +153,8 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setInitialConnectionTime,
     useHttps,
     setUseHttps,
-    useWSProxy,
-    setUseWSProxy,
+    proxyInLan,
+    setProxyInLan,
     proxyIP,
     setProxyIP,
     proxyLocalIP,

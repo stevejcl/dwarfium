@@ -65,17 +65,6 @@ export function fetchInitialConnectionTimeDB(): number | undefined {
   }
 }
 
-export function saveUseWSProxyDB(active: boolean) {
-  localStorage.setItem("useWSProxy", active ? "true" : "false");
-}
-
-export function fetchUseWSProxyDB(): boolean | undefined {
-  let data = localStorage.getItem("useWSProxy");
-  if (data) {
-    return data === "true" ? true : false;
-  } else false;
-}
-
 export function saveProxyIPDB(ip: string) {
   localStorage.setItem("proxyIP", ip);
 }

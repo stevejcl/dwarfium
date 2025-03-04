@@ -8,7 +8,6 @@ import {
   fetchPortStellariumDB,
   fetchUrlStellariumDB,
   fetchConnectionStatusStellariumDB,
-  fetchUseWSProxyDB,
   fetchProxyIPDB,
   fetchProxyLocalIPDB,
   fetchIPDwarfDB,
@@ -59,10 +58,6 @@ export function useLoadIntialValues() {
     if (connectionCtx.initialConnectionTime === undefined) {
       let data = fetchInitialConnectionTimeDB();
       if (data !== undefined) connectionCtx.setInitialConnectionTime(data);
-    }
-    if (connectionCtx.useWSProxy === undefined) {
-      let data = fetchUseWSProxyDB();
-      if (data !== undefined) connectionCtx.setUseWSProxy(data);
     }
     if (connectionCtx.proxyIP === undefined) {
       let data = fetchProxyIPDB();

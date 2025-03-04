@@ -48,12 +48,15 @@ const platform = process.platform; // 'win32', 'linux', 'darwin'
 const tools = {
   win32: [
     { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
+    { src: "./install/windows/createSSLcert.exe", dest: "createSSLcert.exe" },
   ],
   linux: [
     { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
+    { src: "./install/linux/createSSLcert", dest: "createSSLcert" },
   ],
   darwin: [
     { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
+    { src: "./install/macos/createSSLcert", dest: "createSSLcert" },
   ]
 }[platform] || [];
 

@@ -1,14 +1,16 @@
 /// <reference types="web-bluetooth" />
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
 import type { ChangeEvent } from "react";
 import type { FormEvent } from "react";
 import {
   getProxyUrl,
+  getServerIp,
   getServerUrl,
   checkHealth,
   isModeHttps,
+  isLocalIp,
   checkMediaMtxStreamUrls,
   compareURLsIgnoringPort,
 } from "@/lib/get_proxy_url";
@@ -60,6 +62,7 @@ export default function ConnectDwarfSTA() {
   const [stateBluetoothServer, setStateBluetoothServer] = useState(false);
   const [stateMediaMtx, setStateMediaMtx] = useState(false);
   const [isProxyOnServer, setIsProxyOnServer] = useState(false);
+  const [debouncedValue, setDebouncedValue] = useState(""); // Debounced value
 
   const handleInputPWDChange = (event) => {
     setBluetoothPWD(event.target.value);
@@ -70,6 +73,18 @@ export default function ConnectDwarfSTA() {
   const handleInputWifiPWDChange = (event) => {
     setWifi_PWD(event.target.value);
   };
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  // Debouncing logic
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(proxyIpValue); // Update debounced value after delay
+    }, 1500);
+
+    return () => {
+      clearTimeout(handler); // Clear timeout on cleanup
+    };
+  }, [proxyIpValue]);
 
   let IsFirstStepOK = false;
   let configValue;
@@ -453,64 +468,125 @@ export default function ConnectDwarfSTA() {
 
   useEffect(() => {
     const isTauri = "__TAURI__" in window;
+    console.log("Effect triggered, aborting previous request if exists...");
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort(); // Abort the previous request
+    }
+    abortControllerRef.current = new AbortController(); // Create a new one
+    const signal = abortControllerRef.current.signal;
 
-    if (isTauri) {
-      setOnTauri(true);
-    } else {
-      // Test Proxy
-      const checkProxyStatus = async () => {
-        let proxyUrl = getProxyUrl(connectionCtx);
-        setSavedProxyUrl(proxyUrl);
-        let serverUrl = getServerUrl();
-        let isHttps = isModeHttps();
-        connectionCtx.setUseHttps(isHttps);
+    // Test Proxy
+    const getProxyLocalIP = async (proxyUrl, signal) => {
+      if (!proxyUrl) {
+        setProxyLocalIPs([]);
+        return;
+      }
+      // Fetch local IPs from the backend
+      const urlProxyRequest = proxyUrl?.includes("api")
+        ? "/api/getLocalIP"
+        : proxyUrl + "/getLocalIP";
+      try {
+        const response = await axios.get(urlProxyRequest, { signal });
+        const ipList = response.data.ips;
+        setProxyLocalIPs(ipList);
+        // If there's a saved IP in context, use it (if it's in the list)
+        if (
+          connectionCtx?.proxyLocalIP &&
+          ipList.includes(connectionCtx.proxyLocalIP)
+        ) {
+          setProxyLocalIpValue(connectionCtx.proxyLocalIP);
+        } else {
+          setProxyLocalIpValue(ipList[0]); // Default to first available IP
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          if (signal.aborted) {
+            console.log("Request aborted: getProxyLocalIP");
+          } else {
+            console.error("Error fetching local IPs: ", error);
+          }
+        } else {
+          console.error("An unknown error occurred:", error);
+        }
+      }
+    };
 
-        setStateMediaMtx(await checkMediaMtxStreamUrls(connectionCtx));
+    const checkProxyStatus = async (signal: AbortSignal) => {
+      let proxyUrl = getProxyUrl(connectionCtx);
+      setSavedProxyUrl(proxyUrl);
+
+      let serverUrl = getServerUrl();
+      let isHttps = isModeHttps();
+      connectionCtx.setUseHttps(isHttps);
+
+      try {
+        setStateMediaMtx(
+          await checkMediaMtxStreamUrls(connectionCtx, 3000, signal)
+        );
+
         if (connectionCtx.proxyIP) setProxyIpValue(connectionCtx.proxyIP);
 
         if (proxyUrl && proxyUrl.includes("api")) {
+          // Run health checks in parallel, passing the signal
+          const [statusProxy, statusBluetoothServer] = await Promise.all([
+            checkHealth("/api/health", 3000, signal),
+            checkHealth("/api/run-exe-health", 3000, signal),
+          ]);
+
           setIsProxyOnServer(true);
-          let statusProxy = await checkHealth("/api/health");
           setStateProxy(statusProxy);
-          let statusBluetoothServer = await checkHealth("/api/run-exe-health");
+
+          if (statusProxy) {
+            const serverIp = getServerIp();
+            if (serverIp) connectionCtx.setProxyInLan(isLocalIp(serverIp));
+            await getProxyLocalIP(proxyUrl, signal);
+          }
+
           if (statusProxy && statusBluetoothServer) {
             setStateBluetoothProxy(true);
             setStateBluetoothServer(true);
             setUseDirectBluetooth(true);
             connectionCtx.setUseDirectBluetoothServer(true);
+          } else {
+            setStateBluetoothProxy(false);
+            setStateBluetoothServer(false);
+            setUseDirectBluetooth(false);
+            connectionCtx.setUseDirectBluetoothServer(false);
           }
         } else {
           let sameProxyServer = compareURLsIgnoringPort(proxyUrl, serverUrl);
+
+          // Run health checks in parallel, passing the signal
+          const [statusProxy, statusBluetoothProxy, statusBluetoothServer] =
+            await Promise.all([
+              checkHealth(proxyUrl + "/health", 3000, signal),
+              checkHealth(proxyUrl + "/run-exe-health", 3000, signal),
+              checkHealth(serverUrl + "/run-exe-health", 3000, signal),
+            ]);
+
           setIsProxyOnServer(sameProxyServer);
-          let statusProxy = await checkHealth(proxyUrl + "/health");
           setStateProxy(statusProxy);
+
           if (statusProxy) {
-            // Fetch local IPs from the backend
-            axios
-              .get(proxyUrl + "/getLocalIP")
-              .then((response) => {
-                const ipList = response.data.ips;
-                setProxyLocalIPs(ipList);
-                // If there's a saved IP in context, use it (if it's in the list)
-                if (
-                  connectionCtx?.proxyLocalIP &&
-                  ipList.includes(connectionCtx.proxyLocalIP)
-                ) {
-                  setProxyLocalIpValue(connectionCtx.proxyLocalIP);
-                } else {
-                  setProxyLocalIpValue(ipList[0]); // Default to first available IP
-                }
-              })
-              .catch((error) =>
-                console.error("Error fetching local IPs:", error)
+            if (connectionCtx?.proxyIP && connectionCtx?.proxyLocalIP) {
+              const proxyLocalUrl = proxyUrl?.replace(
+                connectionCtx.proxyIP,
+                connectionCtx.proxyLocalIP
               );
+              let statusLocalProxy = await checkHealth(
+                proxyLocalUrl + "/health",
+                3000,
+                signal
+              );
+              connectionCtx.setProxyInLan(statusLocalProxy);
+            }
+            await getProxyLocalIP(proxyUrl, signal);
           }
-          let statusBluetoothProxy = await checkHealth(
-            proxyUrl + "/run-exe-health"
-          );
-          let statusBluetoothServer = await checkHealth(
-            serverUrl + "/run-exe-health"
-          );
+
+          setStateBluetoothServer(false);
+          setStateBluetoothProxy(false);
+          setUseDirectBluetooth(false);
+
           if (statusProxy && statusBluetoothProxy) {
             setStateBluetoothProxy(true);
             setUseDirectBluetooth(true);
@@ -519,18 +595,36 @@ export default function ConnectDwarfSTA() {
             setStateBluetoothServer(true);
             setUseDirectBluetooth(true);
           }
-          if (sameProxyServer)
-            connectionCtx.setUseDirectBluetoothServer(statusBluetoothServer);
-          else
-            connectionCtx.setUseDirectBluetoothServer(
-              statusBluetoothServer && !setStateBluetoothProxy
-            );
-        }
-      };
 
-      checkProxyStatus();
+          connectionCtx.setUseDirectBluetoothServer(
+            sameProxyServer
+              ? statusBluetoothServer
+              : statusBluetoothServer && !statusBluetoothProxy
+          );
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          if (signal.aborted) {
+            console.log("checkProxyStatus aborted due to new request.");
+          } else {
+            console.error("Error in checkProxyStatus:", error);
+          }
+        } else {
+          console.error("An unknown error occurred:", error);
+        }
+      }
+    };
+
+    if (isTauri) {
+      setOnTauri(true);
+      connectionCtx?.setProxyInLan(true);
+    } else {
+      checkProxyStatus(signal);
     }
-    return () => {};
+    return () => {
+      console.log("Cleanup: Aborting previous checkProxyStatus call");
+      abortControllerRef.current?.abort();
+    };
   }, [connectionCtx.proxyIP]);
 
   // Handle checkbox change
@@ -538,6 +632,64 @@ export default function ConnectDwarfSTA() {
     const isChecked = event.target.checked;
     connectionCtx.setUseDirectBluetoothServer(isChecked);
   };
+
+  const refreshProxyLocalIP = async (proxyIP) => {
+    if (!proxyIP) {
+      setProxyLocalIPs([]);
+      return;
+    }
+    console.log("refreshProxyLocalIP");
+
+    // Fetch local IPs from the backend
+    const protocol = connectionCtx.useHttps ? "https:" : "http:";
+    const port = connectionCtx.useHttps
+      ? process.env.NEXT_PUBLIC_PORT_PROXY_CORS_HTTPS
+      : process.env.NEXT_PUBLIC_PORT_PROXY_CORS;
+    const urlProxyRequest = `${protocol}//${proxyIP}:${port}/getLocalIP`;
+    console.log("refreshProxyLocalIP", urlProxyRequest);
+    axios
+      .get(urlProxyRequest)
+      .then((response) => {
+        const ipList = response.data.ips;
+        console.log("refreshProxyLocalIP", ipList);
+        setProxyLocalIPs(ipList);
+        // If there's a saved IP in context, use it (if it's in the list)
+        if (
+          connectionCtx?.proxyLocalIP &&
+          ipList.includes(connectionCtx.proxyLocalIP)
+        ) {
+          setProxyLocalIpValue(connectionCtx.proxyLocalIP);
+        } else {
+          setProxyLocalIpValue(ipList[0]); // Default to first available IP
+        }
+      })
+      .catch((error) => console.error("Error fetching local IPs:", error));
+  };
+
+  function isValidIP(ip) {
+    if (typeof ip !== "string") return false;
+
+    // Regular expression for IPv4
+    const ipv4Regex =
+      /^(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)$/;
+
+    // Regular expression for IPv6
+    const ipv6Regex =
+      /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9])?[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9])?[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9])?[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9])?[0-9]))$/;
+
+    return ipv4Regex.test(ip) || ipv6Regex.test(ip);
+  }
+
+  // Trigger logic when the debounced value changes
+  useEffect(() => {
+    if (debouncedValue !== "") {
+      if (isValidIP(debouncedValue)) {
+        setProxyLocalIPs([]);
+        setProxyLocalIpValue("");
+        refreshProxyLocalIP(debouncedValue);
+      }
+    }
+  }, [debouncedValue]);
 
   function ipHandler(e: ChangeEvent<HTMLInputElement>) {
     let value = e.target.value.trim();
@@ -559,7 +711,7 @@ export default function ConnectDwarfSTA() {
     saveProxyIPDB(proxyIpValue);
     setProxyLocalIpValue("");
     connectionCtx.setProxyLocalIP("");
-    saveProxyIPDB(proxyLocalIpValue);
+    saveProxyLocalIPDB(proxyLocalIpValue);
   }
 
   const runExecutable = async () => {
@@ -777,7 +929,7 @@ export default function ConnectDwarfSTA() {
                   </div>
                 </div>
               )}
-            {savedProxyUrl && !savedProxyUrl.includes("api") && (
+            {savedProxyUrl && (
               <>
                 <p>{t("pServerStatusContent3")}</p>
                 <div className="row mb-3">
@@ -855,7 +1007,7 @@ export default function ConnectDwarfSTA() {
               </>
             )}
           </div>
-          {savedProxyUrl && !savedProxyUrl.includes("api") && (
+          {savedProxyUrl && (
             <div>
               <button
                 id="btnChangeProxy"

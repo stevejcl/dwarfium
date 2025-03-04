@@ -1,7 +1,7 @@
 /* eslint react/no-unescaped-entities: 0 */
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import {
@@ -32,6 +32,7 @@ export default function ConnectStellarium(props: PropType) {
   const [showHelp, setShowHelp] = useState(false);
   const [showInfoTxtData, setShowInfoTxtData] = useState(true);
   const [url_plugin, setUrl_plugin] = useState("");
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   function checkConnection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -97,6 +98,13 @@ export default function ConnectStellarium(props: PropType) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   useEffect(() => {
+    console.log("Effect triggered, aborting previous request if exists...");
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort(); // Abort the previous request
+    }
+    abortControllerRef.current = new AbortController(); // Create a new one
+    const signal = abortControllerRef.current.signal;
+
     if (showInfoTxt !== undefined && !showInfoTxt) setShowInfoTxtData(false);
 
     const isTauri = "__TAURI__" in window;
@@ -105,52 +113,80 @@ export default function ConnectStellarium(props: PropType) {
       setUrl_plugin("");
     } else {
       // Test Proxy
-      const getUrlStellariumConfig = async () => {
+      const getUrlStellariumConfig = async (signal: AbortSignal) => {
         let serverUrl = getServerUrl();
         let proxyUrl = getProxyUrl(connectionCtx);
         let urlStellariumConfig = "";
 
-        if (proxyUrl && proxyUrl.includes("api")) {
-          urlStellariumConfig = await checkHealth(
-            "/api/stellarium-config-health"
-          );
-        } else {
-          let sameProxyServer = compareURLsIgnoringPort(proxyUrl, serverUrl);
-          if (sameProxyServer) {
-            // check on Server first
+        try {
+          if (proxyUrl && proxyUrl.includes("api")) {
             urlStellariumConfig = await checkHealth(
-              serverUrl + "/stellarium-config-health"
+              "/api/stellarium-config-health",
+              3000,
+              signal
             );
-            // check on Proxy if not found
-            if (!urlStellariumConfig) {
+          } else {
+            let sameProxyServer = compareURLsIgnoringPort(proxyUrl, serverUrl);
+            if (sameProxyServer) {
+              // check on Server first
               urlStellariumConfig = await checkHealth(
-                proxyUrl + "/stellarium-config-health"
+                serverUrl + "/stellarium-config-health",
+                3000,
+                signal
+              );
+              // check on Proxy if not found
+              if (!urlStellariumConfig) {
+                urlStellariumConfig = await checkHealth(
+                  proxyUrl + "/stellarium-config-health",
+                  3000,
+                  signal
+                );
+                if (urlStellariumConfig) {
+                  urlStellariumConfig = proxyUrl + urlStellariumConfig;
+                }
+              }
+            } else {
+              // check on Proxy first
+              urlStellariumConfig = await checkHealth(
+                proxyUrl + "/stellarium-config-health",
+                3000,
+                signal
               );
               if (urlStellariumConfig) {
                 urlStellariumConfig = proxyUrl + urlStellariumConfig;
               }
-            }
-          } else {
-            // check on Proxy first
-            urlStellariumConfig = await checkHealth(
-              proxyUrl + "/stellarium-config-health"
-            );
-            if (urlStellariumConfig) {
-              urlStellariumConfig = proxyUrl + urlStellariumConfig;
-            }
-            // check on Server if not found
-            else {
-              urlStellariumConfig = await checkHealth(
-                serverUrl + "/stellarium-config-health"
-              );
+              // check on Server if not found
+              else {
+                urlStellariumConfig = await checkHealth(
+                  serverUrl + "/stellarium-config-health",
+                  3000,
+                  signal
+                );
+              }
             }
           }
+          if (urlStellariumConfig) setUrl_plugin(urlStellariumConfig);
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            if (signal.aborted) {
+              console.log("getUrlStellariumConfig aborted due to new request.");
+            } else {
+              console.error("Error in getUrlStellariumConfig:", error);
+            }
+          } else {
+            console.error("An unknown error occurred:", error);
+          }
         }
-        if (urlStellariumConfig) setUrl_plugin(urlStellariumConfig);
       };
-      getUrlStellariumConfig();
+      getUrlStellariumConfig(signal);
     }
+    return () => {
+      console.log("Cancel previous request when effect re-runs");
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
+  useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);

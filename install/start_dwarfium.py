@@ -166,4 +166,14 @@ def serve_static(path):
 
 # Start the Flask server on port 8000
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    # Path to your certificate and key files
+    cert_file = 'DwarfiumCert.pem'
+    key_file = 'DwarfiumKey.pem'
+
+    # Check if certificates exist and run accordingly
+    if os.path.exists(cert_file) and os.path.exists(key_file):
+        print("Starting Dwarfium HTTPS server on port 8000")
+        app.run(host='0.0.0.0', port=8000, ssl_context=(cert_file, key_file))
+    else:
+        print("Starting Dwarfium HTTP server on port 8000")
+        app.run(host='0.0.0.0', port=8000)

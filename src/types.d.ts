@@ -12,8 +12,8 @@ export type ConnectionContextType = {
   setConnectionStatusStellarium: Dispatch<SetStateAction<boolean | undefined>>;
   useHttps: boolean;
   setUseHttps: Dispatch<SetStateAction<boolean>>;
-  useWSProxy: boolean | undefined;
-  setUseWSProxy: Dispatch<SetStateAction<boolean | undefined>>;
+  proxyInLan: boolean | undefined;
+  setProxyInLan: Dispatch<SetStateAction<boolean | undefined>>;
   proxyIP: string | undefined;
   setProxyIP: Dispatch<SetStateAction<string | undefined>>;
   proxyLocalIP: string | undefined;

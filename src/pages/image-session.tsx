@@ -6,7 +6,7 @@ import { useLoadIntialValues } from "@/hooks/useLoadIntialValues";
 import StatusBar from "@/components/shared/StatusBar";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
-import { getProxyUrl } from "@/lib/get_proxy_url";
+import { getProxyUrl, getTransfomProxyImageUrl } from "@/lib/get_proxy_url";
 import PhotoEditor from "../components/photoeditor/PhotoEditor"; // Import de bewerkingsmodule
 export default function AstroPhoto() {
   const connectionCtx = useContext(ConnectionContext);
@@ -23,29 +23,33 @@ export default function AstroPhoto() {
   const [thumbnailExists, setThumbnailExists] = useState<boolean[]>([]);
   const [isPhotoEditorOpen, setIsPhotoEditorOpen] = useState<boolean>(false);
 
+  //const [thumbnailD2Src, setThumbnailD2Src] = useState<string[]>([]);
+  //const [thumbnailD3Src, setThumbnailD3Src] = useState<string[]>([]);
+
   const openPhotoEditor = (sessionName: string, index: number) => {
     let thumbnailUrl = "";
     let fullImageUrl = "";
+    let proxyUrlData = getProxyUrl(connectionCtx);
 
     if (thumbnailExists[index]) {
       if (connectionCtx.typeNameDwarf === "Dwarf II") {
         thumbnailUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-        thumbnailUrl = `${getProxyUrl(
-          connectionCtx
-        )}?target=${encodeURIComponent(thumbnailUrl)}`;
+        thumbnailUrl = `${proxyUrlData}?target=${encodeURIComponent(
+          thumbnailUrl
+        )}`;
         fullImageUrl = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked.jpg`;
-        fullImageUrl = `${getProxyUrl(
-          connectionCtx
-        )}?target=${encodeURIComponent(fullImageUrl)}`;
+        fullImageUrl = `${proxyUrlData}?target=${encodeURIComponent(
+          fullImageUrl
+        )}`;
       } else {
         thumbnailUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-        thumbnailUrl = `${getProxyUrl(
-          connectionCtx
-        )}?target=${encodeURIComponent(thumbnailUrl)}`;
+        thumbnailUrl = `${proxyUrlData}?target=${encodeURIComponent(
+          thumbnailUrl
+        )}`;
         fullImageUrl = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked.jpg`;
-        fullImageUrl = `${getProxyUrl(
-          connectionCtx
-        )}?target=${encodeURIComponent(fullImageUrl)}`;
+        fullImageUrl = `${proxyUrlData}?target=${encodeURIComponent(
+          fullImageUrl
+        )}`;
       }
     } else {
       // Fallback als de thumbnail niet bestaat
@@ -63,17 +67,16 @@ export default function AstroPhoto() {
     setIsPhotoEditorOpen(false);
     setSelectedPhoto(null);
   };
-  const fetchThumbnailExists = async (sessionName: string) => {
+  const fetchThumbnailExists = async (
+    sessionName: string,
+    proxyUrlData: string
+  ) => {
     if (connectionCtx.typeNameDwarf == "Dwarf II") {
       const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-      thumbnailUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
-        url
-      )}`;
+      thumbnailUrl = `${proxyUrlData}?target=${encodeURIComponent(url)}`;
     } else {
       const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/stacked_thumbnail.jpg`;
-      thumbnailUrl = `${getProxyUrl(connectionCtx)}?target=${encodeURIComponent(
-        url
-      )}`;
+      thumbnailUrl = `${proxyUrlData}?target=${encodeURIComponent(url)}`;
     }
     try {
       const response = await fetch(thumbnailUrl);
@@ -99,9 +102,13 @@ export default function AstroPhoto() {
   };
 
   useEffect(() => {
-    const loadThumbnailExists = async (sessionName: string, index: number) => {
+    const loadThumbnailExists = async (
+      sessionName: string,
+      index: number,
+      proxyUrlData: string
+    ) => {
       console.log(`Loading thumbnail existence for session: ${sessionName}`);
-      const exists = await fetchThumbnailExists(sessionName);
+      const exists = await fetchThumbnailExists(sessionName, proxyUrlData);
       console.log(`Thumbnail exists for session ${sessionName}: ${exists}`);
       setThumbnailExists((prevState) => {
         const newState = [...prevState];
@@ -110,8 +117,9 @@ export default function AstroPhoto() {
       });
     };
 
+    let proxyUrlData = getProxyUrl(connectionCtx);
     sessions.forEach((session, index) => {
-      loadThumbnailExists(session.name, index);
+      loadThumbnailExists(session.name, index, proxyUrlData ?? "");
     });
   }, [sessions, connectionCtx.IPDwarf]);
 
@@ -122,17 +130,14 @@ export default function AstroPhoto() {
 
     try {
       let response;
+      let proxyUrlData = getProxyUrl(connectionCtx);
       if (connectionCtx.typeNameDwarf == "Dwarf II") {
         const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/`;
-        const proxyUrl = `${getProxyUrl(
-          connectionCtx
-        )}?target=${encodeURIComponent(url)}`;
+        const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(url)}`;
         response = await fetch(proxyUrl);
       } else {
         const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/`;
-        const proxyUrl = `${getProxyUrl(
-          connectionCtx
-        )}?target=${encodeURIComponent(url)}`;
+        const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(url)}`;
         response = await fetch(proxyUrl);
       }
       const data = await response.text();
@@ -147,15 +152,15 @@ export default function AstroPhoto() {
           try {
             if (connectionCtx.typeNameDwarf == "Dwarf II") {
               const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${folderName}/shotsInfo.json`;
-              const proxyUrl = `${getProxyUrl(
-                connectionCtx
-              )}?target=${encodeURIComponent(url)}`;
+              const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(
+                url
+              )}`;
               await fetch(proxyUrl);
             } else {
               const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${folderName}/shotsInfo.json`;
-              const proxyUrl = `${getProxyUrl(
-                connectionCtx
-              )}?target=${encodeURIComponent(url)}`;
+              const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(
+                url
+              )}`;
               await fetch(proxyUrl);
             }
             sessionList.push({ name: folderName, date: folderDate });
@@ -182,17 +187,15 @@ export default function AstroPhoto() {
   const fetchSessionInfo = async (sessionName: string) => {
     try {
       let response;
+      let proxyUrlData = getProxyUrl(connectionCtx);
+
       if (connectionCtx.typeNameDwarf == "Dwarf II") {
         const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}/shotsInfo.json`;
-        const proxyUrl = `${getProxyUrl(
-          connectionCtx
-        )}?target=${encodeURIComponent(url)}`;
+        const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(url)}`;
         response = await fetch(proxyUrl);
       } else {
         const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}/shotsInfo.json`;
-        const proxyUrl = `${getProxyUrl(
-          connectionCtx
-        )}?target=${encodeURIComponent(url)}`;
+        const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(url)}`;
         response = await fetch(proxyUrl);
       }
       if (!response.ok) {
@@ -229,6 +232,8 @@ export default function AstroPhoto() {
 
   const getSessionData = async (sessionName: string) => {
     setDownloadClicked(true);
+    let proxyUrlData = getProxyUrl(connectionCtx);
+
     try {
       if ("showDirectoryPicker" in window) {
         const selectedFolder = await (window as any).showDirectoryPicker();
@@ -239,15 +244,11 @@ export default function AstroPhoto() {
         let folderResponse;
         if (connectionCtx.typeNameDwarf == "Dwarf II") {
           const url = `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${sessionName}`;
-          const proxyUrl = `${getProxyUrl(
-            connectionCtx
-          )}?target=${encodeURIComponent(url)}`;
+          const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(url)}`;
           folderResponse = await fetch(proxyUrl);
         } else {
           const url = `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${sessionName}`;
-          const proxyUrl = `${getProxyUrl(
-            connectionCtx
-          )}?target=${encodeURIComponent(url)}`;
+          const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(url)}`;
           folderResponse = await fetch(proxyUrl);
         }
         const folderData = await folderResponse.text();
@@ -269,9 +270,9 @@ export default function AstroPhoto() {
                 }/sdcard/DWARF_II/Astronomy/${sessionName}/${encodeURIComponent(
                   fitsFile
                 )}`;
-                const proxyUrl = `${getProxyUrl(
-                  connectionCtx
-                )}?target=${encodeURIComponent(url)}`;
+                const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(
+                  url
+                )}`;
                 fileResponse = await fetch(proxyUrl);
               } else {
                 const url = `http://${
@@ -279,9 +280,9 @@ export default function AstroPhoto() {
                 }/DWARF3/Astronomy/${sessionName}/${encodeURIComponent(
                   fitsFile
                 )}`;
-                const proxyUrl = `${getProxyUrl(
-                  connectionCtx
-                )}?target=${encodeURIComponent(url)}`;
+                const proxyUrl = `${proxyUrlData}?target=${encodeURIComponent(
+                  url
+                )}`;
                 fileResponse = await fetch(proxyUrl);
               }
               const fileBlob = await fileResponse.blob();
@@ -424,59 +425,73 @@ export default function AstroPhoto() {
                   </tr>
                 </thead>
                 <tbody>
-                  {sessions.map((session, index) => (
-                    <tr className="active-row" key={index}>
-                      <td>
-                        {thumbnailExists[index] === true &&
-                        connectionCtx.typeNameDwarf == "Dwarf II" ? (
-                          <img
-                            className="thumblarge"
-                            src={`http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`}
-                            alt="Thumbnail"
-                          />
-                        ) : thumbnailExists[index] === true ? (
-                          <img
-                            className="thumblarge"
-                            src={`http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${session.name}/stacked_thumbnail.jpg`}
-                            alt="Thumbnail"
-                          />
-                        ) : thumbnailExists[index] === false ||
-                          thumbnailExists[index] === undefined ? (
-                          <img
-                            className="thumblarge"
-                            src="/images/404.jpg"
-                            alt="Thumbnail Not Available"
-                          />
-                        ) : (
-                          <div>{t("pImageSessionLoading")}</div>
-                        )}
-                      </td>
-                      <td className="session-name">
-                        {getTarget(session.name)}
-                      </td>
-                      <td>{session.date}</td>
-                      <td>{getShootingInfo(session.name)}</td>
-                      <td>{getAdditionalInfo(session.name)}</td>
-                      <td colSpan={2} className="centered-cell">
-                        <div className="button-container">
-                          <button
-                            className="btn btn-more02"
-                            onClick={() => getSessionData(session.name)}
-                            disabled={downloadClicked}
-                          >
-                            {t("pImageSessionDownload")}
-                          </button>
+                  {sessions.map((session, index) => {
+                    let proxyUrlData = getProxyUrl(connectionCtx);
 
-                          <button
-                            className="btn btn-more02"
-                            onClick={() => openPhotoEditor(session.name, index)}
-                          >
-                            {t("pImageSessionEdit")}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                    return (
+                      <tr className="active-row" key={index}>
+                        <td>
+                          {thumbnailExists[index] === true &&
+                          connectionCtx.typeNameDwarf == "Dwarf II" ? (
+                            <img
+                              className="thumblarge"
+                              src={getTransfomProxyImageUrl(
+                                `http://${connectionCtx.IPDwarf}/sdcard/DWARF_II/Astronomy/${session.name}/stacked_thumbnail.jpg`,
+                                proxyUrlData,
+                                connectionCtx
+                              )}
+                              alt="Thumbnail"
+                            />
+                          ) : thumbnailExists[index] === true ? (
+                            <img
+                              className="thumblarge"
+                              src={getTransfomProxyImageUrl(
+                                `http://${connectionCtx.IPDwarf}/DWARF3/Astronomy/${session.name}/stacked_thumbnail.jpg`,
+                                proxyUrlData,
+                                connectionCtx
+                              )}
+                              alt="Thumbnail"
+                            />
+                          ) : thumbnailExists[index] === false ||
+                            thumbnailExists[index] === undefined ? (
+                            <img
+                              className="thumblarge"
+                              src="/images/404.jpg"
+                              alt="Thumbnail Not Available"
+                            />
+                          ) : (
+                            <div>{t("pImageSessionLoading")}</div>
+                          )}
+                        </td>
+                        <td className="session-name">
+                          {getTarget(session.name)}
+                        </td>
+                        <td>{session.date}</td>
+                        <td>{getShootingInfo(session.name)}</td>
+                        <td>{getAdditionalInfo(session.name)}</td>
+                        <td colSpan={2} className="centered-cell">
+                          <div className="button-container">
+                            <button
+                              className="btn btn-more02"
+                              onClick={() => getSessionData(session.name)}
+                              disabled={downloadClicked}
+                            >
+                              {t("pImageSessionDownload")}
+                            </button>
+
+                            <button
+                              className="btn btn-more02"
+                              onClick={() =>
+                                openPhotoEditor(session.name, index)
+                              }
+                            >
+                              {t("pImageSessionEdit")}
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

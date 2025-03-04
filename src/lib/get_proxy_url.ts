@@ -1,18 +1,15 @@
 import { ConnectionContextType } from "@/types";
 
-export async function checkHealth(url, timeout = 1000) {
-  const controller = new AbortController();
-  const signal = controller.signal;
+export async function checkHealth(url, timeout = 5000, externalSignal) {
+  const timeoutSignal = AbortSignal.timeout(timeout);
 
-  // Set timeout to abort the request
-  const timeoutId = setTimeout(() => {
-    controller.abort(new DOMException("Request timed out", "TimeoutError"));
-  }, timeout);
+  const combinedSignal = AbortSignal.any([timeoutSignal, externalSignal]);
 
   try {
-    const response = await fetch(url, { method: "GET", signal });
-
-    clearTimeout(timeoutId); // Clear timeout if request completes
+    const response = await fetch(url, {
+      method: "GET",
+      signal: combinedSignal,
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -28,32 +25,46 @@ export async function checkHealth(url, timeout = 1000) {
 
     if (data.status) {
       console.log(`${url} Service is healthy!`);
-      if (data.data) return data.data;
-      else return true;
+      return data.data ?? true;
     } else {
       console.warn(`${url} Service is unhealthy:`, data);
+      return false;
     }
-    return false;
-  } catch (error) {
-    console.error(`${url} Health check failed:`, error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      if (timeoutSignal.aborted) {
+        console.log(
+          `checkHealth ${url} Operation timed out after ${timeout} ms`
+        );
+      } else if (externalSignal.aborted) {
+        console.log(`Request aborted: ${url}`);
+      } else {
+        console.error("Error:", error);
+      }
+    } else {
+      console.error("An unknown error occurred:", error);
+    }
     return false;
   }
 }
 
 export function isModeHttps() {
-  // don't change if using /api/proxy or Tauri
+  // don't change if using Tauri
   const isTauri = typeof window !== "undefined" && "__TAURI__" in window;
-  if (
-    isTauri ||
-    (process.env.NEXT_PUBLIC_URL_PROXY_CORS &&
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS.includes("api"))
-  ) {
+  if (isTauri) {
     return false;
   } else if (typeof window !== "undefined") {
     const port = window.location.protocol;
     return port.toLowerCase() === "https:";
   }
   return false;
+}
+
+export function getServerIp() {
+  if (typeof window !== "undefined") {
+    return window.location.hostname;
+  }
+  return "";
 }
 
 export function getServerUrl() {
@@ -80,12 +91,17 @@ export function getServerUrl() {
 }
 
 export function getProxyUrl(connectionCtx: ConnectionContextType) {
-  // don't change if using /api/proxy or Tauri
+  // don't change if using Tauri
   const isTauri = typeof window !== "undefined" && "__TAURI__" in window;
-  if (
-    isTauri ||
-    (process.env.NEXT_PUBLIC_URL_PROXY_CORS &&
-      process.env.NEXT_PUBLIC_URL_PROXY_CORS.includes("api"))
+  if (isTauri) {
+    console.debug(`PROXY-1 is : ${process.env.NEXT_PUBLIC_URL_PROXY_CORS}`);
+    return process.env.NEXT_PUBLIC_URL_PROXY_CORS;
+    // don't change if using api/proxy and not using an external Proxy
+  } else if (
+    process.env.NEXT_PUBLIC_URL_PROXY_CORS &&
+    process.env.NEXT_PUBLIC_URL_PROXY_CORS.includes("api") &&
+    connectionCtx &&
+    !connectionCtx.proxyIP
   ) {
     console.debug(`PROXY-1 is : ${process.env.NEXT_PUBLIC_URL_PROXY_CORS}`);
     return process.env.NEXT_PUBLIC_URL_PROXY_CORS;
@@ -93,7 +109,9 @@ export function getProxyUrl(connectionCtx: ConnectionContextType) {
     let hostname = "";
 
     // if already defined use it
-    if (connectionCtx && connectionCtx.proxyIP)
+    if (connectionCtx && connectionCtx.proxyInLan && connectionCtx.proxyLocalIP)
+      hostname = connectionCtx.proxyLocalIP;
+    else if (connectionCtx && connectionCtx.proxyIP)
       hostname = connectionCtx.proxyIP;
     else hostname = window.location.hostname;
 
@@ -148,67 +166,68 @@ export function getIpServerMTX() {
 
 export async function checkMediaMtxStreamUrls(
   connectionCtx: ConnectionContextType,
-  timeout = 1000
+  timeout = 5000,
+  externalSignal: AbortSignal
 ) {
   const url1 = `http://${getIpServerMTX()}:9997/v3/config/paths/get/dwarf_wide`;
   const url2 = `http://${getIpServerMTX()}:9997/v3/config/paths/get/dwarf_tele`;
 
-  const controller = new AbortController();
-  const signal = controller.signal;
+  const timeoutSignal1 = AbortSignal.timeout(timeout);
+  const timeoutSignal2 = AbortSignal.timeout(timeout);
 
-  // Set timeout to abort the request
-  const timeoutId = setTimeout(() => {
-    controller.abort(new DOMException("Request timed out", "TimeoutError"));
-  }, timeout);
+  const combinedSignal = AbortSignal.any([
+    timeoutSignal1,
+    timeoutSignal2,
+    externalSignal,
+  ]);
 
   try {
     const proxyUrl1 = `${getProxyUrl(
       connectionCtx
     )}?target=${encodeURIComponent(url1)}`;
-    const response1 = await fetch(proxyUrl1, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      signal,
-    });
+    const proxyUrl2 = `${getProxyUrl(
+      connectionCtx
+    )}?target=${encodeURIComponent(url2)}`;
 
-    clearTimeout(timeoutId); // Clear timeout if request completes
+    const [response1, response2] = await Promise.all([
+      fetch(proxyUrl1, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        redirect: "follow",
+        signal: combinedSignal,
+      }),
+      fetch(proxyUrl2, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        redirect: "follow",
+        signal: combinedSignal,
+      }),
+    ]);
 
     if (!response1.ok) {
       throw new Error(`HTTP error! Status: ${response1.status}`);
     }
 
-    const timeoutId2 = setTimeout(() => {
-      controller.abort(new DOMException("Request timed out", "TimeoutError"));
-    }, timeout);
-
-    const proxyUrl2 = `${getProxyUrl(
-      connectionCtx
-    )}?target=${encodeURIComponent(url2)}`;
-    const response2 = await fetch(proxyUrl2, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      signal,
-    });
-
-    clearTimeout(timeoutId2); // Clear timeout if request completes
-
     if (!response2.ok) {
       throw new Error(`HTTP error! Status: ${response2.status}`);
     }
-    return true;
+
+    return true; // Both requests were successful
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error verifying stream info:", error.message);
+      if (timeoutSignal1.aborted || timeoutSignal2.aborted) {
+        console.log(
+          `checkMediaMtxStreamUrls Operation timed out after ${timeout} ms`
+        );
+      } else if (externalSignal.aborted) {
+        console.log(`Media Mtx Request aborted`);
+      } else {
+        console.error("Error:", error);
+      }
     } else {
       console.error("Error verifying stream info:", error);
     }
-    return false;
+    return false; // An error occurred, return false
   }
 }
 
@@ -220,5 +239,35 @@ export function compareURLsIgnoringPort(url1, url2) {
   } catch (error) {
     console.error("Invalid URL:", error);
     return false;
+  }
+}
+
+export const isLocalIp = (url) => {
+  const islocalIp = /(localhost|127\.0\.0\.1|192\.168\.|10\.|172\.16\.|100\.)/;
+  console.log(`isLocalIp $(url): `, islocalIp.test(url));
+
+  return islocalIp.test(url);
+};
+
+export function getTransfomProxyImageUrl(
+  imageUrl,
+  proxyUrl: string | undefined = undefined,
+  connectionCtx: ConnectionContextType,
+  forceHttps: boolean = false
+) {
+  if (connectionCtx && !connectionCtx.useHttps && connectionCtx.proxyInLan) {
+    console.log("getTransfomProxyImageUrl - Local Lan.");
+    return imageUrl;
+  } else if (
+    connectionCtx &&
+    connectionCtx.useHttps &&
+    forceHttps &&
+    connectionCtx.proxyInLan
+  ) {
+    console.log("getTransfomProxyImageUrl - Local Lan Force Https.");
+    return imageUrl.replace("http:", "https:");
+  } else {
+    if (!proxyUrl) proxyUrl = getProxyUrl(connectionCtx);
+    return `${proxyUrl}?target=${encodeURIComponent(imageUrl)}`;
   }
 }

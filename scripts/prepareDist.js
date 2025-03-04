@@ -51,6 +51,7 @@ const tools = {
   win32: [
     { src: "./install/windows/stellarium_auto_config.exe", dest: "stellarium_auto_config.exe" },
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-pc-windows-msvc.exe", dest: "DwarfiumProxy.exe" },
+    { src: "./install/windows/createSSLcert.exe", dest: "createSSLcert.exe" },
     { src: "./src-tauri/bin/mediamtx-x86_64-pc-windows-msvc.exe", dest: "mediamtx.exe" },
     { src: "./install/config/mediamtx.yml", dest: "mediamtx.yml" },
     { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
@@ -61,6 +62,7 @@ const tools = {
   linux: [
     { src: "./install/linux/stellarium_auto_config", dest: "stellarium_auto_config" },
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-unknown-linux-gnu", dest: "DwarfiumProxy" },
+    { src: "./install/linux/createSSLcert", dest: "createSSLcert" },
     { src: "./src-tauri/bin/mediamtx-x86_64-unknown-linux-gnu", dest: "mediamtx" },
     { src: "./install/config/mediamtx.yml", dest: "mediamtx.yml" },
     { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
@@ -70,6 +72,7 @@ const tools = {
   darwin: [
     { src: "./src-tauri/bin/DwarfiumProxy-x86_64-apple-darwin", dest: "DwarfiumProxy" },
     { src: "./src-tauri/bin/mediamtx-x86_64-apple-darwin", dest: "mediamtx" },
+    { src: "./install/macos/createSSLcert", dest: "createSSLcert" },
     { src: "./install/config/mediamtx.yml", dest: "mediamtx.yml" },
     { src: "./install/start_dwarfium.py", dest: "start_dwarfium.py" },
     { src: "./install/extern/config.ini", dest: "./extern/config.ini" },

@@ -9,7 +9,11 @@ import {
 } from "react-zoom-pan-pinch";
 import Link from "next/link";
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { getMediaMTXUrl } from "@/lib/get_proxy_url";
+import {
+  getProxyUrl,
+  getMediaMTXUrl,
+  getTransfomProxyImageUrl,
+} from "@/lib/get_proxy_url";
 import {
   Dwarfii_Api,
   DwarfIP,
@@ -51,14 +55,28 @@ export default function DwarfCameras(props: PropType) {
   } = props;
   let connectionCtx = useContext(ConnectionContext);
 
+  const proxyUrl = getProxyUrl(connectionCtx);
+  const wideUrl = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`;
+  const transformedWideUrl = getTransfomProxyImageUrl(
+    wideUrl,
+    proxyUrl,
+    connectionCtx,
+    true
+  );
+  const teleUrl = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`;
+  const transformedTeleUrl = getTransfomProxyImageUrl(
+    teleUrl,
+    proxyUrl,
+    connectionCtx,
+    true
+  );
+
   //  const wideangleURL_D3 = "http://localhost:8083/static/wide_angle_stream.html";
   //  const telePhotoURL_D3 = "http://localhost:8083/static/tele_stream.html";
-  const [wideangleURL_D3, setWideangleURL_D3] = useState(
-    `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`
-  );
-  const [telePhotoURL_D3, setTelePhotoURL_D3] = useState(
-    `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`
-  );
+  const [wideangleURL_D3, setWideangleURL_D3] = useState(transformedWideUrl);
+  // `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`
+  const [telePhotoURL_D3, setTelePhotoURL_D3] = useState(transformedTeleUrl);
+  // `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`
   const defaultTeleCameraSrc: StaticImageData = imgTeleCameraSrc;
   const defaultWideCameraSrc: StaticImageData = imgWideCameraSrc;
   const [errorTxt, setErrorTxt] = useState("");
@@ -163,14 +181,36 @@ export default function DwarfCameras(props: PropType) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setWideangleURL_D3(
-      `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`
+    console.debug("Change setWideangleURL_D3 and  setTelePhotoURL_D3");
+    const proxyUrl = getProxyUrl(connectionCtx);
+    const wideUrl = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`;
+    const transformedWideUrl = getTransfomProxyImageUrl(
+      wideUrl,
+      proxyUrl,
+      connectionCtx,
+      true
     );
-    setTelePhotoURL_D3(
-      `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`
+    console.debug("Change setWideangleURL_D3 : ", transformedWideUrl);
+    setWideangleURL_D3(transformedWideUrl);
+    const teleUrl = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`;
+    const transformedTeleUrl = getTransfomProxyImageUrl(
+      teleUrl,
+      proxyUrl,
+      connectionCtx,
+      true
     );
+    console.debug("Change setTelePhotoURL_D3 : ", transformedTeleUrl);
+    setTelePhotoURL_D3(transformedTeleUrl);
+
     return () => {};
-  }, [connectionCtx.proxyLocalIP]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [
+    connectionCtx,
+    wideangleCameraStatus,
+    telephotoCameraStatus,
+    connectionCtx.useHttps,
+    connectionCtx.proxyIP,
+    connectionCtx.proxyLocalIP,
+  ]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     console.debug("Change wideangleCamera Status: ", wideangleCameraStatus);

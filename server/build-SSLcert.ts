@@ -9,11 +9,11 @@ import * as esbuild from "esbuild";
 
   // Use esbuild to bundle and compile the TypeScript file
   await esbuild.build({
-    entryPoints: ["./server/server.ts"],
+    entryPoints: ["./server/createSSLcert.ts"],
     bundle: true,
     platform: "node", // Targeting Node.js environment
     target: [targetVersion], // Dynamically set target version
-    outfile: "./server/server.js",
+    outfile: "./server/createSSLcert.js",
     plugins: [],
   });
 })();

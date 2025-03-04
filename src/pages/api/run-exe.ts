@@ -81,7 +81,7 @@ export default async function handler(
     }
 
     const childProcess = spawn(
-      exePath,
+      `"${exePath}"`,
       [
         "--psd",
         ble_psd as string,

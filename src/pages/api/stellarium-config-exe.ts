@@ -26,7 +26,7 @@ export default async function handler(
       return res.status(404).json({ error: "Executable not found" });
     }
 
-    const childProcess = spawn(exePath, [], {
+    const childProcess = spawn(`"${exePath}"`, [], {
       cwd: INSTALL_DIR,
       shell: process.platform !== "win32",
     });
@@ -45,7 +45,9 @@ export default async function handler(
     childProcess.on("close", (code) => {
       if (code === 0) {
         console.log("Process exited successfully:", stdoutData);
-        return res.json({ message: "Process completed", output: stdoutData });
+        return res
+          .status(200)
+          .json({ message: "Process completed", output: stdoutData });
       } else {
         console.error("Process exited with error:", stderrData);
         return res

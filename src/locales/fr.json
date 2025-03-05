@@ -395,5 +395,7 @@
   "cEQSolvingStopAction": "Arrêt EQ",
   "pImageSessionEdit": "Modifier",
   "pIndexBug2": "",
-  "pIndexBug3": ""
+  "pIndexBug3": "",
+  "pProxyLocalCustomIP": "Saisie IP",
+  "pProxyLocalEnterManually": "Saisie manuelle"
 }

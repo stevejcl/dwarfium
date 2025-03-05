@@ -395,5 +395,7 @@
   "pValidResetProxy": "Zresetuj IP proxy",
   "cProxyIPNotSaved": "IP nie jest zapisywany",
   "cProxyIPSaved": "IP jest zapisywany",
-  "pConnectStellariumContent2_2": "Możesz także pobrać i uruchomić następujący program, który automatycznie skonfiguruje wtyczkę, port do użycia wyniesie 8090"
+  "pConnectStellariumContent2_2": "Możesz także pobrać i uruchomić następujący program, który automatycznie skonfiguruje wtyczkę, port do użycia wyniesie 8090",
+  "pProxyLocalCustomIP": "Wprowadź niestandardowe IP",
+  "pProxyLocalEnterManually": "Wprowadź ręcznie"
 }

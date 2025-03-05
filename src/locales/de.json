@@ -395,5 +395,7 @@
   "pValidResetProxy": "Proxy IP zurücksetzen",
   "cProxyIPNotSaved": "IP wird nicht gespeichert",
   "cProxyIPSaved": "IP wird gespeichert",
-  "pConnectStellariumContent2_2": "Sie können das folgende Programm auch herunterladen und ausführen"
+  "pConnectStellariumContent2_2": "Sie können das folgende Programm auch herunterladen und ausführen",
+  "pProxyLocalCustomIP": "Geben Sie benutzerdefinierte IP ein",
+  "pProxyLocalEnterManually": "Manuell eintreten"
 }

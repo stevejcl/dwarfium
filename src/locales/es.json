@@ -395,5 +395,7 @@
   "pValidResetProxy": "Restablecer proxy ip",
   "cProxyIPNotSaved": "IP no se guarda",
   "cProxyIPSaved": "Se guarda la IP",
-  "pConnectStellariumContent2_2": "También puede descargar y ejecutar el siguiente programa que configurará el complemento automáticamente, el puerto a usar será 8090"
+  "pConnectStellariumContent2_2": "También puede descargar y ejecutar el siguiente programa que configurará el complemento automáticamente, el puerto a usar será 8090",
+  "pProxyLocalCustomIP": "Ingrese la IP",
+  "pProxyLocalEnterManually": "Ingrese manualmente"
 }

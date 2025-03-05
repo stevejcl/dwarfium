@@ -395,5 +395,7 @@
   "pValidResetProxy": "重置代理IP",
   "cProxyIPNotSaved": "IP没有保存",
   "cProxyIPSaved": "IP保存",
-  "pConnectStellariumContent2_2": "您还可以下载并运行以下程序，该程序将自动配置该插件，要使用的端口为8090"
+  "pConnectStellariumContent2_2": "您还可以下载并运行以下程序，该程序将自动配置该插件，要使用的端口为8090",
+  "pProxyLocalCustomIP": "输入自定义IP",
+  "pProxyLocalEnterManually": "手动输入"
 }

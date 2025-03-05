@@ -511,6 +511,12 @@ export default function ConnectDwarfSTA() {
         } else {
           console.error("An unknown error occurred:", error);
         }
+        const ipList: string[] = [];
+        if (connectionCtx?.proxyLocalIP) {
+          ipList.push(connectionCtx.proxyLocalIP);
+          setProxyLocalIPs(ipList);
+          setProxyLocalIpValue(connectionCtx.proxyLocalIP);
+        }
       }
     };
 
@@ -655,20 +661,29 @@ export default function ConnectDwarfSTA() {
       .then((response) => {
         const ipList = response.data.ips;
         console.log("refreshProxyLocalIP", ipList);
-        setProxyLocalIPs(ipList);
         if (
           connectionCtx?.proxyLocalIP &&
           !ipList.includes(connectionCtx.proxyLocalIP)
-        )
+        ) {
           ipList.push(connectionCtx.proxyLocalIP);
+        }
         // If there's a saved IP in context, use it (even if it's not in the list)
+        setProxyLocalIPs(ipList);
         if (connectionCtx?.proxyLocalIP) {
           setProxyLocalIpValue(connectionCtx.proxyLocalIP);
         } else {
           setProxyLocalIpValue(ipList[0]); // Default to first available IP
         }
       })
-      .catch((error) => console.error("Error fetching local IPs:", error));
+      .catch((error) => {
+        console.error("Error fetching local IPs:", error);
+        const ipList: string[] = [];
+        if (connectionCtx?.proxyLocalIP) {
+          ipList.push(connectionCtx.proxyLocalIP);
+          setProxyLocalIPs(ipList);
+          setProxyLocalIpValue(connectionCtx.proxyLocalIP);
+        }
+      });
   };
 
   function isValidIP(ip) {
@@ -713,10 +728,10 @@ export default function ConnectDwarfSTA() {
   function ResetProxy() {
     setProxyIpValue("");
     connectionCtx.setProxyIP("");
-    saveProxyIPDB(proxyIpValue);
+    saveProxyIPDB("");
     setProxyLocalIpValue("");
     connectionCtx.setProxyLocalIP("");
-    saveProxyLocalIPDB(proxyLocalIpValue);
+    saveProxyLocalIPDB("");
   }
 
   const handleKeyDown = (e) => {
@@ -991,7 +1006,6 @@ export default function ConnectDwarfSTA() {
                     <label htmlFor="proxyLocalIp">{t("pProxyLocalIP")}</label>
                   </div>
 
-                  {/* Local IP Dropdown */}
                   <div className="col-lg-2 col-md-10">
                     <select
                       className="form-control"
@@ -1008,22 +1022,34 @@ export default function ConnectDwarfSTA() {
                         }
                       }}
                     >
-                      {proxyLocalIPs.map((ip) => (
-                        <option key={ip} value={ip}>
-                          {ip}
+                      {/* Render IPs if available, otherwise only show "custom" */}
+                      {proxyLocalIPs.length > 0 ? (
+                        proxyLocalIPs.map((ip) => (
+                          <option key={ip} value={ip}>
+                            {ip}
+                          </option>
+                        ))
+                      ) : (
+                        <option value="" disabled>
+                          No available IPs
                         </option>
-                      ))}
-                      <option value="custom">Enter Manually</option>
+                      )}
+                      <option value="custom">
+                        {t("pProxyLocalEnterManually")}
+                      </option>
                     </select>
+
+                    {/* Show input field if "custom" is selected */}
                     {isCustomInput && (
                       <input
                         className="form-control mt-2"
                         type="text"
-                        placeholder="Enter custom IP"
+                        placeholder={t("pProxyLocalCustomIP")}
+                        value={proxyLocalIpValue}
                         onChange={(e) => setProxyLocalIpValue(e.target.value)}
                         onKeyDown={handleKeyDown}
                       />
-                    )}{" "}
+                    )}
                   </div>
 
                   {/* Local IP Status Icon */}

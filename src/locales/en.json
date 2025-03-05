@@ -62,6 +62,8 @@
   "pProxyRunningOnServer": "Proxy is running on the same machine as Server at ",
   "pProxyRunning": "Proxy is running at ",
   "pProxyNotRunning": "Proxy is not running at ",
+  "pProxyLocalEnterManually": "Enter Manually",
+  "pProxyLocalCustomIP": "Enter custom IP",
   "pMediaMtxRunning": "MediaMtx Video Streaming for D3 is running",
   "pMediaMtxNotRunning": "MediaMtx Video Streaming for D3 is not started!",
   "pDirecBluetoothProxyAvailable": "Direct Bluetooth detection on Proxy is available",

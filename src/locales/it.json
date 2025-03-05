@@ -395,5 +395,7 @@
   "pValidResetProxy": "Ripristina IP proxy",
   "cProxyIPNotSaved": "IP non viene salvato",
   "cProxyIPSaved": "IP viene salvato",
-  "pConnectStellariumContent2_2": "Puoi anche scaricare ed eseguire il seguente programma che configurerà automaticamente il plugin, la porta da utilizzare sarà 8090"
+  "pConnectStellariumContent2_2": "Puoi anche scaricare ed eseguire il seguente programma che configurerà automaticamente il plugin, la porta da utilizzare sarà 8090",
+  "pProxyLocalCustomIP": "Immettere IP personalizzato",
+  "pProxyLocalEnterManually": "Entra manualmente"
 }

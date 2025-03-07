@@ -113,8 +113,19 @@ async function ensureSSLCertificates(): Promise<{ key: string; cert: string }> {
     console.log("altNames:", altNames);
     const extensions = [
       {
+        name: "basicConstraints",
+        cA: true, // ✅ This marks the certificate as a CA
+      },
+      {
+        name: "keyUsage",
+        critical: true,
+        digitalSignature: true,
+        keyCertSign: true, // ✅ Allows signing certificates
+        cRLSign: true, // Allows signing certificate revocation lists (optional)
+      },
+      {
         name: "subjectAltName",
-        altNames: altNames,
+        altNames: altNames, // Keeps the existing altNames for IP support
       },
     ];
     console.log("Extensions:", extensions);
@@ -171,11 +182,10 @@ ensureSSLCertificates()
 
         powershell -Command "& { Get-ChildItem -Path Cert:\\CurrentUser\\Root\\ | Where-Object {$_.Subject -like '*Dwarfium*'} | ForEach-Object { Remove-Item -Path $_.PSPath -Force }}"
         powershell -Command "& Import-Certificate -FilePath 'DwarfiumCert.pem' -CertStoreLocation Cert:\\CurrentUser\\Root"
+        #powershell -Command "& { Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command ""Import-Certificate -FilePath DwarfiumCert.pem -CertStoreLocation Cert:\LocalMachine\Root""' -Verb RunAs }"
         echo Dwarfium Certicates has been Installed, You need to restart your browser, to take effect.
         pause
-
-        echo Dwarfium Certicates has been Installed, You need to restart your browser, to take effect.
-        pause
+        exit
     `;
 
     const launcherScriptLinuxMac = `

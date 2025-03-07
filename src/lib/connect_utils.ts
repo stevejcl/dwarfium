@@ -72,15 +72,16 @@ export async function connectionHandler(
 
   connectionCtx.setSocketIPDwarf(webSocketHandler);
 
+  console.log("Current Proxy: " + connectionCtx.proxyIP);
+  if (connectionCtx.proxyIP) {
+    const port = connectionCtx.useHttps
+      ? process.env.NEXT_PUBLIC_PORT_PROXY_CORS_HTTPS
+      : process.env.NEXT_PUBLIC_PORT_PROXY_CORS;
+    await webSocketHandler.setProxyUrl(`${connectionCtx.proxyIP}:${port}`);
+  }
+  await webSocketHandler.setHttpsMode(connectionCtx.useHttps);
   // Force IP
   if (forceIP) {
-    if (connectionCtx.proxyIP) {
-      const port = connectionCtx.useHttps
-        ? process.env.NEXT_PUBLIC_PORT_PROXY_CORS_HTTPS
-        : process.env.NEXT_PUBLIC_PORT_PROXY_CORS;
-      await webSocketHandler.setProxyUrl(`${connectionCtx.proxyIP}:${port}`);
-    }
-    await webSocketHandler.setHttpsMode(connectionCtx.useHttps);
     await webSocketHandler.setNewIpDwarf(IPDwarf);
   }
 

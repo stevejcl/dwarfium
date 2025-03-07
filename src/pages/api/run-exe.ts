@@ -80,6 +80,8 @@ export default async function handler(
       return res.status(404).json({ error: "Executable not found" });
     }
 
+    console.log("run_exe_path : " + exePath);
+    console.log("run_exe_instal_path : " + EXTERN_DIR);
     const childProcess = spawn(
       `"${exePath}"`,
       [
@@ -92,7 +94,7 @@ export default async function handler(
       ],
       {
         cwd: EXTERN_DIR,
-        shell: process.platform !== "win32",
+        shell: true,
       }
     );
 

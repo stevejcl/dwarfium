@@ -28,7 +28,7 @@ export default async function handler(
 
     const childProcess = spawn(`"${exePath}"`, [], {
       cwd: INSTALL_DIR,
-      shell: process.platform !== "win32",
+      shell: true,
     });
 
     let stdoutData = "",

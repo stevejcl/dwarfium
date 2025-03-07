@@ -23,10 +23,12 @@ export default async function handler(
       ? path.join(EXTERN_DIR, `${EXE_NAME}.exe`)
       : `./${path.join(EXTERN_DIR, EXE_NAME)}`;
 
+  console.log("run_exe_path : " + exePath);
   if (fs.existsSync(EXTERN_DIR) && fs.existsSync(exePath)) {
     return res.status(200).json({ status: "Executable found" });
   }
 
+  console.log("run_exe_zip_path : " + ZIP_PATH);
   if (fs.existsSync(ZIP_PATH)) {
     return res.status(200).json({ status: "Zip found" });
   }

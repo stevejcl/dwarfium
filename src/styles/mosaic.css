@@ -1,0 +1,231 @@
+﻿.all_div {
+    margin: -40px;
+}
+/* Container van de gehele layout */
+.new-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    /*background: #fafafa;*/
+}
+
+/* Algemene styling voor de panelen */
+.panel {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .panel h2 {
+        margin-top: 0;
+        text-align: center;
+        color: #333;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+/* Styling voor elk formulier/veld */
+.field {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .field label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+/* Input met een icoon naast het invoerveld */
+.input-with-icon {
+    display: flex;
+    align-items: center;
+}
+
+.input-text,
+.input-number,
+.input-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Specifieke styling voor select-elementen */
+.input-select {
+    background: #fff;
+}
+
+/* Groepering van de grid-size inputs */
+.grid-size {
+    display: flex;
+    gap: 10px;
+}
+
+.input-small {
+    width: 45%;
+}
+
+/* Checkbox styling */
+.checkbox-area {
+    display: flex;
+    align-items: center;
+}
+
+/* Icon-knop */
+.btn-icon {
+    background: none;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+    .btn-icon img {
+        width: 20px;
+        height: 20px;
+    }
+
+/* Button area */
+.button-area {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-refresh-mosaic {
+    background: #19631b;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+}
+
+    .btn-refresh-mosaic:hover {
+        background: #008000;
+    }
+.btn-download {
+    background: #19631b;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+    .btn-download:hover {
+        background: #008000;
+    }
+
+/* Styling voor catalogDiv */
+.catalogDiv {
+    margin-top: 0;
+    padding: 8px;
+    border: 1px solid #0a0a0a96;
+    background-color: #fff;
+    box-sizing: border-box;
+    max-width: 100%;
+    
+}
+.catalog-display {
+    width: fit-content;
+    padding: 8px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+/* Extra layout voor load panels, rows en columns */
+#DivLoadPanels {
+    display: flex;
+    flex-wrap: nowrap; /* Houd alle divs in een rij */
+    gap: 10px;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    
+}
+
+
+
+/* Responsieve instellingen */
+
+/* Bij schermen kleiner dan 1024px (tablet) */
+@media (max-width: 1024px) {
+    .new-layout {
+        grid-template-columns: 1fr;
+    }
+
+    #DivLoadPanels {
+        flex-direction: column;
+    }
+
+    .row, .col {
+        flex-direction: column;
+    }
+}
+
+/* Bij schermen kleiner dan 600px (mobiel) */
+@media (max-width: 600px) {
+    .field {
+        /* Zorgt dat de velden geen overmatige marges hebben op kleine schermen */
+        margin-bottom: 10px;
+    }
+
+    .input-text,
+    .input-number,
+    .input-select {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .btn-refresh-mosaic {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    .btn-download{
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+}
+
+/* Aladin overrules */
+.aladin-container {
+    position: relative;
+    border: 0px solid #ddd;
+    overscroll-behavior-x: none;
+    overflow: hidden;
+    font-size: 1.3rem !important;
+    width: 100% !important;
+    gap: 10px;
+    height: 750px !important;
+}
+.aladin-div-text {
+
+height:100%;
+width:fit-content;
+}
+#aladin-div {
+    height: 770px;
+    width:100%;
+}
+#day-div,
+#year-div {
+    border: 1px solid #ccc;
+    margin:10px;
+    text-align: center;
+   
+}

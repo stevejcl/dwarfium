@@ -1,0 +1,34 @@
+.live-stream-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+.start-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .start-button:hover {
+        background-color: darkgreen;
+    }
+
+.stop-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .stop-button:hover {
+        background-color: darkred;
+    }
+.dropdown-wrapper {
+    width: auto; /* Set width to match dropdown */
+}

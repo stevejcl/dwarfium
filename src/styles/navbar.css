@@ -372,7 +372,7 @@ ul {
 .sub-menu {
     position: absolute;
     left: 100%;
-    top: 10px;
+    top: -10px;
     display: none;
 }
 

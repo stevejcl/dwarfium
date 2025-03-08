@@ -103,7 +103,7 @@ export default function StatusBar() {
   return (
     <div>
       <div className="row mb ">
-        <div className="col-sm align-center">
+        <div className="container-status-bar1">
           <div className="container-connection">
             <span className="con">
               {connectionCtx.typeNameDwarf}
@@ -113,6 +113,14 @@ export default function StatusBar() {
               : {connection}
             </span>
             <span className="con">Stellarium: {connectionStellarium}</span>
+          </div>
+          <ConnectDwarfII />
+          <div className="container-temp-batt">
+            {connectionCtx.connectionStatus && (
+              <div className="d-block d-md-none w-100">
+                <br />
+              </div>
+            )}
             <div className="temperature-info">
               {connectionCtx.connectionStatus &&
                 connectionCtx.statusTemperatureDwarf !== undefined && (
@@ -123,39 +131,41 @@ export default function StatusBar() {
                   </span>
                 )}
             </div>
+            <div
+              className={`container-battery 
+                ${
+                  connectionCtx.statusTemperatureDwarf === undefined &&
+                  connectionCtx.typeUidDwarf === ""
+                    ? "no_temp_uid"
+                    : ""
+                }
+                ${
+                  connectionCtx.typeUidDwarf === "" &&
+                  !(connectionCtx.statusTemperatureDwarf === undefined)
+                    ? "no_uid"
+                    : ""
+                }
+                ${
+                  connectionCtx.statusTemperatureDwarf === undefined &&
+                  !(connectionCtx.typeUidDwarf === "")
+                    ? "no_temp"
+                    : ""
+                }
+              `}
+            >
+              {connectionCtx.connectionStatus &&
+                connectionCtx.BatteryLevelDwarf !== undefined && (
+                  <BatteryMeter
+                    batteryLevel={connectionCtx.BatteryLevelDwarf ?? null}
+                    isCharging={connectionCtx.BatteryStatusDwarf > 0}
+                    isFastCharging={connectionCtx.BatteryStatusDwarf == 2}
+                  />
+                )}
+            </div>
           </div>
-          <div
-            className={`container-battery 
-            ${
-              connectionCtx.statusTemperatureDwarf === undefined &&
-              connectionCtx.typeUidDwarf === ""
-                ? "no_temp_uid"
-                : ""
-            }
-            ${
-              connectionCtx.typeUidDwarf === "" &&
-              !(connectionCtx.statusTemperatureDwarf === undefined)
-                ? "no_uid"
-                : ""
-            }
-            ${
-              connectionCtx.statusTemperatureDwarf === undefined &&
-              !(connectionCtx.typeUidDwarf === "")
-                ? "no_temp"
-                : ""
-            }`}
-          >
-            {connectionCtx.connectionStatus &&
-              connectionCtx.BatteryLevelDwarf !== undefined && (
-                <BatteryMeter
-                  batteryLevel={connectionCtx.BatteryLevelDwarf ?? null}
-                  isCharging={connectionCtx.BatteryStatusDwarf > 0}
-                  isFastCharging={connectionCtx.BatteryStatusDwarf == 2}
-                />
-              )}
-          </div>
-          <ConnectDwarfII />
+        </div>
 
+        <div className="col-12 align-center">
           <div className="container-status">
             {connectionCtx.connectionStatus &&
               connectionCtx.availableSizeDwarf !== undefined &&

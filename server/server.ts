@@ -58,6 +58,9 @@ function getLocalIPAddress(): string[] {
   return localIPs;
 }
 
+const isMultipart = (contentType) =>
+  typeof contentType === "string" && contentType.includes("multipart");
+
 const certPath = path.join(".", "DwarfiumCert.pem");
 const keyPath = path.join(".", "DwarfiumKey.pem");
 
@@ -361,6 +364,14 @@ app.get("/getLocalIP", async (req, res) => {
 
 // Proxy route
 app.all("*", async (req, res) => {
+  const controller = new AbortController();
+  const timeout = 90000; // 90 seconds timeout
+
+  // Set up the timeout manually
+  const timeoutSignal = setTimeout(() => {
+    controller.abort(); // Abort the request after timeout
+  }, timeout);
+
   try {
     console.log("Proxy is running");
     const { target } = req.query;
@@ -410,7 +421,7 @@ app.all("*", async (req, res) => {
     }
 
     const fetchOptions: FetchOptions = {
-      signal: req.signal ?? AbortSignal.timeout(90000),
+      signal: req.signal ?? controller.signal,
       method: req.method ?? "GET", // Fallback to "GET" if req.method is undefined
       headers: sanitizedHeaders,
     };
@@ -430,13 +441,27 @@ app.all("*", async (req, res) => {
     let contentType = response.headers.get("content-type");
     console.log(contentType);
 
-    if (contentType) {
+    if (typeof contentType === "string" && contentType.includes("multipart")) {
+      // Cancel the timeout signal for multipart
+      clearTimeout(timeoutSignal);
+      res.setHeader("Content-Type", contentType);
+    } else if (contentType) {
       res.setHeader("Content-Type", contentType.split(";")[0].trim());
     } else {
       res.setHeader("Content-Type", "application/octet-stream");
     }
 
-    if (
+    // Handle multipart streaming (if applicable)
+    if (typeof contentType === "string" && contentType.includes("multipart")) {
+      if (response.body) {
+        return response.body.pipe(res); // Stream response directly
+      } else {
+        // Handle the case where response.body is null or undefined
+        return res
+          .status(500)
+          .send("Error: Multipart response body is missing.");
+      }
+    } else if (
       contentType?.includes("image") ||
       contentType?.includes("octet-stream")
     ) {
@@ -451,13 +476,21 @@ app.all("*", async (req, res) => {
 
       res.status(response.status).send(data);
     }
-  } catch (error) {
+  } catch (error: any) {
+    if (error.name === "AbortError") {
+      return res.status(504).json({
+        error: "Error: Proxy request timed out",
+        details: "Timeout error occurred",
+      });
+    }
     console.error("Proxy error:", error);
     const err = error as Error; // Cast error to Error
-    res.status(500).json({
+    return res.status(500).json({
       error: "Proxy request failed",
       details: err.message || "An unknown error occurred",
     });
+  } finally {
+    clearTimeout(timeoutSignal);
   }
 });
 

@@ -55,28 +55,48 @@ export default function DwarfCameras(props: PropType) {
   } = props;
   let connectionCtx = useContext(ConnectionContext);
 
+  let IPDwarf = connectionCtx.IPDwarf || DwarfIP;
+
   const proxyUrl = getProxyUrl(connectionCtx);
-  const wideUrl = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`;
+  const wideUrl = wideangleURL(IPDwarf);
   const transformedWideUrl = getTransfomProxyImageUrl(
     wideUrl,
     proxyUrl,
     connectionCtx,
-    true
+    false
   );
-  const teleUrl = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`;
-  const transformedTeleUrl = getTransfomProxyImageUrl(
-    teleUrl,
+  const wideUrl_D3 = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`;
+  const transformedWideUrl_D3 = getTransfomProxyImageUrl(
+    wideUrl_D3,
     proxyUrl,
     connectionCtx,
     true
   );
+  const teleUrl = telephotoURL(IPDwarf);
+  const transformedTeleUrl = getTransfomProxyImageUrl(
+    teleUrl,
+    proxyUrl,
+    connectionCtx,
+    false
+  );
 
-  //  const wideangleURL_D3 = "http://localhost:8083/static/wide_angle_stream.html";
+  const teleUrl_D3 = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`;
+  const transformedTeleUrl_D3 = getTransfomProxyImageUrl(
+    teleUrl_D3,
+    proxyUrl,
+    connectionCtx,
+    true
+  );
+  const [wideAngleURL, setWideAngleURL] = useState(transformedWideUrl);
+  const [telePhotoURL, setTelePhotoURL] = useState(transformedTeleUrl);
+
+  //  const wideAngleURL_D3 = "http://localhost:8083/static/wide_angle_stream.html";
   //  const telePhotoURL_D3 = "http://localhost:8083/static/tele_stream.html";
-  const [wideangleURL_D3, setWideangleURL_D3] = useState(transformedWideUrl);
+  const [wideAngleURL_D3, setWideAngleURL_D3] = useState(transformedWideUrl_D3);
   // `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`
-  const [telePhotoURL_D3, setTelePhotoURL_D3] = useState(transformedTeleUrl);
+  const [telePhotoURL_D3, setTelePhotoURL_D3] = useState(transformedTeleUrl_D3);
   // `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`
+
   const defaultTeleCameraSrc: StaticImageData = imgTeleCameraSrc;
   const defaultWideCameraSrc: StaticImageData = imgWideCameraSrc;
   const [errorTxt, setErrorTxt] = useState("");
@@ -110,6 +130,9 @@ export default function DwarfCameras(props: PropType) {
     connectionCtx.isFullScreenCameraTele
   );
 
+  const [buttonSwap, setButtonSwap] = useState("Swap");
+  const [buttonReset, setButtonReset] = useState("Reset");
+
   const doneIframeRefTele = useRef<number>(0);
   const doneIframeRefWide = useRef<number>(0);
   const iframeRefTele = useRef<HTMLIFrameElement | null>(null);
@@ -134,8 +157,6 @@ export default function DwarfCameras(props: PropType) {
   console.debug("Init useRawPreviewURL : ", useRawPreviewURL);
 
   let lastRenderTime = useRef(Date.now());
-
-  let IPDwarf = connectionCtx.IPDwarf || DwarfIP;
 
   useEffect(() => {
     console.debug("Start Of Effect DwarfCameras");
@@ -181,28 +202,68 @@ export default function DwarfCameras(props: PropType) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.debug("Change setWideangleURL_D3 and  setTelePhotoURL_D3");
+    const updateButtonText = () => {
+      if (window.innerWidth > 768) {
+        setButtonSwap("Switch Cameras");
+        setButtonReset("Reset View");
+      } else {
+        setButtonSwap("Swap");
+        setButtonReset("Reset");
+      }
+    };
+
+    console.debug("Change setWideAngleURL and  setTelePhotoURL");
     const proxyUrl = getProxyUrl(connectionCtx);
-    const wideUrl = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_wide`;
+    let IPDwarf = connectionCtx.IPDwarf || DwarfIP;
+
+    const wideUrl = wideangleURL(IPDwarf);
     const transformedWideUrl = getTransfomProxyImageUrl(
       wideUrl,
       proxyUrl,
       connectionCtx,
-      true
+      false
     );
-    console.debug("Change setWideangleURL_D3 : ", transformedWideUrl);
-    setWideangleURL_D3(transformedWideUrl);
-    const teleUrl = `http://${getMediaMTXUrl(connectionCtx)}:8888/dwarf_tele`;
-    const transformedTeleUrl = getTransfomProxyImageUrl(
-      teleUrl,
+    console.debug("Change setWideAngleURL : ", transformedWideUrl);
+    setWideAngleURL(transformedWideUrl);
+
+    const wideUrl_D3 = `http://${getMediaMTXUrl(
+      connectionCtx
+    )}:8888/dwarf_wide`;
+    const transformedWideUrl_D3 = getTransfomProxyImageUrl(
+      wideUrl_D3,
       proxyUrl,
       connectionCtx,
       true
     );
-    console.debug("Change setTelePhotoURL_D3 : ", transformedTeleUrl);
-    setTelePhotoURL_D3(transformedTeleUrl);
+    console.debug("Change setWideAngleURL_D3 : ", transformedWideUrl_D3);
+    setWideAngleURL_D3(transformedWideUrl_D3);
 
-    return () => {};
+    const teleUrl = telephotoURL(IPDwarf);
+    const transformedTeleUrl = getTransfomProxyImageUrl(
+      teleUrl,
+      proxyUrl,
+      connectionCtx,
+      false
+    );
+    console.debug("Change setTelePhotoURL : ", transformedTeleUrl);
+    setTelePhotoURL(transformedTeleUrl);
+
+    const teleUrl_D3 = `http://${getMediaMTXUrl(
+      connectionCtx
+    )}:8888/dwarf_tele`;
+    const transformedTeleUrl_D3 = getTransfomProxyImageUrl(
+      teleUrl_D3,
+      proxyUrl,
+      connectionCtx,
+      true
+    );
+    console.debug("Change setTelePhotoURL_D3 : ", transformedTeleUrl_D3);
+    setTelePhotoURL_D3(transformedTeleUrl_D3);
+
+    updateButtonText(); // Set initial value
+    window.addEventListener("resize", updateButtonText);
+
+    return () => window.removeEventListener("resize", updateButtonText);
   }, [
     connectionCtx,
     wideangleCameraStatus,
@@ -441,15 +502,15 @@ export default function DwarfCameras(props: PropType) {
 
   function getWideAngleURL() {
     if (!connectionCtx.typeIdDwarf || connectionCtx.typeIdDwarf == 1) {
-      return wideangleURL(IPDwarf);
+      return wideAngleURL;
     } else if (
       connectionCtx.typeIdDwarf == 2 &&
       connectionCtx.streamTypeWideDwarf == 2
     ) {
-      return wideangleURL(IPDwarf);
+      return wideAngleURL;
     } else {
-      // wideangleURL_D3
-      return wideangleURL_D3;
+      // wideAngleURL_D3
+      return wideAngleURL_D3;
     }
   }
 
@@ -460,12 +521,12 @@ export default function DwarfCameras(props: PropType) {
       connectionCtx.streamTypeTeleDwarf
     );
     if (!connectionCtx.typeIdDwarf || connectionCtx.typeIdDwarf == 1) {
-      return telephotoURL(IPDwarf);
+      return telePhotoURL;
     } else if (
       connectionCtx.typeIdDwarf == 2 &&
       connectionCtx.streamTypeTeleDwarf == 2
     ) {
-      return telephotoURL(IPDwarf);
+      return telePhotoURL;
     } else {
       // telePhotoURL_D3
       return telePhotoURL_D3;
@@ -961,139 +1022,151 @@ export default function DwarfCameras(props: PropType) {
   const Controls = () => {
     const { resetTransform, zoomIn, zoomOut } = useControls();
     return (
-      <>
+      <div className="controls-container">
         <button
           className="btn btn-more02 me-3 top-align"
           onClick={() => resetTransform()}
         >
-          Reset view
+          {buttonReset}
         </button>
         <button
           className="btn btn-more02 me-3 top-align"
           onClick={() => zoomIn()}
         >
-          Zoom In
+          Zoom +
         </button>
         <button
           className="btn btn-more02 me-3 top-align"
           onClick={() => zoomOut()}
         >
-          Zoom Out
+          Zoom -
         </button>
         <button
           className="btn btn-more02 me-3 top-align"
           onClick={() => exchangeCameras()}
         >
-          Exchange
+          {buttonSwap}
         </button>
-      </>
+      </div>
     );
   };
 
   if (showControls)
     return (
       <div>
-        {wideangleCameraStatus !== "off" && telephotoCameraStatus !== "off" && (
-          <div className="py-2 clearfix">
-            <span className="text-danger">{errorTxt}&nbsp;</span>
-          </div>
-        )}
-        {wideangleCameraStatus === "off" && telephotoCameraStatus === "off" && (
-          <div className="py-2 clearfix">
-            <span className="text-danger">{errorTxt}</span>
-            <div className="float-end">
-              <Link
-                className="minilink me-4"
-                target="_blank"
-                href={getWideAngleURL()}
-              >
-                {getWideAngleURL()}
-              </Link>
-              <Link
-                className="minilink"
-                target="_blank"
-                href={getTelePhotoURL()}
-              >
-                {getTelePhotoURL()}
-              </Link>
+        {window.innerWidth > 768 &&
+          wideangleCameraStatus !== "off" &&
+          telephotoCameraStatus !== "off" && (
+            <div className="py-2 clearfix">
+              <span className="text-danger">{errorTxt}&nbsp;</span>
             </div>
-          </div>
-        )}
-        {wideangleCameraStatus === "off" && telephotoCameraStatus !== "off" && (
-          <div className="py-2 clearfix">
-            <div className="float-end">
-              <Link
-                className="minilink me-4"
-                target="_blank"
-                href={getWideAngleURL()}
-              >
-                {getWideAngleURL()}
-              </Link>
+          )}
+        {window.innerWidth > 768 &&
+          wideangleCameraStatus === "off" &&
+          telephotoCameraStatus === "off" && (
+            <div className="py-2 clearfix">
+              <span className="text-danger">{errorTxt}</span>
+              <div className="float-end">
+                <Link
+                  className="minilink me-4"
+                  target="_blank"
+                  href={getWideAngleURL()}
+                >
+                  {getWideAngleURL()}
+                </Link>
+                <Link
+                  className="minilink"
+                  target="_blank"
+                  href={getTelePhotoURL()}
+                >
+                  {getTelePhotoURL()}
+                </Link>
+              </div>
             </div>
-          </div>
-        )}
-        {wideangleCameraStatus !== "off" && telephotoCameraStatus === "off" && (
-          <div className="py-2 clearfix">
-            <div className="float-end">
-              <Link
-                className="minilink"
-                target="_blank"
-                href={getTelePhotoURL()}
-              >
-                {getTelePhotoURL()}
-              </Link>
+          )}
+        {window.innerWidth > 768 &&
+          wideangleCameraStatus === "off" &&
+          telephotoCameraStatus !== "off" && (
+            <div className="py-2 clearfix">
+              <div className="float-end">
+                <Link
+                  className="minilink me-4"
+                  target="_blank"
+                  href={getWideAngleURL()}
+                >
+                  {getWideAngleURL()}
+                </Link>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        {window.innerWidth > 768 &&
+          wideangleCameraStatus !== "off" &&
+          telephotoCameraStatus === "off" && (
+            <div className="py-2 clearfix">
+              <div className="float-end">
+                <Link
+                  className="minilink"
+                  target="_blank"
+                  href={getTelePhotoURL()}
+                >
+                  {getTelePhotoURL()}
+                </Link>
+              </div>
+            </div>
+          )}
         <TransformWrapper>
-          <Controls />
-          {wideangleCameraStatus === "off" &&
-            telephotoCameraStatus === "off" && (
-              <div className="float-end">
-                <button
-                  className="btn btn-more02 me-4"
-                  onClick={() =>
-                    turnOnCameraHandler(wideangleCamera, connectionCtx)
-                  }
-                >
-                  Turn on wideangle cam.
-                </button>
-                <button
-                  className="btn btn-more02"
-                  onClick={() =>
-                    turnOnCameraHandler(telephotoCamera, connectionCtx)
-                  }
-                >
-                  Turn on telephoto cam.
-                </button>
-              </div>
-            )}
-          {wideangleCameraStatus === "off" &&
-            telephotoCameraStatus !== "off" && (
-              <div className="float-end">
-                <button
-                  className="btn btn-more02 me-4"
-                  onClick={() =>
-                    turnOnCameraHandler(wideangleCamera, connectionCtx)
-                  }
-                >
-                  Turn on wideangle cam.
-                </button>
-              </div>
-            )}
-          {wideangleCameraStatus !== "off" &&
-            telephotoCameraStatus === "off" && (
-              <div className="float-end">
-                <button
-                  className="btn btn-more02"
-                  onClick={() =>
-                    turnOnCameraHandler(telephotoCamera, connectionCtx)
-                  }
-                >
-                  Turn on telephoto cam.
-                </button>
-              </div>
-            )}
+          <div className="top-buttons-container">
+            <Controls />
+            <div className="float-end-buttons">
+              {wideangleCameraStatus === "off" &&
+                telephotoCameraStatus === "off" && (
+                  <div className="float-end">
+                    <button
+                      className="btn btn-more02 me-4"
+                      onClick={() =>
+                        turnOnCameraHandler(wideangleCamera, connectionCtx)
+                      }
+                    >
+                      Show Wideangle
+                    </button>
+                    <button
+                      className="btn btn-more02"
+                      onClick={() =>
+                        turnOnCameraHandler(telephotoCamera, connectionCtx)
+                      }
+                    >
+                      Show telephoto
+                    </button>
+                  </div>
+                )}
+              {wideangleCameraStatus === "off" &&
+                telephotoCameraStatus !== "off" && (
+                  <div className="float-end">
+                    <button
+                      className="btn btn-more02 me-4"
+                      onClick={() =>
+                        turnOnCameraHandler(wideangleCamera, connectionCtx)
+                      }
+                    >
+                      Turn on wideangle cam.
+                    </button>
+                  </div>
+                )}
+              {wideangleCameraStatus !== "off" &&
+                telephotoCameraStatus === "off" && (
+                  <div className="float-end">
+                    <button
+                      className="btn btn-more02"
+                      onClick={() =>
+                        turnOnCameraHandler(telephotoCamera, connectionCtx)
+                      }
+                    >
+                      Turn on telephoto cam.
+                    </button>
+                  </div>
+                )}
+            </div>
+          </div>
           <TransformComponent>
             {renderSmallScreen()}
             {renderMainScreen()}

@@ -23,8 +23,24 @@ body {
     margin-bottom: 20px; /* Add margin-bottom to create space between paragraphs */
 }
 
+.container-status-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; /* Adjust as needed */
+    flex-wrap: nowrap; /* Prevent wrapping on larger screens */
+}
+
 .container-connection {
     align-items: center;
+    display: flex;
+    margin-left: 0px;
+    margin-top: 10px;
+    height: 34px;
+    margin-bottom: 8px;
+}
+
+.container-temp-batt {
     display: flex;
     margin-left: 0px;
     margin-top: 10px;
@@ -42,6 +58,10 @@ body {
 }
 
 .temperature-info {
+    display: flex;
+    width: 160px;
+    margin-top: -40px;
+    height: auto;
     margin-left:2px;
 }
 
@@ -54,6 +74,13 @@ body {
 
 .container-status {
     display: flex;
+}
+
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .container-status {
+    flex-wrap: wrap; /* Allows items to wrap into a new row */
+    justify-content: center; /* Centers items for better layout */
+  }
 }
 
 .battery-meter--value {
@@ -99,6 +126,30 @@ body {
   margin-left: -80px;
 }
 
+@media (max-width: 768px) { 
+  .battery-meter {
+    margin: -31px 0px 1px 135px;
+  }
+  .temperature-info {
+    margin-left:2px;
+  }
+  .container-battery {
+    margin-top: -10px;
+  }
+  .no_temp_uid {
+    margin-left: -220px;
+  }
+
+  .no_temp {
+    margin-left: -135px;
+  }
+
+  .no_uid {
+    margin-left: -80px;
+  }
+}
+
+
 .lightning-bolt {
     animation: lightning-bold-reveal 0.3s forwards;
     transform-origin: center center;
@@ -133,6 +184,45 @@ body {
     background-color: #192733;
     border-radius: 10px;
     padding: 10px 15px 10px 15px;
+}
+
+.controls-container {
+  display: flex;
+  gap: 3px; /* Adds spacing between buttons */
+}
+
+/* Top container - Holds both top buttons and float-end buttons */
+.top-buttons-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Allows wrapping on small screens */
+}
+
+/* Float-end buttons (aligned right on large screens, full row on small screens) */
+.float-end-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Camera takes full width */
+.camera-container {
+  width: 100%;
+  margin-top: 10px; /* Space between buttons and camera */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .top-buttons-container {
+    flex-direction: column; /* Stack items on small screens */
+    align-items: center;
+  }
+
+  .float-end-buttons {
+    width: 100%;
+    justify-content: flex-end; /* Center buttons on small screens */
+    margin-top: 10px;
+  }
 }
 
 .hover-text:hover .tooltip-text {
@@ -171,10 +261,17 @@ body {
     margin-top: 44px;
 }
 .connect-dwarf {
+    display: flex;
+    align-items: flex-start;
     justify-content: space-between;
     float: right !important;
     height: fit-content;
     margin-top: -40px;
+    gap: 1rem;
+}
+
+.connect-dwarf button {
+    margin-left: 10px; /* Adjust spacing between status and button */
 }
 
 .polar-align {
@@ -985,15 +1082,18 @@ img {
     }
 }
 
-.connect-dwarf {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-}
-
-    .connect-dwarf button {
-        margin-left: 10px; /* Adjust spacing between status and button */
+@media (max-width: 1200px) {
+    .connect-dwarf {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-end;
+        margin-right: 5%;
+        margin-top: -45px;
     }
+    .connect-dwarf button {
+        margin-left: 0; /* Remove left margin for the button on smaller screens */
+        margin-top: 10px; /* Add spacing between status and button on smaller screens */
+    }
+}
 
 @media (max-width: 992px) {
     .connect-dwarf {
@@ -1001,11 +1101,6 @@ img {
         align-items: flex-end;
         margin-right: 5%;
         margin-top: -75px;
-    }
-
-    .connect-dwarf button {
-        margin-left: 0; /* Remove left margin for the button on smaller screens */
-        margin-top: 10px; /* Add spacing between status and button on smaller screens */
     }
 }
 

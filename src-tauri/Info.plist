@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>Dwarfium needs access to your local network to discover and control DWARF telescopes and receive their camera streams.</string>
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>This app requires Bluetooth access to interact with nearby devices.</string>
     <key>NSLocationWhenInUseUsageDescription</key>

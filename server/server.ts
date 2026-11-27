@@ -674,6 +674,14 @@ app.all("*", async (req, res) => {
       });
     }
     console.error("Proxy error:", error);
+    const code = error?.cause?.code ?? error?.code;
+    if (code === "EHOSTUNREACH" || code === "ENETUNREACH") {
+      return res.status(502).json({
+        error: "Proxy upstream network unreachable",
+        code,
+        platform: process.platform,
+      });
+    }
     const err = error as Error; // Cast error to Error
     return res.status(500).json({
       error: "Proxy request failed",

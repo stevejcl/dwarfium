@@ -65,6 +65,52 @@ macOS builds are currently unsigned and receive more limited hardware testing th
 xattr -d com.apple.quarantine /Applications/Dwarfium.app
 ```
 
+### macOS: discovery proxy HTTP 500 / EHOSTUNREACH
+
+If the telescope responds to a direct Terminal request but the desktop app reports
+"The discovery proxy returned HTTP 500" (or a proxy network-unreachable error in
+newer builds), the proxy may be running but unable to open a LAN connection.
+macOS Local Network privacy can treat Terminal-launched processes differently
+from Finder-launched applications.
+
+1. Fully quit Dwarfium (Cmd+Q). In **System Settings > Privacy & Security >
+   Local Network**, check that Dwarfium is enabled. Try toggling the permission
+   off and on, then reopen Dwarfium.
+2. If the problem persists, quit Dwarfium and launch the executable directly
+   from Apple's Terminal (adjust the path if installed elsewhere):
+
+   ```bash
+   /Applications/Dwarfium.app/Contents/MacOS/Dwarfium
+   ```
+
+   Leave Terminal open and try connecting normally. Do not use
+   `open -a Dwarfium` for this test. This workaround also applies to existing
+   installations such as 3.1.12.
+
+3. If discovery still fails, compare these read-only requests while Dwarfium
+   is running. Replace the example address with your telescope's current IP:
+
+   ```bash
+   DWARF_IP=192.168.0.128
+   curl --noproxy '*' -i http://127.0.0.1:8860/health
+   curl --noproxy '*' -i -X POST "http://$DWARF_IP:8082/deviceInfo" \
+     -H 'Content-Type: application/json' -d '{}'
+   curl --noproxy '*' -i -X POST \
+     "http://127.0.0.1:8860/?target=http%3A%2F%2F$DWARF_IP%3A8082%2FdeviceInfo" \
+     -H 'Content-Type: application/json' -d '{}'
+   ```
+
+   If the health and direct requests succeed but the proxied request fails,
+   report the exact macOS version (`sw_vers`), whether the Terminal launch
+   helps, and the relevant DwarfiumProxy or sidecars log excerpt. Remove any
+   private device identifiers before sharing logs. Also check whether a VPN
+   or per-app network filter is active.
+
+See Apple's [Local Network privacy technical note](https://developer.apple.com/documentation/technotes/tn3179-understanding-local-network-privacy).
+No Apple Developer account is needed for the Terminal workaround. It is not
+a guaranteed fix for every macOS network failure. Do not disable system-wide
+security protections.
+
 ## Connect a telescope
 
 Before the first connection, use the DWARFLAB mobile app to update the telescope firmware, enable STA mode, and capture any required dark frames.

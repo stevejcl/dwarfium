@@ -29,6 +29,27 @@ export async function findDeviceInfo(
       },
     );
     if (!response.ok) {
+      if (response.status === 502) {
+        // Only recognize our structured network diagnostic; never expose
+        // arbitrary upstream response bodies in the connection dialog.
+        const diagnostic = await response
+          .text()
+          .then((body) => JSON.parse(body))
+          .catch(() => null);
+        if (
+          diagnostic?.error === "Proxy upstream network unreachable" &&
+          (diagnostic.code === "EHOSTUNREACH" ||
+            diagnostic.code === "ENETUNREACH")
+        ) {
+          const macHint =
+            diagnostic.platform === "darwin"
+              ? " On macOS, check Privacy & Security > Local Network for Dwarfium, quit and restart the app, or try launching Dwarfium directly from Terminal."
+              : "";
+          throw new Error(
+            `The discovery proxy is running but cannot reach the telescope at ${IPDwarf}:8082 (${diagnostic.code}). Check the network connection and any VPN or network filters.${macHint}`,
+          );
+        }
+      }
       throw new Error(
         `The discovery proxy returned HTTP ${response.status}. Check the proxy service and telescope address ${IPDwarf}.`,
       );

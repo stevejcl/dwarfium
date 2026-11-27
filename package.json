@@ -1,6 +1,6 @@
 {
   "name": "dwarfium",
-  "version": "3.1.12",
+  "version": "3.1.13",
   "private": true,
   "pkg": {
     "scripts": [

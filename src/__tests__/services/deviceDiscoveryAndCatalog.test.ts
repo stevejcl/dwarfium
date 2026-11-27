@@ -102,6 +102,51 @@ test("discovery preserves HTTP diagnostics without exposing the response body", 
   expect(failure.mock.calls[0][0]).not.toContain("private response");
 });
 
+test.each(["EHOSTUNREACH", "ENETUNREACH"])(
+  "discovery explains macOS proxy network failures (%s)",
+  async (code) => {
+    fetchMock.mockResolvedValue(
+      response(
+        JSON.stringify({
+          error: "Proxy upstream network unreachable",
+          code,
+          platform: "darwin",
+        }),
+        false,
+        502,
+      ),
+    );
+    const failure = jest.fn();
+    expect(
+      await findDeviceInfo("192.0.2.1", context().connection, failure),
+    ).toEqual([undefined, undefined]);
+    expect(failure).toHaveBeenCalledWith(expect.stringContaining(code));
+    expect(failure).toHaveBeenCalledWith(
+      expect.stringContaining("Privacy & Security > Local Network"),
+    );
+    expect(failure).toHaveBeenCalledWith(expect.stringContaining("Terminal"));
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  },
+);
+
+test("non-macOS proxy network failures do not suggest macOS settings", async () => {
+  fetchMock.mockResolvedValue(
+    response(
+      JSON.stringify({
+        error: "Proxy upstream network unreachable",
+        code: "EHOSTUNREACH",
+        platform: "linux",
+      }),
+      false,
+      502,
+    ),
+  );
+  const failure = jest.fn();
+  await findDeviceInfo("192.0.2.1", context().connection, failure);
+  expect(failure).toHaveBeenCalledWith(expect.stringContaining("EHOSTUNREACH"));
+  expect(failure.mock.calls[0][0]).not.toContain("macOS");
+});
+
 test.each([1, 2, 4])(
   "device discovery validates hardware %i and reads raw response text",
   async (hardwareId) => {
